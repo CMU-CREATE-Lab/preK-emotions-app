@@ -51,9 +51,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params) {
             Log.i("flutterprek", "creating flutterprek DB");
-            Classroom classroom = new Classroom();
-            classroom.setId(1);
-            classroom.setName("First Classroom");
+            Classroom classroom = new Classroom(1, "First Classroom");
             dao.insert(classroom);
 
             return null;

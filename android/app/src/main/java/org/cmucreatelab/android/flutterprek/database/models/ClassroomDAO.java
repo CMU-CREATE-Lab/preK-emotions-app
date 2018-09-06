@@ -21,7 +21,7 @@ public interface ClassroomDAO {
     @Insert
     void insert(Classroom classroom);
 
-    @Query("SELECT * from classrooms ORDER BY name ASC")
+    @Query("SELECT * from classrooms ORDER BY id ASC")
     LiveData<List<Classroom>> getAllClassrooms();
 
 }

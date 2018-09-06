@@ -22,19 +22,25 @@ public class Classroom {
     private String name;
 
 
-    public int getId() {
-        return id;
+    public Classroom(int id, @NonNull String name) {
+        this.id = id;
+        this.name = name;
     }
 
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId() {
+        return id;
     }
 
 
     @NonNull
     public String getName() {
         return name;
+    }
+
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 
