@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.cmucreatelab.android.flutterprek.database.models.Classroom;
+import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;

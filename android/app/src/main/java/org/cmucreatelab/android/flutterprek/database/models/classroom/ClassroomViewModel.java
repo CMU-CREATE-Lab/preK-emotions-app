@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.database.models;
+package org.cmucreatelab.android.flutterprek.database.models.classroom;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

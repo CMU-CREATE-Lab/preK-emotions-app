@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.database.models;
+package org.cmucreatelab.android.flutterprek.database.models.student;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;

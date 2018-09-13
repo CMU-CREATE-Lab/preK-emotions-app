@@ -11,10 +11,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
-import org.cmucreatelab.android.flutterprek.database.models.Classroom;
-import org.cmucreatelab.android.flutterprek.database.models.ClassroomDAO;
-import org.cmucreatelab.android.flutterprek.database.models.Student;
-import org.cmucreatelab.android.flutterprek.database.models.StudentDAO;
+import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
+import org.cmucreatelab.android.flutterprek.database.models.classroom.ClassroomDAO;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
+import org.cmucreatelab.android.flutterprek.database.models.student.StudentDAO;
 
 /**
  * Created by tasota on 9/6/2018.

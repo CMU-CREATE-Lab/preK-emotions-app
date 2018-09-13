@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.database;
+package org.cmucreatelab.android.flutterprek.database.models;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
@@ -6,8 +6,11 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.cmucreatelab.android.flutterprek.database.models.Student;
-import org.cmucreatelab.android.flutterprek.database.models.StudentDAO;
+import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.InstantTaskExecutorRule;
+import org.cmucreatelab.android.flutterprek.database.LiveDataTestUtil;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
+import org.cmucreatelab.android.flutterprek.database.models.student.StudentDAO;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

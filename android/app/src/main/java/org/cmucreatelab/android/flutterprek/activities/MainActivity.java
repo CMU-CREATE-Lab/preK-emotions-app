@@ -8,14 +8,17 @@ import android.os.Bundle;
 import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.database.models.Classroom;
-import org.cmucreatelab.android.flutterprek.database.models.ClassroomViewModel;
+import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
+import org.cmucreatelab.android.flutterprek.database.models.classroom.ClassroomViewModel;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
+import org.cmucreatelab.android.flutterprek.database.models.student.StudentViewModel;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ClassroomViewModel viewModel;
+    private ClassroomViewModel classroomViewModel;
+    private StudentViewModel studentViewModel;
 
 
     @Override
@@ -23,11 +26,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        viewModel = ViewModelProviders.of(this).get(ClassroomViewModel.class);
-        viewModel.getAllClassrooms().observe(this, new Observer<List<Classroom>>() {
+        classroomViewModel = ViewModelProviders.of(this).get(ClassroomViewModel.class);
+        classroomViewModel.getAllClassrooms().observe(this, new Observer<List<Classroom>>() {
             @Override
             public void onChanged(@Nullable final List<Classroom> classrooms) {
-                Log.i("flutterprek","onChanged");
+                Log.i("flutterprek","onChanged classrooms");
+            }
+        });
+
+        studentViewModel = ViewModelProviders.of(this).get(StudentViewModel.class);
+        studentViewModel.getAllStudents().observe(this, new Observer<List<Student>>() {
+            @Override
+            public void onChanged(@Nullable final List<Student> students) {
+                Log.i("flutterprek","onChanged students");
             }
         });
     }
