@@ -1,8 +1,11 @@
 package org.cmucreatelab.android.flutterprek.database.models;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+
+import java.util.UUID;
 
 /**
  * Created by tasota on 9/6/2018.
@@ -15,37 +18,44 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "classrooms")
 public class Classroom {
 
-    @PrimaryKey
-    private int id;
+        @PrimaryKey
+        @NonNull
+        private String uuid;
 
-    @NonNull
-    private String name;
-
-
-    public Classroom(int id, @NonNull String name) {
-        this.id = id;
-        this.name = name;
-    }
+        @NonNull
+        private String name;
 
 
-    public int getId() {
-        return id;
-    }
+        @Ignore
+        public Classroom(@NonNull String name) {
+            this(UUID.randomUUID().toString(), name);
+        }
 
 
-    @NonNull
-    public String getName() {
-        return name;
-    }
+        public Classroom(String uuid, @NonNull String name) {
+            this.uuid = uuid;
+            this.name = name;
+        }
 
 
-    public void setId(int id) {
-        this.id = id;
-    }
+        public String getUuid() {
+            return uuid;
+        }
 
 
-    public void setName(@NonNull String name) {
-        this.name = name;
-    }
+        @NonNull
+        public String getName() {
+            return name;
+        }
+
+
+        public void setUuid(@NonNull String uuid) {
+            this.uuid = uuid;
+        }
+
+
+        public void setName(@NonNull String name) {
+            this.name = name;
+        }
 
 }

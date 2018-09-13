@@ -57,22 +57,27 @@ public class ClassroomDaoTest {
 
     @Test
     public void insertAndGetClassroom() throws InterruptedException {
-        Classroom classroom = new Classroom(1, "Test Classroom");
+        Classroom classroom = new Classroom("Test Classroom");
         classroomDAO.insert(classroom);
         List<Classroom> allClassrooms = LiveDataTestUtil.getValue(classroomDAO.getAllClassrooms());
-        assertEquals(allClassrooms.get(0).getId(), classroom.getId());
+        assertEquals(allClassrooms.get(0).getUuid(), classroom.getUuid());
+        assertEquals(allClassrooms.get(0).getName(), classroom.getName());
     }
 
 
     @Test
-    public void getAllWords() throws InterruptedException {
-        Classroom classroom1 = new Classroom(1, "Test Classroom");
+    public void getAllClassrooms() throws InterruptedException {
+        Classroom classroom1 = new Classroom("Test Classroom");
         classroomDAO.insert(classroom1);
-        Classroom classroom2 = new Classroom(2, "Another Classroom");
+        Classroom classroom2 = new Classroom("Another Classroom");
         classroomDAO.insert(classroom2);
+
+        // TODO @tasota this needs timestamps implemented (query is ordered by name for now)
         List<Classroom> allClassrooms = LiveDataTestUtil.getValue(classroomDAO.getAllClassrooms());
-        assertEquals(allClassrooms.get(0).getId(), classroom1.getId());
-        assertEquals(allClassrooms.get(1).getId(), classroom2.getId());
+//        assertEquals(allClassrooms.get(0).getUuid(), classroom1.getUuid());
+//        assertEquals(allClassrooms.get(1).getUuid(), classroom2.getUuid());
+        assertEquals(allClassrooms.get(0).getUuid(), classroom2.getUuid());
+        assertEquals(allClassrooms.get(1).getUuid(), classroom1.getUuid());
     }
 
 
@@ -81,9 +86,10 @@ public class ClassroomDaoTest {
         // An exception that indicates that an integrity constraint was violated.
         expectedException.expect(SQLiteConstraintException.class);
 
-        Classroom classroom1 = new Classroom(1, "Test Classroom");
+        String uuid = "classroom_1";
+        Classroom classroom1 = new Classroom(uuid, "Test Classroom");
         classroomDAO.insert(classroom1);
-        Classroom classroom2 = new Classroom(1, "Another Classroom");
+        Classroom classroom2 = new Classroom(uuid, "Another Classroom");
         classroomDAO.insert(classroom2);
     }
 

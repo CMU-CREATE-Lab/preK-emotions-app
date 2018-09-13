@@ -8,20 +8,20 @@ import android.arch.persistence.room.Query;
 import java.util.List;
 
 /**
- * Created by tasota on 9/6/2018.
+ * Created by tasota on 9/11/2018.
  *
- * ClassroomDAO
+ * StudentDAO
  *
- * Data access object for a Classroom. See Room persistence library documentation for details:
+ * Data access object for a Student. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
 @Dao
-public interface ClassroomDAO {
+public interface StudentDAO {
 
     @Insert
-    void insert(Classroom classroom);
+    void insert(Student student);
 
-    @Query("SELECT * from classrooms ORDER BY name ASC")
-    LiveData<List<Classroom>> getAllClassrooms();
+    @Query("SELECT * from students ORDER BY name ASC")
+    LiveData<List<Student>> getAllStudents();
 
 }
