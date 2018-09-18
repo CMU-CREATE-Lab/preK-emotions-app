@@ -19,6 +19,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import java.util.List;
+import java.util.UUID;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -60,11 +61,12 @@ public class ClassroomDaoTest {
 
     @Test
     public void insertAndGetClassroom() throws InterruptedException {
-        Classroom classroom = new Classroom("Test Classroom");
+        String uuid = UUID.randomUUID().toString();
+        Classroom classroom = new Classroom(uuid, "Test Classroom");
         classroomDAO.insert(classroom);
-        List<Classroom> allClassrooms = LiveDataTestUtil.getValue(classroomDAO.getAllClassrooms());
-        assertEquals(allClassrooms.get(0).getUuid(), classroom.getUuid());
-        assertEquals(allClassrooms.get(0).getName(), classroom.getName());
+        Classroom dbClassroom = LiveDataTestUtil.getValue(classroomDAO.getClassroom(uuid));
+        assertEquals(dbClassroom.getUuid(), classroom.getUuid());
+        assertEquals(dbClassroom.getName(), classroom.getName());
     }
 
 

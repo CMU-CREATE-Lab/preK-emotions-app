@@ -149,9 +149,9 @@ public abstract class AppDatabase extends RoomDatabase {
                 queryStudents.moveToNext();
             }
 
-            // Force NOT NULL on column classroom_uuid
+            // Force NOT NULL on column classroom_uuid (and define foreign key)
             database.execSQL(
-                    "CREATE TABLE students_new(`uuid` TEXT NOT NULL, `name` TEXT NOT NULL, `notes` TEXT, `classroom_uuid` TEXT NOT NULL, PRIMARY KEY(`uuid`) )");
+                    "CREATE TABLE students_new(`uuid` TEXT NOT NULL, `name` TEXT NOT NULL, `notes` TEXT, `classroom_uuid` TEXT NOT NULL, PRIMARY KEY(`uuid`), FOREIGN KEY(`classroom_uuid`) REFERENCES `classrooms`(`uuid`) ON UPDATE NO ACTION ON DELETE CASCADE)");
             database.execSQL(
                     "INSERT INTO students_new(uuid,name,notes,classroom_uuid) SELECT uuid,name,notes,classroom_uuid FROM students");
             database.execSQL(

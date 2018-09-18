@@ -18,44 +18,45 @@ import java.util.UUID;
 @Entity(tableName = "classrooms")
 public class Classroom {
 
-        @PrimaryKey
-        @NonNull
-        private String uuid;
+    @PrimaryKey
+    @NonNull
+    private String uuid;
 
-        @NonNull
-        private String name;
-
-
-        @Ignore
-        public Classroom(@NonNull String name) {
-            this(UUID.randomUUID().toString(), name);
-        }
+    @NonNull
+    private String name;
 
 
-        public Classroom(String uuid, @NonNull String name) {
-            this.uuid = uuid;
-            this.name = name;
-        }
+    @Ignore
+    public Classroom(@NonNull String name) {
+        this(UUID.randomUUID().toString(), name);
+    }
 
 
-        public String getUuid() {
-            return uuid;
-        }
+    public Classroom(String uuid, @NonNull String name) {
+        this.uuid = uuid;
+        this.name = name;
+    }
 
 
-        @NonNull
-        public String getName() {
-            return name;
-        }
+    public String getUuid() {
+        return uuid;
+    }
 
 
-        public void setUuid(@NonNull String uuid) {
-            this.uuid = uuid;
-        }
+    @NonNull
+    public String getName() {
+        return name;
+    }
 
 
-        public void setName(@NonNull String name) {
-            this.name = name;
-        }
+    // NOTE this probably should never get called
+    public void setUuid(@NonNull String uuid) {
+        this.uuid = uuid;
+    }
+
+
+    public void setName(@NonNull String name) {
+        this.name = name;
+    }
 
 }

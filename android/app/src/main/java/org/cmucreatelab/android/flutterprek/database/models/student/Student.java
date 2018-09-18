@@ -1,5 +1,7 @@
 package org.cmucreatelab.android.flutterprek.database.models.student;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Transformations;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
@@ -12,6 +14,8 @@ import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 import java.util.UUID;
 
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
 /**
  * Created by tasota on 9/11/2018.
  *
@@ -20,7 +24,7 @@ import java.util.UUID;
  * Student entity for a Room database. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
-@Entity(tableName = "students")
+@Entity(tableName = "students", foreignKeys = @ForeignKey(entity = Classroom.class, parentColumns = "uuid", childColumns = "classroom_uuid", onDelete = CASCADE))
 public class Student {
 
     @PrimaryKey
@@ -33,7 +37,6 @@ public class Student {
     @Nullable
     private String notes;
 
-    @ForeignKey(entity = Classroom.class, parentColumns = "uuid", childColumns = "classroom_uuid")
     @NonNull
     @ColumnInfo(name="classroom_uuid")
     private String classroomUuid;
@@ -74,6 +77,7 @@ public class Student {
     }
 
 
+    // NOTE this probably should never get called
     public void setUuid(@NonNull String uuid) {
         this.uuid = uuid;
     }
