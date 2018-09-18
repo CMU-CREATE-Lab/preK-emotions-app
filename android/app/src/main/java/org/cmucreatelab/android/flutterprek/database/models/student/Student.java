@@ -1,10 +1,14 @@
 package org.cmucreatelab.android.flutterprek.database.models.student;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 import java.util.UUID;
 
@@ -29,16 +33,22 @@ public class Student {
     @Nullable
     private String notes;
 
+    @ForeignKey(entity = Classroom.class, parentColumns = "uuid", childColumns = "classroom_uuid")
+    @NonNull
+    @ColumnInfo(name="classroom_uuid")
+    private String classroomUuid;
+
 
     @Ignore
-    public Student(@NonNull String name) {
-        this(UUID.randomUUID().toString(), name);
+    public Student(@NonNull String name, @NonNull String classroomUuid) {
+        this(UUID.randomUUID().toString(), name, classroomUuid);
     }
 
 
-    public Student(String uuid, @NonNull String name) {
+    public Student(String uuid, @NonNull String name, @NonNull String classroomUuid) {
         this.uuid = uuid;
         this.name = name;
+        this.classroomUuid = classroomUuid;
     }
 
 
@@ -59,6 +69,11 @@ public class Student {
     }
 
 
+    public String getClassroomUuid() {
+        return classroomUuid;
+    }
+
+
     public void setUuid(@NonNull String uuid) {
         this.uuid = uuid;
     }
@@ -71,6 +86,11 @@ public class Student {
 
     public void setNotes(@Nullable String notes) {
         this.notes = notes;
+    }
+
+
+    public void setClassroomUuid(String classroomUuid) {
+        this.classroomUuid = classroomUuid;
     }
 
 }

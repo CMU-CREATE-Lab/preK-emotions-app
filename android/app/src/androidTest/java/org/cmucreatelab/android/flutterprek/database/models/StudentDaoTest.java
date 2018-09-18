@@ -9,6 +9,8 @@ import android.support.test.runner.AndroidJUnit4;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.InstantTaskExecutorRule;
 import org.cmucreatelab.android.flutterprek.database.LiveDataTestUtil;
+import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
+import org.cmucreatelab.android.flutterprek.database.models.classroom.ClassroomDAO;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 import org.cmucreatelab.android.flutterprek.database.models.student.StudentDAO;
 import org.junit.After;
@@ -33,6 +35,7 @@ import static junit.framework.Assert.assertEquals;
 public class StudentDaoTest {
 
     private StudentDAO studentDAO;
+    private ClassroomDAO classroomDAO;
     private AppDatabase db;
 
     @Rule public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -49,6 +52,7 @@ public class StudentDaoTest {
                 .allowMainThreadQueries()
                 .build();
         studentDAO = db.studentDAO();
+        classroomDAO = db.classroomDAO();
     }
 
 
@@ -60,7 +64,8 @@ public class StudentDaoTest {
 
     @Test
     public void insertAndGetStudent() throws InterruptedException {
-        Student student = new Student("Alice");
+        Classroom classroom = insertAndGetClassroomForTest();
+        Student student = new Student("Alice", classroom.getUuid());
         student.setNotes("Has a secret");
         studentDAO.insert(student);
 
@@ -73,9 +78,10 @@ public class StudentDaoTest {
 
     @Test
     public void getAllStudents() throws InterruptedException {
-        Student student1 = new Student("Alice");
+        Classroom classroom = insertAndGetClassroomForTest();
+        Student student1 = new Student("Alice", classroom.getUuid());
         studentDAO.insert(student1);
-        Student student2 = new Student("Bob");
+        Student student2 = new Student("Bob", classroom.getUuid());
         studentDAO.insert(student2);
 
         List<Student> allStudents = LiveDataTestUtil.getValue(studentDAO.getAllStudents());
@@ -89,11 +95,19 @@ public class StudentDaoTest {
         // An exception that indicates that an integrity constraint was violated.
         expectedException.expect(SQLiteConstraintException.class);
 
+        Classroom classroom = insertAndGetClassroomForTest();
         String uuid = "student_uuid";
-        Student student1 = new Student(uuid,"Alice");
+        Student student1 = new Student(uuid,"Alice", classroom.getUuid());
         studentDAO.insert(student1);
-        Student student2 = new Student(uuid,"Bob");
+        Student student2 = new Student(uuid,"Bob", classroom.getUuid());
         studentDAO.insert(student2);
+    }
+
+
+    private Classroom insertAndGetClassroomForTest() {
+        Classroom classroom = new Classroom("classroom_1","Test Classroom");
+        classroomDAO.insert(classroom);
+        return classroom;
     }
 
 }

@@ -21,7 +21,10 @@ public interface StudentDAO {
     @Insert
     void insert(Student student);
 
-    @Query("SELECT * from students ORDER BY name ASC")
+    @Query("SELECT * FROM students ORDER BY name ASC")
     LiveData<List<Student>> getAllStudents();
+
+    @Query("SELECT * FROM students WHERE uuid = :studentUuid")
+    LiveData<Student> getStudent(String studentUuid);
 
 }
