@@ -41,6 +41,10 @@ public class Student {
     @ColumnInfo(name="classroom_uuid")
     private String classroomUuid;
 
+    @Nullable
+    @ColumnInfo(name="picture_filepath")
+    private String pictureFilepath;
+
 
     @Ignore
     public Student(@NonNull String name, @NonNull String classroomUuid) {
