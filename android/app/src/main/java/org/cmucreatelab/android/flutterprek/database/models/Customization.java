@@ -7,15 +7,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
- * Created by tasota on 10/3/2018.
+ * Created by tasota on 10/8/2018.
  *
- * CopingSkill
+ * Customization
  *
- * CopingSkill entity for a Room database. See Room persistence library documentation for details:
+ * Customization entity for a Room database. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
-@Entity(tableName = "coping_skills")
-public class CopingSkill {
+@Entity(tableName = "customizations")
+public class Customization {
 
     @PrimaryKey
     @NonNull
@@ -25,11 +25,14 @@ public class CopingSkill {
     @ColumnInfo(name="owner_uuid")
     private String ownerUuid;
 
-    @NonNull
-    private String name;
-
     @Nullable
-    @ColumnInfo(name="image_file_uuid")
-    private String imageFileUuid;
+    @ColumnInfo(name="based_on_uuid")
+    private String basedOnUuid;
+
+    @NonNull
+    private String key;
+
+    @NonNull
+    private String value;
 
 }
