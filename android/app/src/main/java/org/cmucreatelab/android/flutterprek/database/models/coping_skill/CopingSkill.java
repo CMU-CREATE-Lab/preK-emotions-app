@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.database.models;
+package org.cmucreatelab.android.flutterprek.database.models.coping_skill;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

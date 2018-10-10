@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.database.models;
+package org.cmucreatelab.android.flutterprek.database.models.intermediate_tables;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -7,14 +7,17 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
+import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
+
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 /**
  * Created by tasota on 10/9/2018.
  *
- * CopingSkillEmotion
+ * EmotionCopingSkill
  *
- * CopingSkillEmotion entity for a Room database. See Room persistence library documentation for details:
+ * EmotionCopingSkill entity for a Room database. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
 @Entity(tableName = "coping_skills_emotions",
@@ -22,7 +25,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
             @ForeignKey(entity = CopingSkill.class, parentColumns = "uuid", childColumns = "coping_skill_uuid", onDelete = CASCADE),
             @ForeignKey(entity = Emotion.class, parentColumns = "uuid", childColumns = "emotion_uuid", onDelete = CASCADE),
     })
-public class CopingSkillEmotion {
+public class EmotionCopingSkill {
 
     @PrimaryKey
     @NonNull
