@@ -9,6 +9,8 @@ import android.support.annotation.NonNull;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.session.Session;
 
+import java.util.Date;
+
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 /**
@@ -19,11 +21,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
  * SessionCopingSkill entity for a Room database. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
-@Entity(tableName = "coping_skills_emotions",
-    foreignKeys = {
-            @ForeignKey(entity = CopingSkill.class, parentColumns = "uuid", childColumns = "coping_skill_uuid", onDelete = CASCADE),
-            @ForeignKey(entity = Session.class, parentColumns = "uuid", childColumns = "session_uuid", onDelete = CASCADE),
-    })
+@Entity(tableName = "sessions_coping_skills")
 public class SessionCopingSkill {
 
     @PrimaryKey
@@ -37,5 +35,9 @@ public class SessionCopingSkill {
     @NonNull
     @ColumnInfo(name="coping_skill_uuid")
     private String copingSkillUuid;
+
+    @NonNull
+    @ColumnInfo(name="started_at")
+    private Date startedAt;
 
 }

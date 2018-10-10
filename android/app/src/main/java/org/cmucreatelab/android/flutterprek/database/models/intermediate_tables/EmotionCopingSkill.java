@@ -20,7 +20,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
  * EmotionCopingSkill entity for a Room database. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
-@Entity(tableName = "coping_skills_emotions",
+@Entity(tableName = "emotions_coping_skills",
     foreignKeys = {
             @ForeignKey(entity = CopingSkill.class, parentColumns = "uuid", childColumns = "coping_skill_uuid", onDelete = CASCADE),
             @ForeignKey(entity = Emotion.class, parentColumns = "uuid", childColumns = "emotion_uuid", onDelete = CASCADE),
