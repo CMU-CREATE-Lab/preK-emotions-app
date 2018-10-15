@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.database.models.classroom;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -46,12 +47,6 @@ public class Classroom {
     @NonNull
     public String getName() {
         return name;
-    }
-
-
-    // NOTE this probably should never get called
-    public void setUuid(@NonNull String uuid) {
-        this.uuid = uuid;
     }
 
 

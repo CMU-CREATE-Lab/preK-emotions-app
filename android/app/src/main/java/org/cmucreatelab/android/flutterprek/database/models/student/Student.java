@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,7 +23,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
  * Student entity for a Room database. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
-@Entity(tableName = "students", foreignKeys = @ForeignKey(entity = Classroom.class, parentColumns = "uuid", childColumns = "classroom_uuid", onDelete = CASCADE))
+@Entity(tableName = "students", indices = @Index("classroom_uuid"), foreignKeys = @ForeignKey(entity = Classroom.class, parentColumns = "uuid", childColumns = "classroom_uuid", onDelete = CASCADE))
 public class Student {
 
     @PrimaryKey
@@ -40,8 +41,8 @@ public class Student {
     private String classroomUuid;
 
     @Nullable
-    @ColumnInfo(name="picture_filepath")
-    private String pictureFilepath;
+    @ColumnInfo(name="picture_file_uuid")
+    private String pictureFileUuid;
 
 
     @Ignore
@@ -79,9 +80,9 @@ public class Student {
     }
 
 
-    // NOTE this probably should never get called
-    public void setUuid(@NonNull String uuid) {
-        this.uuid = uuid;
+    @Nullable
+    public String getPictureFileUuid() {
+        return pictureFileUuid;
     }
 
 
@@ -97,6 +98,11 @@ public class Student {
 
     public void setClassroomUuid(String classroomUuid) {
         this.classroomUuid = classroomUuid;
+    }
+
+
+    public void setPictureFileUuid(@Nullable String pictureFileUuid) {
+        this.pictureFileUuid = pictureFileUuid;
     }
 
 }

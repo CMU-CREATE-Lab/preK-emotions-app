@@ -30,7 +30,7 @@ import java.util.UUID;
  * Implementation of a room database for the application. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
-@Database(entities = {Classroom.class, Student.class}, version = 3)
+@Database(entities = {Classroom.class, Student.class}, version = 4)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static String dbName = "flutterprek.sqlite3";
@@ -161,6 +161,22 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 
+    /**
+     * Migrate from:
+     * version 3
+     * to
+     * version 4 - Add indices on uuid for classrooms/students tables, add pictureFileUuid to {@link Student}.
+     */
+    @VisibleForTesting
+    static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            // modify students table
+            database.execSQL("ALTER TABLE `students` ADD COLUMN `picture_file_uuid` TEXT");
+            database.execSQL("CREATE INDEX `index_students_classrooms_uuid` ON `students` (`classroom_uuid`)");
+        }
+    };
+
     // Singleton Pattern
 
     private static AppDatabase instance;
@@ -171,7 +187,7 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (instance == null) {
                     instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, dbName)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                             .addCallback(callback)
                             .build();
                 }
