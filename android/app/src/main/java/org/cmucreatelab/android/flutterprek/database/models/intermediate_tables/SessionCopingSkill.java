@@ -41,4 +41,36 @@ public class SessionCopingSkill {
     @ColumnInfo(name="started_at")
     private Date startedAt;
 
+
+    public SessionCopingSkill(@NonNull String uuid, @NonNull String sessionUuid, @NonNull String copingSkillUuid, @NonNull Date startedAt) {
+        this.uuid = uuid;
+        this.sessionUuid = sessionUuid;
+        this.copingSkillUuid = copingSkillUuid;
+        this.startedAt = startedAt;
+    }
+
+
+    @NonNull
+    public String getUuid() {
+        return uuid;
+    }
+
+
+    @NonNull
+    public String getSessionUuid() {
+        return sessionUuid;
+    }
+
+
+    @NonNull
+    public String getCopingSkillUuid() {
+        return copingSkillUuid;
+    }
+
+
+    @NonNull
+    public Date getStartedAt() {
+        return startedAt;
+    }
+
 }

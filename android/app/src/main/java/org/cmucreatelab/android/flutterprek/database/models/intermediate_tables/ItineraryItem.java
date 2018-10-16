@@ -14,7 +14,7 @@ import android.support.annotation.NonNull;
  * ItineraryItem entity for a Room database. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
-@Entity(tableName = "itinerary_items", indices = {@Index("owner_uuid"),@Index("capability_id")})
+@Entity(tableName = "itinerary_items", indices = {@Index("owner_uuid"), @Index("capability_id")})
 public class ItineraryItem {
 
     @PrimaryKey
@@ -36,5 +36,64 @@ public class ItineraryItem {
     @NonNull
     @ColumnInfo(name="capability_parameters")
     private String capabilityParameters;
+
+
+    public ItineraryItem(@NonNull String uuid, @NonNull String ownerUuid, @NonNull int sequenceId, @NonNull String capabilityId, @NonNull String capabilityParameters) {
+        this.uuid = uuid;
+        this.ownerUuid = ownerUuid;
+        this.sequenceId = sequenceId;
+        this.capabilityId = capabilityId;
+        this.capabilityParameters = capabilityParameters;
+    }
+
+
+    @NonNull
+    public String getUuid() {
+        return uuid;
+    }
+
+
+    @NonNull
+    public String getOwnerUuid() {
+        return ownerUuid;
+    }
+
+
+    @NonNull
+    public int getSequenceId() {
+        return sequenceId;
+    }
+
+
+    @NonNull
+    public String getCapabilityId() {
+        return capabilityId;
+    }
+
+
+    @NonNull
+    public String getCapabilityParameters() {
+        return capabilityParameters;
+    }
+
+
+    public void setOwnerUuid(@NonNull String ownerUuid) {
+        this.ownerUuid = ownerUuid;
+    }
+
+
+    public void setSequenceId(@NonNull int sequenceId) {
+        this.sequenceId = sequenceId;
+    }
+
+
+    public void setCapabilityId(@NonNull String capabilityId) {
+        this.capabilityId = capabilityId;
+    }
+
+
+    public void setCapabilityParameters(@NonNull String capabilityParameters) {
+        this.capabilityParameters = capabilityParameters;
+    }
 
 }

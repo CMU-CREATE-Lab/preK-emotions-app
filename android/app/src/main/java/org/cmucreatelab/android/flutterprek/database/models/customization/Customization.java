@@ -36,4 +36,61 @@ public class Customization {
     @NonNull
     private String value;
 
+
+    public Customization(@NonNull String uuid, @NonNull String key, @NonNull String value) {
+        this.uuid = uuid;
+        this.key = key;
+        this.value = value;
+    }
+
+
+    @NonNull
+    public String getUuid() {
+        return uuid;
+    }
+
+
+    @Nullable
+    public String getOwnerUuid() {
+        return ownerUuid;
+    }
+
+
+    @Nullable
+    public String getBasedOnUuid() {
+        return basedOnUuid;
+    }
+
+
+    @NonNull
+    public String getKey() {
+        return key;
+    }
+
+
+    @NonNull
+    public String getValue() {
+        return value;
+    }
+
+
+    public void setOwnerUuid(@Nullable String ownerUuid) {
+        this.ownerUuid = ownerUuid;
+    }
+
+
+    public void setBasedOnUuid(@Nullable String basedOnUuid) {
+        this.basedOnUuid = basedOnUuid;
+    }
+
+
+    public void setKey(@NonNull String key) {
+        this.key = key;
+    }
+
+
+    public void setValue(@NonNull String value) {
+        this.value = value;
+    }
+
 }

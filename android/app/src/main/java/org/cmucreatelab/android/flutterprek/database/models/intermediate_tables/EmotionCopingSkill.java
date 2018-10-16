@@ -49,4 +49,50 @@ public class EmotionCopingSkill {
     @ColumnInfo(name="coping_skill_uuid")
     private String copingSkillUuid;
 
+
+    public EmotionCopingSkill(@NonNull String uuid, @NonNull String emotionUuid, @NonNull String copingSkillUuid) {
+        this.uuid = uuid;
+        this.emotionUuid = emotionUuid;
+        this.copingSkillUuid = copingSkillUuid;
+    }
+
+
+    @NonNull
+    public String getUuid() {
+        return uuid;
+    }
+
+
+    @Nullable
+    public String getOwnerUuid() {
+        return ownerUuid;
+    }
+
+
+    @NonNull
+    public String getEmotionUuid() {
+        return emotionUuid;
+    }
+
+
+    @NonNull
+    public String getCopingSkillUuid() {
+        return copingSkillUuid;
+    }
+
+
+    public void setOwnerUuid(@Nullable String ownerUuid) {
+        this.ownerUuid = ownerUuid;
+    }
+
+
+    public void setEmotionUuid(@NonNull String emotionUuid) {
+        this.emotionUuid = emotionUuid;
+    }
+
+
+    public void setCopingSkillUuid(@NonNull String copingSkillUuid) {
+        this.copingSkillUuid = copingSkillUuid;
+    }
+
 }

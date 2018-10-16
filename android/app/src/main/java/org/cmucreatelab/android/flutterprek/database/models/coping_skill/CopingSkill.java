@@ -33,4 +33,49 @@ public class CopingSkill {
     @ColumnInfo(name="image_file_uuid")
     private String imageFileUuid;
 
+
+    public CopingSkill(@NonNull String uuid, @NonNull String name) {
+        this.uuid = uuid;
+        this.name = name;
+    }
+
+
+    @NonNull
+    public String getUuid() {
+        return uuid;
+    }
+
+
+    @Nullable
+    public String getOwnerUuid() {
+        return ownerUuid;
+    }
+
+
+    @NonNull
+    public String getName() {
+        return name;
+    }
+
+
+    @Nullable
+    public String getImageFileUuid() {
+        return imageFileUuid;
+    }
+
+
+    public void setOwnerUuid(@Nullable String ownerUuid) {
+        this.ownerUuid = ownerUuid;
+    }
+
+
+    public void setName(@NonNull String name) {
+        this.name = name;
+    }
+
+
+    public void setImageFileUuid(@Nullable String imageFileUuid) {
+        this.imageFileUuid = imageFileUuid;
+    }
+
 }

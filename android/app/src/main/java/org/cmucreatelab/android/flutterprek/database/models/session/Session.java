@@ -35,4 +35,56 @@ public class Session {
     @ColumnInfo(name="emotion_uuid")
     private String emotionUuid;
 
+
+    public Session(@NonNull String uuid, @NonNull String studentUuid, @NonNull Date startedAt) {
+        this.uuid = uuid;
+        this.studentUuid = studentUuid;
+        this.startedAt = startedAt;
+    }
+
+
+    @NonNull
+    public String getUuid() {
+        return uuid;
+    }
+
+
+    @NonNull
+    public String getStudentUuid() {
+        return studentUuid;
+    }
+
+
+    @NonNull
+    public Date getStartedAt() {
+        return startedAt;
+    }
+
+
+    @Nullable
+    public Date getEndedAt() {
+        return endedAt;
+    }
+
+
+    @Nullable
+    public String getEmotionUuid() {
+        return emotionUuid;
+    }
+
+
+    public void setStudentUuid(@NonNull String studentUuid) {
+        this.studentUuid = studentUuid;
+    }
+
+
+    public void setEndedAt(@Nullable Date endedAt) {
+        this.endedAt = endedAt;
+    }
+
+
+    public void setEmotionUuid(@Nullable String emotionUuid) {
+        this.emotionUuid = emotionUuid;
+    }
+
 }
