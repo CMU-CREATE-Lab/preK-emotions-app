@@ -3,6 +3,7 @@ package org.cmucreatelab.android.flutterprek.database.models.intermediate_tables
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -21,7 +22,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
  * SessionCopingSkill entity for a Room database. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
-@Entity(tableName = "sessions_coping_skills")
+@Entity(tableName = "sessions_coping_skills", indices = {@Index("session_uuid"), @Index("coping_skill_uuid")})
 public class SessionCopingSkill {
 
     @PrimaryKey

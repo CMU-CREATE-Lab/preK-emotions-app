@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.database.models.coping_skill;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,7 +15,7 @@ import android.support.annotation.Nullable;
  * CopingSkill entity for a Room database. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
-@Entity(tableName = "coping_skills")
+@Entity(tableName = "coping_skills", indices = {@Index("owner_uuid"), @Index("image_file_uuid")})
 public class CopingSkill {
 
     @PrimaryKey

@@ -17,6 +17,14 @@ import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.ClassroomDAO;
+import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
+import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
+import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
+import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
+import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.EmotionCopingSkill;
+import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
+import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.SessionCopingSkill;
+import org.cmucreatelab.android.flutterprek.database.models.session.Session;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 import org.cmucreatelab.android.flutterprek.database.models.student.StudentDAO;
 
@@ -30,7 +38,18 @@ import java.util.UUID;
  * Implementation of a room database for the application. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
-@Database(entities = {Classroom.class, Student.class}, version = 4)
+@Database(entities = {
+        Classroom.class,
+        Student.class,
+        CopingSkill.class,
+        Customization.class,
+        DbFile.class,
+        Emotion.class,
+        EmotionCopingSkill.class,
+        ItineraryItem.class,
+        SessionCopingSkill.class,
+        Session.class
+}, version = 5)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static String dbName = "flutterprek.sqlite3";
@@ -177,6 +196,66 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 
+    /**
+     * Migrate from:
+     * version 4
+     * to
+     * version 5 - Add new tables for: {@link CopingSkill}, {@link Customization}, {@link DbFile}, {@link Emotion}, {@link EmotionCopingSkill}, {@link ItineraryItem}, {@link SessionCopingSkill}, {@link Session}.
+     */
+    @VisibleForTesting
+    static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            // coping_skills table
+            database.execSQL("CREATE TABLE IF NOT EXISTS `coping_skills` (`uuid` TEXT NOT NULL, `owner_uuid` TEXT, `name` TEXT NOT NULL, `image_file_uuid` TEXT, PRIMARY KEY(`uuid`))");
+            // coping_skills indices
+            database.execSQL("CREATE  INDEX `index_coping_skills_owner_uuid` ON `coping_skills` (`owner_uuid`)");
+            database.execSQL("CREATE  INDEX `index_coping_skills_image_file_uuid` ON `coping_skills` (`image_file_uuid`)");
+
+            // customizations table
+            database.execSQL("CREATE TABLE IF NOT EXISTS `customizations` (`uuid` TEXT NOT NULL, `owner_uuid` TEXT, `based_on_uuid` TEXT, `key` TEXT NOT NULL, `value` TEXT NOT NULL, PRIMARY KEY(`uuid`))");
+            // customizations indices
+            database.execSQL("CREATE  INDEX `index_customizations_owner_uuid` ON `customizations` (`owner_uuid`)");
+            database.execSQL("CREATE  INDEX `index_customizations_based_on_uuid` ON `customizations` (`based_on_uuid`)");
+
+            // db_files table
+            database.execSQL("CREATE TABLE IF NOT EXISTS `db_files` (`uuid` TEXT NOT NULL, `file_type` TEXT NOT NULL, `file_path` TEXT NOT NULL, PRIMARY KEY(`uuid`))");
+            // db_files indices
+            database.execSQL("CREATE  INDEX `index_db_files_file_type` ON `db_files` (`file_type`)");
+
+            // emotions table
+            database.execSQL("CREATE TABLE IF NOT EXISTS `emotions` (`uuid` TEXT NOT NULL, `owner_uuid` TEXT, `name` TEXT NOT NULL, `image_file_uuid` TEXT, PRIMARY KEY(`uuid`))");
+            // emotions indices
+            database.execSQL("CREATE  INDEX `index_emotions_owner_uuid` ON `emotions` (`owner_uuid`)");
+            database.execSQL("CREATE  INDEX `index_emotions_image_file_uuid` ON `emotions` (`image_file_uuid`)");
+
+            // emotions_coping_skills table
+            database.execSQL("CREATE TABLE IF NOT EXISTS `emotions_coping_skills` (`uuid` TEXT NOT NULL, `owner_uuid` TEXT, `emotion_uuid` TEXT NOT NULL, `coping_skill_uuid` TEXT NOT NULL, PRIMARY KEY(`uuid`), FOREIGN KEY(`coping_skill_uuid`) REFERENCES `coping_skills`(`uuid`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`emotion_uuid`) REFERENCES `emotions`(`uuid`) ON UPDATE NO ACTION ON DELETE CASCADE )");
+            // emotions_coping_skills indices
+            database.execSQL("CREATE  INDEX `index_emotions_coping_skills_owner_uuid` ON `emotions_coping_skills` (`owner_uuid`)");
+            database.execSQL("CREATE  INDEX `index_emotions_coping_skills_emotion_uuid` ON `emotions_coping_skills` (`emotion_uuid`)");
+            database.execSQL("CREATE  INDEX `index_emotions_coping_skills_coping_skill_uuid` ON `emotions_coping_skills` (`coping_skill_uuid`)");
+
+            // itinerary_items table
+            database.execSQL("CREATE TABLE IF NOT EXISTS `itinerary_items` (`uuid` TEXT NOT NULL, `owner_uuid` TEXT NOT NULL, `sequence_id` INTEGER NOT NULL, `capability_id` TEXT NOT NULL, `capability_parameters` TEXT NOT NULL, PRIMARY KEY(`uuid`))");
+            // itinerary_items indices
+            database.execSQL("CREATE  INDEX `index_itinerary_items_owner_uuid` ON `itinerary_items` (`owner_uuid`)");
+            database.execSQL("CREATE  INDEX `index_itinerary_items_capability_id` ON `itinerary_items` (`capability_id`)");
+
+            // sessions_coping_skills tables
+            database.execSQL("CREATE TABLE IF NOT EXISTS `sessions_coping_skills` (`uuid` TEXT NOT NULL, `session_uuid` TEXT NOT NULL, `coping_skill_uuid` TEXT NOT NULL, `started_at` TEXT NOT NULL, PRIMARY KEY(`uuid`))");
+            // sessions_coping_skills indices
+            database.execSQL("CREATE  INDEX `index_sessions_coping_skills_session_uuid` ON `sessions_coping_skills` (`session_uuid`)");
+            database.execSQL("CREATE  INDEX `index_sessions_coping_skills_coping_skill_uuid` ON `sessions_coping_skills` (`coping_skill_uuid`)");
+
+            // sessions table
+            database.execSQL("CREATE TABLE IF NOT EXISTS `sessions` (`uuid` TEXT NOT NULL, `student_uuid` TEXT NOT NULL, `started_at` TEXT NOT NULL, `ended_at` TEXT, `emotion_uuid` TEXT, PRIMARY KEY(`uuid`))");
+            // sessions indices
+            database.execSQL("CREATE  INDEX `index_sessions_student_uuid` ON `sessions` (`student_uuid`)");
+            database.execSQL("CREATE  INDEX `index_sessions_emotion_uuid` ON `sessions` (`emotion_uuid`)");
+        }
+    };
+
     // Singleton Pattern
 
     private static AppDatabase instance;
@@ -187,7 +266,7 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (instance == null) {
                     instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, dbName)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                             .addCallback(callback)
                             .build();
                 }

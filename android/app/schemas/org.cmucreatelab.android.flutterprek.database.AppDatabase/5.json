@@ -1,0 +1,579 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 5,
+    "identityHash": "e85f1f95e8be7e8439546b99325a4c07",
+    "entities": [
+      {
+        "tableName": "classrooms",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uuid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "students",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `name` TEXT NOT NULL, `notes` TEXT, `classroom_uuid` TEXT NOT NULL, `picture_file_uuid` TEXT, PRIMARY KEY(`uuid`), FOREIGN KEY(`classroom_uuid`) REFERENCES `classrooms`(`uuid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "classroomUuid",
+            "columnName": "classroom_uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pictureFileUuid",
+            "columnName": "picture_file_uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uuid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_students_classroom_uuid",
+            "unique": false,
+            "columnNames": [
+              "classroom_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_students_classroom_uuid` ON `${TABLE_NAME}` (`classroom_uuid`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "classrooms",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "classroom_uuid"
+            ],
+            "referencedColumns": [
+              "uuid"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "coping_skills",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `owner_uuid` TEXT, `name` TEXT NOT NULL, `image_file_uuid` TEXT, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ownerUuid",
+            "columnName": "owner_uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageFileUuid",
+            "columnName": "image_file_uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uuid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_coping_skills_owner_uuid",
+            "unique": false,
+            "columnNames": [
+              "owner_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_coping_skills_owner_uuid` ON `${TABLE_NAME}` (`owner_uuid`)"
+          },
+          {
+            "name": "index_coping_skills_image_file_uuid",
+            "unique": false,
+            "columnNames": [
+              "image_file_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_coping_skills_image_file_uuid` ON `${TABLE_NAME}` (`image_file_uuid`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "customizations",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `owner_uuid` TEXT, `based_on_uuid` TEXT, `key` TEXT NOT NULL, `value` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ownerUuid",
+            "columnName": "owner_uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "basedOnUuid",
+            "columnName": "based_on_uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uuid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_customizations_owner_uuid",
+            "unique": false,
+            "columnNames": [
+              "owner_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_customizations_owner_uuid` ON `${TABLE_NAME}` (`owner_uuid`)"
+          },
+          {
+            "name": "index_customizations_based_on_uuid",
+            "unique": false,
+            "columnNames": [
+              "based_on_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_customizations_based_on_uuid` ON `${TABLE_NAME}` (`based_on_uuid`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "db_files",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `file_type` TEXT NOT NULL, `file_path` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fileType",
+            "columnName": "file_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "filePath",
+            "columnName": "file_path",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uuid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_db_files_file_type",
+            "unique": false,
+            "columnNames": [
+              "file_type"
+            ],
+            "createSql": "CREATE  INDEX `index_db_files_file_type` ON `${TABLE_NAME}` (`file_type`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "emotions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `owner_uuid` TEXT, `name` TEXT NOT NULL, `image_file_uuid` TEXT, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ownerUuid",
+            "columnName": "owner_uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageFileUuid",
+            "columnName": "image_file_uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uuid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_emotions_owner_uuid",
+            "unique": false,
+            "columnNames": [
+              "owner_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_emotions_owner_uuid` ON `${TABLE_NAME}` (`owner_uuid`)"
+          },
+          {
+            "name": "index_emotions_image_file_uuid",
+            "unique": false,
+            "columnNames": [
+              "image_file_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_emotions_image_file_uuid` ON `${TABLE_NAME}` (`image_file_uuid`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "emotions_coping_skills",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `owner_uuid` TEXT, `emotion_uuid` TEXT NOT NULL, `coping_skill_uuid` TEXT NOT NULL, PRIMARY KEY(`uuid`), FOREIGN KEY(`coping_skill_uuid`) REFERENCES `coping_skills`(`uuid`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`emotion_uuid`) REFERENCES `emotions`(`uuid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ownerUuid",
+            "columnName": "owner_uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "emotionUuid",
+            "columnName": "emotion_uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "copingSkillUuid",
+            "columnName": "coping_skill_uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uuid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_emotions_coping_skills_owner_uuid",
+            "unique": false,
+            "columnNames": [
+              "owner_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_emotions_coping_skills_owner_uuid` ON `${TABLE_NAME}` (`owner_uuid`)"
+          },
+          {
+            "name": "index_emotions_coping_skills_emotion_uuid",
+            "unique": false,
+            "columnNames": [
+              "emotion_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_emotions_coping_skills_emotion_uuid` ON `${TABLE_NAME}` (`emotion_uuid`)"
+          },
+          {
+            "name": "index_emotions_coping_skills_coping_skill_uuid",
+            "unique": false,
+            "columnNames": [
+              "coping_skill_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_emotions_coping_skills_coping_skill_uuid` ON `${TABLE_NAME}` (`coping_skill_uuid`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "coping_skills",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "coping_skill_uuid"
+            ],
+            "referencedColumns": [
+              "uuid"
+            ]
+          },
+          {
+            "table": "emotions",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "emotion_uuid"
+            ],
+            "referencedColumns": [
+              "uuid"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "itinerary_items",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `owner_uuid` TEXT NOT NULL, `sequence_id` INTEGER NOT NULL, `capability_id` TEXT NOT NULL, `capability_parameters` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ownerUuid",
+            "columnName": "owner_uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sequenceId",
+            "columnName": "sequence_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capabilityId",
+            "columnName": "capability_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capabilityParameters",
+            "columnName": "capability_parameters",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uuid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_itinerary_items_owner_uuid",
+            "unique": false,
+            "columnNames": [
+              "owner_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_itinerary_items_owner_uuid` ON `${TABLE_NAME}` (`owner_uuid`)"
+          },
+          {
+            "name": "index_itinerary_items_capability_id",
+            "unique": false,
+            "columnNames": [
+              "capability_id"
+            ],
+            "createSql": "CREATE  INDEX `index_itinerary_items_capability_id` ON `${TABLE_NAME}` (`capability_id`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "sessions_coping_skills",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `session_uuid` TEXT NOT NULL, `coping_skill_uuid` TEXT NOT NULL, `started_at` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sessionUuid",
+            "columnName": "session_uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "copingSkillUuid",
+            "columnName": "coping_skill_uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAt",
+            "columnName": "started_at",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uuid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_sessions_coping_skills_session_uuid",
+            "unique": false,
+            "columnNames": [
+              "session_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_sessions_coping_skills_session_uuid` ON `${TABLE_NAME}` (`session_uuid`)"
+          },
+          {
+            "name": "index_sessions_coping_skills_coping_skill_uuid",
+            "unique": false,
+            "columnNames": [
+              "coping_skill_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_sessions_coping_skills_coping_skill_uuid` ON `${TABLE_NAME}` (`coping_skill_uuid`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "sessions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `student_uuid` TEXT NOT NULL, `started_at` TEXT NOT NULL, `ended_at` TEXT, `emotion_uuid` TEXT, PRIMARY KEY(`uuid`))",
+        "fields": [
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "studentUuid",
+            "columnName": "student_uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAt",
+            "columnName": "started_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endedAt",
+            "columnName": "ended_at",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "emotionUuid",
+            "columnName": "emotion_uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uuid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_sessions_student_uuid",
+            "unique": false,
+            "columnNames": [
+              "student_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_sessions_student_uuid` ON `${TABLE_NAME}` (`student_uuid`)"
+          },
+          {
+            "name": "index_sessions_emotion_uuid",
+            "unique": false,
+            "columnNames": [
+              "emotion_uuid"
+            ],
+            "createSql": "CREATE  INDEX `index_sessions_emotion_uuid` ON `${TABLE_NAME}` (`emotion_uuid`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e85f1f95e8be7e8439546b99325a4c07\")"
+    ]
+  }
+}

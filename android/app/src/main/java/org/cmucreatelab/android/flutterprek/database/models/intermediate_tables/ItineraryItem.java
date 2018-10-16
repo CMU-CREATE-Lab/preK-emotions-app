@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.database.models.intermediate_tables
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -13,7 +14,7 @@ import android.support.annotation.NonNull;
  * ItineraryItem entity for a Room database. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
-@Entity(tableName = "itinerary_items")
+@Entity(tableName = "itinerary_items", indices = {@Index("owner_uuid"),@Index("capability_id")})
 public class ItineraryItem {
 
     @PrimaryKey
