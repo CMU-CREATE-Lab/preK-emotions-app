@@ -2,10 +2,13 @@ package org.cmucreatelab.android.flutterprek.database.models.customization;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import java.util.UUID;
 
 /**
  * Created by tasota on 10/8/2018.
@@ -35,6 +38,12 @@ public class Customization {
 
     @NonNull
     private String value;
+
+
+    @Ignore
+    public Customization(@NonNull String key, @NonNull String value) {
+        this(UUID.randomUUID().toString(), key, value);
+    }
 
 
     public Customization(@NonNull String uuid, @NonNull String key, @NonNull String value) {

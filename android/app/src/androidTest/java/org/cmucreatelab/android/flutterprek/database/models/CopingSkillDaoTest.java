@@ -54,8 +54,8 @@ public class CopingSkillDaoTest extends DaoTest {
 
     @Test
     public void getAllCopingSkills() throws InterruptedException {
-        copingSkillDAO.insert(new CopingSkill("Think about it"));
-        copingSkillDAO.insert(new CopingSkill(""));
+        copingSkillDAO.insert(new CopingSkill("cs1", "Think about it"));
+        copingSkillDAO.insert(new CopingSkill("cs2",""));
         List<CopingSkill> allCopingSkills = LiveDataTestUtil.getValue(copingSkillDAO.getAllCopingSkills());
         assertEquals(2, allCopingSkills.size());
     }
