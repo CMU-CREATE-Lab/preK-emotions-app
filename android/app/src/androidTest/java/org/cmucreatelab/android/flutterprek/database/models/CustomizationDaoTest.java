@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
-
 import static junit.framework.Assert.assertEquals;
 
 /**
@@ -26,6 +24,12 @@ public class CustomizationDaoTest extends DaoTest {
 
     private CustomizationDAO customizationDAO;
 
+    private static final String customization_uuid1 = "customization_01";
+    private static final String customization_uuid2 = "customization_02";
+    private static final String classroom_uuid1 = "classroom_1";
+    private static final String classroom_uuid2 = "classroom_2";
+    private static final String classroom_uuid3 = "classroom_3";
+
 
     @Override
     public void initializeDaos() {
@@ -38,9 +42,9 @@ public class CustomizationDaoTest extends DaoTest {
         String[][] data = new String[][]{
                 {"uuid_01", "foo", "bar", null, null},
                 {"uuid_02", "foo", "bar", null, null},
-                {"uuid_03", "foo", "bar", "classroom_1", null},
-                {"uuid_04", "foo", "bar", "classroom_1", "customization_01"},
-                {"uuid_05", "foo", "bar", "classroom_2", "customization_01"},
+                {"uuid_03", "foo", "bar", classroom_uuid1, null},
+                {"uuid_04", "foo", "bar", classroom_uuid1, customization_uuid1},
+                {"uuid_05", "foo", "bar", classroom_uuid2, customization_uuid1},
         };
         for (int i=0; i<data.length; i++) {
             Customization customization = new Customization(data[i][0], data[i][1], data[i][2]);
@@ -72,31 +76,23 @@ public class CustomizationDaoTest extends DaoTest {
 
     @Test
     public void getCustomizationsOwnedBy() throws InterruptedException {
-        List<Customization> ownedBy1 = LiveDataTestUtil.getValue(customizationDAO.getCustomizationsOwnedBy("classroom_1"));
-        List<Customization> ownedBy2 = LiveDataTestUtil.getValue(customizationDAO.getCustomizationsOwnedBy("classroom_2"));
-        List<Customization> ownedBy3 = LiveDataTestUtil.getValue(customizationDAO.getCustomizationsOwnedBy("classroom_3"));
-
-        assertEquals(2, ownedBy1.size());
-        assertEquals(1, ownedBy2.size());
-        assertEquals(0, ownedBy3.size());
+        assertEquals(2, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsOwnedBy(classroom_uuid1)).size());
+        assertEquals(1, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsOwnedBy(classroom_uuid2)).size());
+        assertEquals(0, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsOwnedBy(classroom_uuid3)).size());
     }
 
 
     @Test
     public void getCustomizationsBasedOn() throws InterruptedException {
-        List<Customization> basedOnList = LiveDataTestUtil.getValue(customizationDAO.getCustomizationsBasedOn("customization_01"));
-
-        assertEquals(2, basedOnList.size());
+        assertEquals(2, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsBasedOn(customization_uuid1)).size());
+        assertEquals(0, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsBasedOn(customization_uuid2)).size());
     }
 
 
     @Test
     public void getCustomizationsOwnedByNoOneAndBasedOnNothing() throws InterruptedException {
-        List<Customization> ownedByNoOne = LiveDataTestUtil.getValue(customizationDAO.getCustomizationsOwnedByNoOne());
-        List<Customization> basedOnNothing = LiveDataTestUtil.getValue(customizationDAO.getCustomizationsBasedOnNothing());
-
-        assertEquals(2, ownedByNoOne.size());
-        assertEquals(3, basedOnNothing.size());
+        assertEquals(2, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsOwnedByNoOne()).size());
+        assertEquals(3, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsBasedOnNothing()).size());
     }
 
 
