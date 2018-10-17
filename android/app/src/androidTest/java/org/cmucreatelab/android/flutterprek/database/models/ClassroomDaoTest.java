@@ -1,21 +1,12 @@
 package org.cmucreatelab.android.flutterprek.database.models;
 
-import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.InstantTaskExecutorRule;
 import org.cmucreatelab.android.flutterprek.database.LiveDataTestUtil;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.ClassroomDAO;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import java.util.List;
@@ -31,31 +22,14 @@ import static junit.framework.Assert.assertEquals;
  * Unit tests for the classrooms table.
  */
 @RunWith(AndroidJUnit4.class)
-public class ClassroomDaoTest {
+public class ClassroomDaoTest extends DaoTest {
 
     private ClassroomDAO classroomDAO;
-    private AppDatabase db;
-
-    @Rule public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
-    @Rule public final ExpectedException expectedException = ExpectedException.none();
 
 
-    @Before
-    public void createDb() {
-        Context context = InstrumentationRegistry.getTargetContext();
-        // Using an in-memory database because the information stored here disappears when the
-        // process is killed.
-        db = Room.inMemoryDatabaseBuilder(context, AppDatabase.class)
-                // Allowing main thread queries, just for testing.
-                .allowMainThreadQueries()
-                .build();
-        classroomDAO = db.classroomDAO();
-    }
-
-
-    @After
-    public void closeDb() {
-        db.close();
+    @Override
+    public void initializeDaos() {
+        classroomDAO = getDb().classroomDAO();
     }
 
 

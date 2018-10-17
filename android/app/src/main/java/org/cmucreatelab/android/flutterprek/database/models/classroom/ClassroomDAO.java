@@ -12,7 +12,7 @@ import java.util.List;
  *
  * ClassroomDAO
  *
- * Data access object for a Classroom. See Room persistence library documentation for details:
+ * Data access object for {@link Classroom}. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
 @Dao
