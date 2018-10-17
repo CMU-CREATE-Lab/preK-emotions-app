@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 5,
-    "identityHash": "e85f1f95e8be7e8439546b99325a4c07",
+    "identityHash": "e9be83af995dd78b6cc473a1ac9d283e",
     "entities": [
       {
         "tableName": "classrooms",
@@ -456,7 +456,7 @@
       },
       {
         "tableName": "sessions_coping_skills",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `session_uuid` TEXT NOT NULL, `coping_skill_uuid` TEXT NOT NULL, `started_at` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `session_uuid` TEXT NOT NULL, `coping_skill_uuid` TEXT NOT NULL, `started_at` INTEGER NOT NULL, PRIMARY KEY(`uuid`))",
         "fields": [
           {
             "fieldPath": "uuid",
@@ -479,7 +479,7 @@
           {
             "fieldPath": "startedAt",
             "columnName": "started_at",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -511,7 +511,7 @@
       },
       {
         "tableName": "sessions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `student_uuid` TEXT NOT NULL, `started_at` TEXT NOT NULL, `ended_at` TEXT, `emotion_uuid` TEXT, PRIMARY KEY(`uuid`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `student_uuid` TEXT NOT NULL, `started_at` INTEGER NOT NULL, `ended_at` INTEGER, `emotion_uuid` TEXT, PRIMARY KEY(`uuid`))",
         "fields": [
           {
             "fieldPath": "uuid",
@@ -528,13 +528,13 @@
           {
             "fieldPath": "startedAt",
             "columnName": "started_at",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "endedAt",
             "columnName": "ended_at",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": false
           },
           {
@@ -573,7 +573,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e85f1f95e8be7e8439546b99325a4c07\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e9be83af995dd78b6cc473a1ac9d283e\")"
     ]
   }
 }

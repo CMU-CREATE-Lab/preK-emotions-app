@@ -4,6 +4,7 @@ import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.arch.persistence.room.migration.Migration;
 import android.content.ContentValues;
 import android.content.Context;
@@ -50,6 +51,7 @@ import java.util.UUID;
         SessionCopingSkill.class,
         Session.class
 }, version = 5)
+@TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static String dbName = "flutterprek.sqlite3";
@@ -243,13 +245,13 @@ public abstract class AppDatabase extends RoomDatabase {
             database.execSQL("CREATE  INDEX `index_itinerary_items_capability_id` ON `itinerary_items` (`capability_id`)");
 
             // sessions_coping_skills tables
-            database.execSQL("CREATE TABLE IF NOT EXISTS `sessions_coping_skills` (`uuid` TEXT NOT NULL, `session_uuid` TEXT NOT NULL, `coping_skill_uuid` TEXT NOT NULL, `started_at` TEXT NOT NULL, PRIMARY KEY(`uuid`))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `sessions_coping_skills` (`uuid` TEXT NOT NULL, `session_uuid` TEXT NOT NULL, `coping_skill_uuid` TEXT NOT NULL, `started_at` INTEGER NOT NULL, PRIMARY KEY(`uuid`))");
             // sessions_coping_skills indices
             database.execSQL("CREATE  INDEX `index_sessions_coping_skills_session_uuid` ON `sessions_coping_skills` (`session_uuid`)");
             database.execSQL("CREATE  INDEX `index_sessions_coping_skills_coping_skill_uuid` ON `sessions_coping_skills` (`coping_skill_uuid`)");
 
             // sessions table
-            database.execSQL("CREATE TABLE IF NOT EXISTS `sessions` (`uuid` TEXT NOT NULL, `student_uuid` TEXT NOT NULL, `started_at` TEXT NOT NULL, `ended_at` TEXT, `emotion_uuid` TEXT, PRIMARY KEY(`uuid`))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `sessions` (`uuid` TEXT NOT NULL, `student_uuid` TEXT NOT NULL, `started_at` INTEGER NOT NULL, `ended_at` INTEGER, `emotion_uuid` TEXT, PRIMARY KEY(`uuid`))");
             // sessions indices
             database.execSQL("CREATE  INDEX `index_sessions_student_uuid` ON `sessions` (`student_uuid`)");
             database.execSQL("CREATE  INDEX `index_sessions_emotion_uuid` ON `sessions` (`emotion_uuid`)");
