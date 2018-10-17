@@ -19,6 +19,7 @@ import android.util.Log;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.ClassroomDAO;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
+import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkillDAO;
 import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
@@ -282,5 +283,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
 
     public abstract StudentDAO studentDAO();
+
+
+    public abstract CopingSkillDAO copingSkillDAO();
 
 }

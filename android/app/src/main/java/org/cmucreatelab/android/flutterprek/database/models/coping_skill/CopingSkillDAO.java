@@ -5,14 +5,12 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
-
 import java.util.List;
 
 /**
  * Created by tasota on 10/17/2018.
  *
- * ClassroomDAO
+ * CopingSkillDAO
  *
  * Data access object for {@link CopingSkill}. See Room persistence library documentation for details:
  *   https://developer.android.com/training/data-storage/room/accessing-data
@@ -24,7 +22,7 @@ public interface CopingSkillDAO {
     void insert(CopingSkill copingSkill);
 
     @Query("SELECT * from coping_skills ORDER BY name ASC")
-    LiveData<List<Classroom>> getAllCopingSkills();
+    LiveData<List<CopingSkill>> getAllCopingSkills();
 
     @Query("SELECT * FROM coping_skills WHERE uuid = :copingSkillUuid")
     LiveData<CopingSkill> getCopingSkill(String copingSkillUuid);

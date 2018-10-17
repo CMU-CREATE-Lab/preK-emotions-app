@@ -2,10 +2,13 @@ package org.cmucreatelab.android.flutterprek.database.models.coping_skill;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import java.util.UUID;
 
 /**
  * Created by tasota on 10/3/2018.
@@ -32,6 +35,12 @@ public class CopingSkill {
     @Nullable
     @ColumnInfo(name="image_file_uuid")
     private String imageFileUuid;
+
+
+    @Ignore
+    public CopingSkill(@NonNull String name) {
+        this(UUID.randomUUID().toString(), name);
+    }
 
 
     public CopingSkill(@NonNull String uuid, @NonNull String name) {

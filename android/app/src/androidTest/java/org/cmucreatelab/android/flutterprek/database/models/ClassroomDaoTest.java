@@ -61,7 +61,7 @@ public class ClassroomDaoTest extends DaoTest {
 
 
     @Test
-    public void primaryKey() throws Exception {
+    public void primaryKey() {
         // An exception that indicates that an integrity constraint was violated.
         expectedException.expect(SQLiteConstraintException.class);
 
