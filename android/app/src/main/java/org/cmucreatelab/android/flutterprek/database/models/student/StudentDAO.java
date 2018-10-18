@@ -24,7 +24,7 @@ public interface StudentDAO {
     @Query("SELECT * FROM students ORDER BY name ASC")
     LiveData<List<Student>> getAllStudents();
 
-    @Query("SELECT * FROM students WHERE uuid = :studentUuid")
+    @Query("SELECT * FROM students WHERE uuid = :studentUuid LIMIT 1")
     LiveData<Student> getStudent(String studentUuid);
 
 }

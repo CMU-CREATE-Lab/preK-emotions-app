@@ -4,9 +4,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
-import android.support.annotation.NonNull;
-
-import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 
 import java.util.List;
 
@@ -24,7 +21,7 @@ public interface CustomizationDAO {
     @Insert
     void insert(Customization customization);
 
-    @Query("SELECT * FROM customizations WHERE uuid = :customizationUuid")
+    @Query("SELECT * FROM customizations WHERE uuid = :customizationUuid LIMIT 1")
     LiveData<Customization> getCustomization(String customizationUuid);
 
     @Query("SELECT * FROM customizations WHERE owner_uuid = :ownerUuid")

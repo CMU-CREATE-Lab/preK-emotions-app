@@ -37,8 +37,7 @@ public class CustomizationDaoTest extends DaoTest {
     }
 
 
-    @Before
-    public void populateDb() {
+    private void populateDb() {
         String[][] data = new String[][]{
                 {"uuid_01", "foo", "bar", null, null},
                 {"uuid_02", "foo", "bar", null, null},
@@ -76,6 +75,8 @@ public class CustomizationDaoTest extends DaoTest {
 
     @Test
     public void getCustomizationsOwnedBy() throws InterruptedException {
+        populateDb();
+
         assertEquals(2, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsOwnedBy(classroom_uuid1)).size());
         assertEquals(1, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsOwnedBy(classroom_uuid2)).size());
         assertEquals(0, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsOwnedBy(classroom_uuid3)).size());
@@ -84,6 +85,8 @@ public class CustomizationDaoTest extends DaoTest {
 
     @Test
     public void getCustomizationsBasedOn() throws InterruptedException {
+        populateDb();
+
         assertEquals(2, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsBasedOn(customization_uuid1)).size());
         assertEquals(0, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsBasedOn(customization_uuid2)).size());
     }
@@ -91,6 +94,8 @@ public class CustomizationDaoTest extends DaoTest {
 
     @Test
     public void getCustomizationsOwnedByNoOneAndBasedOnNothing() throws InterruptedException {
+        populateDb();
+
         assertEquals(2, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsOwnedByNoOne()).size());
         assertEquals(3, LiveDataTestUtil.getValue(customizationDAO.getCustomizationsBasedOnNothing()).size());
     }

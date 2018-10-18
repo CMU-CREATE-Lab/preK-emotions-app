@@ -24,7 +24,7 @@ public interface ClassroomDAO {
     @Query("SELECT * from classrooms ORDER BY name ASC")
     LiveData<List<Classroom>> getAllClassrooms();
 
-    @Query("SELECT * FROM classrooms WHERE uuid = :classroomUuid")
+    @Query("SELECT * FROM classrooms WHERE uuid = :classroomUuid LIMIT 1")
     LiveData<Classroom> getClassroom(String classroomUuid);
 
 }
