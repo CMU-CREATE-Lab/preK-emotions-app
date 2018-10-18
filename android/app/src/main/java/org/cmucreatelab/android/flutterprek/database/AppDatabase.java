@@ -25,6 +25,7 @@ import org.cmucreatelab.android.flutterprek.database.models.customization.Custom
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFileDAO;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
+import org.cmucreatelab.android.flutterprek.database.models.emotion.EmotionDAO;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.EmotionCopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.SessionCopingSkill;
@@ -294,5 +295,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
 
     public abstract DbFileDAO dbFileDAO();
+
+
+    public abstract EmotionDAO emotionDAO();
 
 }
