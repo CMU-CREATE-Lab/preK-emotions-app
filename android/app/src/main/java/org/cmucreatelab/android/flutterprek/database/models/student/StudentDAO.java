@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.database.models.student;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -20,6 +21,9 @@ public interface StudentDAO {
 
     @Insert
     void insert(Student student);
+
+    @Delete
+    void delete(Student student);
 
     @Query("SELECT * FROM students ORDER BY name ASC")
     LiveData<List<Student>> getAllStudents();

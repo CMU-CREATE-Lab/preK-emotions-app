@@ -36,7 +36,7 @@ public class CopingSkillDaoTest extends DaoTest {
 
 
     @Test
-    public void insertAndGetCopingSkill() throws InterruptedException {
+    public void insertAndGetAndDeleteCopingSkill() throws InterruptedException {
         String uuid = "cs1";
 
         CopingSkill copingSkill = new CopingSkill(uuid,"Try it out");
@@ -49,6 +49,8 @@ public class CopingSkillDaoTest extends DaoTest {
         assertEquals(copingSkill.getName(), dbCopingSkill.getName());
         assertEquals(copingSkill.getOwnerUuid(), dbCopingSkill.getOwnerUuid());
         assertEquals(copingSkill.getImageFileUuid(), dbCopingSkill.getImageFileUuid());
+
+        copingSkillDAO.delete(copingSkill);
     }
 
 

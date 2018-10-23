@@ -46,7 +46,7 @@ public class DbFileDaoTest extends DaoTest {
 
 
     @Test
-    public void insertAndGetDbFile() throws InterruptedException {
+    public void insertAndGetAndDeleteDbFile() throws InterruptedException {
         String uuid = "file1";
         DbFile dbFileObject = new DbFile(uuid, filetype_image, "/res/filename.png");
         dbFileDAO.insert(dbFileObject);
@@ -55,6 +55,8 @@ public class DbFileDaoTest extends DaoTest {
         assertEquals(dbFile.getUuid(), dbFileObject.getUuid());
         assertEquals(dbFile.getFileType(), dbFileObject.getFileType());
         assertEquals(dbFile.getFilePath(), dbFileObject.getFilePath());
+
+        dbFileDAO.delete(dbFileObject);
     }
 
 

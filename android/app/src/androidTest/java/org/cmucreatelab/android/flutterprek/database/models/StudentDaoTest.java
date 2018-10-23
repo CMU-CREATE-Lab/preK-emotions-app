@@ -38,7 +38,7 @@ public class StudentDaoTest extends DaoTest {
 
 
     @Test
-    public void insertAndGetStudent() throws InterruptedException {
+    public void insertAndGetAndDeleteStudent() throws InterruptedException {
         Classroom classroom = insertAndGetClassroomForTest();
         String uuid = UUID.randomUUID().toString();
         Student student = new Student(uuid, "Alice", classroom.getUuid());
@@ -49,6 +49,8 @@ public class StudentDaoTest extends DaoTest {
         assertEquals(dbStudent.getUuid(), student.getUuid());
         assertEquals(dbStudent.getName(), student.getName());
         assertEquals(dbStudent.getNotes(), student.getNotes());
+
+        studentDAO.delete(student);
     }
 
 

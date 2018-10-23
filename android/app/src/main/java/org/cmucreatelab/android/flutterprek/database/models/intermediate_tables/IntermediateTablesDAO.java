@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek.database.models.intermediate_tables;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 
 /**
@@ -16,11 +17,17 @@ public interface IntermediateTablesDAO {
 
     @Insert
     void insert(EmotionCopingSkill emotionCopingSkill);
+    @Delete
+    void delete(EmotionCopingSkill emotionCopingSkill);
 
     @Insert
     void insert(ItineraryItem itineraryItem);
+    @Delete
+    void delete(ItineraryItem itineraryItem);
 
     @Insert
     void insert(SessionCopingSkill sessionCopingSkill);
+    @Delete
+    void delete(SessionCopingSkill sessionCopingSkill);
 
 }

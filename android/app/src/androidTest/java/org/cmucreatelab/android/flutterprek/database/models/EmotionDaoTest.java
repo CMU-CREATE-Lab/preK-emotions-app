@@ -50,7 +50,7 @@ public class EmotionDaoTest extends DaoTest {
 
 
     @Test
-    public void insertAndGetEmotion() throws InterruptedException {
+    public void insertAndGetAndDeleteEmotion() throws InterruptedException {
         String uuid = "emotion1";
         Emotion emotion = new Emotion(uuid, "happy");
         emotion.setOwnerUuid(owner_uuid);
@@ -62,6 +62,8 @@ public class EmotionDaoTest extends DaoTest {
         assertEquals(emotion.getName(), dbEmotion.getName());
         assertEquals(emotion.getOwnerUuid(), dbEmotion.getOwnerUuid());
         assertEquals(emotion.getImageFileUuid(), dbEmotion.getImageFileUuid());
+
+        emotionDAO.delete(emotion);
     }
 
 

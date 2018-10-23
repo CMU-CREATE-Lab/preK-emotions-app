@@ -61,24 +61,27 @@ public class IntermediateTablesDaoTest extends DaoTest {
 
 
     @Test
-    public void insertEmotionCopingSkill() {
+    public void insertAndDeleteEmotionCopingSkill() {
         createEmotionAndCopingSkillForTest();
         EmotionCopingSkill emotionCopingSkill = new EmotionCopingSkill(test_uuid, emotion_uuid1, coping_skill_uuid1);
         intermediateTablesDAO.insert(emotionCopingSkill);
+        intermediateTablesDAO.delete(emotionCopingSkill);
     }
 
 
     @Test
-    public void insertItineraryItem() {
+    public void insertAndDeleteItineraryItem() {
         ItineraryItem itineraryItem = new ItineraryItem(test_uuid, student_uuid1, 1, "capability", "");
         intermediateTablesDAO.insert(itineraryItem);
+        intermediateTablesDAO.delete(itineraryItem);
     }
 
 
     @Test
-    public void insertSessionCopingSkill() {
+    public void insertAndDeleteSessionCopingSkill() {
         SessionCopingSkill sessionCopingSkill = new SessionCopingSkill(test_uuid, session_uuid1, coping_skill_uuid1, new Date());
         intermediateTablesDAO.insert(sessionCopingSkill);
+        intermediateTablesDAO.delete(sessionCopingSkill);
     }
 
 }

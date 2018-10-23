@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.database.models.customization;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -20,6 +21,9 @@ public interface CustomizationDAO {
 
     @Insert
     void insert(Customization customization);
+
+    @Delete
+    void delete(Customization customization);
 
     @Query("SELECT * FROM customizations WHERE uuid = :customizationUuid LIMIT 1")
     LiveData<Customization> getCustomization(String customizationUuid);

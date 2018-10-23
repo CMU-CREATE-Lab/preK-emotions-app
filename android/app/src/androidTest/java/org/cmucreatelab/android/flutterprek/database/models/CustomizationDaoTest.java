@@ -58,7 +58,7 @@ public class CustomizationDaoTest extends DaoTest {
 
 
     @Test
-    public void insertAndGetCustomization() throws InterruptedException {
+    public void insertAndGetAndDeleteCustomization() throws InterruptedException {
         String uuid = "customization1";
         Customization customization = new Customization(uuid, "foo", "bar");
         customization.setBasedOnUuid("basedon1");
@@ -70,6 +70,8 @@ public class CustomizationDaoTest extends DaoTest {
         assertEquals(customization.getOwnerUuid(), dbCustomization.getOwnerUuid());
         assertEquals(customization.getUuid(), dbCustomization.getUuid());
         assertEquals(customization.getValue(), dbCustomization.getValue());
+
+        customizationDAO.delete(customization);
     }
 
 

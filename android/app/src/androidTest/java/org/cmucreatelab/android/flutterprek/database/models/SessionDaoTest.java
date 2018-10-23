@@ -55,7 +55,7 @@ public class SessionDaoTest extends DaoTest {
 
 
     @Test
-    public void insertAndGetSession() throws InterruptedException {
+    public void insertAndGetAndDeleteSession() throws InterruptedException {
         String uuid = "session1";
         Session session = new Session(uuid, student_uuid1, new Date());
         session.setEndedAt(new Date());
@@ -68,6 +68,8 @@ public class SessionDaoTest extends DaoTest {
         assertEquals(session.getStartedAt(), dbSession.getStartedAt());
         assertEquals(session.getEndedAt(), dbSession.getEndedAt());
         assertEquals(session.getEmotionUuid(), dbSession.getEmotionUuid());
+
+        sessionDAO.delete(session);
     }
 
 

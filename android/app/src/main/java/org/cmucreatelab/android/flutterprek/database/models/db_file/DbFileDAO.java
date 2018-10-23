@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.database.models.db_file;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -20,6 +21,9 @@ public interface DbFileDAO {
 
     @Insert
     void insert(DbFile dbFile);
+
+    @Delete
+    void delete(DbFile dbFile);
 
     @Query("SELECT * FROM db_files")
     LiveData<List<DbFile>> getAllDbFiles();

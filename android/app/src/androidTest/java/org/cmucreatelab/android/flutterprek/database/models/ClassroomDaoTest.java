@@ -34,13 +34,16 @@ public class ClassroomDaoTest extends DaoTest {
 
 
     @Test
-    public void insertAndGetClassroom() throws InterruptedException {
+    public void insertAndGetAndDeleteClassroom() throws InterruptedException {
         String uuid = UUID.randomUUID().toString();
         Classroom classroom = new Classroom(uuid, "Test Classroom");
         classroomDAO.insert(classroom);
+
         Classroom dbClassroom = LiveDataTestUtil.getValue(classroomDAO.getClassroom(uuid));
         assertEquals(dbClassroom.getUuid(), classroom.getUuid());
         assertEquals(dbClassroom.getName(), classroom.getName());
+
+        classroomDAO.delete(classroom);
     }
 
 

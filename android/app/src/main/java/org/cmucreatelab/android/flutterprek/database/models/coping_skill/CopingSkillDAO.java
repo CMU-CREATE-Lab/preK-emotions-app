@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.database.models.coping_skill;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -20,6 +21,9 @@ public interface CopingSkillDAO {
 
     @Insert
     void insert(CopingSkill copingSkill);
+
+    @Delete
+    void delete(CopingSkill copingSkill);
 
     @Query("SELECT * from coping_skills ORDER BY name ASC")
     LiveData<List<CopingSkill>> getAllCopingSkills();
