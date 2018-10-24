@@ -25,6 +25,9 @@ public interface CustomizationDAO {
     @Delete
     void delete(Customization customization);
 
+    @Query("SELECT * from customizations")
+    LiveData<List<Customization>> getAllCustomizations();
+
     @Query("SELECT * FROM customizations WHERE uuid = :customizationUuid LIMIT 1")
     LiveData<Customization> getCustomization(String customizationUuid);
 

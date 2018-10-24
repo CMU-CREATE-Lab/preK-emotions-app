@@ -25,6 +25,9 @@ public interface EmotionDAO {
     @Delete
     void delete(Emotion emotion);
 
+    @Query("SELECT * FROM emotions")
+    LiveData<List<Emotion>> getAllEmotions();
+
     @Query("SELECT * FROM emotions WHERE uuid = :emotionUuid LIMIT 1")
     LiveData<Emotion> getEmotion(String emotionUuid);
 
