@@ -22,6 +22,9 @@ public interface ClassroomDAO {
     @Insert
     void insert(Classroom classroom);
 
+    @Insert
+    void insert(List<Classroom> classrooms);
+
     @Delete
     void delete(Classroom classroom);
 

@@ -35,11 +35,26 @@ public class GsonDatabaseParser {
 
     public List<Session> sessions;
 
-    public List<EmotionCopingSkill> emotionCopingSkills;
+    public List<EmotionCopingSkill> emotionsCopingSkills;
 
     public List<ItineraryItem> itineraryItems;
 
-    public List<SessionCopingSkill> sessionCopingSkills;
+    public List<SessionCopingSkill> sessionsCopingSkills;
+
+
+    public void populateDatabase(AppDatabase appDatabase) {
+        appDatabase.classroomDAO().insert(classrooms);
+        appDatabase.studentDAO().insert(students);
+        appDatabase.copingSkillDAO().insert(copingSkills);
+        appDatabase.customizationDAO().insert(customizations);
+        appDatabase.dbFileDAO().insert(dbFiles);
+        appDatabase.emotionDAO().insert(emotions);
+        appDatabase.sessionDAO().insert(sessions);
+        appDatabase.intermediateTablesDAO().insertEmotionCopingSkillList(emotionsCopingSkills);
+        appDatabase.intermediateTablesDAO().insertItineraryItemList(itineraryItems);
+        appDatabase.intermediateTablesDAO().insertSessionCopingSkillList(sessionsCopingSkills);
+    }
+
 
     // NOTE: this tracks the number of observers when constructing objects from the database
     private static int NUMBER_OF_QUERIES_TO_OBSERVE = 10;
@@ -124,7 +139,7 @@ public class GsonDatabaseParser {
         emotionsCopingSkillsLiveData.observeForever(new Observer<List<EmotionCopingSkill>>() {
             @Override
             public void onChanged(@Nullable List<EmotionCopingSkill> o) {
-                result.emotionCopingSkills = o;
+                result.emotionsCopingSkills = o;
                 latch.countDown();
                 emotionsCopingSkillsLiveData.removeObserver(this);
             }
@@ -144,7 +159,7 @@ public class GsonDatabaseParser {
         sessionsCopingSkillsLiveData.observeForever(new Observer<List<SessionCopingSkill>>() {
             @Override
             public void onChanged(@Nullable List<SessionCopingSkill> o) {
-                result.sessionCopingSkills = o;
+                result.sessionsCopingSkills = o;
                 latch.countDown();
                 sessionsCopingSkillsLiveData.removeObserver(this);
             }

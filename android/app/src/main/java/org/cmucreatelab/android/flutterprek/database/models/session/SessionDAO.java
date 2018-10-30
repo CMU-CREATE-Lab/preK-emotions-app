@@ -22,6 +22,9 @@ public interface SessionDAO {
     @Insert
     void insert(Session session);
 
+    @Insert
+    void insert(List<Session> sessions);
+
     @Delete
     void delete(Session session);
 

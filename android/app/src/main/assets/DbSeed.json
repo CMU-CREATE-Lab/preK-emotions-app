@@ -5,5 +5,14 @@
       "uuid": "",
       "name": "Default Populated Classroom"
     }
-  ]
+  ],
+  "students": [],
+  "copingSkills": [],
+  "customizations": [],
+  "dbFiles": [],
+  "emotions": [],
+  "sessions": [],
+  "emotionsCopingSkills": [],
+  "itineraryItems": [],
+  "sessionsCopingSkills": []
 }

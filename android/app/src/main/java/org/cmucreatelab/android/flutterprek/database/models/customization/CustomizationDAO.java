@@ -22,6 +22,9 @@ public interface CustomizationDAO {
     @Insert
     void insert(Customization customization);
 
+    @Insert
+    void insert(List<Customization> customizations);
+
     @Delete
     void delete(Customization customization);
 

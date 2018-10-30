@@ -22,6 +22,9 @@ public interface EmotionDAO {
     @Insert
     void insert(Emotion emotion);
 
+    @Insert
+    void insert(List<Emotion> emotions);
+
     @Delete
     void delete(Emotion emotion);
 

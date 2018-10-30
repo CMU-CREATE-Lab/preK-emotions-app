@@ -22,6 +22,9 @@ public interface DbFileDAO {
     @Insert
     void insert(DbFile dbFile);
 
+    @Insert
+    void insert(List<DbFile> dbFiles);
+
     @Delete
     void delete(DbFile dbFile);
 

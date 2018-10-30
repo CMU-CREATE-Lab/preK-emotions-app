@@ -21,16 +21,22 @@ public interface IntermediateTablesDAO {
 
     @Insert
     void insert(EmotionCopingSkill emotionCopingSkill);
+    @Insert
+    void insertEmotionCopingSkillList(List<EmotionCopingSkill> emotionsCopingSkills);
     @Delete
     void delete(EmotionCopingSkill emotionCopingSkill);
 
     @Insert
     void insert(ItineraryItem itineraryItem);
+    @Insert
+    void insertItineraryItemList(List<ItineraryItem> itineraryItems);
     @Delete
     void delete(ItineraryItem itineraryItem);
 
     @Insert
     void insert(SessionCopingSkill sessionCopingSkill);
+    @Insert
+    void insertSessionCopingSkillList(List<SessionCopingSkill> sessionsCopingSkills);
     @Delete
     void delete(SessionCopingSkill sessionCopingSkill);
 

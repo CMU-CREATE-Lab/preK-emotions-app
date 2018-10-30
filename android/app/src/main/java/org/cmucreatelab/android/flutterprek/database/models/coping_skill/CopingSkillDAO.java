@@ -22,6 +22,9 @@ public interface CopingSkillDAO {
     @Insert
     void insert(CopingSkill copingSkill);
 
+    @Insert
+    void insert(List<CopingSkill> copingSkills);
+
     @Delete
     void delete(CopingSkill copingSkill);
 

@@ -22,6 +22,9 @@ public interface StudentDAO {
     @Insert
     void insert(Student student);
 
+    @Insert
+    void insert(List<Student> students);
+
     @Delete
     void delete(Student student);
 
