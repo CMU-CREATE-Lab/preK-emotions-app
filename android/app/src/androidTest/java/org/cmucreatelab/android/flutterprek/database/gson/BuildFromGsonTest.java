@@ -12,6 +12,7 @@ import org.cmucreatelab.android.flutterprek.database.GsonDatabaseParser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,6 +22,7 @@ import static junit.framework.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class BuildFromGsonTest {
 
+    private static String JSON_FILE_NAME = "buildFromGsonTest.json";
 
     @Test
     public void buildObjectFromGsonDbSeed() throws IOException {
@@ -37,6 +39,22 @@ public class BuildFromGsonTest {
         String jsonString = new Gson().toJson(gsonDatabaseParser, GsonDatabaseParser.class);
         JsonElement e2 = parser.parse(jsonString);
         assertEquals(e1, e2);
+    }
+
+
+    @Test
+    public void writeJsonFromDbSeedToInternalStorage() throws IOException {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+
+        // build object
+        InputStream inputStream = appContext.getAssets().open("DbSeed.json");
+        GsonDatabaseParser gsonDatabaseParser = new Gson().fromJson(new InputStreamReader(inputStream), GsonDatabaseParser.class);
+
+        // convert to json and write to file
+        String json = new Gson().toJson(gsonDatabaseParser);
+        FileOutputStream outputStream = appContext.openFileOutput(JSON_FILE_NAME, Context.MODE_PRIVATE);
+        outputStream.write(json.getBytes());
+        outputStream.close();
     }
 
 }
