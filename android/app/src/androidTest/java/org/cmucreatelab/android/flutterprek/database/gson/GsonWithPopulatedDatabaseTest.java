@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import static junit.framework.Assert.assertEquals;
+
 @RunWith(AndroidJUnit4.class)
 public class GsonWithPopulatedDatabaseTest {
 
@@ -47,14 +49,30 @@ public class GsonWithPopulatedDatabaseTest {
     @Test
     public void populateDatabaseFromGsonDbSeed() throws IOException {
         Context appContext = InstrumentationRegistry.getTargetContext();
+
+        // build object and populate DB
+        InputStream inputStream = appContext.getAssets().open("DbSeed.json");
+        GsonDatabaseParser gsonDatabaseParser = new Gson().fromJson(new InputStreamReader(inputStream), GsonDatabaseParser.class);
+        gsonDatabaseParser.populateDatabase(db);
+    }
+
+
+    @Test
+    public void generateParserFromPopulatedDatabase() throws IOException, InterruptedException {
+        Context appContext = InstrumentationRegistry.getTargetContext();
         JsonParser parser = new JsonParser();
 
-        // build object and check attributes for correctness
+        // build object and populate DB
         InputStream inputStream = appContext.getAssets().open("DbSeed.json");
-        JsonElement e1 = parser.parse(new InputStreamReader(inputStream));
-        GsonDatabaseParser gsonDatabaseParser = new Gson().fromJson(e1, GsonDatabaseParser.class);
-
+        GsonDatabaseParser gsonDatabaseParser = new Gson().fromJson(new InputStreamReader(inputStream), GsonDatabaseParser.class);
         gsonDatabaseParser.populateDatabase(db);
+
+        // store as json element
+        JsonElement e1 = parser.parse(new Gson().toJson(gsonDatabaseParser, GsonDatabaseParser.class));
+        // build second json element from DB
+        JsonElement e2 = parser.parse(new Gson().toJson(GsonDatabaseParser.fromDb(db), GsonDatabaseParser.class));
+        // compare
+        assertEquals(e1, e2);
     }
 
 }
