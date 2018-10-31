@@ -6,10 +6,12 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.DateTypeAdapter;
 import org.cmucreatelab.android.flutterprek.database.GsonDatabaseParser;
 import org.junit.After;
 import org.junit.Before;
@@ -19,6 +21,7 @@ import org.junit.runner.RunWith;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Date;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -26,6 +29,13 @@ import static junit.framework.Assert.assertEquals;
 public class GsonWithPopulatedDatabaseTest {
 
     private AppDatabase db;
+
+
+    private Gson buildGson() {
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(Date.class, new DateTypeAdapter());
+        return builder.create();
+    }
 
 
     @Before
@@ -49,10 +59,11 @@ public class GsonWithPopulatedDatabaseTest {
     @Test
     public void populateDatabaseFromGsonDbSeed() throws IOException {
         Context appContext = InstrumentationRegistry.getTargetContext();
+        Gson gson = buildGson();
 
         // build object and populate DB
         InputStream inputStream = appContext.getAssets().open("DbSeed.json");
-        GsonDatabaseParser gsonDatabaseParser = new Gson().fromJson(new InputStreamReader(inputStream), GsonDatabaseParser.class);
+        GsonDatabaseParser gsonDatabaseParser = gson.fromJson(new InputStreamReader(inputStream), GsonDatabaseParser.class);
         gsonDatabaseParser.populateDatabase(db);
     }
 
@@ -61,16 +72,17 @@ public class GsonWithPopulatedDatabaseTest {
     public void generateParserFromPopulatedDatabase() throws IOException, InterruptedException {
         Context appContext = InstrumentationRegistry.getTargetContext();
         JsonParser parser = new JsonParser();
+        Gson gson = buildGson();
 
         // build object and populate DB
         InputStream inputStream = appContext.getAssets().open("DbSeed.json");
-        GsonDatabaseParser gsonDatabaseParser = new Gson().fromJson(new InputStreamReader(inputStream), GsonDatabaseParser.class);
+        GsonDatabaseParser gsonDatabaseParser = gson.fromJson(new InputStreamReader(inputStream), GsonDatabaseParser.class);
         gsonDatabaseParser.populateDatabase(db);
 
         // store as json element
-        JsonElement e1 = parser.parse(new Gson().toJson(gsonDatabaseParser, GsonDatabaseParser.class));
+        JsonElement e1 = parser.parse(buildGson().toJson(gsonDatabaseParser, GsonDatabaseParser.class));
         // build second json element from DB
-        JsonElement e2 = parser.parse(new Gson().toJson(GsonDatabaseParser.fromDb(db), GsonDatabaseParser.class));
+        JsonElement e2 = parser.parse(buildGson().toJson(GsonDatabaseParser.fromDb(db), GsonDatabaseParser.class));
         // compare
         assertEquals(e1, e2);
     }

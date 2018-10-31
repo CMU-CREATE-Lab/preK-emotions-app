@@ -1,17 +1,42 @@
 {
   "classrooms":
   [
-    {
-      "uuid": "",
-      "name": "Default Populated Classroom"
-    }
+    { "uuid": "classroom1", "name": "My Classroom" },
+    { "uuid": "classroom2", "name": "Room 123" }
   ],
-  "students": [],
-  "copingSkills": [],
-  "customizations": [],
+  "students":
+  [
+    { "uuid": "student1", "name": "Alice", "classroomUuid": "classroom1", "notes": "stuck in wonderland" },
+    { "uuid": "student2", "name": "Bob", "classroomUuid": "classroom1" },
+    { "uuid": "student3", "name": "Charles", "classroomUuid": "classroom1" },
+    { "uuid": "student4", "name": "Dana", "classroomUuid": "classroom1" },
+    { "uuid": "student5", "name": "Ed", "classroomUuid": "classroom1" },
+    { "uuid": "student6", "name": "Frank", "classroomUuid": "classroom2" },
+    { "uuid": "student7", "name": "Garth Marenghi", "classroomUuid": "classroom2" }
+  ],
+  "copingSkills":
+  [
+    { "uuid": "coping_skill_3", "name": "Drink Me", "ownerUuid": "student1" },
+    { "uuid": "coping_skill_1", "name": "Think About It" },
+    { "uuid": "coping_skill_2", "name": "Try It Out" }
+  ],
+  "customizations":
+  [
+    { "uuid": "custom_happybg_alice", "basedOnUuid": "emotion1", "key": "background-color", "value": "#7580ff", "ownerUuid": "student1" },
+    { "uuid": "custom_happybg_classroom1", "basedOnUuid": "emotion1", "key": "background-color", "value": "#ff0000", "ownerUuid": "classroom1" },
+    { "uuid": "custom_happybg_default", "basedOnUuid": "emotion1", "key": "background-color", "value": "#00ff00" }
+  ],
   "dbFiles": [],
-  "emotions": [],
-  "sessions": [],
+  "emotions":
+  [
+    { "name": "Happy", "uuid": "emotion1" },
+    { "name": "Sad", "uuid": "emotion2" },
+    { "name": "Mad", "uuid": "emotion3", "ownerUuid": "classroom2" }
+  ],
+  "sessions":
+  [
+    { "uuid": "session1", "studentUuid": "student1", "startedAt": 1540923974 }
+  ],
   "emotionsCopingSkills": [],
   "itineraryItems": [],
   "sessionsCopingSkills": []
