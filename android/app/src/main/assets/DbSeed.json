@@ -26,7 +26,6 @@
     { "uuid": "custom_happybg_classroom1", "basedOnUuid": "emotion1", "key": "background-color", "value": "#ff0000", "ownerUuid": "classroom1" },
     { "uuid": "custom_happybg_default", "basedOnUuid": "emotion1", "key": "background-color", "value": "#00ff00" }
   ],
-  "dbFiles": [],
   "emotions":
   [
     { "name": "Happy", "uuid": "emotion1" },
@@ -37,7 +36,22 @@
   [
     { "uuid": "session1", "studentUuid": "student1", "startedAt": 1540923974 }
   ],
-  "emotionsCopingSkills": [],
-  "itineraryItems": [],
-  "sessionsCopingSkills": []
+  "emotionsCopingSkills":
+  [
+    { "uuid": "happy_thinkaboutit", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_1" },
+    { "uuid": "happy_tryitout", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_2" },
+    { "uuid": "sad_thinkaboutit", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_1" },
+    { "uuid": "mad_thinkaboutit", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_1" },
+    { "uuid": "sad_drinkme", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_3", "ownerUuid": "student1" }
+  ],
+  "itineraryItems":
+  [
+    { "uuid": "thinkaboutit_step1", "ownerUuid": "coping_skill_1", "sequenceId": 1, "capabilityId": "textonly", "capabilityParameters": "{\"message\": \"Think About It First Message\", \"background-color\": \"#666666\"}" },
+    { "uuid": "thinkaboutit_step2", "ownerUuid": "coping_skill_1", "sequenceId": 2, "capabilityId": "textonly", "capabilityParameters": "{\"message\": \"Think About It Second Message\", \"background-color\": \"#66aa66\"}" }
+  ],
+  "sessionsCopingSkills":
+  [
+    { "uuid": "thinkaboutit_step1", "sessionUuid": "session1", "copingSkillUuid": "coping_skill_1", "startedAt": 1540923981 }
+  ],
+  "dbFiles": []
 }
