@@ -16,6 +16,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.cmucreatelab.android.flutterprek.database.gson.DateTypeAdapter;
+import org.cmucreatelab.android.flutterprek.database.gson.GsonDatabaseParser;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.ClassroomDAO;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
@@ -35,6 +40,10 @@ import org.cmucreatelab.android.flutterprek.database.models.session.SessionDAO;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 import org.cmucreatelab.android.flutterprek.database.models.student.StudentDAO;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -67,7 +76,7 @@ public abstract class AppDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             Log.i("flutterprek", "RoomDatabase.Callback.onCreate");
             super.onCreate(db);
-            new PopulateDbAsync(instance).execute();
+            new PopulateDbAsync().execute();
         }
 
         @Override
@@ -79,22 +88,21 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
-        private final ClassroomDAO classroomDAO;
-        private final StudentDAO studentDAO;
-
-        PopulateDbAsync(AppDatabase db) {
-            classroomDAO = db.classroomDAO();
-            studentDAO = db.studentDAO();
-        }
-
         @Override
         protected Void doInBackground(final Void... params) {
             Log.i("flutterprek", "creating flutterprek DB");
-            Classroom classroom = new Classroom("classroom_1", "First Classroom");
-            classroomDAO.insert(classroom);
-            Student student = new Student("student_1", "Test Student", classroom.getUuid());
-            student.setNotes("This is a student for testing.");
-            studentDAO.insert(student);
+            GsonBuilder builder = new GsonBuilder();
+            builder.registerTypeAdapter(Date.class, new DateTypeAdapter());
+            Gson gson = builder.create();
+
+            try {
+                InputStream inputStream = appContext.getAssets().open("DbSeed.json");
+                GsonDatabaseParser gsonDatabaseParser = gson.fromJson(new InputStreamReader(inputStream), GsonDatabaseParser.class);
+                gsonDatabaseParser.populateDatabase(instance);
+            } catch (IOException e) {
+                Log.e("flutterprek", "Failed to create DB from JSON file!");
+                e.printStackTrace();
+            }
 
             return null;
         }
@@ -268,12 +276,15 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;
 
+    private static Context appContext;
+
 
     public static AppDatabase getInstance(final Context context) {
         if (instance == null) {
             synchronized (AppDatabase.class) {
                 if (instance == null) {
-                    instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, dbName)
+                    appContext = context.getApplicationContext();
+                    instance = Room.databaseBuilder(appContext, AppDatabase.class, dbName)
                             .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                             .addCallback(callback)
                             .build();
