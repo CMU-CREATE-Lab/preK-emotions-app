@@ -2,9 +2,11 @@ package org.cmucreatelab.android.flutterprek.activities;
 
 import android.arch.lifecycle.Observer;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
@@ -25,11 +27,9 @@ public class ClassroomsIndexActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classrooms_index);
 
-        // TODO adapter
         AppDatabase.getInstance(this).classroomDAO().getAllClassrooms().observe(this, new Observer<List<Classroom>>() {
             @Override
             public void onChanged(@Nullable List<Classroom> classrooms) {
-                Log.d("activities", "Observer.onChanged");
                 ArrayList<String> classroomNames = new ArrayList<>();
                 for (Classroom c: classrooms) {
                     classroomNames.add(c.getName());
@@ -38,10 +38,17 @@ public class ClassroomsIndexActivity extends AppCompatActivity {
                 classroomNames.add("Bar");
                 myStringArray.clear();
                 myStringArray.addAll(classroomNames);
-                Log.d("activities", "Added " + classroomNames.size() + " names");
                 GridView classroomsGridView = findViewById(R.id.classroomsGridView);
                 classroomsGridView.setAdapter(new ArrayAdapter<>(ClassroomsIndexActivity.this,
                         android.R.layout.simple_list_item_1, myStringArray));
+            }
+        });
+
+        FloatingActionButton fabNewClassroom = findViewById(R.id.fabNewClassroom);
+        fabNewClassroom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("activity", "fabNewClassroom.onClick");
             }
         });
     }
