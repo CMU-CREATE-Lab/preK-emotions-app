@@ -9,8 +9,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
-import org.cmucreatelab.android.flutterprek.database.DateTypeAdapter;
-import org.cmucreatelab.android.flutterprek.database.GsonDatabaseParser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

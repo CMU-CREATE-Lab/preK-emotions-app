@@ -1,6 +1,4 @@
-package org.cmucreatelab.android.flutterprek.database;
-
-import android.arch.persistence.room.TypeConverter;
+package org.cmucreatelab.android.flutterprek.database.gson;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
