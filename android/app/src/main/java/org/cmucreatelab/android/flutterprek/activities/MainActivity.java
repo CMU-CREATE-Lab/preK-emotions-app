@@ -54,5 +54,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(classroomsIndexActivity);
             }
         });
+
+        Button buttonWeb = findViewById(R.id.buttonWeb);
+        buttonWeb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent webIndexActivity = new Intent(MainActivity.this, WebIndexActivity.class);
+                startActivity(webIndexActivity);
+            }
+        });
     }
 }
