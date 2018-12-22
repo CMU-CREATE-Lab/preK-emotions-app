@@ -19,8 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ClassroomsIndexActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
         <activity android:name=".activities.StudentsIndexActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
         <activity android:name=".activities.WebIndexActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"

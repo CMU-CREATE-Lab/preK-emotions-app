@@ -11,20 +11,64 @@
         android:background="#f4f4f4" >
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="205sp"
-            android:layout_height="match_parent"
-            android:background="#fff"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/appHeader"
+            android:layout_width="0dp"
+            android:layout_height="65sp"
+            android:background="#5bddc5"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/imageLogo"
+                android:layout_width="158sp"
+                android:layout_height="31sp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/ic_mindfulnest_header_logo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageInfo"
+                android:layout_width="36sp"
+                android:layout_height="36sp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/ic_mindfulnest_header_info"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageStudent"
+                android:layout_width="36sp"
+                android:layout_height="36sp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/ic_mindfulnest_header_student_section"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageInfo"
+                app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="205sp"
+            android:layout_height="0dp"
+            android:background="#fff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appHeader" />
 
         <GridView
             android:id="@+id/studentsGridView"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_margin="40sp"
             android:columnWidth="165sp"
             android:gravity="center"
@@ -35,7 +79,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/appHeader" />
+
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.FloatingActionButton
