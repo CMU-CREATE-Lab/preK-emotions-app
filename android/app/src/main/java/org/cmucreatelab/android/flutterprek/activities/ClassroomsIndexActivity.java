@@ -39,8 +39,9 @@ public class ClassroomsIndexActivity extends AppCompatActivity {
                 myStringArray.clear();
                 myStringArray.addAll(classroomNames);
                 GridView classroomsGridView = findViewById(R.id.classroomsGridView);
-                classroomsGridView.setAdapter(new ArrayAdapter<>(ClassroomsIndexActivity.this,
-                        android.R.layout.simple_list_item_1, myStringArray));
+//                classroomsGridView.setAdapter(new ArrayAdapter<>(ClassroomsIndexActivity.this,
+//                        android.R.layout., myStringArray));
+                classroomsGridView.setAdapter(new ClassroomIndexAdapter(myStringArray));
             }
         });
 
