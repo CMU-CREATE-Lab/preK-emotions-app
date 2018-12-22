@@ -7,26 +7,26 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;
 
-public class ClassroomIndexAdapter extends BaseAdapter {
+public class StudentIndexAdapter extends BaseAdapter {
 
-    private final List<Classroom> classrooms;
+    private final List<Student> students;
 
-    public ClassroomIndexAdapter(List<Classroom> classrooms) {
-        this.classrooms = classrooms;
+    public StudentIndexAdapter(List<Student> students) {
+        this.students = students;
     }
 
     @Override
     public int getCount() {
-        return classrooms.size();
+        return students.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return classrooms.get(position);
+        return students.get(position);
     }
 
     @Override
@@ -39,12 +39,12 @@ public class ClassroomIndexAdapter extends BaseAdapter {
         View result;
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
-            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.classroom_grid_view_item, parent, false);
+            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_grid_view_item, parent, false);
         } else {
             result = convertView;
         }
         TextView textView = (TextView)result.findViewById(R.id.text1);
-        textView.setText(classrooms.get(position).getName());
+        textView.setText(students.get(position).getName());
 
         return result;
     }
