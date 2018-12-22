@@ -63,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(studentsIndexActivity);
             }
         });
+        // choose classroom
+        Button buttonChooseClass = findViewById(R.id.buttonChooseClassroom);
+        buttonChooseClass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent chooseClassroomActivity = new Intent(MainActivity.this, ChooseClassroomActivity.class);
+                startActivity(chooseClassroomActivity);
+            }
+        });
 
         Button buttonWeb = findViewById(R.id.buttonWeb);
         buttonWeb.setOnClickListener(new View.OnClickListener() {

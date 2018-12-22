@@ -27,6 +27,9 @@
         <activity android:name=".activities.WebIndexActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
+        <activity android:name=".activities.ChooseClassroomActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

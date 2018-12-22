@@ -16,6 +16,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/buttonChooseClassroom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Choose Classroom"
+        app:layout_constraintStart_toEndOf="@+id/buttonStudents"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/buttonStudents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
