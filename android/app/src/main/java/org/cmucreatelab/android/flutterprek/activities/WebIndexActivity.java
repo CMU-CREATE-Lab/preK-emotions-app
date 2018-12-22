@@ -33,6 +33,8 @@ public class WebIndexActivity extends AppCompatActivity {
 
         // still slow
         webView = new WebView(getApplicationContext());
+        webView.setWebViewClient(new CustomWebViewClient(WebIndexActivity.this));
+        webView.getSettings().setJavaScriptEnabled(true);
         setContentView(webView);
         webView.loadUrl("file:///android_asset/web/index.html");
 
