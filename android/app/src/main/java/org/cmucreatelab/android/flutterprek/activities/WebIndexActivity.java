@@ -3,15 +3,40 @@ package org.cmucreatelab.android.flutterprek.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 
+import org.cmucreatelab.android.flutterprek.CustomWebViewClient;
 import org.cmucreatelab.android.flutterprek.R;
 
 public class WebIndexActivity extends AppCompatActivity {
 
+    private WebView webView;
+    int counter = 0;
+
+
+    @Override
+    public void onBackPressed() {
+        if (webView == null) {
+            return;
+        }
+        if (counter == 0) {
+            webView.loadUrl("file:///android_asset/web/alt_index.html");
+        } else {
+            webView.loadUrl("file:///android_asset/web/index.html");
+        }
+        counter = (counter+1) % 2;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web_index);
+
+        // still slow
+        webView = new WebView(getApplicationContext());
+        setContentView(webView);
+        webView.loadUrl("file:///android_asset/web/index.html");
+
+//        setContentView(R.layout.activity_web_index);
 
         // TODO need to detect when nav bar is forced to display, so it can hide again after a few seconds
         View decorView = getWindow().getDecorView();
@@ -23,6 +48,21 @@ public class WebIndexActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
-        //findViewById(R.id.webView);
+//        // slow
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                webView = findViewById(R.id.webView);
+//                webView.setWebViewClient(new CustomWebViewClient(WebIndexActivity.this));
+//                webView.getSettings().setJavaScriptEnabled(true);
+//                webView.loadUrl("file:///android_asset/web/index.html");
+//            }
+//        });
+
+//        // slow
+//        webView = (WebView) findViewById(R.id.webView);
+//        webView.setWebViewClient(new CustomWebViewClient(this));
+//        webView.getSettings().setJavaScriptEnabled(true);
+//        webView.loadUrl("file:///android_asset/web/index.html");
     }
 }
