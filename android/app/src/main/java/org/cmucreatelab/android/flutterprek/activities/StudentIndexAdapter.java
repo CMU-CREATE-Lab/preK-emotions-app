@@ -35,6 +35,23 @@ public class StudentIndexAdapter extends BaseAdapter {
         return position;
     }
 
+    // TODO for demo thumbnails only; remove later
+    private int getResourceFromPosition(int position) {
+        switch (position % 6) {
+            case 1:
+                return R.drawable.ic_thumbnail_conducting;
+            case 2:
+                return R.drawable.ic_thumbnail_drawing;
+            case 3:
+                return R.drawable.ic_thumbnail_flower_breathing;
+            case 4:
+                return R.drawable.ic_thumbnail_talk;
+            case 5:
+                return R.drawable.ic_thumbnail_yoga;
+        }
+        return R.drawable.ic_thumbnail_balloon_squeeze;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View result;
@@ -49,7 +66,7 @@ public class StudentIndexAdapter extends BaseAdapter {
         TextView textView = (TextView)result.findViewById(R.id.text1);
         textView.setText(students.get(position).getName());
         // TODO replace with student image
-        ((ImageView)result.findViewById(R.id.imageView)).setImageResource(R.drawable.ic_thumbnail_conducting);
+        ((ImageView)result.findViewById(R.id.imageView)).setImageResource(getResourceFromPosition(position));
 
         return result;
     }
