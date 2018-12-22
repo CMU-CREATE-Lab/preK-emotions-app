@@ -49,7 +49,7 @@ public class StudentIndexAdapter extends BaseAdapter {
         TextView textView = (TextView)result.findViewById(R.id.text1);
         textView.setText(students.get(position).getName());
         // TODO replace with student image
-        ((ImageView)result.findViewById(R.id.imageView)).setImageResource(R.mipmap.ic_launcher);
+        ((ImageView)result.findViewById(R.id.imageView)).setImageResource(R.drawable.ic_thumbnail_conducting);
 
         return result;
     }
