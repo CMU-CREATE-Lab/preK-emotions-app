@@ -14,6 +14,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
         android:text="TextView"
+        android:fontFamily="@font/source_sans_pro"
         android:textColor="#2d2d2d"
         android:textSize="26sp"
         android:textStyle="bold"
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Students"
+        android:fontFamily="@font/source_sans_pro"
         android:textColor="#000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text1" />
@@ -38,6 +40,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="3dp"
         android:text="Coping Skills"
+        android:fontFamily="@font/source_sans_pro"
         android:textColor="#000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
