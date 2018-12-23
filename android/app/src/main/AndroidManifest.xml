@@ -18,22 +18,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ClassroomsIndexActivity"
+        <activity android:name=".activities.teacher_section.ClassroomIndexActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
-        <activity android:name=".activities.StudentIndexActivity"
+        <activity android:name=".activities.teacher_section.StudentIndexActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
         <activity android:name=".activities.WebIndexActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
-        <activity android:name=".activities.ChooseClassroomActivity"
+        <activity android:name=".activities.student_section.ChooseClassroomActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
-        <activity android:name=".activities.ChooseEmotionActivity"
+        <activity android:name=".activities.student_section.ChooseEmotionActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
-        <activity android:name=".activities.ChooseCopingSkillActivity"
+        <activity android:name=".activities.student_section.ChooseCopingSkillActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
     </application>

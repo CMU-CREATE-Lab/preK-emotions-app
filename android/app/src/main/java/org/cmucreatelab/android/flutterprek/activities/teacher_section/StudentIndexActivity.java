@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities;
+package org.cmucreatelab.android.flutterprek.activities.teacher_section;
 
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 

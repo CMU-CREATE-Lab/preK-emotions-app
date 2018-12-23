@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities;
+package org.cmucreatelab.android.flutterprek.activities.teacher_section;
 
 import android.arch.lifecycle.Observer;
 import android.support.annotation.Nullable;
@@ -10,12 +10,13 @@ import android.view.View;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.adapters.ClassroomIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 import java.util.List;
 
-public class ClassroomsIndexActivity extends AppCompatActivity {
+public class ClassroomIndexActivity extends AppCompatActivity {
 
 
     @Override

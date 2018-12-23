@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities;
+package org.cmucreatelab.android.flutterprek.activities.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities;
+package org.cmucreatelab.android.flutterprek.activities.adapters;
 
 import android.arch.lifecycle.Observer;
 import android.content.Context;

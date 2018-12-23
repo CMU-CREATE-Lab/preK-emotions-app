@@ -15,6 +15,11 @@ import android.widget.Button;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseClassroomActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseEmotionActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.ClassroomIndexActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.StudentIndexActivity;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.ClassroomViewModel;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
@@ -54,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         buttonClassrooms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent classroomsIndexActivity = new Intent(MainActivity.this, ClassroomsIndexActivity.class);
+                Intent classroomsIndexActivity = new Intent(MainActivity.this, ClassroomIndexActivity.class);
                 startActivity(classroomsIndexActivity);
             }
         });
