@@ -2,6 +2,11 @@
     <string name="app_name">MindfulNest</string>
     <string name="menu_emotions">Emotions</string>
     <string name="menu_coping_skills">Coping Skills</string>
+    <string name="menu_classrooms">Classrooms</string>
+    <string name="menu_students">Students</string>
+    <string name="menu_section_teacher">Teacher Section</string>
+    <string name="menu_section_student">Student Section</string>
+    <string name="menu_web">Web View</string>
     <string name="choose_emotion_prompt">How are you feeling?</string>
     <string name="choose_coping_skill_placeholder">Placeholder text for Coping Skill</string>
     <string name="choose_classroom_prompt">Choose Class</string>

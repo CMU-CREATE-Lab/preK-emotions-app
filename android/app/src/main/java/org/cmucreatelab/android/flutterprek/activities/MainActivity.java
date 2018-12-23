@@ -53,43 +53,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(Constants.LOG_TAG,"onChanged students");
             }
         });
-
-        // button to navigate to classrooms index
-        Button buttonClassrooms = findViewById(R.id.buttonClassrooms);
-        buttonClassrooms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent classroomsIndexActivity = new Intent(MainActivity.this, ClassroomIndexActivity.class);
-                startActivity(classroomsIndexActivity);
-            }
-        });
-        // students index
-        Button buttonStudents = findViewById(R.id.buttonStudents);
-        buttonStudents.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent studentsIndexActivity = new Intent(MainActivity.this, StudentIndexActivity.class);
-                startActivity(studentsIndexActivity);
-            }
-        });
-        // choose classroom
-        Button buttonChooseClass = findViewById(R.id.buttonChooseClassroom);
-        buttonChooseClass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent chooseClassroomActivity = new Intent(MainActivity.this, ChooseClassroomActivity.class);
-                startActivity(chooseClassroomActivity);
-            }
-        });
-
-        Button buttonWeb = findViewById(R.id.buttonWeb);
-        buttonWeb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent webIndexActivity = new Intent(MainActivity.this, WebIndexActivity.class);
-                startActivity(webIndexActivity);
-            }
-        });
     }
 
 
@@ -104,13 +67,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_emotions:
+            case R.id.menu_classroom_index:
+                Intent classroomsIndexActivity = new Intent(MainActivity.this, ClassroomIndexActivity.class);
+                startActivity(classroomsIndexActivity);
+                return true;
+            case R.id.menu_student_index:
+                Intent studentsIndexActivity = new Intent(MainActivity.this, StudentIndexActivity.class);
+                startActivity(studentsIndexActivity);
+                return true;
+            case R.id.menu_choose_classroom:
+                Intent chooseClassroomActivity = new Intent(MainActivity.this, ChooseClassroomActivity.class);
+                startActivity(chooseClassroomActivity);
+                return true;
+            case R.id.menu_choose_emotion:
                 Intent chooseEmotionActivity = new Intent(MainActivity.this, ChooseEmotionActivity.class);
                 startActivity(chooseEmotionActivity);
                 return true;
-            case R.id.menu_coping_skills:
+            case R.id.menu_choose_coping_skill:
                 Intent chooseCopingSkillActivity = new Intent(MainActivity.this, ChooseCopingSkillActivity.class);
                 startActivity(chooseCopingSkillActivity);
+                return true;
+            // extras
+            case R.id.menu_web:
+                Intent webIndexActivity = new Intent(MainActivity.this, WebIndexActivity.class);
+                startActivity(webIndexActivity);
                 return true;
         }
         return false;

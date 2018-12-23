@@ -2,8 +2,27 @@
 <!-- https://developer.android.com/guide/topics/resources/menu-resource -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/menu_emotions"
-        android:title="@string/menu_emotions" />
-    <item android:id="@+id/menu_coping_skills"
-        android:title="@string/menu_coping_skills" />
+
+    <item android:id="@+id/menu_section_teacher"
+        android:title="@string/menu_section_teacher" >
+        <menu>
+            <item android:id="@+id/menu_classroom_index"
+                android:title="@string/menu_classrooms" />
+            <item android:id="@+id/menu_student_index"
+                android:title="@string/menu_students" />
+        </menu>
+    </item>
+    <item android:id="@+id/menu_section_student"
+        android:title="@string/menu_section_student" >
+        <menu>
+            <item android:id="@+id/menu_choose_classroom"
+                android:title="@string/menu_classrooms" />
+            <item android:id="@+id/menu_choose_emotion"
+                android:title="@string/menu_emotions" />
+            <item android:id="@+id/menu_choose_coping_skill"
+                android:title="@string/menu_coping_skills" />
+        </menu>
+    </item>
+    <item android:id="@+id/menu_web"
+        android:title="@string/menu_web" />
 </menu>
