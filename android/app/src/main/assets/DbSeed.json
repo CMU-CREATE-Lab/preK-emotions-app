@@ -17,8 +17,8 @@
   "copingSkills":
   [
     { "uuid": "coping_skill_3", "name": "Drink Me", "ownerUuid": "student1" },
-    { "uuid": "coping_skill_1", "name": "Think About It" },
-    { "uuid": "coping_skill_2", "name": "Try It Out" }
+    { "uuid": "coping_skill_1", "name": "Think About It", "imageFileUuid": "ic_flower_breathing" },
+    { "uuid": "coping_skill_2", "name": "Try It Out", "imageFileUuid": "ic_yoga" }
   ],
   "customizations":
   [
@@ -58,6 +58,8 @@
   [
     { "uuid": "ic_happy", "fileType": "asset_image", "filePath": "emotions/ic_happy.png" },
     { "uuid": "ic_sad", "fileType": "asset_image", "filePath": "emotions/ic_sad.png" },
-    { "uuid": "ic_mad", "fileType": "asset_image", "filePath": "emotions/ic_mad.png" }
+    { "uuid": "ic_mad", "fileType": "asset_image", "filePath": "emotions/ic_mad.png" },
+    { "uuid": "ic_flower_breathing", "fileType": "asset_image", "filePath": "coping_skills/ic_flower_breathing.png" },
+    { "uuid": "ic_yoga", "fileType": "asset_image", "filePath": "coping_skills/ic_yoga.png" }
   ]
 }

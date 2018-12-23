@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;
@@ -38,37 +39,6 @@ public class StudentIndexAdapter extends BaseAdapter {
         return position;
     }
 
-    // TODO for demo thumbnails only; remove later
-    private int getResourceFromPosition(int position) {
-        switch (position % 6) {
-            case 1:
-                return R.drawable.ic_thumbnail_conducting;
-            case 2:
-                return R.drawable.ic_thumbnail_drawing;
-            case 3:
-                return R.drawable.ic_thumbnail_flower_breathing;
-            case 4:
-                return R.drawable.ic_thumbnail_talk;
-            case 5:
-                return R.drawable.ic_thumbnail_yoga;
-        }
-        return R.drawable.ic_thumbnail_balloon_squeeze;
-    }
-    // TODO for demo emotions only; remove later
-    private String getAssetPathFromPosition(int position) {
-        switch (position % 5) {
-            case 1:
-                return "emotions/ic_mad.png";
-            case 2:
-                return "emotions/ic_neutral.png";
-            case 3:
-                return "emotions/ic_sad.png";
-            case 4:
-                return "emotions/ic_scared.png";
-        }
-        return "emotions/ic_happy.png";
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View result;
@@ -83,7 +53,7 @@ public class StudentIndexAdapter extends BaseAdapter {
         TextView textView = (TextView)result.findViewById(R.id.text1);
         textView.setText(students.get(position).getName());
         // TODO replace with student image
-        ((ImageView)result.findViewById(R.id.imageView)).setImageResource(getResourceFromPosition(position));
+        Util.setImageViewWithAsset(appContext, (ImageView)result.findViewById(R.id.imageView), "etc/img/xman1.png");
 
         return result;
     }

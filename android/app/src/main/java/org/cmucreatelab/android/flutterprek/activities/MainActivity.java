@@ -103,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent chooseEmotionActivity = new Intent(MainActivity.this, ChooseEmotionActivity.class);
                 startActivity(chooseEmotionActivity);
                 return true;
+            case R.id.menu_coping_skills:
+                Intent chooseCopingSkillActivity = new Intent(MainActivity.this, ChooseCopingSkillActivity.class);
+                startActivity(chooseCopingSkillActivity);
+                return true;
         }
         return false;
     }

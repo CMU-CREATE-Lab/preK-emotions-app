@@ -4,4 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/menu_emotions"
         android:title="@string/menu_emotions" />
+    <item android:id="@+id/menu_coping_skills"
+        android:title="@string/menu_coping_skills" />
 </menu>
