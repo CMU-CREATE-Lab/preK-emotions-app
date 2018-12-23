@@ -25,7 +25,7 @@ public class ChooseEmotionActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Emotion> emotions) {
                 GridView emotionsGridView = findViewById(R.id.emotionsGridView);
-                emotionsGridView.setAdapter(new EmotionIndexAdapter(getApplicationContext(), emotions));
+                emotionsGridView.setAdapter(new EmotionIndexAdapter(ChooseEmotionActivity.this, emotions));
             }
         });
     }

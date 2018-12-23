@@ -28,9 +28,10 @@
   ],
   "emotions":
   [
-    { "name": "Happy", "uuid": "emotion1" },
-    { "name": "Sad", "uuid": "emotion2" },
-    { "name": "Mad", "uuid": "emotion3", "ownerUuid": "classroom2" }
+    { "name": "Happy", "uuid": "emotion1", "imageFileUuid": "ic_happy" },
+    { "name": "Sad", "uuid": "emotion2", "imageFileUuid": "ic_sad" },
+    { "name": "Mad", "uuid": "emotion3", "ownerUuid": "classroom2", "imageFileUuid": "ic_mad" },
+    { "name": "Scared", "uuid": "emotion4", "ownerUuid": "classroom2" }
   ],
   "sessions":
   [
@@ -53,5 +54,10 @@
   [
     { "uuid": "thinkaboutit_step1", "sessionUuid": "session1", "copingSkillUuid": "coping_skill_1", "startedAt": 1540923981 }
   ],
-  "dbFiles": []
+  "dbFiles":
+  [
+    { "uuid": "ic_happy", "fileType": "asset_image", "filePath": "emotions/ic_happy.png" },
+    { "uuid": "ic_sad", "fileType": "asset_image", "filePath": "emotions/ic_sad.png" },
+    { "uuid": "ic_mad", "fileType": "asset_image", "filePath": "emotions/ic_mad.png" }
+  ]
 }
