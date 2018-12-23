@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,30 +13,23 @@ import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;
 
-public class StudentIndexAdapter extends BaseAdapter {
+public class StudentIndexAdapter extends AbstractListAdapter<Student> {
 
     private final Context appContext;
     private final List<Student> students;
+
 
     public StudentIndexAdapter(Context appContext, List<Student> students) {
         this.appContext = appContext;
         this.students = students;
     }
 
-    @Override
-    public int getCount() {
-        return students.size();
-    }
 
     @Override
-    public Object getItem(int position) {
-        return students.get(position);
+    public List<Student> getList() {
+        return students;
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

@@ -1,6 +1,5 @@
 package org.cmucreatelab.android.flutterprek.activities.adapters;
 
-import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -8,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,45 +18,23 @@ import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 
 import java.util.List;
 
-public class EmotionIndexAdapter extends BaseAdapter {
+public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
 
     private final AppCompatActivity activity;
     private final List<Emotion> emotions;
+
 
     public EmotionIndexAdapter(AppCompatActivity activity, List<Emotion> emotions) {
         this.activity = activity;
         this.emotions = emotions;
     }
 
-    @Override
-    public int getCount() {
-        return emotions.size();
-    }
 
     @Override
-    public Object getItem(int position) {
-        return emotions.get(position);
+    public List<Emotion> getList() {
+        return emotions;
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    // TODO for demo emotions only; remove later
-    private String getAssetPathFromPosition(int position) {
-        switch (position % 5) {
-            case 1:
-                return "emotions/ic_mad.png";
-            case 2:
-                return "emotions/ic_neutral.png";
-            case 3:
-                return "emotions/ic_sad.png";
-            case 4:
-                return "emotions/ic_scared.png";
-        }
-        return "emotions/ic_happy.png";
-    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
