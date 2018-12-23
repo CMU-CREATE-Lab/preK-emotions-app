@@ -57,7 +57,17 @@ public class StudentIndexAdapter extends BaseAdapter {
     }
     // TODO for demo emotions only; remove later
     private String getAssetPathFromPosition(int position) {
-        return "emotions/ic_icon_happy.png";
+        switch (position % 5) {
+            case 1:
+                return "emotions/ic_mad.png";
+            case 2:
+                return "emotions/ic_neutral.png";
+            case 3:
+                return "emotions/ic_sad.png";
+            case 4:
+                return "emotions/ic_scared.png";
+        }
+        return "emotions/ic_happy.png";
     }
 
     @Override
