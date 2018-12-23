@@ -15,7 +15,7 @@ import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;
 
-public class StudentsIndexActivity extends AppCompatActivity {
+public class StudentIndexActivity extends AppCompatActivity {
 
 
     @Override

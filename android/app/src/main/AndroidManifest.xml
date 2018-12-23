@@ -21,13 +21,16 @@
         <activity android:name=".activities.ClassroomsIndexActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
-        <activity android:name=".activities.StudentsIndexActivity"
+        <activity android:name=".activities.StudentIndexActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
         <activity android:name=".activities.WebIndexActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
         <activity android:name=".activities.ChooseClassroomActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:screenOrientation="landscape" />
+        <activity android:name=".activities.ChooseEmotionActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
     </application>

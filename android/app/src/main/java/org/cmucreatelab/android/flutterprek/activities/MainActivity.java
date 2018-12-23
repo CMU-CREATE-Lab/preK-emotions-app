@@ -7,6 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         buttonStudents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent studentsIndexActivity = new Intent(MainActivity.this, StudentsIndexActivity.class);
+                Intent studentsIndexActivity = new Intent(MainActivity.this, StudentIndexActivity.class);
                 startActivity(studentsIndexActivity);
             }
         });
@@ -82,4 +85,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_emotions:
+                Intent chooseEmotionActivity = new Intent(MainActivity.this, ChooseEmotionActivity.class);
+                startActivity(chooseEmotionActivity);
+                return true;
+        }
+        return false;
+    }
+
 }

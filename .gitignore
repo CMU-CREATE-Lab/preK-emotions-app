@@ -1,2 +1,5 @@
 .DS_Store
 android/.idea
+
+# ignore stock/test images
+android/app/src/main/assets/etc/

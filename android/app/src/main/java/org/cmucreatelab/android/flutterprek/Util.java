@@ -19,8 +19,6 @@ public class Util {
             Bitmap bitmap = BitmapFactory.decodeStream(assetInStream);
 
             imageView.setImageBitmap(bitmap);
-            // TODO really just demos for the emotion
-            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         } catch (Exception e) {
             Log.e(LOG_TAG, "failed to set ImageView with asset="+assetPath);
             e.printStackTrace();

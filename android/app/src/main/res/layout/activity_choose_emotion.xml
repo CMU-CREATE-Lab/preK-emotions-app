@@ -34,7 +34,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/source_sans_pro"
-                android:text="@string/choose_classroom_prompt"
+                android:text="@string/choose_emotion_prompt"
                 android:textAlignment="center"
                 android:textColor="#4a4a4a"
                 android:textSize="36sp"
@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <GridView
-                android:id="@+id/classroomsGridView"
+                android:id="@+id/emotionsGridView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="60dp"
