@@ -4,25 +4,24 @@ import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;
 
-public class StudentIndexActivity extends AppCompatActivity {
+public class StudentIndexActivity extends AbstractActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_students_index);
 
         // TODO pass in information on what to display (probably classroom ID)
         AppDatabase.getInstance(this).studentDAO().getAllStudents().observe(this, new Observer<List<Student>>() {
@@ -40,6 +39,12 @@ public class StudentIndexActivity extends AppCompatActivity {
                 Log.i("activity", "fabNewStudent.onClick");
             }
         });
+    }
+
+
+    @Override
+    public int getResourceIdForActivityLayout() {
+        return R.layout.activity_students_index;
     }
 
 }

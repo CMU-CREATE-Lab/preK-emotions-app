@@ -3,26 +3,25 @@ package org.cmucreatelab.android.flutterprek.activities.teacher_section;
 import android.arch.lifecycle.Observer;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.adapters.ClassroomIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 import java.util.List;
 
-public class ClassroomIndexActivity extends AppCompatActivity {
+public class ClassroomIndexActivity extends AbstractActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_classrooms_index);
 
         AppDatabase.getInstance(this).classroomDAO().getAllClassrooms().observe(this, new Observer<List<Classroom>>() {
             @Override
@@ -39,6 +38,12 @@ public class ClassroomIndexActivity extends AppCompatActivity {
                 Log.i("activity", "fabNewClassroom.onClick");
             }
         });
+    }
+
+
+    @Override
+    public int getResourceIdForActivityLayout() {
+        return R.layout.activity_classrooms_index;
     }
 
 }
