@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.ClassroomViewModel;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         classroomViewModel.getAllClassrooms().observe(this, new Observer<List<Classroom>>() {
             @Override
             public void onChanged(@Nullable final List<Classroom> classrooms) {
-                Log.i("flutterprek","onChanged classrooms");
+                Log.i(Constants.LOG_TAG,"onChanged classrooms");
             }
         });
 
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         studentViewModel.getAllStudents().observe(this, new Observer<List<Student>>() {
             @Override
             public void onChanged(@Nullable final List<Student> students) {
-                Log.i("flutterprek","onChanged students");
+                Log.i(Constants.LOG_TAG,"onChanged students");
             }
         });
 

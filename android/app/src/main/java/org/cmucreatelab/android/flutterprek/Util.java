@@ -8,10 +8,10 @@ import android.widget.ImageView;
 
 import java.io.InputStream;
 
+import static org.cmucreatelab.android.flutterprek.Constants.LOG_TAG;
+
 public class Util {
-
-    private static final String LOG_TAG = "flutterprek";
-
+    
 
     public static void setImageViewWithAsset(Context appContext, ImageView imageView, String assetPath) {
         try {

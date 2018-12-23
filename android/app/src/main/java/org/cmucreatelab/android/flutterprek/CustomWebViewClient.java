@@ -7,6 +7,8 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import static org.cmucreatelab.android.flutterprek.Constants.LOG_TAG;
+
 /**
  * Created by mike on 8/2/17.
  *
@@ -16,7 +18,6 @@ import android.webkit.WebViewClient;
 public class CustomWebViewClient extends WebViewClient {
 
     private AppCompatActivity mainActivity;
-    private static final String LOG_TAG = "flutterprek";
 
 
     public CustomWebViewClient(AppCompatActivity mainActivity) {

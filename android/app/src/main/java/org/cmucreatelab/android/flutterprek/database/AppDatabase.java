@@ -19,6 +19,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.database.gson.DateTypeAdapter;
 import org.cmucreatelab.android.flutterprek.database.gson.GsonDatabaseParser;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
@@ -74,14 +75,14 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            Log.i("flutterprek", "RoomDatabase.Callback.onCreate");
+            Log.i(Constants.LOG_TAG, "RoomDatabase.Callback.onCreate");
             super.onCreate(db);
             new PopulateDbAsync().execute();
         }
 
         @Override
         public void onOpen (@NonNull SupportSQLiteDatabase db){
-            Log.i("flutterprek", "RoomDatabase.Callback.onOpen");
+            Log.i(Constants.LOG_TAG, "RoomDatabase.Callback.onOpen");
             super.onOpen(db);
         }
     };
@@ -90,17 +91,17 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            Log.i("flutterprek", "creating flutterprek DB");
+            Log.i(Constants.LOG_TAG, "creating flutterprek DB");
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeAdapter(Date.class, new DateTypeAdapter());
             Gson gson = builder.create();
 
             try {
-                InputStream inputStream = appContext.getAssets().open("DbSeed.json");
+                InputStream inputStream = appContext.getAssets().open(Constants.DATABASE_SEED);
                 GsonDatabaseParser gsonDatabaseParser = gson.fromJson(new InputStreamReader(inputStream), GsonDatabaseParser.class);
                 gsonDatabaseParser.populateDatabase(instance);
             } catch (IOException e) {
-                Log.e("flutterprek", "Failed to create DB from JSON file!");
+                Log.e(Constants.LOG_TAG, "Failed to create DB from JSON file!");
                 e.printStackTrace();
             }
 
