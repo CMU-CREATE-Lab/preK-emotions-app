@@ -43,6 +43,29 @@
     </style>
 
 
+    <!-- Grid Views -->
+    <style name="GridView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">143sp</item>
+        <item name="android:elevation">5sp</item>
+        <item name="android:background">@drawable/card</item>
+    </style>
+    <style name="GridView.Title" parent="textBold" >
+        <item name="android:layout_height">69dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textColor">@color/colorClassroomGridTitle</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    <style name="GridView.Label">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textColor">@color/colorClassroomGridLabel</item>
+    </style>
+
+
     <!-- Drawer Styles (fragments) -->
     <style name="DrawerTeacherSection">
         <item name="android:layout_width">@dimen/drawer_width</item>

@@ -1,47 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="143sp"
-    android:elevation="5sp"
-    android:background="@drawable/card" >
+    style="@style/GridView" >
 
     <TextView
         android:id="@+id/text1"
+        style="@style/GridView.Title"
         android:layout_width="0dp"
-        android:layout_height="69dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="15dp"
         android:text=""
-        android:fontFamily="@font/source_sans_pro"
-        android:textColor="#2d2d2d"
-        android:textSize="26sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
+        style="@style/GridView.Label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="@string/classroom_grid_label_students"
-        android:fontFamily="@font/source_sans_pro"
-        android:textColor="#000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text1" />
 
     <TextView
         android:id="@+id/textView3"
+        style="@style/GridView.Label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="3dp"
         android:text="@string/classroom_grid_label_coping_skills"
-        android:fontFamily="@font/source_sans_pro"
-        android:textColor="#000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 </android.support.constraint.ConstraintLayout>
