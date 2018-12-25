@@ -10,9 +10,11 @@
         android:layout_height="match_parent"
         android:background="#f4f4f4" >
 
-        <include
+        <fragment
             android:id="@+id/appHeader"
-            layout="@layout/layout_header_transparent" />
+            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.AppHeaderFragment"
+            android:layout_width="match_parent"
+            android:layout_height="65sp" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"

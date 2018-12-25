@@ -6,14 +6,13 @@ import android.support.annotation.Nullable;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 
 import java.util.List;
 
-public class ChooseCopingSkillActivity extends AbstractActivity {
+public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader {
 
 
     @Override

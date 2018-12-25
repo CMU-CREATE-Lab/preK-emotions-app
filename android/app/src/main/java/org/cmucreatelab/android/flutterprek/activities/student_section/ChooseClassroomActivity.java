@@ -6,14 +6,13 @@ import android.support.annotation.Nullable;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.adapters.ClassroomIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 import java.util.List;
 
-public class ChooseClassroomActivity extends AbstractActivity {
+public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
 
 
     @Override

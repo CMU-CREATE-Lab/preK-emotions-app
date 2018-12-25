@@ -9,14 +9,13 @@ import android.view.View;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.adapters.ClassroomIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 import java.util.List;
 
-public class ClassroomIndexActivity extends AbstractActivity {
+public class ClassroomIndexActivity extends TeacherSectionActivityWithHeader {
 
 
     @Override

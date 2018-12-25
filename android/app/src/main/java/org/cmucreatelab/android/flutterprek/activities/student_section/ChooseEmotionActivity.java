@@ -6,14 +6,13 @@ import android.support.annotation.Nullable;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 
 import java.util.List;
 
-public class ChooseEmotionActivity extends AbstractActivity {
+public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
 
 
     @Override
