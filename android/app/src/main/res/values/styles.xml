@@ -7,21 +7,17 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
     <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
@@ -31,6 +27,41 @@
     </style>
     <style name="textNormal">
         <item name="android:textStyle">normal</item>
+    </style>
+
+
+    <!-- Header -->
+    <style name="AppHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+    <style name="AppHeader.Images">
+        <item name="android:layout_marginBottom">@dimen/header_images_margin</item>
+        <item name="android:layout_marginEnd">@dimen/header_images_margin</item>
+        <item name="android:layout_marginTop">@dimen/header_images_margin</item>
+    </style>
+
+
+    <!-- Drawer Styles (fragments) -->
+    <style name="DrawerTeacherSection">
+        <item name="android:layout_width">@dimen/drawer_width</item>
+        <item name="android:background">@color/colorDrawerBackground</item>
+    </style>
+    <style name="DrawerTeacherSection.Highlighted">
+        <item name="android:layout_width">7sp</item>
+        <item name="android:layout_height">36sp</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+    <style name="DrawerTeacherSection.Text">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginEnd">13dp</item>
+        <item name="android:layout_marginStart">13dp</item>
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:gravity">fill_vertical</item>
+        <item name="android:textColor">@color/colorTextDrawerTitle</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
 </resources>

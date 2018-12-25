@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- colors for app theme -->
     <color name="colorPrimary">#5bddc5</color>
     <color name="colorPrimaryDark">#5bddc5</color>
     <color name="colorAccent">#5bddc5</color>
+    <!-- drawer fragment -->
+    <color name="colorTextDrawerTitle">#4a4a4a</color>
+    <color name="colorDrawerBackground">@color/colorWhite</color>
+    <!-- miscellaneous -->
+    <color name="colorWhite">#fff</color>
     <color name="colorNone"></color>
 </resources>

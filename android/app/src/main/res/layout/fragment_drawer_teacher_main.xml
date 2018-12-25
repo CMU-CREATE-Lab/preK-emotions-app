@@ -3,39 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerTeacherMain"
-    android:layout_width="205sp"
-    android:background="#fff"
-    android:layout_height="0sp" >
+    style="@style/DrawerTeacherSection"
+    android:layout_height="match_parent">
 
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintRow1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/drawer_top_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <View
             android:id="@+id/highlightViewActiveClass"
-            android:layout_width="7sp"
-            android:layout_height="36sp"
-            android:background="@color/colorPrimary"
+            style="@style/DrawerTeacherSection.Highlighted"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewActiveClass"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginStart="13dp"
-            android:fontFamily="@font/source_sans_pro"
-            android:gravity="fill_vertical"
+            style="@style/DrawerTeacherSection.Text"
             android:text="@string/mindfulnest_header_active_class"
-            android:textColor="#4a4a4a"
-            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/highlightViewActiveClass"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,31 +39,22 @@
         android:id="@+id/constraintRow2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/drawer_title_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintRow1">
 
         <View
             android:id="@+id/highlightViewClasses"
-            android:layout_width="7sp"
-            android:layout_height="36sp"
-            android:background="@color/colorPrimary"
+            style="@style/DrawerTeacherSection.Highlighted"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewClasses"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginStart="13dp"
-            android:fontFamily="@font/source_sans_pro"
-            android:gravity="fill_vertical"
+            style="@style/DrawerTeacherSection.Text"
             android:text="@string/mindfulnest_header_classes"
-            android:textColor="#4a4a4a"
-            android:textSize="24sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@+id/highlightViewClasses"
             app:layout_constraintEnd_toEndOf="parent"
@@ -87,31 +68,22 @@
         android:id="@+id/constraintRow3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/drawer_title_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintRow2">
 
         <View
             android:id="@+id/highlightViewCopingSkills"
-            android:layout_width="7sp"
-            android:layout_height="36sp"
-            android:background="@color/colorPrimary"
+            style="@style/DrawerTeacherSection.Highlighted"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewCopingSkills"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginStart="13dp"
-            android:fontFamily="@font/source_sans_pro"
-            android:gravity="fill_vertical"
+            style="@style/DrawerTeacherSection.Text"
             android:text="@string/mindfulnest_header_coping_skills"
-            android:textColor="#4a4a4a"
-            android:textSize="24sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@+id/highlightViewCopingSkills"
             app:layout_constraintEnd_toEndOf="parent"
@@ -125,31 +97,22 @@
         android:id="@+id/constraintRow4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/drawer_title_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintRow3">
 
         <View
             android:id="@+id/highlightViewEmotions"
-            android:layout_width="7sp"
-            android:layout_height="36sp"
-            android:background="@color/colorPrimary"
+            style="@style/DrawerTeacherSection.Highlighted"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewEmotions"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginStart="13dp"
-            android:fontFamily="@font/source_sans_pro"
-            android:gravity="fill_vertical"
+            style="@style/DrawerTeacherSection.Text"
             android:text="@string/mindfulnest_header_emotions"
-            android:textColor="#4a4a4a"
-            android:textSize="24sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@+id/highlightViewEmotions"
             app:layout_constraintEnd_toEndOf="parent"

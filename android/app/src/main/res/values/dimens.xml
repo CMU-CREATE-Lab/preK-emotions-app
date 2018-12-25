@@ -1,3 +1,8 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="header_images_margin">17dp</dimen>
+    <!-- Drawer -->
+    <dimen name="drawer_width">205dp</dimen>
+    <dimen name="drawer_top_margin">40dp</dimen>
+    <dimen name="drawer_title_margin">16dp</dimen>
 </resources>
