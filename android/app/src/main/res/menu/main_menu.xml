@@ -17,6 +17,8 @@
         <menu>
             <item android:id="@+id/menu_choose_classroom"
                 android:title="@string/menu_classrooms" />
+            <item android:id="@+id/menu_choose_student"
+                android:title="@string/menu_students" />
             <item android:id="@+id/menu_choose_emotion"
                 android:title="@string/menu_emotions" />
             <item android:id="@+id/menu_choose_coping_skill"
