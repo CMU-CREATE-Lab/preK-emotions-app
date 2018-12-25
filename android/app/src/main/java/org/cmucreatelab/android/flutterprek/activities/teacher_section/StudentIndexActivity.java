@@ -10,12 +10,14 @@ import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
+import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;
 
-public class StudentIndexActivity extends TeacherSectionActivityWithHeader {
+// TODO Student index does not actually use the "Main" drawer
+public class StudentIndexActivity extends TeacherSectionActivityWithHeaderAndDrawer {
 
 
     @Override
@@ -38,6 +40,12 @@ public class StudentIndexActivity extends TeacherSectionActivityWithHeader {
                 Log.i("activity", "fabNewStudent.onClick");
             }
         });
+    }
+
+
+    @Override
+    public DrawerTeacherMainFragment.Section getSectionForDrawer() {
+        return DrawerTeacherMainFragment.Section.CLASSES;
     }
 
 

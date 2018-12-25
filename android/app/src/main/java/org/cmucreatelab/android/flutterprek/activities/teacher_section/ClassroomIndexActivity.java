@@ -10,12 +10,13 @@ import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.ClassroomIndexAdapter;
+import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 import java.util.List;
 
-public class ClassroomIndexActivity extends TeacherSectionActivityWithHeader {
+public class ClassroomIndexActivity extends TeacherSectionActivityWithHeaderAndDrawer {
 
 
     @Override
@@ -37,6 +38,12 @@ public class ClassroomIndexActivity extends TeacherSectionActivityWithHeader {
                 Log.i("activity", "fabNewClassroom.onClick");
             }
         });
+    }
+
+
+    @Override
+    public DrawerTeacherMainFragment.Section getSectionForDrawer() {
+        return DrawerTeacherMainFragment.Section.ACTIVE_CLASS;
     }
 
 

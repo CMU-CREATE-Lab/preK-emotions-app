@@ -16,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="65sp" />
 
-        <include layout="@layout/layout_drawer_teacher_main"
+        <fragment
+            android:id="@+id/drawerTeacherMain"
+            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment"
             android:layout_width="205sp"
             android:layout_height="0sp"
             app:layout_constraintBottom_toBottomOf="parent"
