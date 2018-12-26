@@ -12,6 +12,8 @@
                 android:title="@string/menu_students" />
             <item android:id="@+id/menu_coping_skill_index"
                 android:title="@string/menu_coping_skills" />
+            <item android:id="@+id/menu_emotion_index"
+                android:title="@string/menu_emotions" />
         </menu>
     </item>
     <item android:id="@+id/menu_section_student"

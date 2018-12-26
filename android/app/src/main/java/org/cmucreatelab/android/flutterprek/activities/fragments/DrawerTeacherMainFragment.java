@@ -14,9 +14,9 @@ import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.MainActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.ClassroomIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSkillIndexActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.EmotionIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.StudentIndexActivity;
 
 public class DrawerTeacherMainFragment extends Fragment {
@@ -101,8 +101,8 @@ public class DrawerTeacherMainFragment extends Fragment {
         view.findViewById(R.id.constraintRow4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent emotionsIndexActivity = new Intent(getContext(), EmotionIndexActivity.class);
-//                startActivity(emotionsIndexActivity);
+                Intent emotionsIndexActivity = new Intent(getContext(), EmotionIndexActivity.class);
+                startActivity(emotionsIndexActivity);
             }
         });
     }
