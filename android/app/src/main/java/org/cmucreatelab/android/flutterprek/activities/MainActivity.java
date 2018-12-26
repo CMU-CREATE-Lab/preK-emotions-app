@@ -18,6 +18,7 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCop
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseEmotionActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.ClassroomIndexActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSkillIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.StudentIndexActivity;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.ClassroomViewModel;
@@ -73,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_student_index:
                 Intent studentsIndexActivity = new Intent(MainActivity.this, StudentIndexActivity.class);
                 startActivity(studentsIndexActivity);
+                return true;
+            case R.id.menu_coping_skill_index:
+                Intent copingSkillsIndexActivity = new Intent(MainActivity.this, CopingSkillIndexActivity.class);
+                startActivity(copingSkillsIndexActivity);
                 return true;
             case R.id.menu_choose_classroom:
                 Intent chooseClassroomActivity = new Intent(MainActivity.this, ChooseClassroomActivity.class);

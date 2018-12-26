@@ -24,6 +24,9 @@
         <activity android:name=".activities.teacher_section.StudentIndexActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />
+        <activity android:name=".activities.teacher_section.CopingSkillIndexActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:screenOrientation="landscape" />
         <activity android:name=".activities.WebIndexActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="landscape" />

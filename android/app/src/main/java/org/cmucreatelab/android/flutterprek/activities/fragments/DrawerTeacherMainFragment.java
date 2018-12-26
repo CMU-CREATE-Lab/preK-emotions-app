@@ -1,5 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -13,6 +14,10 @@ import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.MainActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.ClassroomIndexActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSkillIndexActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.StudentIndexActivity;
 
 public class DrawerTeacherMainFragment extends Fragment {
 
@@ -70,7 +75,36 @@ public class DrawerTeacherMainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // TODO actions when SECTION is clicked
+
+        view.findViewById(R.id.constraintRow1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent classroomsIndexActivity = new Intent(getContext(), ClassroomIndexActivity.class);
+                startActivity(classroomsIndexActivity);
+            }
+        });
+        view.findViewById(R.id.constraintRow2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Student index does not actually use the "Main" drawer
+                Intent studentsIndexActivity = new Intent(getContext(), StudentIndexActivity.class);
+                startActivity(studentsIndexActivity);
+            }
+        });
+        view.findViewById(R.id.constraintRow3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent copingSkillsIndexActivity = new Intent(getContext(), CopingSkillIndexActivity.class);
+                startActivity(copingSkillsIndexActivity);
+            }
+        });
+        view.findViewById(R.id.constraintRow4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent emotionsIndexActivity = new Intent(getContext(), EmotionIndexActivity.class);
+//                startActivity(emotionsIndexActivity);
+            }
+        });
     }
 
 
