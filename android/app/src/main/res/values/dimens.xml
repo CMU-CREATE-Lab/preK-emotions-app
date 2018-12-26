@@ -5,4 +5,7 @@
     <dimen name="drawer_width">205dp</dimen>
     <dimen name="drawer_top_margin">40dp</dimen>
     <dimen name="drawer_title_margin">16dp</dimen>
+    <!-- GridViews -->
+    <dimen name="grid_view_lower_padding">10sp</dimen>
+    <dimen name="grid_view_lower_text_size">16sp</dimen>
 </resources>

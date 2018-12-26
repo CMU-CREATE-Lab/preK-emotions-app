@@ -50,7 +50,7 @@
         <item name="android:elevation">5sp</item>
         <item name="android:background">@drawable/card</item>
     </style>
-    <style name="GridViewTitle" parent="textBold" >
+    <style name="GridViewClassroomTitle" parent="textBold">
         <item name="android:layout_height">69dp</item>
         <item name="android:layout_marginEnd">10dp</item>
         <item name="android:layout_marginStart">16dp</item>
@@ -59,10 +59,35 @@
         <item name="android:textColor">@color/colorClassroomGridTitle</item>
         <item name="android:textSize">26sp</item>
     </style>
-    <style name="GridViewLabel">
+    <style name="GridViewClassroomLabels">
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:fontFamily">@font/source_sans_pro</item>
         <item name="android:textColor">@color/colorClassroomGridLabel</item>
+    </style>
+    <style name="GridViewThumbnail">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">@drawable/card</item>
+        <!-- NOTE: margin/padding hack to avoid clipped image -->
+        <item name="android:layout_marginBottom">36sp</item>
+        <item name="android:paddingBottom">4sp</item>
+    </style>
+    <style name="GridViewThumbnail.CenterCrop">
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+    <style name="GridViewThumbnail.FitCenter">
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+    <style name="GridViewLowerTitle" parent="textBold">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40sp</item>
+        <item name="android:background">@drawable/card_half_bottom</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/grid_view_lower_padding</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textColor">@color/colorGridLowerTitle</item>
+        <item name="android:textSize">@dimen/grid_view_lower_text_size</item>
     </style>
 
 

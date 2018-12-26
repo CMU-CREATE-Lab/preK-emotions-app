@@ -5,12 +5,7 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="36sp"
-        android:paddingBottom="4sp"
-        android:background="@drawable/card"
-        android:scaleType="fitCenter"
+        style="@style/GridViewThumbnail.FitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,17 +13,7 @@
 
     <TextView
         android:id="@+id/text1"
-        android:layout_width="match_parent"
-        android:layout_height="40sp"
-        android:background="@drawable/card_half_bottom"
-        android:gravity="center"
-        android:padding="10sp"
-        android:text=""
-        android:fontFamily="@font/source_sans_pro"
-        android:textAlignment="center"
-        android:textColor="#4a4a4a"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        style="@style/GridViewLowerTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
