@@ -43,6 +43,30 @@
     </style>
 
 
+    <style name="StudentSectionLayoutWithText">
+        <item name="android:layout_marginBottom">40sp</item>
+        <item name="android:layout_marginEnd">140sp</item>
+        <item name="android:layout_marginStart">140sp</item>
+        <item name="android:layout_marginTop">40sp</item>
+    </style>
+    <style name="StudentSectionLayoutNoText">
+        <item name="android:layout_marginBottom">40sp</item>
+        <item name="android:layout_marginEnd">55sp</item>
+        <item name="android:layout_marginStart">55sp</item>
+        <item name="android:layout_marginTop">40sp</item>
+    </style>
+    <style name="StudentSectionText">
+        <item name="android:layout_marginBottom">40sp</item>
+        <item name="android:layout_marginEnd">8sp</item>
+        <item name="android:layout_marginStart">8sp</item>
+        <item name="android:layout_marginTop">20sp</item>
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/colorGray</item>
+        <item name="android:textSize">36sp</item>
+    </style>
+
+
     <!-- Grid Views -->
     <style name="TeacherSectionGridView">
         <item name="android:layout_width">0dp</item>
@@ -53,6 +77,16 @@
         <item name="android:horizontalSpacing">25sp</item>
         <item name="android:numColumns">auto_fit</item>
         <item name="android:stretchMode">columnWidth</item>
+        <item name="android:verticalSpacing">25sp</item>
+    </style>
+    <style name="StudentSectionGridView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:columnWidth">165sp</item>
+        <item name="android:horizontalSpacing">25sp</item>
+        <item name="android:numColumns">auto_fit</item>
+        <item name="android:stretchMode">spacingWidthUniform</item>
         <item name="android:verticalSpacing">25sp</item>
     </style>
 
