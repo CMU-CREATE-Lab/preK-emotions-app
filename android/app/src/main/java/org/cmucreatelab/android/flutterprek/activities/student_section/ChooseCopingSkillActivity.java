@@ -32,7 +32,7 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader 
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout.activity_choose_coping_skill;
+        return R.layout._student_section__activity_choose_coping_skill;
     }
 
 }

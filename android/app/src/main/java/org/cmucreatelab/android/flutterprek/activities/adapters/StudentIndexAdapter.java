@@ -36,7 +36,7 @@ public class StudentIndexAdapter extends AbstractListAdapter<Student> {
         View result;
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
-            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_grid_view_item, parent, false);
+            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_item_student, parent, false);
             // NOTE: requires api level 21
             result.findViewById(R.id.imageView).setClipToOutline(true);
         } else {

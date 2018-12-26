@@ -31,7 +31,7 @@ public class ClassroomIndexAdapter extends AbstractListAdapter<Classroom> {
         View result;
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
-            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.classroom_grid_view_item, parent, false);
+            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_item_classroom, parent, false);
         } else {
             result = convertView;
         }

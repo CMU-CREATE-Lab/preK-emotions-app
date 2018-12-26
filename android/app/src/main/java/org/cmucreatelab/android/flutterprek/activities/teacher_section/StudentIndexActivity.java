@@ -51,7 +51,7 @@ public class StudentIndexActivity extends TeacherSectionActivityWithHeaderAndDra
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout.activity_students_index;
+        return R.layout._teacher_section__activity_students_index;
     }
 
 }

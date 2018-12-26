@@ -32,7 +32,7 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout.activity_choose_emotion;
+        return R.layout._student_section__activity_choose_emotion;
     }
 
 }

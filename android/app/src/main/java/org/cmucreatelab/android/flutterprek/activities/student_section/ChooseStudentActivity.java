@@ -31,7 +31,7 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout.activity_choose_student;
+        return R.layout._student_section__activity_choose_student;
     }
 
 }

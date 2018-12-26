@@ -49,7 +49,7 @@ public class EmotionIndexActivity extends TeacherSectionActivityWithHeaderAndDra
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout.activity_emotions_index;
+        return R.layout._teacher_section__activity_emotions_index;
     }
 
 }

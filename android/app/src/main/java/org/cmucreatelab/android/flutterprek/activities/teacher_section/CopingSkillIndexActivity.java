@@ -49,7 +49,7 @@ public class CopingSkillIndexActivity extends TeacherSectionActivityWithHeaderAn
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout.activity_coping_skills_index;
+        return R.layout._teacher_section__activity_coping_skills_index;
     }
 
 }

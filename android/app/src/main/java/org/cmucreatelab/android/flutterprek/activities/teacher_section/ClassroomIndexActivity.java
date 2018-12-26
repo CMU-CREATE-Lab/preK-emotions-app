@@ -49,7 +49,7 @@ public class ClassroomIndexActivity extends TeacherSectionActivityWithHeaderAndD
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout.activity_classrooms_index;
+        return R.layout._teacher_section__activity_classrooms_index;
     }
 
 }
