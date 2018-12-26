@@ -18,13 +18,13 @@
 
         <View
             android:id="@+id/highlightViewActiveClass"
-            style="@style/DrawerTeacherSection.Highlighted"
+            style="@style/DrawerTeacherSectionHighlighted"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewActiveClass"
-            style="@style/DrawerTeacherSection.Text"
+            style="@style/DrawerTeacherSectionText"
             android:text="@string/mindfulnest_header_active_class"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/highlightViewActiveClass"
@@ -46,14 +46,14 @@
 
         <View
             android:id="@+id/highlightViewClasses"
-            style="@style/DrawerTeacherSection.Highlighted"
+            style="@style/DrawerTeacherSectionHighlighted"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewClasses"
-            style="@style/DrawerTeacherSection.Text"
+            style="@style/DrawerTeacherSectionText"
             android:text="@string/mindfulnest_header_classes"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@+id/highlightViewClasses"
@@ -75,14 +75,14 @@
 
         <View
             android:id="@+id/highlightViewCopingSkills"
-            style="@style/DrawerTeacherSection.Highlighted"
+            style="@style/DrawerTeacherSectionHighlighted"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewCopingSkills"
-            style="@style/DrawerTeacherSection.Text"
+            style="@style/DrawerTeacherSectionText"
             android:text="@string/mindfulnest_header_coping_skills"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@+id/highlightViewCopingSkills"
@@ -104,14 +104,14 @@
 
         <View
             android:id="@+id/highlightViewEmotions"
-            style="@style/DrawerTeacherSection.Highlighted"
+            style="@style/DrawerTeacherSectionHighlighted"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewEmotions"
-            style="@style/DrawerTeacherSection.Text"
+            style="@style/DrawerTeacherSectionText"
             android:text="@string/mindfulnest_header_emotions"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@+id/highlightViewEmotions"

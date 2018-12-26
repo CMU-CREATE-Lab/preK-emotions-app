@@ -36,7 +36,7 @@
         <item name="android:layout_height">65dp</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
-    <style name="AppHeader.Images">
+    <style name="AppHeaderImages">
         <item name="android:layout_marginBottom">@dimen/header_images_margin</item>
         <item name="android:layout_marginEnd">@dimen/header_images_margin</item>
         <item name="android:layout_marginTop">@dimen/header_images_margin</item>
@@ -50,7 +50,7 @@
         <item name="android:elevation">5sp</item>
         <item name="android:background">@drawable/card</item>
     </style>
-    <style name="GridView.Title" parent="textBold" >
+    <style name="GridViewTitle" parent="textBold" >
         <item name="android:layout_height">69dp</item>
         <item name="android:layout_marginEnd">10dp</item>
         <item name="android:layout_marginStart">16dp</item>
@@ -59,7 +59,7 @@
         <item name="android:textColor">@color/colorClassroomGridTitle</item>
         <item name="android:textSize">26sp</item>
     </style>
-    <style name="GridView.Label">
+    <style name="GridViewLabel">
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:fontFamily">@font/source_sans_pro</item>
         <item name="android:textColor">@color/colorClassroomGridLabel</item>
@@ -71,12 +71,12 @@
         <item name="android:layout_width">@dimen/drawer_width</item>
         <item name="android:background">@color/colorDrawerBackground</item>
     </style>
-    <style name="DrawerTeacherSection.Highlighted">
+    <style name="DrawerTeacherSectionHighlighted">
         <item name="android:layout_width">7sp</item>
         <item name="android:layout_height">36sp</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
-    <style name="DrawerTeacherSection.Text">
+    <style name="DrawerTeacherSectionText">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_marginEnd">13dp</item>
