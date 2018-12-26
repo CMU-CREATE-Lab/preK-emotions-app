@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/GridView" >
+    style="@style/GridViewItem" >
 
     <TextView
         android:id="@+id/text1"
-        style="@style/GridViewClassroomTitle"
+        style="@style/GridViewItemClassroomTitle"
         android:layout_width="0dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
@@ -14,7 +14,7 @@
 
     <TextView
         android:id="@+id/textView2"
-        style="@style/GridViewClassroomLabels"
+        style="@style/GridViewItemClassroomLabels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/classroom_grid_label_students"
@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/textView3"
-        style="@style/GridViewClassroomLabels"
+        style="@style/GridViewItemClassroomLabels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/GridView" >
+    style="@style/GridViewItem" >
 
     <ImageView
         android:id="@+id/imageView"
-        style="@style/GridViewThumbnail.FitCenter"
+        style="@style/GridViewItemThumbnail.FitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/text1"
-        style="@style/GridViewLowerTitle"
+        style="@style/GridViewItemLowerTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

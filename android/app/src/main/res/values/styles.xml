@@ -44,13 +44,27 @@
 
 
     <!-- Grid Views -->
-    <style name="GridView">
+    <style name="TeacherSectionGridView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">40sp</item>
+        <item name="android:columnWidth">165sp</item>
+        <item name="android:horizontalSpacing">25sp</item>
+        <item name="android:numColumns">auto_fit</item>
+        <item name="android:stretchMode">columnWidth</item>
+        <item name="android:verticalSpacing">25sp</item>
+    </style>
+
+
+    <!-- Grid View Items -->
+    <style name="GridViewItem">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">143sp</item>
         <item name="android:elevation">5sp</item>
         <item name="android:background">@drawable/card</item>
     </style>
-    <style name="GridViewClassroomTitle" parent="textBold">
+    <style name="GridViewItemClassroomTitle" parent="textBold">
         <item name="android:layout_height">69dp</item>
         <item name="android:layout_marginEnd">10dp</item>
         <item name="android:layout_marginStart">16dp</item>
@@ -59,12 +73,12 @@
         <item name="android:textColor">@color/colorClassroomGridTitle</item>
         <item name="android:textSize">26sp</item>
     </style>
-    <style name="GridViewClassroomLabels">
+    <style name="GridViewItemClassroomLabels">
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:fontFamily">@font/source_sans_pro</item>
         <item name="android:textColor">@color/colorClassroomGridLabel</item>
     </style>
-    <style name="GridViewThumbnail">
+    <style name="GridViewItemThumbnail">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:background">@drawable/card</item>
@@ -72,13 +86,13 @@
         <item name="android:layout_marginBottom">36sp</item>
         <item name="android:paddingBottom">4sp</item>
     </style>
-    <style name="GridViewThumbnail.CenterCrop">
+    <style name="GridViewItemThumbnail.CenterCrop">
         <item name="android:scaleType">centerCrop</item>
     </style>
-    <style name="GridViewThumbnail.FitCenter">
+    <style name="GridViewItemThumbnail.FitCenter">
         <item name="android:scaleType">fitCenter</item>
     </style>
-    <style name="GridViewLowerTitle" parent="textBold">
+    <style name="GridViewItemLowerTitle" parent="textBold">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40sp</item>
         <item name="android:background">@drawable/card_half_bottom</item>
