@@ -37,6 +37,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageViewSilhouette"
+        android:layout_width="282dp"
+        android:layout_height="481dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_flower_silhouette" />
+
+    <ImageView
+        android:id="@+id/imageViewBreatheIn"
+        android:layout_width="97dp"
+        android:layout_height="83dp"
+        android:scaleType="fitXY"
+        android:layout_marginBottom="169.7dp"
+        android:layout_marginEnd="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
+        app:srcCompat="@drawable/ic_flower_air_lines" />
+
+    <ImageView
+        android:id="@+id/imageViewBreatheOut"
+        android:layout_width="97dp"
+        android:layout_height="83dp"
+        android:scaleType="fitXY"
+        android:rotation="10"
+        android:layout_marginBottom="139.7dp"
+        android:layout_marginEnd="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
+        app:srcCompat="@drawable/ic_flower_air_lines" />
+
     <!-- everything else in the foreground -->
     <TextView
         android:id="@+id/textView"
