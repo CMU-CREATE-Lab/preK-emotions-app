@@ -22,11 +22,27 @@ public class CopingSkillIndexAdapter extends AbstractListAdapter<CopingSkill> {
 
     private final AbstractActivity activity;
     private final List<CopingSkill> copingSkills;
+    private final boolean onClickListener;
+    private final ClickListener clickListener;
+
+    public interface ClickListener {
+        void onClick(CopingSkill copingSkill);
+    }
 
 
     public CopingSkillIndexAdapter(AbstractActivity activity, List<CopingSkill> copingSkills) {
         this.activity = activity;
         this.copingSkills = copingSkills;
+        onClickListener = false;
+        clickListener = null;
+    }
+
+
+    public CopingSkillIndexAdapter(AbstractActivity activity, List<CopingSkill> copingSkills, ClickListener listener) {
+        this.activity = activity;
+        this.copingSkills = copingSkills;
+        this.onClickListener = true;
+        this.clickListener = listener;
     }
 
 
@@ -47,7 +63,7 @@ public class CopingSkillIndexAdapter extends AbstractListAdapter<CopingSkill> {
         } else {
             result = convertView;
         }
-        CopingSkill copingSkill = copingSkills.get(position);
+        final CopingSkill copingSkill = copingSkills.get(position);
         TextView textView = (TextView)result.findViewById(R.id.text1);
         textView.setText(copingSkill.getName());
 
@@ -58,6 +74,15 @@ public class CopingSkillIndexAdapter extends AbstractListAdapter<CopingSkill> {
                 public void onChanged(@Nullable DbFile dbFile) {
                     // TODO check if file type is asset
                     Util.setImageViewWithAsset(appContext, (ImageView) result.findViewById(R.id.imageView), dbFile.getFilePath());
+                }
+            });
+        }
+
+        if (onClickListener) {
+            result.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onClick(copingSkill);
                 }
             });
         }

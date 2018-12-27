@@ -3,8 +3,10 @@ package org.cmucreatelab.android.flutterprek.activities.student_section;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.GridView;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -13,6 +15,13 @@ import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingS
 import java.util.List;
 
 public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader {
+
+    private final CopingSkillIndexAdapter.ClickListener listener = new CopingSkillIndexAdapter.ClickListener() {
+        @Override
+        public void onClick(CopingSkill copingSkill) {
+            Log.d(Constants.LOG_TAG, "onClick coping skill = " + copingSkill.getName());
+        }
+    };
 
 
     @Override
@@ -24,7 +33,7 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader 
             @Override
             public void onChanged(@Nullable List<CopingSkill> copingSkills) {
                 GridView copingSkillsGridView = findViewById(R.id.copingSkillsGridView);
-                copingSkillsGridView.setAdapter(new CopingSkillIndexAdapter(ChooseCopingSkillActivity.this, copingSkills));
+                copingSkillsGridView.setAdapter(new CopingSkillIndexAdapter(ChooseCopingSkillActivity.this, copingSkills, listener));
             }
         });
     }
