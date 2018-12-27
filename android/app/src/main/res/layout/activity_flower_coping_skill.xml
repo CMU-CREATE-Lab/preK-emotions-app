@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/flower_sky"
+    android:background="@drawable/background_flower_sky"
     tools:context=".FlowerCopingSkillActivity">
 
     <!-- clouds in the background -->
@@ -68,6 +68,77 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
         app:srcCompat="@drawable/ic_flower_air_lines" />
+
+    <ImageView
+        android:id="@+id/imageViewFlowerStem"
+        android:layout_width="19.1dp"
+        android:layout_height="174dp"
+        android:scaleType="fitXY"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="208.9dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
+        app:srcCompat="@drawable/flower_stem" />
+
+    <ImageView
+        android:id="@+id/imageViewFlowerPetal5"
+        android:layout_width="94.4dp"
+        android:layout_height="151.1dp"
+        android:rotation="288"
+        android:layout_marginBottom="150.4dp"
+        android:layout_marginEnd="210.4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewFlowerStem"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
+        app:srcCompat="@drawable/flower_petal" />
+    <ImageView
+        android:id="@+id/imageViewFlowerPetal4"
+        android:layout_width="94.4dp"
+        android:layout_height="151.1dp"
+        android:rotation="216"
+        android:layout_marginBottom="112.4dp"
+        android:layout_marginEnd="198.1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewFlowerStem"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
+        app:srcCompat="@drawable/flower_petal" />
+    <ImageView
+        android:id="@+id/imageViewFlowerPetal3"
+        android:layout_width="94.4dp"
+        android:layout_height="151.1dp"
+        android:rotation="144"
+        android:layout_marginBottom="112.4dp"
+        android:layout_marginEnd="158.1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewFlowerStem"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
+        app:srcCompat="@drawable/flower_petal" />
+    <ImageView
+        android:id="@+id/imageViewFlowerPetal2"
+        android:layout_width="94.4dp"
+        android:layout_height="151.1dp"
+        android:rotation="72"
+        android:layout_marginBottom="150.4dp"
+        android:layout_marginEnd="145.8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewFlowerStem"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
+        app:srcCompat="@drawable/flower_petal" />
+    <ImageView
+        android:id="@+id/imageViewFlowerPetal1"
+        android:layout_width="94.4dp"
+        android:layout_height="151.1dp"
+        android:layout_marginBottom="173.9dp"
+        android:layout_marginEnd="178.1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewFlowerStem"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
+        app:srcCompat="@drawable/flower_petal" />
+
+    <ImageView
+        android:id="@+id/imageViewFlowerMiddle"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="7.4dp"
+        android:layout_marginEnd="191.3dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewFlowerStem"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
+        app:srcCompat="@drawable/flower_middle" />
 
     <!-- everything else in the foreground -->
     <TextView
