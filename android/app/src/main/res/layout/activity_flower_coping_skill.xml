@@ -176,28 +176,35 @@
 
     <!-- everything else in the foreground -->
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/textViewDebug"
+        android:layout_width="190dp"
+        android:layout_height="200dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:background="#66000000"
+        android:lines="7"
+        android:padding="16dp"
         android:text="Flower Coping Skill"
+        android:gravity="center_vertical"
+        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginStart="190dp"
         android:layout_marginEnd="190dp"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="56dp"
         android:fontFamily="@font/source_sans_pro"
+        android:lines="3"
+        android:text="@string/coping_skill_flower_placeholder"
+        android:textAlignment="center"
         android:textColor="@color/colorGray"
         android:textSize="36sp"
-        android:text="@string/coping_skill_flower_placeholder"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton

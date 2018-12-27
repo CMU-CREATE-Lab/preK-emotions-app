@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.bluetooth_birdbrain.UARTConnection;
 
@@ -64,6 +65,10 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+
+        // testing set text
+        TextView textView = findViewById(R.id.textViewDebug);
+        textView.setText("Flower\nCoping\rSkill\n1\n2\n3\n4\n5\n6");
     }
 
 
