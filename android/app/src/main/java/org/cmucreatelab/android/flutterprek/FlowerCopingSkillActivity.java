@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.cmucreatelab.android.flutterprek.bluetooth_birdbrain.UARTConnection;
+
 public class FlowerCopingSkillActivity extends AppCompatActivity {
 
     private BluetoothAdapter bluetoothAdapter;
@@ -19,16 +21,27 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
     private final ScanCallback scanCallback = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
-            BluetoothDevice device = result.getDevice();
-            if (device.getName() != null && device.getName().startsWith("FLOWER-")) {
-                Log.d(Constants.LOG_TAG, "onLeScan found Flower with name=" + device.getName());
-                // TODO try autoconnect
-            } else {
-                Log.d(Constants.LOG_TAG, "onLeScan result: " + device.getName());
+            if (!flowerDiscovered) {
+                BluetoothDevice device = result.getDevice();
+                if (device.getName() != null && device.getName().startsWith("FLOWER-")) {
+                    Log.d(Constants.LOG_TAG, "onLeScan found Flower with name=" + device.getName());
+                    // TODO try autoconnect
+                    flowerDiscovered = true;
+                    UARTConnection uartConnection = new UARTConnection(getApplicationContext(), device, Constants.FLOWER_UART_SETTINGS);
+                    uartConnection.addRxDataListener(new UARTConnection.RXDataListener() {
+                        @Override
+                        public void onRXData(byte[] newData) {
+                            Log.d(Constants.LOG_TAG, "newData='" + new String(newData).trim() + "'");
+                        }
+                    });
+                } else {
+                    Log.d(Constants.LOG_TAG, "onLeScan result: " + device.getName());
+                }
             }
             super.onScanResult(callbackType, result);
         }
     };
+    private boolean flowerDiscovered = false;
 
 
     @Override
