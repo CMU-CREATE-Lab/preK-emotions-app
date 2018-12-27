@@ -1,12 +1,14 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section;
 
 import android.arch.lifecycle.Observer;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.FlowerCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -20,6 +22,9 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader 
         @Override
         public void onClick(CopingSkill copingSkill) {
             Log.d(Constants.LOG_TAG, "onClick coping skill = " + copingSkill.getName());
+            // TODO replace with coping skill lookup; hardcoded coping skill for now
+            Intent flowerCopingSKillActivity = new Intent(ChooseCopingSkillActivity.this, FlowerCopingSkillActivity.class);
+            startActivity(flowerCopingSKillActivity);
         }
     };
 

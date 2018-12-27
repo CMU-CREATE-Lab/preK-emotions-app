@@ -18,33 +18,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.teacher_section.ClassroomIndexActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:screenOrientation="landscape" />
-        <activity android:name=".activities.teacher_section.StudentIndexActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:screenOrientation="landscape" />
-        <activity android:name=".activities.teacher_section.CopingSkillIndexActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:screenOrientation="landscape" />
-        <activity android:name=".activities.teacher_section.EmotionIndexActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:screenOrientation="landscape" />
-        <activity android:name=".activities.WebIndexActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:screenOrientation="landscape" />
-        <activity android:name=".activities.student_section.ChooseClassroomActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:screenOrientation="landscape" />
-        <activity android:name=".activities.student_section.ChooseStudentActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:screenOrientation="landscape" />
-        <activity android:name=".activities.student_section.ChooseEmotionActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:screenOrientation="landscape" />
-        <activity android:name=".activities.student_section.ChooseCopingSkillActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.teacher_section.ClassroomIndexActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.teacher_section.StudentIndexActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.teacher_section.CopingSkillIndexActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.teacher_section.EmotionIndexActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.WebIndexActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.student_section.ChooseClassroomActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.student_section.ChooseStudentActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.student_section.ChooseEmotionActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.student_section.ChooseCopingSkillActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity android:name=".FlowerCopingSkillActivity"></activity>
     </application>
 
 </manifest>
