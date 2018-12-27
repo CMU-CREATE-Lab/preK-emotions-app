@@ -16,4 +16,5 @@
     <string name="mindfulnest_header_emotions">Emotions</string>
     <string name="classroom_grid_label_students">Students</string>
     <string name="classroom_grid_label_coping_skills">Coping Skills</string>
+    <string name="coping_skill_flower_placeholder">Flower Text will go here</string>
 </resources>

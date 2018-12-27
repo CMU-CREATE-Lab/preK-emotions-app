@@ -4,15 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/flower_sky"
     tools:context=".FlowerCopingSkillActivity">
 
+    <!-- clouds in the background -->
+    <ImageView
+        android:id="@+id/imageViewCloud1"
+        android:layout_width="397dp"
+        android:layout_height="260dp"
+        app:srcCompat="@drawable/ic_flower_cloud_1"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewCloud2"
+        android:layout_width="341dp"
+        android:layout_height="210dp"
+        app:srcCompat="@drawable/ic_flower_cloud_2"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="46dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewCloud3"
+        android:layout_width="231dp"
+        android:layout_height="237dp"
+        app:srcCompat="@drawable/ic_flower_cloud_3"
+        android:layout_marginTop="19dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- everything else in the foreground -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:text="Flower Coping Skill"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginStart="190dp"
+        android:layout_marginEnd="190dp"
+        android:fontFamily="@font/source_sans_pro"
+        android:textColor="@color/colorGray"
+        android:textSize="36sp"
+        android:text="@string/coping_skill_flower_placeholder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/buttonClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="19dp"
+        android:background="#0000"
+        app:srcCompat="@drawable/ic_close"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

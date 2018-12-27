@@ -61,7 +61,10 @@
             android:name=".activities.student_section.ChooseCopingSkillActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
-        <activity android:name=".FlowerCopingSkillActivity"></activity>
+        <activity
+            android:name=".FlowerCopingSkillActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
 
 </manifest>

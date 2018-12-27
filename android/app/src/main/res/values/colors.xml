@@ -11,6 +11,9 @@
     <color name="colorClassroomGridTitle">@color/colorDarkGray</color>
     <color name="colorClassroomGridLabel">@color/colorBlack</color>
     <color name="colorGridLowerTitle">@color/colorGray</color>
+    <!-- flower -->
+    <color name="colorFlowerLight">#b0f9ff</color>
+    <color name="colorFlowerDark">#a9dded</color>
     <!-- miscellaneous -->
     <color name="colorWhite">#fff</color>
     <color name="colorOffWhite">#f4f4f4</color>

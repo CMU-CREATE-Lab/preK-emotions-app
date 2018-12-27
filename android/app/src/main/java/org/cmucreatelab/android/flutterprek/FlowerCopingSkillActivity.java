@@ -59,8 +59,10 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(Constants.LOG_TAG,"Stopping LeScan...");
-        bluetoothAdapter.getBluetoothLeScanner().stopScan(scanCallback);
+        if (bluetoothAdapter != null) {
+            Log.d(Constants.LOG_TAG,"Stopping LeScan...");
+            bluetoothAdapter.getBluetoothLeScanner().stopScan(scanCallback);
+        }
     }
 
 
