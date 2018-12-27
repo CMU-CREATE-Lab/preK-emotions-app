@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.FlowerCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseClassroomActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity;
@@ -52,6 +54,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<Student> students) {
                 Log.i(Constants.LOG_TAG,"onChanged students");
+            }
+        });
+
+        findViewById(R.id.buttonFlower).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent flowerCopingSKillActivity = new Intent(MainActivity.this, FlowerCopingSkillActivity.class);
+                startActivity(flowerCopingSKillActivity);
             }
         });
     }
