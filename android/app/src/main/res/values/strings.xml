@@ -17,4 +17,8 @@
     <string name="classroom_grid_label_students">Students</string>
     <string name="classroom_grid_label_coping_skills">Coping Skills</string>
     <string name="coping_skill_flower_placeholder">Flower Text will go here</string>
+    <string name="coping_skill_flower_step_1_hold">Hold the flower with your thumb on the lady bug.</string>
+    <string name="coping_skill_flower_step_2_smell">Smell the flower</string>
+    <string name="coping_skill_flower_step_3_blow">Blow on the flower</string>
+    <string name="coping_skill_flower_overlay">Would you like to do flower breathing again?</string>
 </resources>

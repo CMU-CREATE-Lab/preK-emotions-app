@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek;
+package org.cmucreatelab.android.flutterprek.activities.coping_skill_flower;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.bluetooth_birdbrain.UARTConnection;
 
 public class FlowerCopingSkillActivity extends AppCompatActivity {
