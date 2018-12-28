@@ -46,6 +46,8 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
         }
     };
     private boolean flowerDiscovered = false;
+    private FlowerCopingSkillProcess flowerCopingSkillProcess;
+    private static final boolean SHOW_DEBUG_WINDOW = true;
 
 
     @Override
@@ -68,9 +70,18 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
-        // testing set text
+        flowerCopingSkillProcess = new FlowerCopingSkillProcess(this);
+
+        // debug window
         TextView textView = findViewById(R.id.textViewDebug);
-        textView.setText("Flower\nCoping\rSkill\n1\n2\n3\n4\n5\n6");
+        if (!SHOW_DEBUG_WINDOW) {
+            textView.setVisibility(View.INVISIBLE);
+        } else {
+            textView.setText("Flower\nCoping\rSkill\n1\n2\n3\n4\n5\n6");
+        }
+
+        // test set step
+        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_1_HOLD_FLOWER);
     }
 
 
