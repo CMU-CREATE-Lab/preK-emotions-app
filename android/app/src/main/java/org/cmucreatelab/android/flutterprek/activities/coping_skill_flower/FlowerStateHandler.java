@@ -36,6 +36,8 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback {
                     updateFlower(GlobalHandler.getInstance(activity.getApplicationContext()).bleFlower);
                     stopScan();
                     updateDebugWindow();
+                    // TODO simulates receiving a notification (HW flower broken for me at the moment, sadface)
+                    onReceivedData("1","","");
                 } else {
                     Log.d(Constants.LOG_TAG, "onLeScan result: " + device.getName());
                 }
@@ -49,9 +51,9 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback {
     private BleFlower bleFlower;
     // TODO make this save more than one
     private String lastNotification = "";
-    // TODO this will track progress within a state
-    private final Handler handler = new Handler();
-    private Runnable currentCallback;
+//    // TODO this will track progress within a state
+//    private final Handler handler = new Handler();
+//    private Runnable currentCallback;
 
 
     private void updateDebugWindow() {
@@ -138,7 +140,17 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback {
 
     @Override
     public void onReceivedData(String arg1, String arg2, String arg3) {
-        isPressingButton = arg1.equals("1");
+        boolean newValue = arg1.equals("1");
+
+        // only perform actions on a changed state
+        if (isPressingButton != newValue) {
+            isPressingButton = newValue;
+            if (isPressingButton) {
+                activity.displayBreatheInstructions();
+            } else {
+                activity.displayHoldFlowerInstructions();
+            }
+        }
 
         if (SHOW_DEBUG_WINDOW) {
             String reformedData = arg1+","+arg2+","+arg3;
