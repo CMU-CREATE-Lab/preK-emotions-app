@@ -2,15 +2,21 @@ package org.cmucreatelab.android.flutterprek.activities.coping_skill_flower;
 
 import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 
 public class FlowerCopingSkillProcess {
 
     enum StepNumber {
-        STEP_1_HOLD_FLOWER
+        STEP_1A_HOLD_FLOWER_LADYBUG,
+        STEP_1B_HOLD_FLOWER_HAND,
+        STEP_2_SMELL,
+        STEP_3_BLOW,
+        STEP_4_OVERLAY
     }
     private static @IdRes int[] ALL_VIEWS = {
             R.id.imageViewCloud1,
@@ -53,12 +59,12 @@ public class FlowerCopingSkillProcess {
 
 
     public void goToStep(StepNumber stepNumber) {
-        @IdRes int[] viewsToDisplay;
-        @StringRes int stringResourceForTitle;
+        final @IdRes int[] viewsToDisplay;
+        final @StringRes int stringResourceForTitle;
 
         // TODO actions
-        if (stepNumber == StepNumber.STEP_1_HOLD_FLOWER) {
-            viewsToDisplay = new int[]{
+        if (stepNumber == StepNumber.STEP_1A_HOLD_FLOWER_LADYBUG) {
+            viewsToDisplay = new int[] {
                     R.id.imageViewFlowerLadyBug,
                     R.id.imageViewFlowerLadyBugArrow,
                     R.id.imageViewFlowerStem,
@@ -70,11 +76,51 @@ public class FlowerCopingSkillProcess {
                     R.id.imageViewFlowerPetal5
             };
             stringResourceForTitle = R.string.coping_skill_flower_step_1_hold;
+        } else if (stepNumber == StepNumber.STEP_1B_HOLD_FLOWER_HAND) {
+            viewsToDisplay = new int[] {
+                    R.id.imageViewFlowerHand,
+                    R.id.imageViewFlowerStem,
+                    R.id.imageViewFlowerMiddle,
+                    R.id.imageViewFlowerPetal1,
+                    R.id.imageViewFlowerPetal2,
+                    R.id.imageViewFlowerPetal3,
+                    R.id.imageViewFlowerPetal4,
+                    R.id.imageViewFlowerPetal5
+            };
+            stringResourceForTitle = R.string.coping_skill_flower_step_1_hold;
+        } else if (stepNumber == StepNumber.STEP_2_SMELL) {
+            viewsToDisplay = new int[] {
+                    R.id.imageViewSilhouette,
+                    R.id.imageViewBreatheIn,
+                    R.id.imageViewFlowerStem,
+                    R.id.imageViewFlowerMiddle,
+                    R.id.imageViewFlowerPetal1,
+                    R.id.imageViewFlowerPetal2,
+                    R.id.imageViewFlowerPetal3,
+                    R.id.imageViewFlowerPetal4,
+                    R.id.imageViewFlowerPetal5
+            };
+            stringResourceForTitle = R.string.coping_skill_flower_step_2_smell;
+        } else if (stepNumber == StepNumber.STEP_3_BLOW) {
+            viewsToDisplay = new int[] {
+                    R.id.imageViewSilhouette,
+                    R.id.imageViewBreatheOut,
+                    R.id.imageViewFlowerStem,
+                    R.id.imageViewFlowerMiddle,
+                    R.id.imageViewFlowerPetal1,
+                    R.id.imageViewFlowerPetal2,
+                    R.id.imageViewFlowerPetal3,
+                    R.id.imageViewFlowerPetal4,
+                    R.id.imageViewFlowerPetal5
+            };
+            stringResourceForTitle = R.string.coping_skill_flower_step_3_blow;
         } else {
+            Log.e(Constants.LOG_TAG, "StepNumber not implemented: " + stepNumber.name());
             viewsToDisplay = new int[0];
             stringResourceForTitle = R.string.coping_skill_flower_placeholder;
         }
 
+        // TODO run on UI thread?
         setVisibilityForResources(ALL_VIEWS, View.INVISIBLE);
         setVisibilityForResources(viewsToDisplay, View.VISIBLE);
         setTextForTitle(stringResourceForTitle);

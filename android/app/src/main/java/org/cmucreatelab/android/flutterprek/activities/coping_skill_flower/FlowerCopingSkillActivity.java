@@ -7,6 +7,7 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,6 +48,7 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
     };
     private boolean flowerDiscovered = false;
     private FlowerCopingSkillProcess flowerCopingSkillProcess;
+    private FlowerCopingSkillStep1Timer step1Timer;
     private static final boolean SHOW_DEBUG_WINDOW = true;
 
 
@@ -60,6 +62,15 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         bluetoothAdapter = bluetoothManager.getAdapter();
 
+        // close
+        findViewById(R.id.buttonClose).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(Constants.LOG_TAG, "clicked buttonClose; now finishing activity");
+                finish();
+            }
+        });
+
         // TODO need to detect when nav bar is forced to display, so it can hide again after a few seconds
         View decorView = getWindow().getDecorView();
         // Hide both the navigation bar and the status bar.
@@ -71,6 +82,7 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
 
         flowerCopingSkillProcess = new FlowerCopingSkillProcess(this);
+        step1Timer = new FlowerCopingSkillStep1Timer(flowerCopingSkillProcess);
 
         // debug window
         TextView textView = findViewById(R.id.textViewDebug);
@@ -81,7 +93,15 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
         }
 
         // test set step
-        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_1_HOLD_FLOWER);
+//        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_1A_HOLD_FLOWER_LADYBUG);
+//        step1Timer.startTimer();
+        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_2_SMELL);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_3_BLOW);
+            }
+        }, 2000);
     }
 
 

@@ -1,4 +1,4 @@
-package org.cmucreatelab.kindle.fluttersttr2;
+package org.cmucreatelab.android.flutterprek.activities.coping_skill_flower;
 
 import android.os.Handler;
 
