@@ -78,10 +78,21 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
     }
 
 
-    public void displayBreatheInstructions() {
+    public void displayBreatheIn() {
         step1Timer.stopTimer();
         flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_2_SMELL);
-        //flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_3_BLOW);
+    }
+
+
+    public void displayBreatheOut() {
+        step1Timer.stopTimer();
+        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_3_BLOW);
+    }
+
+
+    public void displayOverlay() {
+        // TODO overlay for finished
+        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_1A_HOLD_FLOWER_LADYBUG);
     }
 
 }

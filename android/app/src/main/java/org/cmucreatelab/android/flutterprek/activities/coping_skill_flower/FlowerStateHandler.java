@@ -7,7 +7,6 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -17,7 +16,13 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 
-public class FlowerStateHandler implements BleFlower.NotificationCallback {
+public class FlowerStateHandler implements BleFlower.NotificationCallback, FlowerBreathTracker.Listener {
+
+    enum State {
+        WAIT_FOR_BUTTON,
+        BREATHING,
+        FINISHED
+    }
 
     private static final int REQUEST_ENABLE_BT = 1;
     private static final boolean SHOW_DEBUG_WINDOW = true;
@@ -45,6 +50,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback {
             super.onScanResult(callbackType, result);
         }
     };
+    private final FlowerBreathTracker breathTracker;
     private boolean isScanning = false;
     private boolean flowerDiscovered = false;
     private boolean isPressingButton = false;
@@ -54,6 +60,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback {
 //    // TODO this will track progress within a state
 //    private final Handler handler = new Handler();
 //    private Runnable currentCallback;
+    private State currentState = State.WAIT_FOR_BUTTON;
 
 
     private void updateDebugWindow() {
@@ -73,6 +80,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback {
 
     public FlowerStateHandler(FlowerCopingSkillActivity activity) {
         this.activity = activity;
+        this.breathTracker = new FlowerBreathTracker(activity, this);
 
         // Initializes Bluetooth adapter.
         final BluetoothManager bluetoothManager =
@@ -93,6 +101,21 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback {
     private void updateFlower(BleFlower bleFlower) {
         this.bleFlower = bleFlower;
         this.bleFlower.notificationCallback = this;
+    }
+
+
+    private void changeState(State newState) {
+        currentState = newState;
+        if (newState == State.WAIT_FOR_BUTTON) {
+            activity.displayHoldFlowerInstructions();
+            breathTracker.resetTracker();
+        } else if (newState == State.BREATHING) {
+            activity.displayBreatheIn();
+            breathTracker.startTracker();
+        } else if (newState == State.FINISHED) {
+            breathTracker.resetTracker();
+            activity.displayOverlay();
+        }
     }
 
 
@@ -139,16 +162,24 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback {
 
 
     @Override
+    public void onFinishedBreathing() {
+        changeState(State.FINISHED);
+    }
+
+
+    @Override
     public void onReceivedData(String arg1, String arg2, String arg3) {
         boolean newValue = arg1.equals("1");
 
         // only perform actions on a changed state
         if (isPressingButton != newValue) {
             isPressingButton = newValue;
-            if (isPressingButton) {
-                activity.displayBreatheInstructions();
-            } else {
-                activity.displayHoldFlowerInstructions();
+            if (currentState != State.FINISHED) {
+                if (isPressingButton) {
+                    changeState(State.BREATHING);
+                } else {
+                    changeState(State.WAIT_FOR_BUTTON);
+                }
             }
         }
 

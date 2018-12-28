@@ -161,7 +161,7 @@
         android:layout_marginEnd="178.1dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewFlowerStem"
         app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
-        app:srcCompat="@drawable/flower_petal_highlighted" />
+        app:srcCompat="@drawable/flower_petal" />
 
     <ImageView
         android:id="@+id/imageViewFlowerMiddle"
