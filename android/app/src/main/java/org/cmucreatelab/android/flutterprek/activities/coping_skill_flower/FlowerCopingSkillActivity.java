@@ -33,16 +33,20 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
         step1Timer = new FlowerCopingSkillStep1Timer(flowerCopingSkillProcess);
         flowerStateHandler = new FlowerStateHandler(this);
 
-        // test set step
-        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_1A_HOLD_FLOWER_LADYBUG);
-        step1Timer.startTimer();
-//        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_2_SMELL);
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_3_BLOW);
-//            }
-//        }, 2000);
+        findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flowerStateHandler.initializeState();
+            }
+        });
+        findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        flowerStateHandler.initializeState();
     }
 
 
@@ -91,8 +95,7 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
 
 
     public void displayOverlay() {
-        // TODO overlay for finished
-        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_1A_HOLD_FLOWER_LADYBUG);
+        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_4_OVERLAY);
     }
 
 }

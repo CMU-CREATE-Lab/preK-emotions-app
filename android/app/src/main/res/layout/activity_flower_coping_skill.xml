@@ -207,6 +207,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <include
+        android:id="@+id/overlayYesNo"
+        layout="@layout/overlay_yes_no" />
+
     <ImageButton
         android:id="@+id/buttonClose"
         android:layout_width="wrap_content"

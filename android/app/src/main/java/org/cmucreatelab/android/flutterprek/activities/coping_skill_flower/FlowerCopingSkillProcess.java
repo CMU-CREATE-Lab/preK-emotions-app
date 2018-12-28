@@ -19,6 +19,7 @@ public class FlowerCopingSkillProcess {
         STEP_4_OVERLAY
     }
     private static @IdRes int[] ALL_VIEWS = {
+            R.id.overlayYesNo,
             R.id.imageViewCloud1,
             R.id.imageViewCloud2,
             R.id.imageViewCloud3,
@@ -114,6 +115,19 @@ public class FlowerCopingSkillProcess {
                     R.id.imageViewFlowerPetal5
             };
             stringResourceForTitle = R.string.coping_skill_flower_step_3_blow;
+        } else if (stepNumber == StepNumber.STEP_4_OVERLAY) {
+            viewsToDisplay = new int[] {
+                    R.id.imageViewSilhouette,
+                    R.id.imageViewFlowerStem,
+                    R.id.imageViewFlowerMiddle,
+                    R.id.imageViewFlowerPetal1,
+                    R.id.imageViewFlowerPetal2,
+                    R.id.imageViewFlowerPetal3,
+                    R.id.imageViewFlowerPetal4,
+                    R.id.imageViewFlowerPetal5,
+                    R.id.overlayYesNo
+            };
+            stringResourceForTitle = R.string.empty;
         } else {
             Log.e(Constants.LOG_TAG, "StepNumber not implemented: " + stepNumber.name());
             viewsToDisplay = new int[0];

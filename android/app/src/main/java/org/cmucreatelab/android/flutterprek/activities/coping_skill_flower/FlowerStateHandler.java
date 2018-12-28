@@ -161,6 +161,11 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     }
 
 
+    public void initializeState() {
+        changeState(State.WAIT_FOR_BUTTON);
+    }
+
+
     @Override
     public void onFinishedBreathing() {
         changeState(State.FINISHED);
