@@ -97,6 +97,8 @@ public class FlowerBreathTracker {
         numberOfCycles = 0;
         currentCycleCounter = 0;
         handler.removeCallbacks(currentCallback);
+        // reset flower un-highlighted
+        displayFlowerFromCycleCounter(0, true);
     }
 
 

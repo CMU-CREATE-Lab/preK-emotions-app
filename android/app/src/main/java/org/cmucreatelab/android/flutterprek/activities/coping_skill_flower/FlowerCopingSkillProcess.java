@@ -120,10 +120,14 @@ public class FlowerCopingSkillProcess {
             stringResourceForTitle = R.string.coping_skill_flower_placeholder;
         }
 
-        // TODO run on UI thread?
-        setVisibilityForResources(ALL_VIEWS, View.INVISIBLE);
-        setVisibilityForResources(viewsToDisplay, View.VISIBLE);
-        setTextForTitle(stringResourceForTitle);
+        flowerCopingSkillActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setVisibilityForResources(ALL_VIEWS, View.INVISIBLE);
+                setVisibilityForResources(viewsToDisplay, View.VISIBLE);
+                setTextForTitle(stringResourceForTitle);
+            }
+        });
     }
 
 }

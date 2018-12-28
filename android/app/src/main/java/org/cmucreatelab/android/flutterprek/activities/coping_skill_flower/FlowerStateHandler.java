@@ -25,7 +25,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     }
 
     private static final int REQUEST_ENABLE_BT = 1;
-    private static final boolean SHOW_DEBUG_WINDOW = true;
+    private static final boolean SHOW_DEBUG_WINDOW = false;
 
     private final BluetoothAdapter bluetoothAdapter;
     private final FlowerCopingSkillActivity activity;
@@ -41,8 +41,8 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
                     updateFlower(GlobalHandler.getInstance(activity.getApplicationContext()).bleFlower);
                     stopScan();
                     updateDebugWindow();
-                    // TODO simulates receiving a notification (HW flower broken for me at the moment, sadface)
-                    onReceivedData("1","","");
+//                    // TODO simulates receiving a notification (HW flower broken for me at the moment, sadface)
+//                    onReceivedData("1","","");
                 } else {
                     Log.d(Constants.LOG_TAG, "onLeScan result: " + device.getName());
                 }
