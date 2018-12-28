@@ -15,8 +15,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.bluetooth_birdbrain.UARTConnection;
 
 public class FlowerCopingSkillActivity extends AppCompatActivity {
 
@@ -30,15 +30,12 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
                 BluetoothDevice device = result.getDevice();
                 if (device.getName() != null && device.getName().startsWith("FLOWER-")) {
                     Log.d(Constants.LOG_TAG, "onLeScan found Flower with name=" + device.getName());
-                    // TODO try autoconnect
                     flowerDiscovered = true;
-                    UARTConnection uartConnection = new UARTConnection(getApplicationContext(), device, Constants.FLOWER_UART_SETTINGS);
-                    uartConnection.addRxDataListener(new UARTConnection.RXDataListener() {
-                        @Override
-                        public void onRXData(byte[] newData) {
-                            Log.d(Constants.LOG_TAG, "newData='" + new String(newData).trim() + "'");
-                        }
-                    });
+                    GlobalHandler.getInstance(getApplicationContext()).startConnection(device);
+                    TextView textView = findViewById(R.id.textViewDebug);
+                    textView.setText(device.getName());
+                    // stop scanning
+                    bluetoothAdapter.getBluetoothLeScanner().stopScan(scanCallback);
                 } else {
                     Log.d(Constants.LOG_TAG, "onLeScan result: " + device.getName());
                 }
@@ -93,15 +90,15 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
         }
 
         // test set step
-//        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_1A_HOLD_FLOWER_LADYBUG);
-//        step1Timer.startTimer();
-        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_2_SMELL);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_3_BLOW);
-            }
-        }, 2000);
+        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_1A_HOLD_FLOWER_LADYBUG);
+        step1Timer.startTimer();
+//        flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_2_SMELL);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_3_BLOW);
+//            }
+//        }, 2000);
     }
 
 
@@ -118,6 +115,23 @@ public class FlowerCopingSkillActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        GlobalHandler globalHandler = GlobalHandler.getInstance(getApplicationContext());
+        this.flowerDiscovered = globalHandler.isFlowerConnected();
+
+        if (flowerDiscovered) {
+            // show device name in debug
+            TextView textView = findViewById(R.id.textViewDebug);
+            textView.setText(globalHandler.bleFlower.getDeviceName());
+        } else {
+            lookForFlower();
+        }
+    }
+
+
+    public void lookForFlower() {
+        TextView textView = findViewById(R.id.textViewDebug);
+        textView.setText("Looking for Flower...");
 
         // Ensures Bluetooth is available on the device and it is enabled. If not,
         // displays a dialog requesting user permission to enable Bluetooth.
