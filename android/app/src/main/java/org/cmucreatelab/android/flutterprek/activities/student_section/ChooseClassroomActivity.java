@@ -22,7 +22,7 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
         public void onClick(Classroom classroom) {
             Log.d(Constants.LOG_TAG, "onClick classroom = " + classroom.getName());
             // send to next activity
-            // TODO track selected classroom with GlobalHandler?
+            // TODO track selection with GlobalHandler?
             Intent chooseStudentActivity = new Intent(ChooseClassroomActivity.this, ChooseStudentActivity.class);
             chooseStudentActivity.putExtra(ChooseStudentActivity.CLASSROOM_KEY, classroom);
             startActivity(chooseStudentActivity);

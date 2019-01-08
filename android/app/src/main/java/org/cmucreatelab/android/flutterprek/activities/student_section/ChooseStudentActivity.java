@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.activities.student_section;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -24,7 +25,11 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
         @Override
         public void onClick(Student student) {
             Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
-            // TODO send to next activity
+            // send to next activity
+            // TODO track selection with GlobalHandler?
+            Intent chooseEmotionActivity = new Intent(ChooseStudentActivity.this, ChooseEmotionActivity.class);
+            //chooseStudentActivity.putExtra(ChooseStudentActivity.CLASSROOM_KEY, classroom);
+            startActivity(chooseEmotionActivity);
         }
     };
 
