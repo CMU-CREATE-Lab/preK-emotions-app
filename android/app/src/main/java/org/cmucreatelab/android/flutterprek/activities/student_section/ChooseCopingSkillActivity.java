@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.activities.coping_skill_flower.FlowerCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillIndexAdapter;
@@ -22,6 +23,8 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader 
         @Override
         public void onClick(CopingSkill copingSkill) {
             Log.d(Constants.LOG_TAG, "onClick coping skill = " + copingSkill.getName());
+            // track selection with GlobalHandler
+            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.copingSkillUuid = copingSkill.getUuid();
             // TODO replace with coping skill lookup; hardcoded coping skill for now
             Intent flowerCopingSKillActivity = new Intent(ChooseCopingSkillActivity.this, FlowerCopingSkillActivity.class);
             startActivity(flowerCopingSKillActivity);

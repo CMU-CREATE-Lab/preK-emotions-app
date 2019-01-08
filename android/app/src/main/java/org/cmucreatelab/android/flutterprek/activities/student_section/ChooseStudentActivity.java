@@ -23,10 +23,10 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
         @Override
         public void onClick(Student student) {
             Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
+            // track selection with GlobalHandler
+            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.studentUuid = student.getUuid();
             // send to next activity
-            // TODO track selection with GlobalHandler?
             Intent chooseEmotionActivity = new Intent(ChooseStudentActivity.this, ChooseEmotionActivity.class);
-            //chooseStudentActivity.putExtra(ChooseStudentActivity.CLASSROOM_KEY, classroom);
             startActivity(chooseEmotionActivity);
         }
     };

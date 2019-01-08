@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -21,10 +22,10 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
         @Override
         public void onClick(Emotion emotion) {
             Log.d(Constants.LOG_TAG, "onClick emotion = " + emotion.getName());
+            // track selection with GlobalHandler
+            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.emotionUuid = emotion.getUuid();
             // send to next activity
-            // TODO track selection with GlobalHandler?
             Intent chooseCopingSkillActivity = new Intent(ChooseEmotionActivity.this, ChooseCopingSkillActivity.class);
-            //chooseStudentActivity.putExtra(ChooseStudentActivity.CLASSROOM_KEY, classroom);
             startActivity(chooseCopingSkillActivity);
         }
     };
