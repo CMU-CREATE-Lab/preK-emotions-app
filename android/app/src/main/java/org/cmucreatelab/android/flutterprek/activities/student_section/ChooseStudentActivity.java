@@ -9,17 +9,15 @@ import android.util.Log;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;
 
 public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
-
-    public static final String CLASSROOM_KEY = "classroom";
 
     private final StudentIndexAdapter.ClickListener listener = new StudentIndexAdapter.ClickListener() {
         @Override
@@ -38,12 +36,12 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Classroom classroom = (Classroom) getIntent().getSerializableExtra(CLASSROOM_KEY);
+        String classroomUuid = GlobalHandler.getInstance(this).studentSectionNavigationHandler.classroomUuid;
         LiveData<List<Student>> liveData;
-        if (classroom == null) {
+        if (classroomUuid.isEmpty()) {
             liveData = AppDatabase.getInstance(this).studentDAO().getAllStudents();
         } else {
-            liveData = AppDatabase.getInstance(this).studentDAO().getAllStudentsFromClassroom(classroom.getUuid());
+            liveData = AppDatabase.getInstance(this).studentDAO().getAllStudentsFromClassroom(classroomUuid);
         }
 
         liveData.observe(this, new Observer<List<Student>>() {

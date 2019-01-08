@@ -13,10 +13,12 @@ public class GlobalHandler {
 
     public final Context appContext;
     public BleFlower bleFlower;
+    public final StudentSectionNavigationHandler studentSectionNavigationHandler;
 
 
     private GlobalHandler(Context context) {
         this.appContext = context;
+        this.studentSectionNavigationHandler = new StudentSectionNavigationHandler();
     }
 
 

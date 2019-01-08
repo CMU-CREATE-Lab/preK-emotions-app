@@ -39,6 +39,7 @@ public class Classroom implements Serializable {
     }
 
 
+    @NonNull
     public String getUuid() {
         return uuid;
     }

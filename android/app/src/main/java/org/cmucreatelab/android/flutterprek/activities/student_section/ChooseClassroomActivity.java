@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.ClassroomIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -21,10 +22,10 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
         @Override
         public void onClick(Classroom classroom) {
             Log.d(Constants.LOG_TAG, "onClick classroom = " + classroom.getName());
+            // track selection with GlobalHandler
+            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.classroomUuid = classroom.getUuid();
             // send to next activity
-            // TODO track selection with GlobalHandler?
             Intent chooseStudentActivity = new Intent(ChooseClassroomActivity.this, ChooseStudentActivity.class);
-            chooseStudentActivity.putExtra(ChooseStudentActivity.CLASSROOM_KEY, classroom);
             startActivity(chooseStudentActivity);
         }
     };
