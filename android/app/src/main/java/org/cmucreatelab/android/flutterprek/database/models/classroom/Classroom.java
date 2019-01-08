@@ -5,6 +5,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
@@ -16,7 +17,7 @@ import java.util.UUID;
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
 @Entity(tableName = "classrooms")
-public class Classroom {
+public class Classroom implements Serializable {
 
     @PrimaryKey
     @NonNull
