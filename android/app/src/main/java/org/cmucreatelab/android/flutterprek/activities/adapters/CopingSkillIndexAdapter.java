@@ -31,18 +31,15 @@ public class CopingSkillIndexAdapter extends AbstractListAdapter<CopingSkill> {
 
 
     public CopingSkillIndexAdapter(AbstractActivity activity, List<CopingSkill> copingSkills) {
-        this.activity = activity;
-        this.copingSkills = copingSkills;
-        onClickListener = false;
-        clickListener = null;
+        this(activity, copingSkills, null);
     }
 
 
     public CopingSkillIndexAdapter(AbstractActivity activity, List<CopingSkill> copingSkills, ClickListener listener) {
         this.activity = activity;
         this.copingSkills = copingSkills;
-        this.onClickListener = true;
         this.clickListener = listener;
+        this.onClickListener = (clickListener != null);
     }
 
 

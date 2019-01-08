@@ -3,8 +3,10 @@ package org.cmucreatelab.android.flutterprek.activities.student_section;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.GridView;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.ClassroomIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -13,6 +15,14 @@ import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import java.util.List;
 
 public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
+
+    private final ClassroomIndexAdapter.ClickListener listener = new ClassroomIndexAdapter.ClickListener() {
+        @Override
+        public void onClick(Classroom classroom) {
+            Log.d(Constants.LOG_TAG, "onClick classroom = " + classroom.getName());
+            // TODO send to next activity
+        }
+    };
 
 
     @Override
@@ -23,7 +33,7 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
             @Override
             public void onChanged(@Nullable List<Classroom> classrooms) {
                 GridView classroomsGridView = findViewById(R.id.classroomsGridView);
-                classroomsGridView.setAdapter(new ClassroomIndexAdapter(classrooms));
+                classroomsGridView.setAdapter(new ClassroomIndexAdapter(classrooms, listener));
             }
         });
     }

@@ -13,10 +13,23 @@ import java.util.List;
 public class ClassroomIndexAdapter extends AbstractListAdapter<Classroom> {
 
     private final List<Classroom> classrooms;
+    private final boolean onClickListener;
+    private final ClickListener clickListener;
+
+    public interface ClickListener {
+        void onClick(Classroom classroom);
+    }
 
 
     public ClassroomIndexAdapter(List<Classroom> classrooms) {
+        this(classrooms, null);
+    }
+
+
+    public ClassroomIndexAdapter(List<Classroom> classrooms, ClickListener clickListener) {
         this.classrooms = classrooms;
+        this.clickListener = clickListener;
+        this.onClickListener = (clickListener != null);
     }
 
 
@@ -35,8 +48,18 @@ public class ClassroomIndexAdapter extends AbstractListAdapter<Classroom> {
         } else {
             result = convertView;
         }
+        final Classroom classroom = classrooms.get(position);
         TextView textView = (TextView)result.findViewById(R.id.text1);
-        textView.setText(classrooms.get(position).getName());
+        textView.setText(classroom.getName());
+
+        if (onClickListener) {
+            result.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onClick(classroom);
+                }
+            });
+        }
 
         return result;
     }
