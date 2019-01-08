@@ -17,11 +17,24 @@ public class StudentIndexAdapter extends AbstractListAdapter<Student> {
 
     private final Context appContext;
     private final List<Student> students;
+    private final boolean onClickListener;
+    private final ClickListener clickListener;
+
+    public interface ClickListener {
+        void onClick(Student student);
+    }
 
 
     public StudentIndexAdapter(Context appContext, List<Student> students) {
+        this(appContext, students, null);
+    }
+
+
+    public StudentIndexAdapter(Context appContext, List<Student> students, ClickListener clickListener) {
         this.appContext = appContext;
         this.students = students;
+        this.clickListener = clickListener;
+        this.onClickListener = (clickListener != null);
     }
 
 
@@ -42,10 +55,20 @@ public class StudentIndexAdapter extends AbstractListAdapter<Student> {
         } else {
             result = convertView;
         }
+        final Student student = students.get(position);
         TextView textView = (TextView)result.findViewById(R.id.text1);
-        textView.setText(students.get(position).getName());
+        textView.setText(student.getName());
         // TODO replace with student image
         Util.setImageViewWithAsset(appContext, (ImageView)result.findViewById(R.id.imageView), "etc/img/xman1.png");
+
+        if (onClickListener) {
+            result.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onClick(student);
+                }
+            });
+        }
 
         return result;
     }

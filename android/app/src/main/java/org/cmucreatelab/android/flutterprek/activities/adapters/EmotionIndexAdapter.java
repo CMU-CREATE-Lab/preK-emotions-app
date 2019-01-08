@@ -22,11 +22,24 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
 
     private final AppCompatActivity activity;
     private final List<Emotion> emotions;
+    private final boolean onClickListener;
+    private final ClickListener clickListener;
+
+    public interface ClickListener {
+        void onClick(Emotion emotion);
+    }
 
 
     public EmotionIndexAdapter(AppCompatActivity activity, List<Emotion> emotions) {
+        this(activity, emotions, null);
+    }
+
+
+    public EmotionIndexAdapter(AppCompatActivity activity, List<Emotion> emotions, ClickListener clickListener) {
         this.activity = activity;
         this.emotions = emotions;
+        this.clickListener = clickListener;
+        this.onClickListener = (clickListener != null);
     }
 
 
@@ -47,7 +60,7 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
         } else {
             result = convertView;
         }
-        Emotion emotion = emotions.get(position);
+        final Emotion emotion = emotions.get(position);
         TextView textView = (TextView)result.findViewById(R.id.text1);
         textView.setText(emotion.getName());
 //        // TODO demo emotion (remove later and replace with DB-defined image)
@@ -60,6 +73,15 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
                 public void onChanged(@Nullable DbFile dbFile) {
                     // TODO check if file type is asset
                     Util.setImageViewWithAsset(appContext, (ImageView) result.findViewById(R.id.imageView), dbFile.getFilePath());
+                }
+            });
+        }
+
+        if (onClickListener) {
+            result.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onClick(emotion);
                 }
             });
         }
