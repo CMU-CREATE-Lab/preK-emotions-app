@@ -1,5 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
+import org.cmucreatelab.android.flutterprek.StudentSectionNavigationHandler;
 import org.cmucreatelab.android.flutterprek.activities.coping_skill_flower.FlowerCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillIndexAdapter;
@@ -32,12 +34,19 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader 
     };
 
 
+    private LiveData<List<CopingSkill>> getLiveDataFromQuery(String classroomUuid, String studentUuid, String emotionUuid) {
+        // TODO determine coping skills to display based on current student/emotion
+        return AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkills();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO pass in information on what to display (probably classroom ID)
-        AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkills().observe(this, new Observer<List<CopingSkill>>() {
+        StudentSectionNavigationHandler navigationHandler = GlobalHandler.getInstance(this).studentSectionNavigationHandler;
+        LiveData<List<CopingSkill>> liveData = getLiveDataFromQuery(navigationHandler.classroomUuid, navigationHandler.studentUuid, navigationHandler.emotionUuid);
+        liveData.observe(this, new Observer<List<CopingSkill>>() {
             @Override
             public void onChanged(@Nullable List<CopingSkill> copingSkills) {
                 GridView copingSkillsGridView = findViewById(R.id.copingSkillsGridView);

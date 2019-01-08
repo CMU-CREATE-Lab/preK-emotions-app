@@ -40,4 +40,7 @@ public interface EmotionDAO {
     @Query("SELECT * FROM emotions WHERE owner_uuid IS NULL")
     LiveData<List<Emotion>> getEmotionsOwnedByNoOne();
 
+    @Query("SELECT * FROM emotions WHERE owner_uuid IN (:ownerUuids) OR owner_uuid IS NULL")
+    LiveData<List<Emotion>> getEmotionsOwnedBy(List<String> ownerUuids);
+
 }
