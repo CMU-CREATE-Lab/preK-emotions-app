@@ -25,7 +25,7 @@ public class EmotionDaoTest extends DaoTest {
 
     private EmotionDAO emotionDAO;
 
-    private static final String owner_uuid= "owner1";
+    private static final String owner_uuid = "owner1";
 
 
     @Override

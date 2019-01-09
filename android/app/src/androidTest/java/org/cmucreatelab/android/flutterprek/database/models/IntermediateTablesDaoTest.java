@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.database.models;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import org.cmucreatelab.android.flutterprek.database.LiveDataTestUtil;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkillDAO;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
@@ -15,6 +16,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Date;
+
+import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by tasota on 10/18/2018.
@@ -44,6 +47,48 @@ public class IntermediateTablesDaoTest extends DaoTest {
         sessionDAO = getDb().sessionDAO();
         emotionDAO = getDb().emotionDAO();
         copingSkillDAO = getDb().copingSkillDAO();
+    }
+
+
+    private void populateDbWithEmotions() {
+        String[][] data = new String[][]{
+                {"emotion1", "happy"},
+                {"emotion2", "sad"},
+                {"emotion3", "mad"},
+        };
+        for (int i=0; i<data.length; i++) {
+            Emotion emotion = new Emotion(data[i][0], data[i][1]);
+            emotionDAO.insert(emotion);
+        }
+    }
+
+
+    private void populateDbWithCopingSkills() {
+        String[][] data = new String[][]{
+                {"copingskill1", "think about it"},
+                {"copingskill2", "try it out"},
+                {"copingskill3", "relax"},
+        };
+        for (int i=0; i<data.length; i++) {
+            CopingSkill copingSkill = new CopingSkill(data[i][0], data[i][1]);
+            copingSkillDAO.insert(copingSkill);
+        }
+    }
+
+
+    private void populateDbForEmotionsCopingSkills() {
+        populateDbWithEmotions();
+        populateDbWithCopingSkills();
+        // intermediate table
+        String[][] data = new String[][]{
+                {"sadthinkaboutit", "emotion2", "copingskill1"},
+                {"sadtryitout", "emotion2", "copingskill2"},
+                {"madrelax", "emotion3", "copingskill3"},
+        };
+        for (int i=0; i<data.length; i++) {
+            EmotionCopingSkill emotionCopingSkill = new EmotionCopingSkill(data[i][0], data[i][1], data[i][2]);
+            intermediateTablesDAO.insert(emotionCopingSkill);
+        }
     }
 
 
@@ -82,6 +127,16 @@ public class IntermediateTablesDaoTest extends DaoTest {
         SessionCopingSkill sessionCopingSkill = new SessionCopingSkill(test_uuid, session_uuid1, coping_skill_uuid1, new Date());
         intermediateTablesDAO.insert(sessionCopingSkill);
         intermediateTablesDAO.delete(sessionCopingSkill);
+    }
+
+
+    @Test
+    public void getCopingSkillsForEmotion() throws InterruptedException {
+        populateDbForEmotionsCopingSkills();
+
+        assertEquals(0, LiveDataTestUtil.getValue(copingSkillDAO.getCopingSkillsForEmotion("emotion1")).size());
+        assertEquals(2, LiveDataTestUtil.getValue(copingSkillDAO.getCopingSkillsForEmotion("emotion2")).size());
+        assertEquals(1, LiveDataTestUtil.getValue(copingSkillDAO.getCopingSkillsForEmotion("emotion3")).size());
     }
 
 }

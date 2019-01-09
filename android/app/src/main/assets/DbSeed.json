@@ -30,7 +30,7 @@
   [
     { "name": "Happy", "uuid": "emotion1", "imageFileUuid": "ic_happy" },
     { "name": "Sad", "uuid": "emotion2", "imageFileUuid": "ic_sad" },
-    { "name": "Mad", "uuid": "emotion3", "ownerUuid": "classroom2", "imageFileUuid": "ic_mad" },
+    { "name": "Mad", "uuid": "emotion3", "imageFileUuid": "ic_mad" },
     { "name": "Scared", "uuid": "emotion4", "ownerUuid": "classroom2" }
   ],
   "sessions":
