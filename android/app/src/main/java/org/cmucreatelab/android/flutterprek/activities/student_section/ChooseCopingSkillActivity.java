@@ -35,8 +35,11 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader 
 
 
     private LiveData<List<CopingSkill>> getLiveDataFromQuery(String classroomUuid, String studentUuid, String emotionUuid) {
-        // TODO determine coping skills to display based on current student/emotion
-        return AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkills();
+        if (emotionUuid.isEmpty()) {
+            return AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkills();
+        }
+        // TODO determine coping skills to display based on current class/student
+        return AppDatabase.getInstance(this).copingSkillDAO().getCopingSkillsForEmotion(emotionUuid);
     }
 
 
