@@ -22,6 +22,7 @@ import com.google.gson.GsonBuilder;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.database.gson.DateTypeAdapter;
 import org.cmucreatelab.android.flutterprek.database.gson.GsonDatabaseParser;
+import org.cmucreatelab.android.flutterprek.database.gson.JsonAdapter;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.ClassroomDAO;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
@@ -40,6 +41,7 @@ import org.cmucreatelab.android.flutterprek.database.models.session.Session;
 import org.cmucreatelab.android.flutterprek.database.models.session.SessionDAO;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 import org.cmucreatelab.android.flutterprek.database.models.student.StudentDAO;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,7 +69,7 @@ import java.util.UUID;
         SessionCopingSkill.class,
         Session.class
 }, version = 5)
-@TypeConverters(DateConverter.class)
+@TypeConverters({DateConverter.class, JSONObjectConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static String dbName = "flutterprek.sqlite3";
@@ -94,6 +96,7 @@ public abstract class AppDatabase extends RoomDatabase {
             Log.i(Constants.LOG_TAG, "creating flutterprek DB");
             GsonBuilder builder = new GsonBuilder();
             builder.registerTypeAdapter(Date.class, new DateTypeAdapter());
+            builder.registerTypeAdapter(JSONObject.class, new JsonAdapter());
             Gson gson = builder.create();
 
             try {

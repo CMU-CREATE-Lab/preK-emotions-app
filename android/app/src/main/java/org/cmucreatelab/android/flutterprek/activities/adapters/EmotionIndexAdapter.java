@@ -4,17 +4,20 @@ import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
+import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 
 import java.util.List;
 
@@ -77,6 +80,21 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
             });
         }
 
+        // TODO testing itinerary items ** (see below)
+        final Context appContext = activity.getApplicationContext();
+        AppDatabase.getInstance(appContext).intermediateTablesDAO().getItineraryItemsForEmotion(emotion.getUuid()).observe(activity, new Observer<List<ItineraryItem>>() {
+            @Override
+            public void onChanged(@Nullable List<ItineraryItem> itineraryItems) {
+                if (itineraryItems.size() > 0) {
+                    Log.i(Constants.LOG_TAG, "found an Emotion with Itinerary.");
+                    for (ItineraryItem item: itineraryItems) {
+                        Log.i(Constants.LOG_TAG, "capabilityParams=" + item.getCapabilityParameters().toString());
+                    }
+                }
+            }
+        });
+
+        // TODO modify click listener to include the itinerary ** (see above)
         if (onClickListener) {
             result.setOnClickListener(new View.OnClickListener() {
                 @Override

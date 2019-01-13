@@ -6,6 +6,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import org.json.JSONObject;
+
 /**
  * Created by tasota on 10/8/2018.
  *
@@ -35,10 +37,10 @@ public class ItineraryItem {
 
     @NonNull
     @ColumnInfo(name="capability_parameters")
-    private String capabilityParameters;
+    private JSONObject capabilityParameters;
 
 
-    public ItineraryItem(@NonNull String uuid, @NonNull String ownerUuid, @NonNull int sequenceId, @NonNull String capabilityId, @NonNull String capabilityParameters) {
+    public ItineraryItem(@NonNull String uuid, @NonNull String ownerUuid, @NonNull int sequenceId, @NonNull String capabilityId, @NonNull JSONObject capabilityParameters) {
         this.uuid = uuid;
         this.ownerUuid = ownerUuid;
         this.sequenceId = sequenceId;
@@ -72,7 +74,7 @@ public class ItineraryItem {
 
 
     @NonNull
-    public String getCapabilityParameters() {
+    public JSONObject getCapabilityParameters() {
         return capabilityParameters;
     }
 
@@ -92,7 +94,7 @@ public class ItineraryItem {
     }
 
 
-    public void setCapabilityParameters(@NonNull String capabilityParameters) {
+    public void setCapabilityParameters(@NonNull JSONObject capabilityParameters) {
         this.capabilityParameters = capabilityParameters;
     }
 
