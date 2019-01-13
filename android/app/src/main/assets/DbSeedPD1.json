@@ -1,0 +1,43 @@
+{
+  "classrooms":
+  [
+    { "uuid": "classroom1", "name": "My Classroom" }
+  ],
+  "students":
+  [
+    { "uuid": "student1", "name": "Alexander", "classroomUuid": "classroom1" },
+    { "uuid": "student2", "name": "Katie", "classroomUuid": "classroom1" }
+  ],
+  "copingSkills":
+  [
+    { "uuid": "coping_skill_1", "name": "Flower Breathing", "imageFileUuid": "ic_flower_breathing" },
+    { "uuid": "coping_skill_2", "name": "Static Coping SKill", "imageFileUuid": "ic_yoga" }
+  ],
+  "customizations": [],
+  "emotions":
+  [
+    { "name": "Happy", "uuid": "emotion1", "imageFileUuid": "ic_happy" },
+    { "name": "Sad", "uuid": "emotion2", "imageFileUuid": "ic_sad" },
+    { "name": "Mad", "uuid": "emotion3", "imageFileUuid": "ic_mad" }
+  ],
+  "sessions": [],
+  "emotionsCopingSkills":
+  [
+    { "uuid": "happy_flower", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_1" },
+    { "uuid": "happy_static", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_2" },
+    { "uuid": "sad_flower", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_1" },
+    { "uuid": "mad_static", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_2" }
+  ],
+  "itineraryItems": [],
+  "sessionsCopingSkills": [],
+  "dbFiles":
+  [
+    { "uuid": "ic_happy", "fileType": "asset_image", "filePath": "emotions/ic_happy.png" },
+    { "uuid": "ic_sad", "fileType": "asset_image", "filePath": "emotions/ic_sad.png" },
+    { "uuid": "ic_mad", "fileType": "asset_image", "filePath": "emotions/ic_mad.png" },
+    { "uuid": "ic_flower_breathing", "fileType": "asset_image", "filePath": "coping_skills/ic_flower_breathing.png" },
+    { "uuid": "ic_yoga", "fileType": "asset_image", "filePath": "coping_skills/ic_yoga.png" },
+    { "uuid": "student_alexander", "fileType": "asset_image", "filePath": "etc/img/xman1.png" },
+    { "uuid": "student_katie", "fileType": "asset_image", "filePath": "etc/img/katie.png" }
+  ]
+}
