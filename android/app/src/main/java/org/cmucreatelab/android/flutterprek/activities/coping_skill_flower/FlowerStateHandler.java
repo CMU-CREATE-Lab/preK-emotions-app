@@ -25,7 +25,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     }
 
     private static final int REQUEST_ENABLE_BT = 1;
-    private static final boolean SHOW_DEBUG_WINDOW = false;
+    private static final boolean SHOW_DEBUG_WINDOW = Constants.FLOWER_SHOW_DEBUG_WINDOW;
 
     private final BluetoothAdapter bluetoothAdapter;
     private final FlowerCopingSkillActivity activity;

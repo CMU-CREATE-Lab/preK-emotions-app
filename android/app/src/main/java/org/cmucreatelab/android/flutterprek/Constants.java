@@ -11,6 +11,9 @@ public class Constants {
     /** This file is defined in the assets/ directory. */
     public static final String DATABASE_SEED = "DbSeed.json";
 
+    /** Determines if the flower activity should display the debug window (shows BLE name and last message received). */
+    public static final boolean FLOWER_SHOW_DEBUG_WINDOW = false;
+
     public static final UARTSettings FLOWER_UART_SETTINGS;
 
     static {
