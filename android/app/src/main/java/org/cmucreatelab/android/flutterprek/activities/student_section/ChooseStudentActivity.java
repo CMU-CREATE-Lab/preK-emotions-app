@@ -48,7 +48,7 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
             @Override
             public void onChanged(@Nullable List<Student> students) {
                 GridView studentsGridView = findViewById(R.id.studentsGridView);
-                studentsGridView.setAdapter(new StudentIndexAdapter(getApplicationContext(), students, listener));
+                studentsGridView.setAdapter(new StudentIndexAdapter(ChooseStudentActivity.this, students, listener));
             }
         });
     }

@@ -5,8 +5,8 @@
   ],
   "students":
   [
-    { "uuid": "student1", "name": "Alexander", "classroomUuid": "classroom1" },
-    { "uuid": "student2", "name": "Katie", "classroomUuid": "classroom1" }
+    { "uuid": "student1", "name": "Alexander", "classroomUuid": "classroom1", "pictureFileUuid": "student_alexander" },
+    { "uuid": "student2", "name": "Katie", "classroomUuid": "classroom1", "pictureFileUuid": "student_katie" }
   ],
   "copingSkills":
   [
