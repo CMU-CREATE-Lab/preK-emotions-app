@@ -52,7 +52,11 @@ public class GlobalHandler {
         // TODO check for device type (assumes flower for now)
         if (bleFlower != null) {
             Log.w(Constants.LOG_TAG, "current bleFlower in GlobalHandler is not null; attempting to close.");
-            bleFlower.disconnect();
+            try {
+                bleFlower.disconnect();
+            } catch (Exception e) {
+                Log.e(Constants.LOG_TAG, "Exception caught in GlobalHandler.startConnection (likely null reference in UARTConnection); Exception message was: ``" + e.getMessage() + "''");
+            }
         }
         this.bleFlower = new BleFlower(appContext, bluetoothDevice);
     }
