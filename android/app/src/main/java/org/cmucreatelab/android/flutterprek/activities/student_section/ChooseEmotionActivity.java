@@ -19,6 +19,9 @@ import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_BACKGROUND_COLOR;
+import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_MESSAGE;
+
 public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
 
     private final EmotionIndexAdapter.ClickListener listener = new EmotionIndexAdapter.ClickListener() {
@@ -29,6 +32,9 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
             GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.emotionUuid = emotion.getUuid();
             // send to next activity
             Intent chooseCopingSkillActivity = new Intent(ChooseEmotionActivity.this, ChooseCopingSkillActivity.class);
+            // TODO hardcoded until itinerary implemented **
+            chooseCopingSkillActivity.putExtra(INTENT_MESSAGE,"Custom Message Displayed");
+            chooseCopingSkillActivity.putExtra(INTENT_BACKGROUND_COLOR,"#75adae");
             startActivity(chooseCopingSkillActivity);
         }
     };

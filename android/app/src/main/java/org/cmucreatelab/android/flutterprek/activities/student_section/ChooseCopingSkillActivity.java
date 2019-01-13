@@ -3,10 +3,12 @@ package org.cmucreatelab.android.flutterprek.activities.student_section;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.CopingSkillMapper;
@@ -20,6 +22,9 @@ import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingS
 import java.util.List;
 
 public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader {
+
+    public static final String INTENT_MESSAGE = "message";
+    public static final String INTENT_BACKGROUND_COLOR = "background_color";
 
     private final CopingSkillIndexAdapter.ClickListener listener = new CopingSkillIndexAdapter.ClickListener() {
         @Override
@@ -42,9 +47,29 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader 
     }
 
 
+    private void customizeDisplayForEmotion(Intent intent) {
+        String message="", backgroundColor="#ffffff";
+        try {
+            message = intent.getStringExtra(INTENT_MESSAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            backgroundColor = intent.getStringExtra(INTENT_BACKGROUND_COLOR);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ((TextView)findViewById(R.id.textTitle)).setText(message);
+        findViewById(R.id.activityBackground).setBackgroundColor(Color.parseColor(backgroundColor));
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        customizeDisplayForEmotion(getIntent());
 
         StudentSectionNavigationHandler navigationHandler = GlobalHandler.getInstance(this).studentSectionNavigationHandler;
         LiveData<List<CopingSkill>> liveData = getLiveDataFromQuery(navigationHandler.classroomUuid, navigationHandler.studentUuid, navigationHandler.emotionUuid);
