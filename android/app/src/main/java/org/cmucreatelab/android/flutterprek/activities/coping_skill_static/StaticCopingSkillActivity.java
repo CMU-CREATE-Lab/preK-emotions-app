@@ -1,5 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities.coping_skill_static;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 
 public class StaticCopingSkillActivity extends AppCompatActivity {
 
@@ -21,7 +23,10 @@ public class StaticCopingSkillActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(Constants.LOG_TAG, "clicked buttonClose; now finishing activity");
-                finish();
+                //finish();
+                Intent chooseStudentActivity = new Intent(StaticCopingSkillActivity.this, ChooseStudentActivity.class);
+                chooseStudentActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(chooseStudentActivity);
             }
         });
 
@@ -34,7 +39,10 @@ public class StaticCopingSkillActivity extends AppCompatActivity {
         findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                //finish();
+                Intent chooseStudentActivity = new Intent(StaticCopingSkillActivity.this, ChooseStudentActivity.class);
+                chooseStudentActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(chooseStudentActivity);
             }
         });
     }
