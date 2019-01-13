@@ -21,5 +21,6 @@
     <string name="coping_skill_flower_step_2_smell">Smell the flower</string>
     <string name="coping_skill_flower_step_3_blow">Blow on the flower</string>
     <string name="coping_skill_flower_overlay">Would you like to do flower breathing again?</string>
+    <string name="coping_skill_static_placeholder">Static Coping Skill Text will go here</string>
     <string name="empty"></string>
 </resources>

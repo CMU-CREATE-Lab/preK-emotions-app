@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.activities.coping_skill_flower.FlowerCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.coping_skill_static.StaticCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 
 public class CopingSkillMapper {
@@ -21,9 +22,12 @@ public class CopingSkillMapper {
                 break;
             case "coping_skill_2":
                 Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: Static");
-                // TODO copingSkillClass = StaticCopingSkill.class
+                copingSkillClass = StaticCopingSkillActivity.class;
+                break;
             default:
-                copingSkillClass = FlowerCopingSkillActivity.class;
+                Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: None (default)");
+                // TODO default coping skill settings?
+                copingSkillClass = StaticCopingSkillActivity.class;
         }
 
         result = new Intent(activity, copingSkillClass);
