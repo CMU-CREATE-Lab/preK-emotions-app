@@ -34,7 +34,7 @@ public interface CopingSkillDAO {
     @Query("SELECT * FROM coping_skills WHERE uuid = :copingSkillUuid LIMIT 1")
     LiveData<CopingSkill> getCopingSkill(String copingSkillUuid);
 
-    @Query("SELECT * from coping_skills " +
+    @Query("SELECT coping_skills.* from coping_skills " +
             "INNER JOIN emotions_coping_skills ON (emotions_coping_skills.coping_skill_uuid = coping_skills.uuid) " +
             "WHERE emotions_coping_skills.emotion_uuid = :emotionUuid ORDER BY name ASC")
     LiveData<List<CopingSkill>> getCopingSkillsForEmotion(String emotionUuid);
