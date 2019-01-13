@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.Constants;
-import org.cmucreatelab.android.flutterprek.activities.coping_skill_flower.FlowerCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower.FlowerCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseClassroomActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity;

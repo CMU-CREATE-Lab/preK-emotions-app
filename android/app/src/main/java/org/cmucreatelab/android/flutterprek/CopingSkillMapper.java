@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
-import org.cmucreatelab.android.flutterprek.activities.coping_skill_flower.FlowerCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.coping_skill_static.StaticCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower.FlowerCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.StaticCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 
 public class CopingSkillMapper {

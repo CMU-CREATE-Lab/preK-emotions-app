@@ -63,11 +63,11 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".activities.coping_skill_flower.FlowerCopingSkillActivity"
+            android:name=".activities.student_section.coping_skills.coping_skill_flower.FlowerCopingSkillActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".activities.coping_skill_static.StaticCopingSkillActivity"
+            android:name=".activities.student_section.coping_skills.coping_skill_static.StaticCopingSkillActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>

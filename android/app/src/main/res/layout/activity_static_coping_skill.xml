@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_flower_sky"
-    tools:context=".activities.coping_skill_static.StaticCopingSkillActivity">
+    tools:context=".activities.student_section.coping_skills.coping_skill_static.StaticCopingSkillActivity">
 
     <TextView
         android:id="@+id/textViewTitle"
