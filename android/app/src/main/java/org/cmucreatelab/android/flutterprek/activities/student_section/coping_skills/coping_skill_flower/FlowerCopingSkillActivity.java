@@ -18,16 +18,6 @@ public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flower_coping_skill);
-
-        // close
-        findViewById(R.id.buttonClose).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(Constants.LOG_TAG, "clicked buttonClose; now finishing activity");
-                finish();
-            }
-        });
 
         flowerCopingSkillProcess = new FlowerCopingSkillProcess(this);
         step1Timer = new FlowerCopingSkillStep1Timer(flowerCopingSkillProcess);
@@ -61,13 +51,6 @@ public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-
-        decorView.setSystemUiVisibility(uiOptions);
-
         flowerStateHandler.lookForFlower();
     }
 
@@ -92,6 +75,12 @@ public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
 
     public void displayOverlay() {
         flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_4_OVERLAY);
+    }
+
+
+    @Override
+    public int getResourceIdForActivityLayout() {
+        return R.layout.activity_flower_coping_skill;
     }
 
 }
