@@ -15,6 +15,9 @@ import org.cmucreatelab.android.flutterprek.StudentSectionNavigationHandler;
 import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
+import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +29,33 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
 
     private final EmotionIndexAdapter.ClickListener listener = new EmotionIndexAdapter.ClickListener() {
         @Override
-        public void onClick(Emotion emotion) {
+        public void onClick(Emotion emotion, List<ItineraryItem> itineraryItems) {
             Log.d(Constants.LOG_TAG, "onClick emotion = " + emotion.getName());
             // track selection with GlobalHandler
             GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.emotionUuid = emotion.getUuid();
             // send to next activity
             Intent chooseCopingSkillActivity = new Intent(ChooseEmotionActivity.this, ChooseCopingSkillActivity.class);
-            // TODO hardcoded until itinerary implemented **
-            chooseCopingSkillActivity.putExtra(INTENT_MESSAGE,"Custom Message Displayed");
-            chooseCopingSkillActivity.putExtra(INTENT_BACKGROUND_COLOR,"#75adae");
+
+            // add custom message/background
+            String message="",backgroundColor="#ffffff";
+            for (ItineraryItem item: itineraryItems) {
+                // TODO check for proper capabilityId?
+                Log.i(Constants.LOG_TAG, "capabilityParams=" + item.getCapabilityParameters().toString());
+                JSONObject jsonObject = item.getCapabilityParameters();
+                try {
+                    message = jsonObject.getString("message");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    backgroundColor = jsonObject.getString("background-color");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            chooseCopingSkillActivity.putExtra(INTENT_MESSAGE,message);
+            chooseCopingSkillActivity.putExtra(INTENT_BACKGROUND_COLOR,backgroundColor);
+
             startActivity(chooseCopingSkillActivity);
         }
     };

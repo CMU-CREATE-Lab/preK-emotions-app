@@ -29,7 +29,7 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
     private final ClickListener clickListener;
 
     public interface ClickListener {
-        void onClick(Emotion emotion);
+        void onClick(Emotion emotion, List<ItineraryItem> itineraryItems);
     }
 
 
@@ -80,29 +80,20 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
             });
         }
 
-        // TODO testing itinerary items ** (see below)
         final Context appContext = activity.getApplicationContext();
         AppDatabase.getInstance(appContext).intermediateTablesDAO().getItineraryItemsForEmotion(emotion.getUuid()).observe(activity, new Observer<List<ItineraryItem>>() {
             @Override
-            public void onChanged(@Nullable List<ItineraryItem> itineraryItems) {
-                if (itineraryItems.size() > 0) {
-                    Log.i(Constants.LOG_TAG, "found an Emotion with Itinerary.");
-                    for (ItineraryItem item: itineraryItems) {
-                        Log.i(Constants.LOG_TAG, "capabilityParams=" + item.getCapabilityParameters().toString());
-                    }
+            public void onChanged(@Nullable final List<ItineraryItem> itineraryItems) {
+                if (onClickListener) {
+                    result.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clickListener.onClick(emotion, itineraryItems);
+                        }
+                    });
                 }
             }
         });
-
-        // TODO modify click listener to include the itinerary ** (see above)
-        if (onClickListener) {
-            result.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickListener.onClick(emotion);
-                }
-            });
-        }
 
         return result;
     }
