@@ -2,15 +2,15 @@ package org.cmucreatelab.android.flutterprek.activities.coping_skill_static;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
 
-public class StaticCopingSkillActivity extends AppCompatActivity {
+public class StaticCopingSkillActivity extends AbstractCopingSkillActivity {
 
 
     @Override

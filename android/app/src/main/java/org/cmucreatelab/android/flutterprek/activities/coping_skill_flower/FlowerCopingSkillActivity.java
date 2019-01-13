@@ -1,14 +1,14 @@
 package org.cmucreatelab.android.flutterprek.activities.coping_skill_flower;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
 
-public class FlowerCopingSkillActivity extends AppCompatActivity {
+public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
 
     private FlowerCopingSkillProcess flowerCopingSkillProcess;
     private FlowerCopingSkillStep1Timer step1Timer;
