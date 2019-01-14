@@ -22,5 +22,9 @@
     <string name="coping_skill_flower_step_3_blow">Blow on the flower</string>
     <string name="coping_skill_flower_overlay">Would you like to do flower breathing again?</string>
     <string name="coping_skill_static_placeholder">Static Coping Skill Text will go here</string>
+    <string name="coping_skill_cuddle">Give a toy a hug. Hold it until you are ready to rejoin your friends.</string>
+    <string name="coping_skill_dance">Make up a dance to show how you feel.</string>
+    <string name="coping_skill_jumping_jacks">Let\'s do some jumping jacks! Jump your feet wide. Clap your hands over your head. Jump your feet together. Lower your hands. Keep going!</string>
+    <string name="coping_skill_share">Happiness is nice to share. Do you see any friends who could use a happy friend right now?</string>
     <string name="empty"></string>
 </resources>
