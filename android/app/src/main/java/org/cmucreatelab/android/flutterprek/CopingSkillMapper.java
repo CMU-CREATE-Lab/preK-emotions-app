@@ -6,7 +6,10 @@ import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower.FlowerCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.CuddleCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.DanceCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.EmptyStaticCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.JumpingJacksCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.ShareCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 
 public class CopingSkillMapper {
@@ -29,7 +32,18 @@ public class CopingSkillMapper {
                 Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: Cuddle");
                 copingSkillClass = CuddleCopingSkillActivity.class;
                 break;
-            // TODO other static coping skills
+            case "coping_skill_4":
+                Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: Dance");
+                copingSkillClass = DanceCopingSkillActivity.class;
+                break;
+            case "coping_skill_5":
+                Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: Jumping Jacks");
+                copingSkillClass = JumpingJacksCopingSkillActivity.class;
+                break;
+            case "coping_skill_6":
+                Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: Share");
+                copingSkillClass = ShareCopingSkillActivity.class;
+                break;
             default:
                 Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: None (default)");
                 // TODO default coping skill settings?

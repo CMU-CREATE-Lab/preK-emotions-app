@@ -16,7 +16,7 @@
         android:layout_marginStart="190dp"
         android:layout_marginTop="56dp"
         android:fontFamily="@font/source_sans_pro"
-        android:lines="3"
+        android:lines="4"
         android:text="@string/coping_skill_static_placeholder"
         android:textAlignment="center"
         android:textColor="@color/colorGray"
