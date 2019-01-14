@@ -16,13 +16,6 @@ public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
     private FlowerStateHandler flowerStateHandler;
 
 
-    private void playAudio(String filepath) {
-        AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
-        audioPlayer.addAudio(filepath);
-        audioPlayer.playAudio();
-    }
-
-
     private void playAudioSmell() {
         playAudio("etc/audio_prompts/audio_flower_smell.wav");
     }

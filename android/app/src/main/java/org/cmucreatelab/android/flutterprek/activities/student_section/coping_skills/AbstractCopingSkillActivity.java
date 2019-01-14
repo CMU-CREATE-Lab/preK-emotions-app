@@ -5,12 +5,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import org.cmucreatelab.android.flutterprek.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 
 public abstract class AbstractCopingSkillActivity extends AbstractActivity {
+
+
+    public void playAudio(String filepath) {
+        if (filepath != null) {
+            AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+            audioPlayer.addAudio(filepath);
+            audioPlayer.playAudio();
+        } else {
+            Log.w(Constants.LOG_TAG, "ignoring call to playAudio() with null filepath.");
+        }
+    }
 
 
     @Override

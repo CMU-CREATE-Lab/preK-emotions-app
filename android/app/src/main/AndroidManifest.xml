@@ -67,7 +67,7 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".activities.student_section.coping_skills.coping_skill_static.StaticCopingSkillActivity"
+            android:name=".activities.student_section.coping_skills.coping_skill_static.EmptyStaticCopingSkillActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
