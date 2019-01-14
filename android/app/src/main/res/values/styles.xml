@@ -139,6 +139,16 @@
     </style>
 
 
+    <!-- Non-grid Items -->
+    <style name="NonGridViewItem">
+        <item name="android:layout_margin">40sp</item>
+        <item name="android:layout_width">165sp</item>
+        <item name="android:layout_height">143sp</item>
+        <item name="android:elevation">5sp</item>
+        <item name="android:background">@drawable/card</item>
+    </style>
+
+
     <!-- Drawer Styles (fragments) -->
     <style name="DrawerTeacherSection">
         <item name="android:layout_width">@dimen/drawer_width</item>

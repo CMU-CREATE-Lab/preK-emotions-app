@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorOffWhite" >
+
+        <fragment
+            android:id="@+id/appHeader"
+            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.AppHeaderFragment"
+            android:layout_width="match_parent"
+            android:layout_height="65sp" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            style="@style/StudentSectionLayoutWithText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appHeader">
+
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/StudentSectionText"
+                android:text="@string/use_words_prompt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textTitle">
+
+                <ImageView
+                    android:id="@+id/imageViewNo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="40sp"
+                    app:srcCompat="@drawable/ic_thumb_down" />
+
+                <ImageView
+                    android:id="@+id/imageViewYes"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="40sp"
+                    app:srcCompat="@drawable/ic_thumb_up" />
+
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.design.widget.CoordinatorLayout>
