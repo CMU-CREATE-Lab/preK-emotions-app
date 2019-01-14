@@ -27,11 +27,11 @@
   "sessions": [],
   "emotionsCopingSkills":
   [
-    { "uuid": "happy_flower", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "happy_share", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_6" },
     { "uuid": "happy_dance", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_4" },
     { "uuid": "sad_flower", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "sad_cuddle", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_3" },
+    { "uuid": "mad_flower", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "mad_jumping_jacks", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_5" }
   ],
   "itineraryItems":
