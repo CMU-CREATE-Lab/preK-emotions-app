@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.GridView;
 
+import org.cmucreatelab.android.flutterprek.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
@@ -69,6 +70,13 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
     }
 
 
+    private void playAudioHowAreYouFeeling() {
+        AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+        audioPlayer.addAudio("etc/audio_prompts/audio_how_are_you_feeling.wav");
+        audioPlayer.playAudio();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +90,13 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
                 emotionsGridView.setAdapter(new EmotionIndexAdapter(ChooseEmotionActivity.this, emotions, listener));
             }
         });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playAudioHowAreYouFeeling();
     }
 
 
