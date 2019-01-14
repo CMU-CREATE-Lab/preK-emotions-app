@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_AUDIO_FILE;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_BACKGROUND_COLOR;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_MESSAGE;
 
@@ -38,7 +39,7 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
             Intent chooseCopingSkillActivity = new Intent(ChooseEmotionActivity.this, ChooseCopingSkillActivity.class);
 
             // add custom message/background
-            String message="",backgroundColor="#ffffff";
+            String message=null, backgroundColor=null, audioFile=null;
             for (ItineraryItem item: itineraryItems) {
                 // TODO check for proper capabilityId?
                 Log.i(Constants.LOG_TAG, "capabilityParams=" + item.getCapabilityParameters().toString());
@@ -53,9 +54,21 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                try {
+                    audioFile = jsonObject.getString("audio");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-            chooseCopingSkillActivity.putExtra(INTENT_MESSAGE,message);
-            chooseCopingSkillActivity.putExtra(INTENT_BACKGROUND_COLOR,backgroundColor);
+            if (message != null) {
+                chooseCopingSkillActivity.putExtra(INTENT_MESSAGE, message);
+            }
+            if (backgroundColor != null) {
+                chooseCopingSkillActivity.putExtra(INTENT_BACKGROUND_COLOR, backgroundColor);
+            }
+            if (audioFile != null) {
+                chooseCopingSkillActivity.putExtra(INTENT_AUDIO_FILE, audioFile);
+            }
 
             startActivity(chooseCopingSkillActivity);
         }

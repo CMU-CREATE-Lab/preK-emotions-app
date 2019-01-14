@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import org.cmucreatelab.android.flutterprek.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.CopingSkillMapper;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
@@ -24,7 +25,10 @@ import java.util.List;
 public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader {
 
     public static final String INTENT_MESSAGE = "message";
+    public static final String INTENT_AUDIO_FILE = "audio_message";
     public static final String INTENT_BACKGROUND_COLOR = "background_color";
+
+    private String message, backgroundColor, audioFile;
 
     private final CopingSkillIndexAdapter.ClickListener listener = new CopingSkillIndexAdapter.ClickListener() {
         @Override
@@ -47,8 +51,7 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader 
     }
 
 
-    private void customizeDisplayForEmotion(Intent intent) {
-        String message="", backgroundColor="#ffffff";
+    private void parseIntent(Intent intent) {
         try {
             message = intent.getStringExtra(INTENT_MESSAGE);
         } catch (Exception e) {
@@ -59,9 +62,26 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try {
+            audioFile = intent.getStringExtra(INTENT_AUDIO_FILE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-        ((TextView)findViewById(R.id.textTitle)).setText(message);
-        findViewById(R.id.activityBackground).setBackgroundColor(Color.parseColor(backgroundColor));
+
+    private void customizeDisplayForEmotion() {
+        ((TextView)findViewById(R.id.textTitle)).setText(message != null ? message : "");
+        findViewById(R.id.activityBackground).setBackgroundColor(Color.parseColor(backgroundColor != null ? backgroundColor : "#ffffff"));
+    }
+
+
+    private void playAudioFile() {
+        if (audioFile != null) {
+            AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+            audioPlayer.addAudio(audioFile);
+            audioPlayer.playAudio();
+        }
     }
 
 
@@ -69,7 +89,8 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        customizeDisplayForEmotion(getIntent());
+        parseIntent(getIntent());
+        customizeDisplayForEmotion();
 
         StudentSectionNavigationHandler navigationHandler = GlobalHandler.getInstance(this).studentSectionNavigationHandler;
         LiveData<List<CopingSkill>> liveData = getLiveDataFromQuery(navigationHandler.classroomUuid, navigationHandler.studentUuid, navigationHandler.emotionUuid);
@@ -80,6 +101,13 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader 
                 copingSkillsGridView.setAdapter(new CopingSkillIndexAdapter(ChooseCopingSkillActivity.this, copingSkills, listener));
             }
         });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playAudioFile();
     }
 
 
