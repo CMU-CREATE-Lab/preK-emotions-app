@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import org.cmucreatelab.android.flutterprek.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
@@ -13,6 +14,28 @@ public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
     private FlowerCopingSkillProcess flowerCopingSkillProcess;
     private FlowerCopingSkillStep1Timer step1Timer;
     private FlowerStateHandler flowerStateHandler;
+
+
+    private void playAudio(String filepath) {
+        AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+        audioPlayer.addAudio(filepath);
+        audioPlayer.playAudio();
+    }
+
+
+    private void playAudioSmell() {
+        playAudio("etc/audio_prompts/audio_flower_smell.wav");
+    }
+
+
+    private void playAudioBlow() {
+        playAudio("etc/audio_prompts/audio_flower_blow.wav");
+    }
+
+
+    private void playAudioOverlay() {
+        playAudio("etc/audio_prompts/audio_flower_again.wav");
+    }
 
 
     @Override
@@ -64,17 +87,20 @@ public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
     public void displayBreatheIn() {
         step1Timer.stopTimer();
         flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_2_SMELL);
+        playAudioSmell();
     }
 
 
     public void displayBreatheOut() {
         step1Timer.stopTimer();
         flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_3_BLOW);
+        playAudioBlow();
     }
 
 
     public void displayOverlay() {
         flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_4_OVERLAY);
+        playAudioOverlay();
     }
 
 
