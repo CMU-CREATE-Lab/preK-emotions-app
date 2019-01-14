@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 
 import java.io.IOException;
@@ -21,32 +18,14 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * A helper class to simplify playing audio clips.
  *
  */
-public class AudioPlayer implements MediaPlayer.OnCompletionListener, Parcelable {
+public class AudioPlayer implements MediaPlayer.OnCompletionListener {
 
-    public boolean playedBlueButton;
-    public boolean playedSendMessageTo;
     private static AudioPlayer classInstance;
     private Context appContext;
-    public MediaPlayer mediaPlayer;
+    public final MediaPlayer mediaPlayer;
     private ConcurrentLinkedQueue<String> relativeFilePaths;
 //    private ConcurrentLinkedQueue<Integer> fileIds;
 
-
-    protected AudioPlayer(Parcel in) {
-        playedBlueButton = in.readByte() != 0;
-    }
-
-    public static final Creator<AudioPlayer> CREATOR = new Creator<AudioPlayer>() {
-        @Override
-        public AudioPlayer createFromParcel(Parcel in) {
-            return new AudioPlayer(in);
-        }
-
-        @Override
-        public AudioPlayer[] newArray(int size) {
-            return new AudioPlayer[size];
-        }
-    };
 
     private void playNext() throws IOException {
 //        // NOTE: this is for resources (we use assets below instead)
@@ -56,14 +35,13 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener, Parcelable
         // for more info, see this post: https://stackoverflow.com/questions/3289038/play-audio-file-from-the-assets-directory#3389965
         AssetFileDescriptor afd = appContext.getAssets().openFd(relativeFilePaths.poll());
         mediaPlayer.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mediaPlayer.prepareAsync();
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
-                mediaPlayer.start();
+                AudioPlayer.this.mediaPlayer.start();
             }
         });
+        mediaPlayer.prepareAsync();
     }
 
 
@@ -71,19 +49,17 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener, Parcelable
 //        fileIds = new ConcurrentLinkedQueue<>();
         relativeFilePaths = new ConcurrentLinkedQueue<>();
         mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setOnCompletionListener(this);
         appContext = context;
-        playedBlueButton = false;
-        playedSendMessageTo = false;
     }
 
 
     public static AudioPlayer getInstance(Context context) {
         if (classInstance == null) {
-            return new AudioPlayer(context);
-        } else {
-            return classInstance;
+            classInstance = new AudioPlayer(context);
         }
+        return classInstance;
     }
 
 
@@ -115,19 +91,6 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener, Parcelable
     }
 
 
-    public void release() {
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
-    }
-
-
-    public boolean isPlaying() {
-        return mediaPlayer.isPlaying();
-    }
-
-
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
         if (!relativeFilePaths.isEmpty()) {
@@ -139,13 +102,4 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener, Parcelable
         }
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeSerializable(relativeFilePaths);
-    }
 }
