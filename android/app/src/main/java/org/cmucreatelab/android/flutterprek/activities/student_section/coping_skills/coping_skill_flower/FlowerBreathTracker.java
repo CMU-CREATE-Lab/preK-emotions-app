@@ -7,7 +7,7 @@ import org.cmucreatelab.android.flutterprek.R;
 
 public class FlowerBreathTracker {
 
-    private static final long COUNTER_TIME_INTERVAL_IN_MILLISECONDS = 1000;
+    private static final long COUNTER_TIME_INTERVAL_IN_MILLISECONDS = 600;
     private static final int BREATHE_IN_CYCLE_MAX = 5;
     private static final int BREATHE_OUT_CYCLE_MAX = 5;
     private static final int TOTAL_NUMBER_OF_CYCLES = 3;
