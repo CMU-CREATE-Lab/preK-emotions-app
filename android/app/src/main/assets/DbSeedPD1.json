@@ -37,13 +37,13 @@
   "itineraryItems":
   [
     { "uuid": "happy_settings", "ownerUuid": "emotion1", "sequenceId": 1, "capabilityId": "display_emotion",
-      "capabilityParameters": "{\"message\": \"It's nice to feel happy. Try one of these things when you feel happy.\", \"background-color\": \"#f3bb41\", \"audio\": \"etc/audio_prompts/audio_message_happy.wav\"}"
+      "capabilityParameters": "{\"message\": \"It's nice to feel happy. Try one of these things when you feel happy.\", \"background-color\": \"#f3bb41\", \"audio\": \"etc/audio_prompts/audio_message_happy_2.wav\"}"
     },
     { "uuid": "sad_settings", "ownerUuid": "emotion2", "sequenceId": 1, "capabilityId": "display_emotion",
-      "capabilityParameters": "{\"message\": \"It's ok to feel sad sometimes. Try one of these things when you feel sad.\", \"background-color\": \"#75adae\", \"audio\": \"etc/audio_prompts/audio_message_sad.wav\"}"
+      "capabilityParameters": "{\"message\": \"It's ok to feel sad sometimes. Try one of these things when you feel sad.\", \"background-color\": \"#75adae\", \"audio\": \"etc/audio_prompts/audio_message_sad_2.wav\"}"
     },
     { "uuid": "mad_settings", "ownerUuid": "emotion3", "sequenceId": 1, "capabilityId": "display_emotion",
-      "capabilityParameters": "{\"message\": \"Everyone feels mad sometimes. Try one of these things when you feel mad.\", \"background-color\": \"#dc6d69\", \"audio\": \"etc/audio_prompts/audio_message_mad.wav\"}"
+      "capabilityParameters": "{\"message\": \"Everyone feels mad sometimes. Try one of these things when you feel mad.\", \"background-color\": \"#dc6d69\", \"audio\": \"etc/audio_prompts/audio_message_mad_1.wav\"}"
     }
   ],
   "sessionsCopingSkills": [],
