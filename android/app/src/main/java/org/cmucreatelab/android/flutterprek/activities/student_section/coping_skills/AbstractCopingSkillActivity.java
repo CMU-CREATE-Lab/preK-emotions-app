@@ -17,6 +17,7 @@ public abstract class AbstractCopingSkillActivity extends AbstractActivity {
     public void playAudio(String filepath) {
         if (filepath != null) {
             AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+            audioPlayer.stop();
             audioPlayer.addAudio(filepath);
             audioPlayer.playAudio();
         } else {

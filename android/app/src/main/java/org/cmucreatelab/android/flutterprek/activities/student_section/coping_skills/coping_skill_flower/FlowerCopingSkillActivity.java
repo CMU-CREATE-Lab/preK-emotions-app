@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import org.cmucreatelab.android.flutterprek.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
@@ -14,6 +13,11 @@ public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
     private FlowerCopingSkillProcess flowerCopingSkillProcess;
     private FlowerCopingSkillStep1Timer step1Timer;
     private FlowerStateHandler flowerStateHandler;
+
+
+    private void playAudioInstructions() {
+        playAudio("etc/audio_prompts/audio_flower_hold_thumb_ladybug.wav");
+    }
 
 
     private void playAudioSmell() {
@@ -74,6 +78,7 @@ public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
     public void displayHoldFlowerInstructions() {
         flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_1A_HOLD_FLOWER_LADYBUG);
         step1Timer.startTimer();
+        playAudioInstructions();
     }
 
 
