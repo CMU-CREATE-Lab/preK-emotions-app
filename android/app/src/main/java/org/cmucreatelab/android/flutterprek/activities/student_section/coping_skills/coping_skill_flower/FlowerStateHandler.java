@@ -109,6 +109,8 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
         if (newState == State.WAIT_FOR_BUTTON) {
             activity.displayHoldFlowerInstructions();
             breathTracker.resetTracker();
+            // clear this flag (in case button was held down before entering this state)
+            isPressingButton = false;
         } else if (newState == State.BREATHING) {
             activity.displayBreatheIn();
             breathTracker.startTracker();
