@@ -34,7 +34,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
         public void onScanResult(int callbackType, ScanResult result) {
             if (!flowerDiscovered) {
                 BluetoothDevice device = result.getDevice();
-                if (device.getName() != null && device.getName().startsWith("FLOWER-")) {
+                if (device.getName() != null && GlobalHandler.getInstance(activity.getApplicationContext()).deviceConnectionHandler.checkIfValidBleDevice(BleFlower.class, device.getName())) {
                     Log.d(Constants.LOG_TAG, "onLeScan found Flower with name=" + device.getName());
                     flowerDiscovered = true;
                     GlobalHandler.getInstance(activity.getApplicationContext()).startConnection(device);

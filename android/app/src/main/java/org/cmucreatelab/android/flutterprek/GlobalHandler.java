@@ -14,11 +14,17 @@ public class GlobalHandler {
     public final Context appContext;
     public BleFlower bleFlower;
     public final StudentSectionNavigationHandler studentSectionNavigationHandler;
+    public final DeviceConnectionHandler deviceConnectionHandler;
 
 
     private GlobalHandler(Context context) {
         this.appContext = context;
         this.studentSectionNavigationHandler = new StudentSectionNavigationHandler();
+        if (Constants.HARDCODED_VALUES == null) {
+            this.deviceConnectionHandler = new DeviceConnectionHandler();
+        } else {
+            this.deviceConnectionHandler = new DeviceConnectionHandler(Constants.HARDCODED_VALUES);
+        }
     }
 
 

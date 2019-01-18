@@ -25,4 +25,15 @@ public class Constants {
                 .build();
     }
 
+    public static final DeviceConnectionHandler.HardcodedValues
+            STATION_TEST = new DeviceConnectionHandler.HardcodedValues("FLOWER-AEF3D",null, null, null),
+            STATION_1 = new DeviceConnectionHandler.HardcodedValues("FLOWER-9B4BC","MNSQ1","MNWD2","MNYG2"),
+            STATION_2 = new DeviceConnectionHandler.HardcodedValues("FLOWER-9C915","MNSQ2","MNWD1","MNYG1");
+
+    /**
+     * Set this to use hardcoded values for the MindfulNest BLE devices.
+     * This is helpful when there are multiple stations in the same room.
+     */
+    public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = null;
+
 }
