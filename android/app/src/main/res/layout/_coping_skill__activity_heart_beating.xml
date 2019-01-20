@@ -51,7 +51,7 @@
                     style="@style/NonGridViewItem">
 
                     <ImageView
-                        android:id="@+id/imageView1"
+                        android:id="@+id/imageViewBeatingSlow"
                         android:src="@drawable/heart"
                         android:padding="20sp"
                         style="@style/GridViewItemThumbnail.FitCenter"
@@ -76,7 +76,7 @@
                     style="@style/NonGridViewItem">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/imageViewBeatingFast"
                         android:src="@drawable/heart"
                         android:padding="20sp"
                         style="@style/GridViewItemThumbnail.FitCenter"

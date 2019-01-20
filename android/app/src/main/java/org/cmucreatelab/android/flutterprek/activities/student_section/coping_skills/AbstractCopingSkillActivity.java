@@ -74,7 +74,8 @@ public abstract class AbstractCopingSkillActivity extends AbstractActivity {
 //        Intent postCopingActivity = new Intent(this, MoveOnUseWordsActivity.class);
 //        // rejoin friends
 //        Intent postCopingActivity = new Intent(this, RejoinFriendsActivity.class);
-        postCopingActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        // NOTE: only relevant when activity already exists in stack
+        //postCopingActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(postCopingActivity);
     }
 
