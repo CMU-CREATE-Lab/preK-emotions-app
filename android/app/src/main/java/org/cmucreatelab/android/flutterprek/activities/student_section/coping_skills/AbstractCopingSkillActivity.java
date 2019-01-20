@@ -5,25 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import org.cmucreatelab.android.flutterprek.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.HeartBeatingActivity;
 
 public abstract class AbstractCopingSkillActivity extends AbstractActivity {
-
-
-    public void playAudio(String filepath) {
-        if (filepath != null) {
-            AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
-            audioPlayer.stop();
-            audioPlayer.addAudio(filepath);
-            audioPlayer.playAudio();
-        } else {
-            Log.w(Constants.LOG_TAG, "ignoring call to playAudio() with null filepath.");
-        }
-    }
 
 
     @Override
@@ -56,14 +44,24 @@ public abstract class AbstractCopingSkillActivity extends AbstractActivity {
     }
 
 
+//    /**
+//     * When finishing Coping Skill activities, always return to the Choose Student page.
+//     */
+//    @Override
+//    public void finish() {
+//        Intent chooseStudentActivity = new Intent(this, ChooseStudentActivity.class);
+//        chooseStudentActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(chooseStudentActivity);
+//    }
     /**
-     * When finishing Coping Skill activities, always return to the Choose Student page.
+     * When finishing Coping Skill activities, begin the follow-up coping skill prompts.
      */
     @Override
     public void finish() {
-        Intent chooseStudentActivity = new Intent(this, ChooseStudentActivity.class);
-        chooseStudentActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(chooseStudentActivity);
+        // heart beating
+        Intent heartBeatingActivity = new Intent(this, HeartBeatingActivity.class);
+        heartBeatingActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(heartBeatingActivity);
     }
 
 }

@@ -14,6 +14,18 @@ import org.cmucreatelab.android.flutterprek.Constants;
 public abstract class AbstractActivity extends AppCompatActivity {
 
 
+    public void playAudio(String filepath) {
+        if (filepath != null) {
+            AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+            audioPlayer.stop();
+            audioPlayer.addAudio(filepath);
+            audioPlayer.playAudio();
+        } else {
+            Log.w(Constants.LOG_TAG, "ignoring call to playAudio() with null filepath.");
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
