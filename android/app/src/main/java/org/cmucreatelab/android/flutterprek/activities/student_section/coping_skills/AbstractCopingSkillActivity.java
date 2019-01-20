@@ -8,8 +8,11 @@ import android.view.View;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.HeartBeatingActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_finished_exercise.FinishedExerciseActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_rejoin_friends.RejoinFriendsActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.MoveOnUseWordsActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.RecordUseWordsActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.UseWordsActivity;
 
 public abstract class AbstractCopingSkillActivity extends AbstractActivity {
 
@@ -58,10 +61,20 @@ public abstract class AbstractCopingSkillActivity extends AbstractActivity {
      */
     @Override
     public void finish() {
-        // heart beating
-        Intent heartBeatingActivity = new Intent(this, HeartBeatingActivity.class);
-        heartBeatingActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(heartBeatingActivity);
+//        // heart beating
+//        Intent postCopingActivity = new Intent(this, HeartBeatingActivity.class);
+//        // finished exercise
+//        Intent postCopingActivity = new Intent(this, FinishedExerciseActivity.class);
+//        // use words
+//        Intent postCopingActivity = new Intent(this, UseWordsActivity.class);
+//        // use words: record
+//        Intent postCopingActivity = new Intent(this, RecordUseWordsActivity.class);
+//        // use words: move on
+//        Intent postCopingActivity = new Intent(this, MoveOnUseWordsActivity.class);
+        // rejoin friends
+        Intent postCopingActivity = new Intent(this, RejoinFriendsActivity.class);
+        postCopingActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(postCopingActivity);
     }
 
 }
