@@ -48,19 +48,32 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textTitle">
 
-                <ImageView
-                    android:id="@+id/imageViewYes"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="40sp"
-                    app:srcCompat="@drawable/ic_thumb_up" />
+                <FrameLayout
+                    android:id="@+id/imageViewCircles"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_marginEnd="80dp"
+                    android:background="@drawable/shape_oval_transparent">
 
-                <!-- TODO need lips asset -->
+                    <ImageView
+                        android:id="@+id/imageViewCircleGreen"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/shape_oval_green" />
+                    <ImageView
+                        android:id="@+id/imageViewCircleWhite"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/shape_oval_white" />
+                </FrameLayout>
+
                 <ImageView
                     android:id="@+id/imageViewStop"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    app:srcCompat="@drawable/ic_thumb_down" />
+                    app:srcCompat="@drawable/ic_stop_recording" />
 
             </LinearLayout>
 
