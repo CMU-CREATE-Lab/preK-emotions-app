@@ -39,7 +39,7 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
             Intent chooseCopingSkillActivity = new Intent(ChooseEmotionActivity.this, ChooseCopingSkillActivity.class);
 
             // add custom message/background
-            String message=null, backgroundColor=null, audioFile=null;
+            String message=null, backgroundColor=null, audioFile=null, somethingElseMessage="", somethingElseAudio="";
             for (ItineraryItem item: itineraryItems) {
                 // TODO check for proper capabilityId?
                 Log.i(Constants.LOG_TAG, "capabilityParams=" + item.getCapabilityParameters().toString());
@@ -59,17 +59,32 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                try {
+                    somethingElseMessage = jsonObject.getString("somethingElseMessage");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    somethingElseAudio = jsonObject.getString("somethingElseAudio");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
             if (message != null) {
                 chooseCopingSkillActivity.putExtra(INTENT_MESSAGE, message);
             }
             if (backgroundColor != null) {
                 chooseCopingSkillActivity.putExtra(INTENT_BACKGROUND_COLOR, backgroundColor);
+            } else {
+                backgroundColor = "";
             }
             if (audioFile != null) {
                 chooseCopingSkillActivity.putExtra(INTENT_AUDIO_FILE, audioFile);
             }
 
+            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.emotionBackgroundColor = backgroundColor;
+            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.somethingElseMessage = somethingElseMessage;
+            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.somethingElseAudio = somethingElseAudio;
             startActivity(chooseCopingSkillActivity);
         }
     };

@@ -37,13 +37,13 @@
   "itineraryItems":
   [
     { "uuid": "happy_settings", "ownerUuid": "emotion1", "sequenceId": 1, "capabilityId": "display_emotion",
-      "capabilityParameters": "{\"message\": \"It's nice to feel happy. Try one of these things when you feel happy.\", \"background-color\": \"#f3bb41\", \"audio\": \"etc/audio_prompts/audio_message_happy_2.wav\"}"
+      "capabilityParameters": "{\"message\": \"It's nice to feel happy. Try one of these things when you feel happy.\", \"background-color\": \"#f3bb41\", \"audio\": \"etc/audio_prompts/audio_message_happy_2.wav\", \"somethingElseMessage\" : \"Would you like to try something else?\", \"somethingElseAudio\" : \"etc/audio_prompts/audio_something_else.wav\"}"
     },
     { "uuid": "sad_settings", "ownerUuid": "emotion2", "sequenceId": 1, "capabilityId": "display_emotion",
-      "capabilityParameters": "{\"message\": \"It's ok to feel sad sometimes. Try one of these things when you feel sad.\", \"background-color\": \"#75adae\", \"audio\": \"etc/audio_prompts/audio_message_sad_2.wav\"}"
+      "capabilityParameters": "{\"message\": \"It's ok to feel sad sometimes. Try one of these things when you feel sad.\", \"background-color\": \"#75adae\", \"audio\": \"etc/audio_prompts/audio_message_sad_2.wav\", \"somethingElseMessage\" : \"Would you like to try something else to help you feel less sad?\", \"somethingElseAudio\" : \"etc/audio_prompts/audio_something_else_sad.wav\"}"
     },
     { "uuid": "mad_settings", "ownerUuid": "emotion3", "sequenceId": 1, "capabilityId": "display_emotion",
-      "capabilityParameters": "{\"message\": \"Everyone feels mad sometimes. Try one of these things when you feel mad.\", \"background-color\": \"#dc6d69\", \"audio\": \"etc/audio_prompts/audio_message_mad_1.wav\"}"
+      "capabilityParameters": "{\"message\": \"Everyone feels mad sometimes. Try one of these things when you feel mad.\", \"background-color\": \"#dc6d69\", \"audio\": \"etc/audio_prompts/audio_message_mad_1.wav\", \"somethingElseMessage\" : \"Would you like to try something else to help you feel less mad?\", \"somethingElseAudio\" : \"etc/audio_prompts/audio_something_else_mad.wav\"}"
     }
   ],
   "sessionsCopingSkills": [],

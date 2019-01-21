@@ -14,6 +14,12 @@ public class StudentSectionNavigationHandler {
 
     public @NonNull String copingSkillUuid = "";
 
+    public @NonNull String emotionBackgroundColor = "";
+
+    public @NonNull String somethingElseMessage = "";
+
+    public @NonNull String somethingElseAudio = "";
+
     public File recordedAudioFile;
 
 }
