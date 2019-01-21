@@ -32,16 +32,14 @@ public class AudioRecorder implements Serializable {
 
 
     public void startRecording() {
-        //GlobalHandler globalHandler = GlobalHandler.getInstance(appContext);
-        //this.audioFile = SaveFileHandler.getOutputMediaFile(appContext, SaveFileHandler.MEDIA_TYPE_AUDIO, globalHandler);
-        this.audioFile = SaveFileHandler.getOutputMediaFile(appContext, SaveFileHandler.MEDIA_TYPE_AUDIO, GlobalHandler.getInstance(appContext));
+        GlobalHandler globalHandler = GlobalHandler.getInstance(appContext);
+        this.audioFile = SaveFileHandler.getOutputMediaFile(appContext, SaveFileHandler.MEDIA_TYPE_AUDIO, globalHandler);
         this.mediaRecorder = new MediaRecorder();
         this.mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         this.mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
         this.mediaRecorder.setOutputFile(audioFile.getAbsolutePath());
         this.mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        //globalHandler.sessionHandler.setMessageAudio(this.audioFile);
-        // TODO need access to created file
+        globalHandler.studentSectionNavigationHandler.recordedAudioFile = audioFile;
 
         try {
             this.mediaRecorder.prepare();

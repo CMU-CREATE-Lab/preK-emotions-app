@@ -9,13 +9,27 @@ import android.view.ViewAnimationUtils;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.PostCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.audio_recording.AudioRecorder;
 
 public class RecordUseWordsActivity extends PostCopingSkillActivity {
+
+    private static final long MAXIMUM_RECORD_LENGTH_MILLISECONDS = 8000;
+    private AudioRecorder audioRecorder;
 
 
     private void goToNextPostCopingSkillActivity() {
         Intent intent = new Intent(this, MoveOnUseWordsActivity.class);
         startActivity(intent);
+    }
+
+
+    private void startRecording() {
+        audioRecorder.startRecording();
+    }
+
+
+    private void stopRecording() {
+        audioRecorder.stopRecording();
     }
 
 
@@ -32,7 +46,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
 
             // create the animator for this view (the start radius is zero)
             Animator anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0f, finalRadius);
-            anim.setDuration(8000);
+            anim.setDuration(MAXIMUM_RECORD_LENGTH_MILLISECONDS);
 
             // make the view visible and start the animation
             myView.setVisibility(View.VISIBLE);
@@ -60,6 +74,8 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        audioRecorder = new AudioRecorder(getApplicationContext());
+
         // previously invisible view
         View myView = findViewById(R.id.imageViewCircleWhite);
         myView.setVisibility(View.INVISIBLE);
@@ -68,6 +84,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 v.removeOnLayoutChangeListener(this);
+                startRecording();
                 circleRevealAnimation(v);
             }
         });
@@ -75,10 +92,20 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
         findViewById(R.id.imageViewStop).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO save recorded audio
+                stopRecording();
                 goToNextPostCopingSkillActivity();
             }
         });
+    }
+
+
+    // Avoid recording while in background
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        stopRecording();
+        finish();
     }
 
 }

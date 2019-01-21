@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 
 import java.io.File;
@@ -32,15 +33,18 @@ public class SaveFileHandler {
         if (name.contains(" ")) {
             name = name.replace(' ', '_');
         }
-        if (type == MEDIA_TYPE_IMAGE) {
-            mediaStorageDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), name);
-        } else if (type == MEDIA_TYPE_AUDIO) {
-            mediaStorageDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_MUSIC), name);
-        }
+//        // external file storage
+//        if (type == MEDIA_TYPE_IMAGE) {
+//            mediaStorageDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), name);
+//        } else if (type == MEDIA_TYPE_AUDIO) {
+//            mediaStorageDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_MUSIC), name);
+//        }
+        // internal file storage
+        mediaStorageDir = new File(context.getFilesDir(), name);
 
         if (! mediaStorageDir.exists()) {
             if (! mediaStorageDir.mkdirs()) {
-                Log.d("Message From Me", "failed to create directory");
+                Log.d(Constants.LOG_TAG, "failed to create directory");
                 return null;
             }
         }
