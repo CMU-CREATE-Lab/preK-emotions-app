@@ -7,13 +7,17 @@ import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.StaticCopingSkillTimeoutOverlay;
 
 public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActivity {
+
+    private StaticCopingSkillTimeoutOverlay staticCopingSkillTimeoutOverlay;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        staticCopingSkillTimeoutOverlay = new StaticCopingSkillTimeoutOverlay(this);
 
         findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
         ((TextView)findViewById(R.id.textViewTitle)).setText(getTextTitleResource());
@@ -21,9 +25,17 @@ public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActiv
 
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        staticCopingSkillTimeoutOverlay.onPauseActivity();
+    }
+
+
+    @Override
     protected void onResume() {
         super.onResume();
         playAudio(getAudioFileForCopingSkillTitle());
+        staticCopingSkillTimeoutOverlay.onResumeActivity();
     }
 
 
