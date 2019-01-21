@@ -33,21 +33,6 @@ public abstract class AbstractCopingSkillActivity extends AbstractActivity {
     }
 
 
-    /**
-     * Hide navigation buttons to make the activity take up the entire screen.
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-
-        decorView.setSystemUiVisibility(uiOptions);
-    }
-
-
 //    /**
 //     * When finishing Coping Skill activities, always return to the Choose Student page.
 //     */

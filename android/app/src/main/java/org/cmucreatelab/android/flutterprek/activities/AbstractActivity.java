@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -29,6 +30,21 @@ public abstract class AbstractActivity extends AppCompatActivity {
         } else {
             Log.w(Constants.LOG_TAG, "ignoring call to playAudio() with null filepath.");
         }
+    }
+
+
+    /**
+     * Hide navigation buttons to make the activity take up the entire screen.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+
+        decorView.setSystemUiVisibility(uiOptions);
     }
 
 
