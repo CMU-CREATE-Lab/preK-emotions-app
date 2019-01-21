@@ -14,7 +14,7 @@
         android:layout_marginTop="113dp"
         android:fontFamily="@font/source_sans_pro"
         android:lines="3"
-        android:text="@string/coping_skill_flower_overlay"
+        android:text="@string/overlay_placeholder"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="36sp"

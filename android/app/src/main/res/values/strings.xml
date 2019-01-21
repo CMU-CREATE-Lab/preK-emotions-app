@@ -37,5 +37,6 @@
     <string name="coping_skill_dance">Make up a dance to show how you feel.</string>
     <string name="coping_skill_jumping_jacks">Let\'s do some jumping jacks! Jump your feet wide. Clap your hands over your head. Jump your feet together. Lower your hands. Keep going!</string>
     <string name="coping_skill_share">Happiness is nice to share. Do you see any friends who could use a happy friend right now?</string>
+    <string name="overlay_placeholder">Do you need more time?</string>
     <string name="empty"></string>
 </resources>

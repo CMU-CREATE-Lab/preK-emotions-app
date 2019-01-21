@@ -59,7 +59,7 @@ public class FlowerCopingSkillProcess {
     }
 
 
-    public void goToStep(StepNumber stepNumber) {
+    public void goToStep(final StepNumber stepNumber) {
         final @IdRes int[] viewsToDisplay;
         final @StringRes int stringResourceForTitle;
 
@@ -140,6 +140,10 @@ public class FlowerCopingSkillProcess {
                 setVisibilityForResources(ALL_VIEWS, View.INVISIBLE);
                 setVisibilityForResources(viewsToDisplay, View.VISIBLE);
                 setTextForTitle(stringResourceForTitle);
+                // set title (for overlay only)
+                if (stepNumber == StepNumber.STEP_4_OVERLAY) {
+                    ((TextView)flowerCopingSkillActivity.findViewById(R.id.textViewOverlayTitle)).setText(R.string.coping_skill_flower_overlay);
+                }
             }
         });
     }
