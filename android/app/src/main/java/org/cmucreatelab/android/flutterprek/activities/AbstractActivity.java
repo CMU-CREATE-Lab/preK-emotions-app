@@ -1,5 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
@@ -15,10 +16,15 @@ public abstract class AbstractActivity extends AppCompatActivity {
 
 
     public void playAudio(String filepath) {
+        playAudio(filepath, null);
+    }
+
+
+    public void playAudio(String filepath, MediaPlayer.OnCompletionListener listener) {
         if (filepath != null) {
             AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
             audioPlayer.stop();
-            audioPlayer.addAudioFromAssets(filepath);
+            audioPlayer.addAudioFromAssets(filepath, listener);
             audioPlayer.playAudio();
         } else {
             Log.w(Constants.LOG_TAG, "ignoring call to playAudio() with null filepath.");

@@ -35,10 +35,12 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
     private class AudioFile {
         final String filepath;
         final StorageType storageType;
+        final MediaPlayer.OnCompletionListener listener;
 
-        AudioFile(String filepath, StorageType storageType) {
+        AudioFile(String filepath, StorageType storageType, MediaPlayer.OnCompletionListener listener) {
             this.filepath = filepath;
             this.storageType = storageType;
+            this.listener = listener;
         }
     }
 
@@ -48,7 +50,7 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
 //        Uri uri = Uri.parse("android.resource://" + appContext.getPackageName() + "/" + fileIds.poll());
         mediaPlayer.reset();
 
-        AudioFile audioFileToPlay = audioFilesQueue.poll();
+        final AudioFile audioFileToPlay = audioFilesQueue.poll();
         if (audioFileToPlay.storageType == StorageType.ASSET) {
             // NOTE: setDataSource with AssetFileDescriptor requires API Level 24, so using this offset/length hack is necessary to avoid this.
             // for more info, see this post: https://stackoverflow.com/questions/3289038/play-audio-file-from-the-assets-directory#3389965
@@ -57,6 +59,19 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
         } else {
             // TODO consider resources as well?
             mediaPlayer.setDataSource(audioFileToPlay.filepath);
+        }
+        // set custom listener
+        if (audioFileToPlay.listener != null) {
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    // make call to custom listener
+                    audioFileToPlay.listener.onCompletion(mp);
+                    // reset listener to AudioPlayer class (and make usual callback afterwards)
+                    mediaPlayer.setOnCompletionListener(AudioPlayer.this);
+                    AudioPlayer.this.onCompletion(mp);
+                }
+            });
         }
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -90,12 +105,17 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
 //        fileIds.add(fileId);
 //    }
     public void addAudioFromAssets(String filepath) {
-        audioFilesQueue.add(new AudioFile(filepath, StorageType.ASSET));
+        audioFilesQueue.add(new AudioFile(filepath, StorageType.ASSET, null));
+    }
+
+
+    public void addAudioFromAssets(String filepath, MediaPlayer.OnCompletionListener listener) {
+        audioFilesQueue.add(new AudioFile(filepath, StorageType.ASSET, listener));
     }
 
 
     public void addAudioFromInternalStorage(String filepath) {
-        audioFilesQueue.add(new AudioFile(filepath, StorageType.INTERNAL_STORAGE));
+        audioFilesQueue.add(new AudioFile(filepath, StorageType.INTERNAL_STORAGE, null));
     }
 
 
