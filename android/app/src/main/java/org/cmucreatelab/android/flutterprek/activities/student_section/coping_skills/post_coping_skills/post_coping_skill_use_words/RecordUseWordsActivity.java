@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 
 import org.cmucreatelab.android.flutterprek.AudioPlayer;
+import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.PostCopingSkillActivity;
@@ -17,8 +18,15 @@ import org.cmucreatelab.android.flutterprek.audio_recording.AudioRecorder;
 
 public class RecordUseWordsActivity extends PostCopingSkillActivity {
 
-    private static final long MAXIMUM_RECORD_LENGTH_MILLISECONDS = 8000;
+    private static final long MAXIMUM_RECORD_LENGTH_MILLISECONDS = 20000;
+
     private AudioRecorder audioRecorder;
+    private final BackgroundTimer timerToStopRecording = new BackgroundTimer(MAXIMUM_RECORD_LENGTH_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
+        @Override
+        public void timerExpired() {
+            stopRecordingAndMoveOn();
+        }
+    });
 
     private boolean activityIsCancelled = false;
     private boolean layoutAnimationIsReady = false;
@@ -63,7 +71,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
     }
 
 
-    private void checkToBeginRecording() {
+    public void checkToBeginRecording() {
         if (activityIsCancelled) {
             Log.w(Constants.LOG_TAG, "checkToBeginRecording but activityIsCancelled is true; returning");
             return;
@@ -76,7 +84,15 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
             startedRecording = true;
             audioRecorder.startRecording();
             circleRevealAnimation(viewForCircleAnimation);
+            timerToStopRecording.startTimer();
         }
+    }
+
+
+    public void stopRecordingAndMoveOn() {
+        timerToStopRecording.stopTimer();
+        stopRecording();
+        goToNextPostCopingSkillActivity();
     }
 
 
@@ -114,8 +130,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
         findViewById(R.id.imageViewStop).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopRecording();
-                goToNextPostCopingSkillActivity();
+                stopRecordingAndMoveOn();
             }
         });
     }
@@ -125,6 +140,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
     @Override
     protected void onPause() {
         activityIsCancelled = true;
+        timerToStopRecording.stopTimer();
         super.onPause();
 
         stopRecording();
