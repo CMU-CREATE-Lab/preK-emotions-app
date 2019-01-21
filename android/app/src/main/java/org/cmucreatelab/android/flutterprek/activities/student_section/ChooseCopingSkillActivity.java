@@ -79,7 +79,7 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader 
     private void playAudioFile() {
         if (audioFile != null) {
             AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
-            audioPlayer.addAudio(audioFile);
+            audioPlayer.addAudioFromAssets(audioFile);
             audioPlayer.playAudio();
         }
     }

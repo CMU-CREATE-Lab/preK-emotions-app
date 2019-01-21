@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.util.Log;
 
 import java.io.IOException;
@@ -23,18 +24,40 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
     private static AudioPlayer classInstance;
     private Context appContext;
     public final MediaPlayer mediaPlayer;
-    private ConcurrentLinkedQueue<String> relativeFilePaths;
+    private ConcurrentLinkedQueue<AudioFile> audioFilesQueue;
 //    private ConcurrentLinkedQueue<Integer> fileIds;
+
+    private enum StorageType {
+        ASSET,
+        INTERNAL_STORAGE
+    }
+
+    private class AudioFile {
+        final String filepath;
+        final StorageType storageType;
+
+        AudioFile(String filepath, StorageType storageType) {
+            this.filepath = filepath;
+            this.storageType = storageType;
+        }
+    }
 
 
     private void playNext() throws IOException {
 //        // NOTE: this is for resources (we use assets below instead)
 //        Uri uri = Uri.parse("android.resource://" + appContext.getPackageName() + "/" + fileIds.poll());
         mediaPlayer.reset();
-        // NOTE: setDataSource with AssetFileDescriptor requires API Level 24, so using this offset/length hack is necessary to avoid this.
-        // for more info, see this post: https://stackoverflow.com/questions/3289038/play-audio-file-from-the-assets-directory#3389965
-        AssetFileDescriptor afd = appContext.getAssets().openFd(relativeFilePaths.poll());
-        mediaPlayer.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+
+        AudioFile audioFileToPlay = audioFilesQueue.poll();
+        if (audioFileToPlay.storageType == StorageType.ASSET) {
+            // NOTE: setDataSource with AssetFileDescriptor requires API Level 24, so using this offset/length hack is necessary to avoid this.
+            // for more info, see this post: https://stackoverflow.com/questions/3289038/play-audio-file-from-the-assets-directory#3389965
+            AssetFileDescriptor afd = appContext.getAssets().openFd(audioFileToPlay.filepath);
+            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+        } else {
+            // TODO consider resources as well?
+            mediaPlayer.setDataSource(audioFileToPlay.filepath);
+        }
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
@@ -47,7 +70,7 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
 
     private AudioPlayer(Context context) {
 //        fileIds = new ConcurrentLinkedQueue<>();
-        relativeFilePaths = new ConcurrentLinkedQueue<>();
+        audioFilesQueue = new ConcurrentLinkedQueue<>();
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setOnCompletionListener(this);
@@ -66,13 +89,18 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
 //    public void addAudio(Integer fileId) {
 //        fileIds.add(fileId);
 //    }
-    public void addAudio(String filepath) {
-        relativeFilePaths.add(filepath);
+    public void addAudioFromAssets(String filepath) {
+        audioFilesQueue.add(new AudioFile(filepath, StorageType.ASSET));
+    }
+
+
+    public void addAudioFromInternalStorage(String filepath) {
+        audioFilesQueue.add(new AudioFile(filepath, StorageType.INTERNAL_STORAGE));
     }
 
 
     public void playAudio() {
-        if (!relativeFilePaths.isEmpty() && !mediaPlayer.isPlaying()) {
+        if (!audioFilesQueue.isEmpty() && !mediaPlayer.isPlaying()) {
             try {
                 playNext();
             } catch (IOException e) {
@@ -84,7 +112,7 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
 
     public void stop() {
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            relativeFilePaths.clear();
+            audioFilesQueue.clear();
             mediaPlayer.stop();
             mediaPlayer.reset();
         }
@@ -93,7 +121,7 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
-        if (!relativeFilePaths.isEmpty()) {
+        if (!audioFilesQueue.isEmpty()) {
             try {
                 playNext();
             } catch (IOException e) {

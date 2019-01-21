@@ -18,7 +18,7 @@ public abstract class AbstractActivity extends AppCompatActivity {
         if (filepath != null) {
             AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
             audioPlayer.stop();
-            audioPlayer.addAudio(filepath);
+            audioPlayer.addAudioFromAssets(filepath);
             audioPlayer.playAudio();
         } else {
             Log.w(Constants.LOG_TAG, "ignoring call to playAudio() with null filepath.");

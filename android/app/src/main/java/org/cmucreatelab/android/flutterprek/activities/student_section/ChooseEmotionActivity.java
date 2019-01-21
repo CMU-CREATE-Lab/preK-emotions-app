@@ -85,7 +85,7 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
 
     private void playAudioHowAreYouFeeling() {
         AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
-        audioPlayer.addAudio("etc/audio_prompts/audio_how_are_you_feeling.wav");
+        audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_how_are_you_feeling.wav");
         audioPlayer.playAudio();
     }
 
