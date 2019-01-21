@@ -1,14 +1,16 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills;
 
+import android.content.Intent;
 import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 
-public class StaticCopingSkillTimeoutOverlay {
+public class PostCopingSkillTimeoutOverlay {
 
-    private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 30000;
+    private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 25000;
     private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
     private AbstractActivity activity;
     private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
@@ -21,9 +23,11 @@ public class StaticCopingSkillTimeoutOverlay {
     }
 
 
-    private void finishActivity() {
+    private void finishSession() {
         releaseTimers();
-        activity.finish();
+        Intent intent = new Intent(activity, ChooseStudentActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
     }
 
 
@@ -49,11 +53,11 @@ public class StaticCopingSkillTimeoutOverlay {
 
 
     private void onTimerToExitFromOverlayExpired() {
-        finishActivity();
+        finishSession();
     }
 
 
-    public StaticCopingSkillTimeoutOverlay(AbstractActivity activity) {
+    public PostCopingSkillTimeoutOverlay(AbstractActivity activity) {
         this.activity = activity;
 
         timerToDisplayOverlay = new BackgroundTimer(DISPLAY_OVERLAY_AFTER_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
@@ -80,7 +84,7 @@ public class StaticCopingSkillTimeoutOverlay {
         activity.findViewById(R.id.overlayYesNo).findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finishActivity();
+                finishSession();
             }
         });
 

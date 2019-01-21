@@ -64,4 +64,8 @@
 
     </android.support.constraint.ConstraintLayout>
 
+    <include
+        android:id="@+id/overlayYesNo"
+        layout="@layout/overlay_yes_no" />
+
 </android.support.design.widget.CoordinatorLayout>
