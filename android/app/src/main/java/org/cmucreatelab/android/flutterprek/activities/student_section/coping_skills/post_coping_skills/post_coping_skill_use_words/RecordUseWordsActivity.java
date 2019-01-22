@@ -115,7 +115,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
         audioRecorder = new AudioRecorder(getApplicationContext());
 
         // previously invisible view
-        this.viewForCircleAnimation = findViewById(R.id.imageViewCircleWhite);
+        this.viewForCircleAnimation = findViewById(R.id.imageViewCircleGreen);
         viewForCircleAnimation.setVisibility(View.INVISIBLE);
 
         viewForCircleAnimation.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
