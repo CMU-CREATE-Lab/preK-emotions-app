@@ -38,13 +38,4 @@
         app:layout_constraintEnd_toStartOf="@+id/imageInfo"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/versionName"
-        android:textSize="11dp"
-        android:paddingLeft="6dp"
-        android:paddingBottom="2dp"
-        android:textColor="@color/colorBlack" />
 </android.support.constraint.ConstraintLayout>
