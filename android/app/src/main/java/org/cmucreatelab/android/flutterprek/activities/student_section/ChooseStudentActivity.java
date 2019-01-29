@@ -12,12 +12,15 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
+import org.cmucreatelab.android.flutterprek.activities.fragments.DebugCorner;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;
 
 public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
+
+    private DebugCorner debugCorner;
 
     private final StudentIndexAdapter.ClickListener listener = new StudentIndexAdapter.ClickListener() {
         @Override
@@ -51,6 +54,8 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
                 studentsGridView.setAdapter(new StudentIndexAdapter(ChooseStudentActivity.this, students, listener));
             }
         });
+
+        this.debugCorner = new DebugCorner(this);
     }
 
 

@@ -17,6 +17,7 @@
     <!-- miscellaneous -->
     <color name="colorWhite">#fff</color>
     <color name="colorOffWhite">#f4f4f4</color>
+    <color name="colorLightGray">#aaaaaa</color>
     <color name="colorGray">#4a4a4a</color>
     <color name="colorDarkGray">#2d2d2d</color>
     <color name="colorBlack">#000</color>
