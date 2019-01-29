@@ -12,6 +12,7 @@ import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.SessionCopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.session.SessionDAO;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -116,7 +117,8 @@ public class IntermediateTablesDaoTest extends DaoTest {
 
     @Test
     public void insertAndDeleteItineraryItem() {
-        ItineraryItem itineraryItem = new ItineraryItem(test_uuid, student_uuid1, 1, "capability", "");
+        JSONObject jsonObject = new JSONObject();
+        ItineraryItem itineraryItem = new ItineraryItem(test_uuid, student_uuid1, 1, "capability", jsonObject);
         intermediateTablesDAO.insert(itineraryItem);
         intermediateTablesDAO.delete(itineraryItem);
     }

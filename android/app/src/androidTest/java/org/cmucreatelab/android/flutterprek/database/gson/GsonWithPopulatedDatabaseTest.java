@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +33,7 @@ public class GsonWithPopulatedDatabaseTest {
     private Gson buildGson() {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Date.class, new DateTypeAdapter());
+        builder.registerTypeAdapter(JSONObject.class, new JsonAdapter());
         return builder.create();
     }
 

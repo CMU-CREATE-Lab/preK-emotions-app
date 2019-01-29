@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -29,6 +30,7 @@ public class BuildFromGsonTest {
     private Gson buildGson() {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Date.class, new DateTypeAdapter());
+        builder.registerTypeAdapter(JSONObject.class, new JsonAdapter());
         return builder.create();
     }
 

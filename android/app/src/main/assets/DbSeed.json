@@ -47,8 +47,8 @@
   ],
   "itineraryItems":
   [
-    { "uuid": "thinkaboutit_step1", "ownerUuid": "coping_skill_1", "sequenceId": 1, "capabilityId": "textonly", "capabilityParameters": "{\"message\": \"Think About It First Message\", \"background-color\": \"#666666\"}" },
-    { "uuid": "thinkaboutit_step2", "ownerUuid": "coping_skill_1", "sequenceId": 2, "capabilityId": "textonly", "capabilityParameters": "{\"message\": \"Think About It Second Message\", \"background-color\": \"#66aa66\"}" }
+    { "uuid": "thinkaboutit_step1", "ownerUuid": "coping_skill_1", "sequenceId": 1, "capabilityId": "textonly", "capabilityParameters": "{\"background-color\":\"#666666\",\"message\":\"Think About It First Message\"}" },
+    { "uuid": "thinkaboutit_step2", "ownerUuid": "coping_skill_1", "sequenceId": 2, "capabilityId": "textonly", "capabilityParameters": "{\"background-color\":\"#66aa66\",\"message\":\"Think About It Second Message\"}" }
   ],
   "sessionsCopingSkills":
   [
