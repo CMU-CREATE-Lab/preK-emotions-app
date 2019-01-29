@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
@@ -12,6 +13,8 @@ public class PostCopingSkillTimeoutOverlay {
 
     private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 25000;
     private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
+    private static final String AUDIO_FILE_PROMPT_MORE_TIME = "etc/audio_prompts/audio_more_time.wav";
+
     private AbstractActivity activity;
     private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
     private boolean overlayIsDisplayed = false;
@@ -28,6 +31,7 @@ public class PostCopingSkillTimeoutOverlay {
     private void displayOverlay() {
         timerToDisplayOverlay.stopTimer();
         overlayIsDisplayed = true;
+        activity.playAudio(AUDIO_FILE_PROMPT_MORE_TIME);
         activity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
         timerToExitFromOverlay.startTimer();
     }
@@ -51,7 +55,7 @@ public class PostCopingSkillTimeoutOverlay {
     }
 
 
-    public PostCopingSkillTimeoutOverlay(AbstractActivity activity) {
+    public PostCopingSkillTimeoutOverlay(@NonNull AbstractActivity activity) {
         this.activity = activity;
 
         timerToDisplayOverlay = new BackgroundTimer(DISPLAY_OVERLAY_AFTER_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {

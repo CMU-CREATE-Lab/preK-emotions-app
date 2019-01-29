@@ -100,8 +100,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
 
     @Override
     public String getAudioFileForPostCopingSkillTitle() {
-        // TODO new audio file
-        return "etc/audio_prompts/audio_record.wav";
+        return "etc/audio_prompts/audio_record_press_button.wav";
     }
 
 
