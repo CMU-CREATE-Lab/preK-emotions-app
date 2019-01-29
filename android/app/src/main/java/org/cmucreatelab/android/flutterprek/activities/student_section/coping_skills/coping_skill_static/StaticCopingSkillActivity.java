@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static;
 
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.widget.TextView;
@@ -20,7 +21,9 @@ public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActiv
         staticCopingSkillTimeoutOverlay = new StaticCopingSkillTimeoutOverlay(this);
 
         findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
-        ((TextView)findViewById(R.id.textViewTitle)).setText(getTextTitleResource());
+        TextView textViewTitle = findViewById(R.id.textViewTitle);
+        textViewTitle.setText(getTextTitleResource());
+        textViewTitle.setTextColor(getColorResourceForTitle());
     }
 
 
@@ -42,6 +45,13 @@ public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActiv
     @Override
     public int getResourceIdForActivityLayout() {
         return R.layout.activity_static_coping_skill;
+    }
+
+
+    /** Get the color resource to use for the title (white by default). */
+    @ColorRes
+    public int getColorResourceForTitle() {
+        return R.color.colorWhite;
     }
 
 

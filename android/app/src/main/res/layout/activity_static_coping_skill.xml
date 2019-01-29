@@ -19,7 +19,7 @@
         android:lines="4"
         android:text="@string/coping_skill_static_placeholder"
         android:textAlignment="center"
-        android:textColor="@color/colorGray"
+        android:textColor="@color/colorWhite"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
