@@ -35,10 +35,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-            <!-- TODO add circles here -->
             <LinearLayout
                 android:id="@+id/layoutCircles"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -74,6 +73,26 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     app:srcCompat="@drawable/ic_stop_recording" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutRecordButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textTitle">
+
+                <ImageView
+                    android:id="@+id/imageViewRecordButton"
+                    android:layout_width="155dp"
+                    android:layout_height="155dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_record" />
 
             </LinearLayout>
 

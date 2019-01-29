@@ -33,6 +33,11 @@ public abstract class PostCopingSkillActivity extends StudentSectionActivityWith
     }
 
 
+    public void releaseOverlayTimers() {
+        postCopingSkillTimeoutOverlay.releaseTimers();
+    }
+
+
     /**
      * Every activity following the coping skill will have some prompt. This is the audio file associated with that prompt.
      *

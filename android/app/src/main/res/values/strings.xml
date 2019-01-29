@@ -18,7 +18,7 @@
     <string name="finished_exercise_ok">OK</string>
     <string name="finished_exercise_happy">Happy</string>
     <string name="use_words_prompt">Do you want to use words to describe how you feel now that you have finished the exercise?</string>
-    <string name="record_prompt">Record how you\'re feeling</string>
+    <string name="record_prompt">Press the button to record how you are feeling.</string>
     <string name="move_on_prompt">Are you ready to move on?</string>
     <string name="rejoin_friends_prompt">Do you feel ready to rejoin your friends?</string>
     <string name="mindfulnest_header_active_class">Active Class</string>

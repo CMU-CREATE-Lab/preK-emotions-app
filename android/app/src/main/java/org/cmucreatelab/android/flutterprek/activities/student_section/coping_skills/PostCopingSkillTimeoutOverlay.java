@@ -17,12 +17,6 @@ public class PostCopingSkillTimeoutOverlay {
     private boolean overlayIsDisplayed = false;
 
 
-    private void releaseTimers() {
-        timerToDisplayOverlay.stopTimer();
-        timerToExitFromOverlay.stopTimer();
-    }
-
-
     private void finishSession() {
         releaseTimers();
         Intent intent = new Intent(activity, ChooseStudentActivity.class);
@@ -89,6 +83,12 @@ public class PostCopingSkillTimeoutOverlay {
         });
 
         hideOverlay();
+    }
+
+
+    public void releaseTimers() {
+        timerToDisplayOverlay.stopTimer();
+        timerToExitFromOverlay.stopTimer();
     }
 
 

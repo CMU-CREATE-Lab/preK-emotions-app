@@ -2,7 +2,6 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 
 import android.animation.Animator;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,10 +29,11 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
 
     private boolean activityIsCancelled = false;
     private boolean layoutAnimationIsReady = false;
-    private boolean promptFinishedPlaying = false;
+    private boolean recordButtonPressed = false;
     private boolean startedRecording = false;
 
     private View viewForCircleAnimation;
+    private View layoutCircles, layoutRecordButton;
 
 
     private void stopRecording() {
@@ -78,10 +78,12 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
         } else if (startedRecording) {
             Log.w(Constants.LOG_TAG, "checkToBeginRecording but startedRecording is true; returning");
             return;
-        } else if (layoutAnimationIsReady && promptFinishedPlaying) {
+        } else if (layoutAnimationIsReady && recordButtonPressed) {
+            startedRecording = true;
+
             // be certain that audio won't play when you start recording
             AudioPlayer.getInstance(getApplicationContext()).stop();
-            startedRecording = true;
+
             audioRecorder.startRecording();
             circleRevealAnimation(viewForCircleAnimation);
             timerToStopRecording.startTimer();
@@ -98,6 +100,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
 
     @Override
     public String getAudioFileForPostCopingSkillTitle() {
+        // TODO new audio file
         return "etc/audio_prompts/audio_record.wav";
     }
 
@@ -114,8 +117,12 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
 
         audioRecorder = new AudioRecorder(getApplicationContext());
 
-        // previously invisible view
+        // assign views
         this.viewForCircleAnimation = findViewById(R.id.imageViewCircleWhite);
+        this.layoutCircles = findViewById(R.id.layoutCircles);
+        this.layoutRecordButton = findViewById(R.id.layoutRecordButton);
+
+        // previously invisible view
         viewForCircleAnimation.setVisibility(View.INVISIBLE);
 
         viewForCircleAnimation.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
@@ -133,6 +140,18 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
                 stopRecordingAndMoveOn();
             }
         });
+
+        findViewById(R.id.imageViewRecordButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recordButtonPressed = true;
+                layoutRecordButton.setVisibility(View.GONE);
+                layoutCircles.setVisibility(View.VISIBLE);
+                // avoid timeout overlay when you press to start recording
+                releaseOverlayTimers();
+                checkToBeginRecording();
+            }
+        });
     }
 
 
@@ -145,14 +164,6 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
 
         stopRecording();
         finish();
-    }
-
-
-    // waits for prompt to finish playing before recording
-    @Override
-    public void onCompletion(MediaPlayer mp) {
-        promptFinishedPlaying = true;
-        checkToBeginRecording();
     }
 
 }
