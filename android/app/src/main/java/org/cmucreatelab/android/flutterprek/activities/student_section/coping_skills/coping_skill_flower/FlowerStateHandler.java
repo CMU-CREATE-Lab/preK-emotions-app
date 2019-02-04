@@ -3,6 +3,7 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.content.Context;
@@ -123,14 +124,24 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
 
     public void stopScan() {
         isScanning = false;
-        bluetoothAdapter.getBluetoothLeScanner().stopScan(scanCallback);
+        BluetoothLeScanner scanner = bluetoothAdapter.getBluetoothLeScanner();
+        if (scanner == null) {
+            Log.e(Constants.LOG_TAG, "Tried to call stopScan but scanner is null");
+            return;
+        }
+        scanner.stopScan(scanCallback);
     }
 
 
     public void startScan() {
         isScanning = true;
         // TODO ScanFilter https://developer.android.com/reference/android/bluetooth/le/ScanFilter
-        bluetoothAdapter.getBluetoothLeScanner().startScan(scanCallback);
+        BluetoothLeScanner scanner = bluetoothAdapter.getBluetoothLeScanner();
+        if (scanner == null) {
+            Log.e(Constants.LOG_TAG, "Tried to call stopScan but scanner is null");
+            return;
+        }
+        scanner.startScan(scanCallback);
         // TODO timeout?
 //            new Handler().postDelayed(new Runnable() {
 //                @Override
