@@ -27,7 +27,7 @@ import static org.cmucreatelab.android.flutterprek.activities.student_section.Ch
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_BACKGROUND_COLOR;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_MESSAGE;
 
-public class ChooseEmotionActivity extends StudentSectionActivityWithHeader {
+public class ChooseEmotionActivity extends StudentSectionActivityWithTimeout {
 
     private final EmotionIndexAdapter.ClickListener listener = new EmotionIndexAdapter.ClickListener() {
         @Override

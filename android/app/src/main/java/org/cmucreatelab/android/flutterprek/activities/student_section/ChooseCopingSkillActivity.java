@@ -22,7 +22,7 @@ import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingS
 
 import java.util.List;
 
-public class ChooseCopingSkillActivity extends StudentSectionActivityWithHeader {
+public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout {
 
     public static final String INTENT_MESSAGE = "message";
     public static final String INTENT_AUDIO_FILE = "audio_message";

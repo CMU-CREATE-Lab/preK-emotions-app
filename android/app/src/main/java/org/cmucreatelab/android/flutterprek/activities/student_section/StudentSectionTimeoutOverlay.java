@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills;
+package org.cmucreatelab.android.flutterprek.activities.student_section;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -7,9 +7,8 @@ import android.view.View;
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 
-public class PostCopingSkillTimeoutOverlay {
+public class StudentSectionTimeoutOverlay {
 
     private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 25000;
     private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
@@ -55,7 +54,7 @@ public class PostCopingSkillTimeoutOverlay {
     }
 
 
-    public PostCopingSkillTimeoutOverlay(@NonNull AbstractActivity activity) {
+    public StudentSectionTimeoutOverlay(@NonNull AbstractActivity activity) {
         this.activity = activity;
 
         timerToDisplayOverlay = new BackgroundTimer(DISPLAY_OVERLAY_AFTER_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
