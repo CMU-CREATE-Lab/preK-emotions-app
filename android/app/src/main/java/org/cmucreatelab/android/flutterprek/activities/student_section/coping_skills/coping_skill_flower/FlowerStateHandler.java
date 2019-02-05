@@ -16,8 +16,9 @@ import org.cmucreatelab.android.flutterprek.BleFlower;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.bluetooth_birdbrain.UARTConnection;
 
-public class FlowerStateHandler implements BleFlower.NotificationCallback, FlowerBreathTracker.Listener {
+public class FlowerStateHandler implements BleFlower.NotificationCallback, FlowerBreathTracker.Listener, UARTConnection.ConnectionListener {
 
     enum State {
         WAIT_FOR_BUTTON,
@@ -38,7 +39,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
                 if (device.getName() != null && GlobalHandler.getInstance(activity.getApplicationContext()).deviceConnectionHandler.checkIfValidBleDevice(BleFlower.class, device.getName())) {
                     Log.d(Constants.LOG_TAG, "onLeScan found Flower with name=" + device.getName());
                     flowerDiscovered = true;
-                    GlobalHandler.getInstance(activity.getApplicationContext()).startConnection(device);
+                    GlobalHandler.getInstance(activity.getApplicationContext()).startConnection(device, FlowerStateHandler.this);
                     updateFlower(GlobalHandler.getInstance(activity.getApplicationContext()).bleFlower);
                     stopScan();
                     updateDebugWindow();
@@ -54,6 +55,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     private final FlowerBreathTracker breathTracker;
     private boolean isScanning = false;
     private boolean flowerDiscovered = false;
+    private boolean flowerIsconnected = false;
     private boolean isPressingButton = false;
     private BleFlower bleFlower;
     // TODO make this save more than one
@@ -76,6 +78,11 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
             TextView textView = activity.findViewById(R.id.textViewDebug);
             textView.setText(display);
         }
+    }
+
+
+    private void updateConnectionErrorView() {
+        activity.findViewById(R.id.buttonConnectionError).setVisibility( flowerIsconnected ? View.GONE : View.VISIBLE);
     }
 
 
@@ -207,6 +214,20 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
             lastNotification = reformedData;
             updateDebugWindow();
         }
+    }
+
+
+    @Override
+    public void onConnected() {
+        flowerIsconnected = true;
+        updateConnectionErrorView();
+    }
+
+
+    @Override
+    public void onDisconnected() {
+        flowerIsconnected = false;
+        updateConnectionErrorView();
     }
 
 }

@@ -38,6 +38,7 @@ public class UARTConnection extends BluetoothGattCallback {
     private UUID uartUUID, txUUID, rxUUID, rxConfigUUID;
 
     private List<RXDataListener> rxListeners = new ArrayList<>();
+    private final ConnectionListener connectionListener;
     private int connectionState;
     private BluetoothGatt btGatt;
     private BluetoothGattCharacteristic tx;
@@ -56,10 +57,14 @@ public class UARTConnection extends BluetoothGattCallback {
      * @param settings Settings for connecting via UART
      */
     public UARTConnection(final Context context, final BluetoothDevice device, UARTSettings settings) {
+        this(context, device, settings, null);
+    }
+    public UARTConnection(final Context context, final BluetoothDevice device, UARTSettings settings, ConnectionListener connectionListener) {
         this.uartUUID = settings.getUARTServiceUUID();
         this.txUUID = settings.getTxCharacteristicUUID();
         this.rxUUID = settings.getRxCharacteristicUUID();
         this.rxConfigUUID = settings.getRxConfig();
+        this.connectionListener = connectionListener;
 
         this.bluetoothDevice = device;
 
@@ -204,6 +209,9 @@ public class UARTConnection extends BluetoothGattCallback {
         if (status == BluetoothGatt.GATT_SUCCESS) {
             if (newState == BluetoothGatt.STATE_CONNECTED) {
                 gatt.discoverServices();
+                if (connectionListener != null) connectionListener.onConnected();
+            } else if (connectionListener != null && newState == BluetoothGatt.STATE_DISCONNECTED) {
+                connectionListener.onDisconnected();
             }
         }
     }
@@ -330,4 +338,12 @@ public class UARTConnection extends BluetoothGattCallback {
          */
         void onRXData(byte[] newData);
     }
+
+    public interface ConnectionListener {
+
+        void onConnected();
+
+        void onDisconnected();
+    }
+
 }

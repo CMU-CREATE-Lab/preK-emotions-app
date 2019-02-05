@@ -13,8 +13,8 @@ public class BleFlower {
     public NotificationCallback notificationCallback = null;
 
 
-    public BleFlower(Context appContext, BluetoothDevice device) {
-        this.uartConnection = new UARTConnection(appContext, device, Constants.FLOWER_UART_SETTINGS);
+    public BleFlower(Context appContext, BluetoothDevice device, UARTConnection.ConnectionListener connectionListener) {
+        this.uartConnection = new UARTConnection(appContext, device, Constants.FLOWER_UART_SETTINGS, connectionListener);
         uartConnection.addRxDataListener(new UARTConnection.RXDataListener() {
             @Override
             public void onRXData(byte[] newData) {
@@ -38,7 +38,12 @@ public class BleFlower {
 
 
     public String getDeviceName() {
-        return uartConnection.getBLEDevice().getName();
+        BluetoothDevice bluetoothDevice = uartConnection.getBLEDevice();
+        if (bluetoothDevice == null) {
+            Log.w(Constants.LOG_TAG, "getDeviceName with null bluetooth device");
+            return null;
+        }
+        return bluetoothDevice.getName();
     }
 
 

@@ -4,6 +4,8 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.util.Log;
 
+import org.cmucreatelab.android.flutterprek.bluetooth_birdbrain.UARTConnection;
+
 /**
  *
  * A class that provides access across activities.
@@ -53,8 +55,9 @@ public class GlobalHandler {
     /**
      * start a new BLE connection with a BLE device
      * @param bluetoothDevice should be one of MindfulNest BLE devices.
+     * @param connectionListener Listen for connection state changes.
      */
-    public synchronized void startConnection(BluetoothDevice bluetoothDevice) {
+    public synchronized void startConnection(BluetoothDevice bluetoothDevice, UARTConnection.ConnectionListener connectionListener) {
         // TODO check for device type (assumes flower for now)
         if (bleFlower != null) {
             Log.w(Constants.LOG_TAG, "current bleFlower in GlobalHandler is not null; attempting to close.");
@@ -64,7 +67,7 @@ public class GlobalHandler {
                 Log.e(Constants.LOG_TAG, "Exception caught in GlobalHandler.startConnection (likely null reference in UARTConnection); Exception message was: ``" + e.getMessage() + "''");
             }
         }
-        this.bleFlower = new BleFlower(appContext, bluetoothDevice);
+        this.bleFlower = new BleFlower(appContext, bluetoothDevice, connectionListener);
     }
 
 }
