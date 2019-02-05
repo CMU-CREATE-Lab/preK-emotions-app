@@ -100,6 +100,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
         if (!SHOW_DEBUG_WINDOW) {
             textView.setVisibility(View.INVISIBLE);
         }
+
 //        } else {
 //            textView.setText("Flower\nCoping\rSkill\n1\n2\n3\n4\n5\n6");
 //        }
@@ -163,6 +164,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     public void lookForFlower() {
         GlobalHandler globalHandler = GlobalHandler.getInstance(activity.getApplicationContext());
         this.flowerDiscovered = globalHandler.isFlowerConnected();
+        this.flowerIsconnected = globalHandler.isFlowerConnected();
 
         if (flowerDiscovered) {
             updateFlower(globalHandler.bleFlower);
@@ -177,6 +179,8 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
                 startScan();
             }
         }
+
+        updateConnectionErrorView();
         updateDebugWindow();
     }
 
