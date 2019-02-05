@@ -16,9 +16,12 @@
   ],
   "copingSkills":
   [
-    { "uuid": "coping_skill_3", "name": "Drink Me", "ownerUuid": "student1" },
-    { "uuid": "coping_skill_1", "name": "Think About It", "imageFileUuid": "ic_flower_breathing" },
-    { "uuid": "coping_skill_2", "name": "Try It Out", "imageFileUuid": "ic_yoga" }
+    { "uuid": "coping_skill_1", "name": "Flower Breathing", "imageFileUuid": "ic_flower_breathing" },
+    { "uuid": "coping_skill_2", "name": "Static Coping SKill", "imageFileUuid": "ic_yoga" },
+    { "uuid": "coping_skill_3", "name": "Cuddle", "imageFileUuid": "ic_cuddle" },
+    { "uuid": "coping_skill_4", "name": "Dance", "imageFileUuid": "ic_dance" },
+    { "uuid": "coping_skill_5", "name": "Jumping Jacks", "imageFileUuid": "ic_jumping_jacks" },
+    { "uuid": "coping_skill_6", "name": "Share", "imageFileUuid": "ic_share" }
   ],
   "customizations":
   [
@@ -39,16 +42,24 @@
   ],
   "emotionsCopingSkills":
   [
-    { "uuid": "happy_thinkaboutit", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_1" },
-    { "uuid": "happy_tryitout", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_2" },
-    { "uuid": "sad_thinkaboutit", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_1" },
-    { "uuid": "mad_thinkaboutit", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_1" },
-    { "uuid": "sad_drinkme", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_3", "ownerUuid": "student1" }
+    { "uuid": "happy_share", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_6" },
+    { "uuid": "happy_dance", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_4" },
+    { "uuid": "sad_flower", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_1" },
+    { "uuid": "sad_cuddle", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_3" },
+    { "uuid": "mad_flower", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_1" },
+    { "uuid": "mad_jumping_jacks", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_5" }
   ],
   "itineraryItems":
   [
-    { "uuid": "thinkaboutit_step1", "ownerUuid": "coping_skill_1", "sequenceId": 1, "capabilityId": "textonly", "capabilityParameters": "{\"background-color\":\"#666666\",\"message\":\"Think About It First Message\"}" },
-    { "uuid": "thinkaboutit_step2", "ownerUuid": "coping_skill_1", "sequenceId": 2, "capabilityId": "textonly", "capabilityParameters": "{\"background-color\":\"#66aa66\",\"message\":\"Think About It Second Message\"}" }
+    { "uuid": "happy_settings", "ownerUuid": "emotion1", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\": \"It's nice to feel happy. Try one of these things when you feel happy.\", \"background-color\": \"#f3bb41\", \"audio\": \"etc/audio_prompts/audio_message_happy_2.wav\", \"somethingElseMessage\" : \"Would you like to try something else?\", \"somethingElseAudio\" : \"etc/audio_prompts/audio_something_else.wav\"}"
+    },
+    { "uuid": "sad_settings", "ownerUuid": "emotion2", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\": \"It's ok to feel sad sometimes. Try one of these things when you feel sad.\", \"background-color\": \"#75adae\", \"audio\": \"etc/audio_prompts/audio_message_sad_2.wav\", \"somethingElseMessage\" : \"Would you like to try something else to help you feel less sad?\", \"somethingElseAudio\" : \"etc/audio_prompts/audio_something_else_sad.wav\"}"
+    },
+    { "uuid": "mad_settings", "ownerUuid": "emotion3", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\": \"Everyone feels mad sometimes. Try one of these things when you feel mad.\", \"background-color\": \"#dc6d69\", \"audio\": \"etc/audio_prompts/audio_message_mad_1.wav\", \"somethingElseMessage\" : \"Would you like to try something else to help you feel less mad?\", \"somethingElseAudio\" : \"etc/audio_prompts/audio_something_else_mad.wav\"}"
+    }
   ],
   "sessionsCopingSkills":
   [
@@ -60,6 +71,10 @@
     { "uuid": "ic_sad", "fileType": "asset_image", "filePath": "emotions/ic_sad.png" },
     { "uuid": "ic_mad", "fileType": "asset_image", "filePath": "emotions/ic_mad.png" },
     { "uuid": "ic_flower_breathing", "fileType": "asset_image", "filePath": "coping_skills/ic_flower_breathing.png" },
-    { "uuid": "ic_yoga", "fileType": "asset_image", "filePath": "coping_skills/ic_yoga.png" }
+    { "uuid": "ic_yoga", "fileType": "asset_image", "filePath": "coping_skills/ic_yoga.png" },
+    { "uuid": "ic_cuddle", "fileType": "asset_image", "filePath": "coping_skills/ic_cuddle.png" },
+    { "uuid": "ic_dance", "fileType": "asset_image", "filePath": "coping_skills/ic_dance.png" },
+    { "uuid": "ic_jumping_jacks", "fileType": "asset_image", "filePath": "coping_skills/ic_jumping_jacks.png" },
+    { "uuid": "ic_share", "fileType": "asset_image", "filePath": "coping_skills/ic_share.png" }
   ]
 }
