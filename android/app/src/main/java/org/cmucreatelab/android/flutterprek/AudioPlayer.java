@@ -119,6 +119,11 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
     }
 
 
+    public void addAudioFromInternalStorage(String filepath, MediaPlayer.OnCompletionListener listener) {
+        audioFilesQueue.add(new AudioFile(filepath, StorageType.INTERNAL_STORAGE, listener));
+    }
+
+
     public void playAudio() {
         if (!audioFilesQueue.isEmpty() && !mediaPlayer.isPlaying()) {
             try {

@@ -32,4 +32,9 @@ public abstract class StudentSectionActivityWithTimeout extends StudentSectionAc
         timeoutOverlay.releaseTimers();
     }
 
+
+    public void restartOverlayTimers() {
+        timeoutOverlay.restartTimers();
+    }
+
 }

@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,13 +27,16 @@ public class MoveOnUseWordsActivity extends PostCopingSkillActivity {
 
 
     private void addRecordedAudio(boolean playback) {
+        // release timers if we are playing back audio
+        releaseOverlayTimers();
+
         File recordedAudioFile = GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.recordedAudioFile;
         if (recordedAudioFile != null) {
             Log.d(Constants.LOG_TAG, "Added audio to play: " + recordedAudioFile.getAbsolutePath());
             AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
             if (playback) {
                 audioPlayer.stop();
-                audioPlayer.addAudioFromInternalStorage(recordedAudioFile.getAbsolutePath());
+                audioPlayer.addAudioFromInternalStorage(recordedAudioFile.getAbsolutePath(), this);
                 audioPlayer.playAudio();
             } else {
                 audioPlayer.addAudioFromInternalStorage(recordedAudioFile.getAbsolutePath());
@@ -84,6 +88,13 @@ public class MoveOnUseWordsActivity extends PostCopingSkillActivity {
                 addRecordedAudio(true);
             }
         });
+    }
+
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        // restart the timers after audio playback completes
+        restartOverlayTimers();
     }
 
 }

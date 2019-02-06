@@ -95,17 +95,23 @@ public class StudentSectionTimeoutOverlay {
     }
 
 
+    public void restartTimers() {
+        releaseTimers();
+        if (overlayIsDisplayed) {
+            timerToExitFromOverlay.startTimer();
+        } else {
+            timerToDisplayOverlay.startTimer();
+        }
+    }
+
+
     public void onPauseActivity() {
         releaseTimers();
     }
 
 
     public void onResumeActivity() {
-        if (overlayIsDisplayed) {
-            timerToExitFromOverlay.startTimer();
-        } else {
-            timerToDisplayOverlay.startTimer();
-        }
+        restartTimers();
     }
 
 }

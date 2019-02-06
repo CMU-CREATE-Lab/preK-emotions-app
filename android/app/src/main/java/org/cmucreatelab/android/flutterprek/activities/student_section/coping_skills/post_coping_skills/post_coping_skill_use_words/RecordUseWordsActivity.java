@@ -18,6 +18,8 @@ import org.cmucreatelab.android.flutterprek.audio_recording.AudioRecorder;
 public class RecordUseWordsActivity extends PostCopingSkillActivity {
 
     private static final long MAXIMUM_RECORD_LENGTH_MILLISECONDS = 20000;
+    // NOTE: the visual portion of the animation is roughly 3/5 of the actual duration of the animation, so this value should be roughly 2/3 of the value above
+    private static final long ANIMATION_OFFSET_IN_MILLISECONDS = 12000;
 
     private AudioRecorder audioRecorder;
     private final BackgroundTimer timerToStopRecording = new BackgroundTimer(MAXIMUM_RECORD_LENGTH_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
@@ -53,7 +55,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
 
             // create the animator for this view (the start radius is zero)
             Animator anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0f, finalRadius);
-            anim.setDuration(MAXIMUM_RECORD_LENGTH_MILLISECONDS);
+            anim.setDuration(MAXIMUM_RECORD_LENGTH_MILLISECONDS+ANIMATION_OFFSET_IN_MILLISECONDS);
 
             // make the view visible and start the animation
             myView.setVisibility(View.VISIBLE);
