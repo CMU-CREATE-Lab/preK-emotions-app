@@ -2,14 +2,10 @@ package org.cmucreatelab.android.flutterprek.activities.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -19,7 +15,7 @@ import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSki
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.EmotionIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.StudentIndexActivity;
 
-public class DrawerTeacherMainFragment extends Fragment {
+public class DrawerTeacherMainFragment extends AbstractFragment {
 
     public enum Section {
         ACTIVE_CLASS,
@@ -55,20 +51,6 @@ public class DrawerTeacherMainFragment extends Fragment {
         }
         highlightView.setVisibility(isHighlighted ? View.VISIBLE : View.INVISIBLE);
         textView.setTextAppearance(getContext(), isHighlighted ? R.style.textBold : R.style.textNormal);
-    }
-
-
-    public void setCurrentSection(Section section) {
-        for (Section mSection: Section.values()) {
-            setHighlighted(mSection, mSection == section);
-        }
-    }
-
-
-    /** Get the resource ("R.layout." ...) for the extended Fragment class. */
-    @LayoutRes
-    public int getInflatedLayoutResource() {
-        return R.layout.fragment_drawer_teacher_main;
     }
 
 
@@ -109,8 +91,15 @@ public class DrawerTeacherMainFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(getInflatedLayoutResource(), container, false);
+    public int getInflatedLayoutResource() {
+        return R.layout.fragment_drawer_teacher_main;
+    }
+
+
+    public void setCurrentSection(Section section) {
+        for (Section mSection: Section.values()) {
+            setHighlighted(mSection, mSection == section);
+        }
     }
 
 }
