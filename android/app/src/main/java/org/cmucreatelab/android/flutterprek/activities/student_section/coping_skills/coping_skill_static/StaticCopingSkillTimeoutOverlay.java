@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills;
+package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static;
 
 import android.view.View;
 

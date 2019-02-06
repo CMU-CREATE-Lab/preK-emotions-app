@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek;
 
-import org.cmucreatelab.android.flutterprek.bluetooth_birdbrain.UARTSettings;
+import org.cmucreatelab.android.flutterprek.ble.DeviceConnectionHandler;
+import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTSettings;
 
 import java.util.UUID;
 

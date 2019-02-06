@@ -1,9 +1,10 @@
-package org.cmucreatelab.android.flutterprek;
+package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower.FlowerCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.CuddleCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.DanceCopingSkillActivity;

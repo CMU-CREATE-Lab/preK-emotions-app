@@ -4,7 +4,9 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.util.Log;
 
-import org.cmucreatelab.android.flutterprek.bluetooth_birdbrain.UARTConnection;
+import org.cmucreatelab.android.flutterprek.ble.BleFlower;
+import org.cmucreatelab.android.flutterprek.ble.DeviceConnectionHandler;
+import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
 
 /**
  *

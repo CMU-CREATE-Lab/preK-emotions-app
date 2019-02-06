@@ -1,7 +1,9 @@
-package org.cmucreatelab.android.flutterprek;
+package org.cmucreatelab.android.flutterprek.ble;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+
+import org.cmucreatelab.android.flutterprek.Constants;
 
 /**
  * Determines if a broadcasted bluetooth device is valid for the app to try connecting to.

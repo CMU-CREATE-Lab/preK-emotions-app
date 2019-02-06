@@ -10,9 +10,9 @@ import android.util.Log;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import org.cmucreatelab.android.flutterprek.AudioPlayer;
+import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
-import org.cmucreatelab.android.flutterprek.CopingSkillMapper;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.CopingSkillMapper;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.StudentSectionNavigationHandler;
 import org.cmucreatelab.android.flutterprek.R;

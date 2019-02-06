@@ -12,11 +12,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import org.cmucreatelab.android.flutterprek.BleFlower;
+import org.cmucreatelab.android.flutterprek.ble.BleFlower;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.bluetooth_birdbrain.UARTConnection;
+import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
 
 public class FlowerStateHandler implements BleFlower.NotificationCallback, FlowerBreathTracker.Listener, UARTConnection.ConnectionListener {
 

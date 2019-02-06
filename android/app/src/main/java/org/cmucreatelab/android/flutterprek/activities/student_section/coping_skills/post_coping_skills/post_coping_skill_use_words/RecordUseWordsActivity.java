@@ -8,12 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 
-import org.cmucreatelab.android.flutterprek.AudioPlayer;
+import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.PostCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.audio_recording.AudioRecorder;
+import org.cmucreatelab.android.flutterprek.audio.audio_recording.AudioRecorder;
 
 public class RecordUseWordsActivity extends PostCopingSkillActivity {
 
