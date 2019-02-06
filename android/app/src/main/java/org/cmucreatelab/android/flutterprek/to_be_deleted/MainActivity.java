@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities;
+package org.cmucreatelab.android.flutterprek.to_be_deleted;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
