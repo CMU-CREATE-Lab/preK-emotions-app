@@ -19,6 +19,7 @@ import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
+import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 
 import java.util.List;
 
@@ -51,6 +52,11 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
     }
 
 
+    private LiveData<DbFile> getLiveDataFromQuery(String dbFileUuid) {
+        return AppDatabase.getInstance(this).dbFileDAO().getDbFile(dbFileUuid);
+    }
+
+
     private void parseIntent(Intent intent) {
         try {
             message = intent.getStringExtra(INTENT_MESSAGE);
@@ -78,9 +84,15 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
 
     private void playAudioFile() {
         if (audioFile != null) {
-            AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
-            audioPlayer.addAudioFromAssets(audioFile);
-            audioPlayer.playAudio();
+            final AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+            getLiveDataFromQuery(audioFile).observe(this, new Observer<DbFile>() {
+                @Override
+                public void onChanged(@Nullable DbFile dbFile) {
+                    // TODO check type?
+                    audioPlayer.addAudioFromAssets(dbFile.getFilePath());
+                    audioPlayer.playAudio();
+                }
+            });
         }
     }
 
