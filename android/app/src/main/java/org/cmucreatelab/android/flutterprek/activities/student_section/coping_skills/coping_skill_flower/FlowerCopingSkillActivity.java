@@ -64,7 +64,8 @@ public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
     protected void onPause() {
         super.onPause();
         Log.d(Constants.LOG_TAG,"Stopping LeScan...");
-        flowerStateHandler.stopScan();
+        // avoid playing through after early exit
+        flowerStateHandler.pauseState();
     }
 
 

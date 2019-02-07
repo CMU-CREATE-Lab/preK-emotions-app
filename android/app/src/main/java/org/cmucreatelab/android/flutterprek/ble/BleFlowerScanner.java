@@ -12,6 +12,7 @@ import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
+import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower.FlowerCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
 
@@ -20,7 +21,7 @@ public class BleFlowerScanner implements UARTConnection.ConnectionListener {
     private static final int REQUEST_ENABLE_BT = 1;
 
     private final BluetoothAdapter bluetoothAdapter;
-    private final FlowerCopingSkillActivity activity;
+    private final AbstractActivity activity;
     private final DiscoveryListener discoveryListener;
     private final UARTConnection.ConnectionListener connectionListener;
     private boolean isScanning = false;

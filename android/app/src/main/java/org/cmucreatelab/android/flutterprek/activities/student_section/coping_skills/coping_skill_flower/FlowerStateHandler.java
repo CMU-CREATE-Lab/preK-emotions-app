@@ -147,11 +147,6 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     }
 
 
-    public void initializeState() {
-        changeState(State.WAIT_FOR_BUTTON);
-    }
-
-
     public void lookForFlower() {
         GlobalHandler globalHandler = GlobalHandler.getInstance(activity.getApplicationContext());
         if (bleFlowerScanner.isFlowerDiscovered()) {
@@ -165,8 +160,17 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     }
 
 
-    public void stopScan() {
+    public void initializeState() {
+        changeState(State.WAIT_FOR_BUTTON);
+    }
+
+
+    public void pauseState() {
         bleFlowerScanner.stopScan();
+        currentState = State.WAIT_FOR_BUTTON;
+        breathTracker.resetTracker();
+        // clear this flag (in case button was held down before entering this state)
+        isPressingButton = false;
     }
 
 }
