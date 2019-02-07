@@ -1,14 +1,5 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
-import android.bluetooth.le.BluetoothLeScanner;
-import android.bluetooth.le.ScanCallback;
-import android.bluetooth.le.ScanResult;
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,9 +7,10 @@ import org.cmucreatelab.android.flutterprek.ble.BleFlower;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.ble.BleFlowerScanner;
 import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
 
-public class FlowerStateHandler implements BleFlower.NotificationCallback, FlowerBreathTracker.Listener, UARTConnection.ConnectionListener {
+public class FlowerStateHandler implements BleFlower.NotificationCallback, FlowerBreathTracker.Listener, UARTConnection.ConnectionListener, BleFlowerScanner.DiscoveryListener {
 
     enum State {
         WAIT_FOR_BUTTON,
@@ -26,36 +18,11 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
         FINISHED
     }
 
-    private static final int REQUEST_ENABLE_BT = 1;
     private static final boolean SHOW_DEBUG_WINDOW = Constants.FLOWER_SHOW_DEBUG_WINDOW;
 
-    private final BluetoothAdapter bluetoothAdapter;
     private final FlowerCopingSkillActivity activity;
-    private final ScanCallback scanCallback = new ScanCallback() {
-        @Override
-        public void onScanResult(int callbackType, ScanResult result) {
-            if (!flowerDiscovered) {
-                BluetoothDevice device = result.getDevice();
-                if (device.getName() != null && GlobalHandler.getInstance(activity.getApplicationContext()).deviceConnectionHandler.checkIfValidBleDevice(BleFlower.class, device.getName())) {
-                    Log.d(Constants.LOG_TAG, "onLeScan found Flower with name=" + device.getName());
-                    flowerDiscovered = true;
-                    GlobalHandler.getInstance(activity.getApplicationContext()).startConnection(device, FlowerStateHandler.this);
-                    updateFlower(GlobalHandler.getInstance(activity.getApplicationContext()).bleFlower);
-                    stopScan();
-                    updateDebugWindow();
-//                    // TODO simulates receiving a notification (HW flower broken for me at the moment, sadface)
-//                    onReceivedData("1","","");
-                } else {
-                    Log.d(Constants.LOG_TAG, "onLeScan result: " + device.getName());
-                }
-            }
-            super.onScanResult(callbackType, result);
-        }
-    };
     private final FlowerBreathTracker breathTracker;
-    private boolean isScanning = false;
-    private boolean flowerDiscovered = false;
-    private boolean flowerIsconnected = false;
+    private final BleFlowerScanner bleFlowerScanner;
     private boolean isPressingButton = false;
     private BleFlower bleFlower;
     // TODO make this save more than one
@@ -69,11 +36,11 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     private void updateDebugWindow() {
         if (SHOW_DEBUG_WINDOW) {
             String display;
-            if (flowerDiscovered) {
+            if (bleFlowerScanner.isFlowerDiscovered()) {
                 display = bleFlower.getDeviceName();
                 display = display+"\n"+lastNotification;
             } else {
-                display = isScanning ? "Looking for Flower..." : "Inactive";
+                display = bleFlowerScanner.isScanning() ? "Looking for Flower..." : "Inactive";
             }
             TextView textView = activity.findViewById(R.id.textViewDebug);
             textView.setText(display);
@@ -82,34 +49,15 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
 
 
     private void updateConnectionErrorView() {
-        activity.findViewById(R.id.buttonConnectionError).setVisibility( flowerIsconnected ? View.GONE : View.VISIBLE);
-    }
-
-
-    public FlowerStateHandler(FlowerCopingSkillActivity activity) {
-        this.activity = activity;
-        this.breathTracker = new FlowerBreathTracker(activity, this);
-
-        // Initializes Bluetooth adapter.
-        final BluetoothManager bluetoothManager =
-                (BluetoothManager) activity.getSystemService(Context.BLUETOOTH_SERVICE);
-        bluetoothAdapter = bluetoothManager.getAdapter();
-
-        // debug window
-        TextView textView = activity.findViewById(R.id.textViewDebug);
-        if (!SHOW_DEBUG_WINDOW) {
-            textView.setVisibility(View.INVISIBLE);
-        }
-
-//        } else {
-//            textView.setText("Flower\nCoping\rSkill\n1\n2\n3\n4\n5\n6");
-//        }
+        activity.findViewById(R.id.buttonConnectionError).setVisibility( bleFlowerScanner.isFlowerConnected() ? View.GONE : View.VISIBLE);
     }
 
 
     private void updateFlower(BleFlower bleFlower) {
         this.bleFlower = bleFlower;
         this.bleFlower.notificationCallback = this;
+//        // TODO simulates receiving a notification (HW flower broken for me at the moment, sadface)
+//        onReceivedData("1","","");
     }
 
 
@@ -130,63 +78,16 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     }
 
 
-    public void stopScan() {
-        isScanning = false;
-        BluetoothLeScanner scanner = bluetoothAdapter.getBluetoothLeScanner();
-        if (scanner == null) {
-            Log.e(Constants.LOG_TAG, "Tried to call stopScan but scanner is null");
-            return;
+    public FlowerStateHandler(FlowerCopingSkillActivity activity) {
+        this.activity = activity;
+        this.breathTracker = new FlowerBreathTracker(activity, this);
+        this.bleFlowerScanner = new BleFlowerScanner(activity, this, this);
+
+        // debug window
+        TextView textView = activity.findViewById(R.id.textViewDebug);
+        if (!SHOW_DEBUG_WINDOW) {
+            textView.setVisibility(View.INVISIBLE);
         }
-        scanner.stopScan(scanCallback);
-    }
-
-
-    public void startScan() {
-        isScanning = true;
-        // TODO ScanFilter https://developer.android.com/reference/android/bluetooth/le/ScanFilter
-        BluetoothLeScanner scanner = bluetoothAdapter.getBluetoothLeScanner();
-        if (scanner == null) {
-            Log.e(Constants.LOG_TAG, "Tried to call stopScan but scanner is null");
-            return;
-        }
-        scanner.startScan(scanCallback);
-        // TODO timeout?
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    bluetoothAdapter.getBluetoothLeScanner().stopScan(scanCallback);
-//                    Log.d(Constants.LOG_TAG,"Stopped LeScan");
-//                }
-//            }, 2000);
-    }
-
-
-    public void lookForFlower() {
-        GlobalHandler globalHandler = GlobalHandler.getInstance(activity.getApplicationContext());
-        this.flowerDiscovered = globalHandler.isFlowerConnected();
-        this.flowerIsconnected = globalHandler.isFlowerConnected();
-
-        if (flowerDiscovered) {
-            updateFlower(globalHandler.bleFlower);
-        } else {
-            // Ensures Bluetooth is available on the device and it is enabled. If not,
-            // displays a dialog requesting user permission to enable Bluetooth.
-            if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled()) {
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                activity.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-            } else {
-                Log.d(Constants.LOG_TAG,"Starting LeScan...");
-                startScan();
-            }
-        }
-
-        updateConnectionErrorView();
-        updateDebugWindow();
-    }
-
-
-    public void initializeState() {
-        changeState(State.WAIT_FOR_BUTTON);
     }
 
 
@@ -229,15 +130,43 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
 
     @Override
     public void onConnected() {
-        flowerIsconnected = true;
         updateConnectionErrorView();
     }
 
 
     @Override
     public void onDisconnected() {
-        flowerIsconnected = false;
         updateConnectionErrorView();
+    }
+
+
+    @Override
+    public void onDiscovered(BleFlower bleFlower) {
+        updateFlower(bleFlower);
+        updateDebugWindow();
+    }
+
+
+    public void initializeState() {
+        changeState(State.WAIT_FOR_BUTTON);
+    }
+
+
+    public void lookForFlower() {
+        GlobalHandler globalHandler = GlobalHandler.getInstance(activity.getApplicationContext());
+        if (bleFlowerScanner.isFlowerDiscovered()) {
+            updateFlower(globalHandler.bleFlower);
+        } else {
+            bleFlowerScanner.requestScan();
+        }
+
+        updateConnectionErrorView();
+        updateDebugWindow();
+    }
+
+
+    public void stopScan() {
+        bleFlowerScanner.stopScan();
     }
 
 }
