@@ -1,5 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,15 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
                 Log.i(Constants.LOG_TAG, "long clicked the MindfulNest Logo.");
                 showAdminDialog();
                 return true;
+            }
+        });
+
+        findViewById(R.id.imageStudent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StudentSectionActivityWithHeader.this, ChooseStudentActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }
