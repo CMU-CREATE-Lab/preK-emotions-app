@@ -43,8 +43,14 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
             } else {
                 display = bleFlowerScanner.isScanning() ? "Looking for Flower..." : "Inactive";
             }
-            TextView textView = activity.findViewById(R.id.textViewDebug);
-            textView.setText(display);
+            final String displayOnUiThread = display;
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TextView textView = activity.findViewById(R.id.textViewDebug);
+                    textView.setText(displayOnUiThread);
+                }
+            });
         }
     }
 
