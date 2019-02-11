@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.StaticCopingSkillTimeoutOverlay;
 
 public class JumpingJacksCopingSkillActivity extends AbstractCopingSkillActivity {
 
