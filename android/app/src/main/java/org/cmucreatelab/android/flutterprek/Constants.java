@@ -29,6 +29,7 @@ public class Constants {
 
     public static final DeviceConnectionHandler.HardcodedValues
             STATION_TEST = new DeviceConnectionHandler.HardcodedValues("test","FLOWER-AEF3D",null, null, null),
+            STATION_TEST_V2 = new DeviceConnectionHandler.HardcodedValues("test-v2","FLOWER-30384",null, null, null),
             STATION_1 = new DeviceConnectionHandler.HardcodedValues("heart","FLOWER-9B4BC","MNSQ1","MNWD1","MNYG1"),
             STATION_2 = new DeviceConnectionHandler.HardcodedValues("star","FLOWER-9C915","MNSQ2","MNWD2","MNYG2");
 
