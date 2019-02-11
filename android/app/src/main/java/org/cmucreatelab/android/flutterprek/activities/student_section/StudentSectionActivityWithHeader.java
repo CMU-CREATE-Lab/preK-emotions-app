@@ -39,11 +39,17 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
         findViewById(R.id.imageStudent).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StudentSectionActivityWithHeader.this, ChooseStudentActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                onClickImageStudent();
             }
         });
+    }
+
+
+    public void onClickImageStudent() {
+        // go back to students page
+        Intent intent = new Intent(StudentSectionActivityWithHeader.this, ChooseStudentActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 }
