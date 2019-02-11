@@ -210,9 +210,10 @@ public class UARTConnection extends BluetoothGattCallback {
             if (newState == BluetoothGatt.STATE_CONNECTED) {
                 gatt.discoverServices();
                 if (connectionListener != null) connectionListener.onConnected();
-            } else if (connectionListener != null && newState == BluetoothGatt.STATE_DISCONNECTED) {
-                connectionListener.onDisconnected();
             }
+        }
+        if (connectionListener != null && newState == BluetoothGatt.STATE_DISCONNECTED) {
+            connectionListener.onDisconnected();
         }
     }
 
@@ -272,15 +273,6 @@ public class UARTConnection extends BluetoothGattCallback {
     public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
         Log.v(TAG, "UARTConnection.onDescriptorWrite");
         this.onDescriptorWriteForNotify = true;
-
-        // TODO this is unique for Flutter protocol and should probably be moved
-        // start broadcasting
-        if (writeBytes( new byte[]{ 0x62, 0x67 } )) {
-            Log.d(TAG,"UARTConnection.onDescriptorWrite: uartConnection sent to start broadcasting.");
-        } else {
-            Log.w(TAG,"UARTConnection.onDescriptorWrite: could not write bytes to start broadcasting.");
-        }
-
         super.onDescriptorWrite(gatt, descriptor, status);
     }
 

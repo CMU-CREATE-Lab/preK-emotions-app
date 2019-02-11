@@ -8,6 +8,7 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -22,8 +23,8 @@ public class BleFlowerScanner implements UARTConnection.ConnectionListener {
 
     private final BluetoothAdapter bluetoothAdapter;
     private final AbstractActivity activity;
-    private final DiscoveryListener discoveryListener;
-    private final UARTConnection.ConnectionListener connectionListener;
+    private final @NonNull DiscoveryListener discoveryListener;
+    private final @NonNull UARTConnection.ConnectionListener connectionListener;
     private boolean isScanning = false;
     private boolean isFlowerDiscovered;
     private boolean isFlowerConnected;
@@ -72,7 +73,7 @@ public class BleFlowerScanner implements UARTConnection.ConnectionListener {
     }
 
 
-    public BleFlowerScanner(FlowerCopingSkillActivity activity, DiscoveryListener discoveryListener, UARTConnection.ConnectionListener connectionListener) {
+    public BleFlowerScanner(FlowerCopingSkillActivity activity, @NonNull DiscoveryListener discoveryListener, @NonNull UARTConnection.ConnectionListener connectionListener) {
         this.activity = activity;
         this.discoveryListener = discoveryListener;
         this.connectionListener = connectionListener;
@@ -98,6 +99,7 @@ public class BleFlowerScanner implements UARTConnection.ConnectionListener {
     @Override
     public void onDisconnected() {
         isFlowerConnected = false;
+        isFlowerDiscovered = false;
         connectionListener.onDisconnected();
     }
 

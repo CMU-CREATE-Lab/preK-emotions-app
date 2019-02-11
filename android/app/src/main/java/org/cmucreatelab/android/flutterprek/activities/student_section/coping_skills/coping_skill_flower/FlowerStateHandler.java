@@ -1,5 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -49,7 +50,12 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
 
 
     private void updateConnectionErrorView() {
-        activity.findViewById(R.id.buttonConnectionError).setVisibility( bleFlowerScanner.isFlowerConnected() ? View.GONE : View.VISIBLE);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.findViewById(R.id.buttonConnectionError).setVisibility( bleFlowerScanner.isFlowerConnected() ? View.GONE : View.VISIBLE);
+            }
+        });
     }
 
 
@@ -130,13 +136,16 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
 
     @Override
     public void onConnected() {
+        Log.d(Constants.LOG_TAG, "FlowerStateHandler: onConnected");
         updateConnectionErrorView();
     }
 
 
     @Override
     public void onDisconnected() {
+        Log.d(Constants.LOG_TAG, "FlowerStateHandler: onDisconnected");
         updateConnectionErrorView();
+        lookForFlower();
     }
 
 
