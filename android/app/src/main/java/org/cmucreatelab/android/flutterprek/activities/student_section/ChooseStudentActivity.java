@@ -64,4 +64,10 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
         return R.layout._student_section__activity_choose_student;
     }
 
+
+    @Override
+    public void onClickImageStudent() {
+        // TODO go to teacher section (does nothing for now)
+    }
+
 }
