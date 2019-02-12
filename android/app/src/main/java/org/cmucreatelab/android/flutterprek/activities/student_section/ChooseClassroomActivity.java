@@ -1,6 +1,9 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section;
 
 import android.arch.lifecycle.Observer;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,6 +36,21 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
         }
     };
 
+    private static final int REQUEST_ENABLE_BT = 1;
+
+
+    private void checkAndRequestBle() {
+        // Initializes Bluetooth adapter.
+        BluetoothAdapter bluetoothAdapter = ((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter();
+
+        // Ensures Bluetooth is available on the device and it is enabled. If not,
+        // displays a dialog requesting user permission to enable Bluetooth.
+        if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +65,7 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
         });
 
         this.debugCorner = new DebugCorner(this);
+        checkAndRequestBle();
     }
 
 
