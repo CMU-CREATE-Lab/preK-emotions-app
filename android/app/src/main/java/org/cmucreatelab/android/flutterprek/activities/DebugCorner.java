@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities.fragments;
+package org.cmucreatelab.android.flutterprek.activities;
 
 import android.view.View;
 import android.widget.TextView;
@@ -6,8 +6,10 @@ import android.widget.TextView;
 import org.cmucreatelab.android.flutterprek.BuildConfig;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 
+/**
+ * Displays build variant and git commit hash in bottom-left of screens.
+ */
 public class DebugCorner {
 
     private AbstractActivity activity;

@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.audio_recording;
+package org.cmucreatelab.android.flutterprek.audio.audio_recording;
 
 import android.content.Context;
 import android.media.MediaRecorder;

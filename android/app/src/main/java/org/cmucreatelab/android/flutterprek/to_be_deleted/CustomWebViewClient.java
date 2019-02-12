@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek;
+package org.cmucreatelab.android.flutterprek.to_be_deleted;
 
 import android.content.Intent;
 import android.net.Uri;

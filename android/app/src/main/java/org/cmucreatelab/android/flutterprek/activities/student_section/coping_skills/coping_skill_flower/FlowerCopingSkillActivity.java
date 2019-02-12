@@ -13,6 +13,7 @@ public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
     private FlowerCopingSkillProcess flowerCopingSkillProcess;
     private FlowerCopingSkillStep1Timer step1Timer;
     private FlowerStateHandler flowerStateHandler;
+    private boolean activityIsPaused;
 
 
     private void playAudioInstructions() {
@@ -55,23 +56,31 @@ public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
                 finish();
             }
         });
-
-        flowerStateHandler.initializeState();
     }
 
 
     @Override
     protected void onPause() {
+        activityIsPaused = true;
         super.onPause();
         Log.d(Constants.LOG_TAG,"Stopping LeScan...");
-        flowerStateHandler.stopScan();
+        // avoid playing through after early exit
+        flowerStateHandler.pauseState();
     }
 
 
     @Override
     protected void onResume() {
+        activityIsPaused = false;
         super.onResume();
+        flowerStateHandler.initializeState();
         flowerStateHandler.lookForFlower();
+    }
+
+
+    @Override
+    public int getResourceIdForActivityLayout() {
+        return R.layout.activity_flower_coping_skill;
     }
 
 
@@ -102,9 +111,8 @@ public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
     }
 
 
-    @Override
-    public int getResourceIdForActivityLayout() {
-        return R.layout.activity_flower_coping_skill;
+    public boolean isPaused() {
+        return activityIsPaused;
     }
 
 }

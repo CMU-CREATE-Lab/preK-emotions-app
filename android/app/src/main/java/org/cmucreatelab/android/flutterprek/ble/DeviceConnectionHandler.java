@@ -1,7 +1,10 @@
-package org.cmucreatelab.android.flutterprek;
+package org.cmucreatelab.android.flutterprek.ble;
 
+import android.bluetooth.BluetoothDevice;
 import android.support.annotation.NonNull;
 import android.util.Log;
+
+import org.cmucreatelab.android.flutterprek.Constants;
 
 /**
  * Determines if a broadcasted bluetooth device is valid for the app to try connecting to.
@@ -34,7 +37,7 @@ public class DeviceConnectionHandler {
 
 
     private boolean validateFlowerOnPrefix(@NonNull String deviceName) {
-        return deviceName.startsWith("FLOWER-");
+        return deviceName.startsWith("FL");
     }
 
 
@@ -61,7 +64,13 @@ public class DeviceConnectionHandler {
     }
 
 
-    public boolean checkIfValidBleDevice(Class classToValidate, String deviceName) {
+    /**
+     * Determine if a BLE device is valid given its device name.
+     * @param classToValidate specifies what type of device we are expecting (example: {@link BleFlower}).
+     * @param deviceName the name of the device, likely obtained from {@link BluetoothDevice#getName()}.
+     * @return true if the device is valid, false otherwise.
+     */
+    public boolean checkIfValidBleDevice(Class classToValidate, @NonNull String deviceName) {
         // TODO add other hardware device classes
         if (classToValidate == BleFlower.class) {
             if (usesHardcodedBleDevices) {

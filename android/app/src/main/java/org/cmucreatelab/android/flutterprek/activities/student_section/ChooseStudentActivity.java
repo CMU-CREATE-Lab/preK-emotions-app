@@ -12,7 +12,7 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
-import org.cmucreatelab.android.flutterprek.activities.fragments.DebugCorner;
+import org.cmucreatelab.android.flutterprek.activities.DebugCorner;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
@@ -62,6 +62,12 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
     @Override
     public int getResourceIdForActivityLayout() {
         return R.layout._student_section__activity_choose_student;
+    }
+
+
+    @Override
+    public void onClickImageStudent() {
+        // TODO go to teacher section (does nothing for now)
     }
 
 }

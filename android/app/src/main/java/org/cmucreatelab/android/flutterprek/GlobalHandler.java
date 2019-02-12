@@ -4,7 +4,9 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.util.Log;
 
-import org.cmucreatelab.android.flutterprek.bluetooth_birdbrain.UARTConnection;
+import org.cmucreatelab.android.flutterprek.ble.BleFlower;
+import org.cmucreatelab.android.flutterprek.ble.DeviceConnectionHandler;
+import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
 
 /**
  *
@@ -54,10 +56,11 @@ public class GlobalHandler {
 
     /**
      * start a new BLE connection with a BLE device
+     * @param classToValidate The type of device we are connecting to (example: {@link BleFlower}).
      * @param bluetoothDevice should be one of MindfulNest BLE devices.
      * @param connectionListener Listen for connection state changes.
      */
-    public synchronized void startConnection(BluetoothDevice bluetoothDevice, UARTConnection.ConnectionListener connectionListener) {
+    public synchronized void startConnection(Class classToValidate, BluetoothDevice bluetoothDevice, UARTConnection.ConnectionListener connectionListener) {
         // TODO check for device type (assumes flower for now)
         if (bleFlower != null) {
             Log.w(Constants.LOG_TAG, "current bleFlower in GlobalHandler is not null; attempting to close.");

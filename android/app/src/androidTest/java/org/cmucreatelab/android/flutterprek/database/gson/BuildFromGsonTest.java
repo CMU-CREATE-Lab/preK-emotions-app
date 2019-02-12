@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Date;
+import java.util.Set;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -45,11 +46,20 @@ public class BuildFromGsonTest {
         InputStream inputStream = appContext.getAssets().open("DbSeed.json");
         JsonElement e1 = parser.parse(new InputStreamReader(inputStream));
         GsonDatabaseParser gsonDatabaseParser = gson.fromJson(e1, GsonDatabaseParser.class);
+        // expect 2 classrooms defined in seed
         assertEquals(2, gsonDatabaseParser.classrooms.size());
 
         // check that the constructed object is equal to the original JSON
         String jsonString = gson.toJson(gsonDatabaseParser, GsonDatabaseParser.class);
         JsonElement e2 = parser.parse(jsonString);
+
+        // iterate over every key-value pair (easier for debugging)
+        Set<String> keys = e1.getAsJsonObject().keySet();
+        for (String key: keys) {
+            assertEquals(e1.getAsJsonObject().get(key), e2.getAsJsonObject().get(key));
+        }
+
+        // check entire json
         assertEquals(e1, e2);
     }
 

@@ -1,11 +1,12 @@
-package org.cmucreatelab.android.flutterprek;
+package org.cmucreatelab.android.flutterprek.audio;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.util.Log;
+
+import org.cmucreatelab.android.flutterprek.Constants;
 
 import java.io.IOException;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -116,6 +117,11 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
 
     public void addAudioFromInternalStorage(String filepath) {
         audioFilesQueue.add(new AudioFile(filepath, StorageType.INTERNAL_STORAGE, null));
+    }
+
+
+    public void addAudioFromInternalStorage(String filepath, MediaPlayer.OnCompletionListener listener) {
+        audioFilesQueue.add(new AudioFile(filepath, StorageType.INTERNAL_STORAGE, listener));
     }
 
 

@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.bluetooth_birdbrain;
+package org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain;
 
 import java.util.UUID;
 

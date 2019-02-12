@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.GridView;
 
-import org.cmucreatelab.android.flutterprek.AudioPlayer;
+import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;

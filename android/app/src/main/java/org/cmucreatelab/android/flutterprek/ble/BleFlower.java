@@ -1,11 +1,12 @@
-package org.cmucreatelab.android.flutterprek;
+package org.cmucreatelab.android.flutterprek.ble;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import org.cmucreatelab.android.flutterprek.bluetooth_birdbrain.UARTConnection;
+import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
 
 public class BleFlower {
 

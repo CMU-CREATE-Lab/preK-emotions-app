@@ -1,12 +1,9 @@
-package org.cmucreatelab.android.flutterprek.activities;
+package org.cmucreatelab.android.flutterprek.to_be_deleted;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
-
-import org.cmucreatelab.android.flutterprek.CustomWebViewClient;
-import org.cmucreatelab.android.flutterprek.R;
 
 public class WebIndexActivity extends AppCompatActivity {
 

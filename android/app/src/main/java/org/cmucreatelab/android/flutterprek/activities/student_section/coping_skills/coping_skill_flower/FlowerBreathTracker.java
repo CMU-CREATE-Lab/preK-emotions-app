@@ -7,9 +7,12 @@ import org.cmucreatelab.android.flutterprek.R;
 
 public class FlowerBreathTracker {
 
+    /** This is the time in between lighting each flower petal. */
     private static final long COUNTER_TIME_INTERVAL_IN_MILLISECONDS = 600;
-    private static final int BREATHE_IN_CYCLE_MAX = 5;
-    private static final int BREATHE_OUT_CYCLE_MAX = 5;
+    /** This is the number of petals on the flower. */
+    private static final int NUMBER_OF_FLOWER_PETALS = 5;
+    private static final int BREATHE_IN_CYCLE_MAX = NUMBER_OF_FLOWER_PETALS;
+    private static final int BREATHE_OUT_CYCLE_MAX = NUMBER_OF_FLOWER_PETALS;
     private static final int TOTAL_NUMBER_OF_CYCLES = 3;
 
     private final FlowerCopingSkillActivity activity;
