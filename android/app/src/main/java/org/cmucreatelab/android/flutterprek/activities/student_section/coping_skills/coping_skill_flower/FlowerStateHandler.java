@@ -118,23 +118,23 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
 
         boolean newValue = arg1.equals("1");
 
-//        // only listen for when the button is first pressed
-//        if (!isPressingButton && newValue) {
-//            isPressingButton = true;
-//            changeState(State.BREATHING);
-//        }
-
-        // only perform actions on a changed state
-        if (isPressingButton != newValue) {
-            isPressingButton = newValue;
-            if (currentState != State.FINISHED) {
-                if (isPressingButton) {
-                    changeState(State.BREATHING);
-                } else {
-                    changeState(State.WAIT_FOR_BUTTON);
-                }
-            }
+        // only listen for when the button is first pressed
+        if (!isPressingButton && newValue) {
+            isPressingButton = true;
+            changeState(State.BREATHING);
         }
+
+//        // only perform actions on a changed state
+//        if (isPressingButton != newValue) {
+//            isPressingButton = newValue;
+//            if (currentState != State.FINISHED) {
+//                if (isPressingButton) {
+//                    changeState(State.BREATHING);
+//                } else {
+//                    changeState(State.WAIT_FOR_BUTTON);
+//                }
+//            }
+//        }
 
         if (SHOW_DEBUG_WINDOW) {
             String reformedData = arg1+","+arg2+","+arg3;
