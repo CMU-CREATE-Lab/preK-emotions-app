@@ -168,6 +168,10 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
 
 
     public void lookForFlower() {
+        if (activity.isPaused()) {
+            Log.v(Constants.LOG_TAG, "lookForFlower ignored while activity is paused.");
+            return;
+        }
         GlobalHandler globalHandler = GlobalHandler.getInstance(activity.getApplicationContext());
         if (bleFlowerScanner.isFlowerDiscovered()) {
             updateFlower(globalHandler.bleFlower);
