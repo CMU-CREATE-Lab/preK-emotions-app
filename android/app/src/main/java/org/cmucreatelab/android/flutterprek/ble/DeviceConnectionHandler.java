@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.ble.flower.BleFlower;
 
 /**
  * Determines if a broadcasted bluetooth device is valid for the app to try connecting to.
