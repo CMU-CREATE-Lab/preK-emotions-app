@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.ble;
 
 import android.bluetooth.BluetoothDevice;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -51,17 +52,16 @@ public class DeviceConnectionHandler {
     }
 
 
-    public DeviceConnectionHandler() {
-        this.usesHardcodedBleDevices = false;
-    }
-
-
-    public DeviceConnectionHandler(HardcodedValues hardcodedValues) {
-        this.usesHardcodedBleDevices = true;
-        this.hardcodedBleFlower = hardcodedValues.flower;
-        this.hardcodedBleSqueeze = hardcodedValues.squeeze;
-        this.hardcodedBleWand = hardcodedValues.wand;
-        this.hardcodedBleYoga = hardcodedValues.yoga;
+    public DeviceConnectionHandler(@Nullable HardcodedValues hardcodedValues) {
+        if (hardcodedValues == null) {
+            this.usesHardcodedBleDevices = false;
+        } else {
+            this.usesHardcodedBleDevices = true;
+            this.hardcodedBleFlower = hardcodedValues.flower;
+            this.hardcodedBleSqueeze = hardcodedValues.squeeze;
+            this.hardcodedBleWand = hardcodedValues.wand;
+            this.hardcodedBleYoga = hardcodedValues.yoga;
+        }
     }
 
 

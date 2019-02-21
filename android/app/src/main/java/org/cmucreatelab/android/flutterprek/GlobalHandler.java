@@ -24,11 +24,7 @@ public class GlobalHandler {
     private GlobalHandler(Context context) {
         this.appContext = context;
         this.studentSectionNavigationHandler = new StudentSectionNavigationHandler();
-        if (Constants.HARDCODED_VALUES == null) {
-            this.deviceConnectionHandler = new DeviceConnectionHandler();
-        } else {
-            this.deviceConnectionHandler = new DeviceConnectionHandler(Constants.HARDCODED_VALUES);
-        }
+        this.deviceConnectionHandler = new DeviceConnectionHandler(Constants.HARDCODED_VALUES);
     }
 
 
