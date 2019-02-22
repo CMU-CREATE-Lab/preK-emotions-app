@@ -4,7 +4,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.util.Log;
 
-import org.cmucreatelab.android.flutterprek.ble.BleFlower;
+import org.cmucreatelab.android.flutterprek.ble.flower.BleFlower;
 import org.cmucreatelab.android.flutterprek.ble.DeviceConnectionHandler;
 import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
 
@@ -24,11 +24,7 @@ public class GlobalHandler {
     private GlobalHandler(Context context) {
         this.appContext = context;
         this.studentSectionNavigationHandler = new StudentSectionNavigationHandler();
-        if (Constants.HARDCODED_VALUES == null) {
-            this.deviceConnectionHandler = new DeviceConnectionHandler();
-        } else {
-            this.deviceConnectionHandler = new DeviceConnectionHandler(Constants.HARDCODED_VALUES);
-        }
+        this.deviceConnectionHandler = new DeviceConnectionHandler(Constants.HARDCODED_VALUES);
     }
 
 

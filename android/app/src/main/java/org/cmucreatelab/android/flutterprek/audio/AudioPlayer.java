@@ -26,7 +26,6 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
     private Context appContext;
     public final MediaPlayer mediaPlayer;
     private ConcurrentLinkedQueue<AudioFile> audioFilesQueue;
-//    private ConcurrentLinkedQueue<Integer> fileIds;
 
     private enum StorageType {
         ASSET,
@@ -85,7 +84,6 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
 
 
     private AudioPlayer(Context context) {
-//        fileIds = new ConcurrentLinkedQueue<>();
         audioFilesQueue = new ConcurrentLinkedQueue<>();
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -102,9 +100,6 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
     }
 
 
-//    public void addAudio(Integer fileId) {
-//        fileIds.add(fileId);
-//    }
     public void addAudioFromAssets(String filepath) {
         audioFilesQueue.add(new AudioFile(filepath, StorageType.ASSET, null));
     }

@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.ble;
+package org.cmucreatelab.android.flutterprek.ble.flower;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
