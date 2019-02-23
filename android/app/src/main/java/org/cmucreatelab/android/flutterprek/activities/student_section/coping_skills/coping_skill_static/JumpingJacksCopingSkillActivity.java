@@ -1,17 +1,22 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.view.View;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
 
+import java.util.Timer;
+
 import static org.cmucreatelab.android.flutterprek.R.id.textViewTitle;
 
 public class JumpingJacksCopingSkillActivity extends AbstractCopingSkillActivity {
 
+    VideoView videoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +24,9 @@ public class JumpingJacksCopingSkillActivity extends AbstractCopingSkillActivity
 
         findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
         findViewById(R.id.overlayYesNo).setVisibility(View.GONE);
+
+        videoView = findViewById(R.id.videoView);
+        videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.jumpingjacks);
 
         TextView textViewTitle = findViewById(R.id.textViewTitle);
         textViewTitle.setText(getTextTitleResource());
@@ -29,22 +37,50 @@ public class JumpingJacksCopingSkillActivity extends AbstractCopingSkillActivity
     @Override
     protected void onPause() {
         super.onPause();
+        videoView.pause();
     }
-
 
     @Override
     protected void onResume() {
         super.onResume();
         playAudio(getAudioFileForCopingSkillTitle());
 
-        VideoView videoView = findViewById(R.id.videoView);
-        videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.jumpingjacks);
+
+        MediaController mc = new MediaController(this);
+        mc.setAnchorView(videoView);
+        mc.setMediaPlayer(videoView);
+        videoView.setMediaController(mc);
+
+        final Timer pauseVideo = new Timer();
+        final Timer resumeVideo = new Timer();
+
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+            @Override
+            public final void onPrepared(MediaPlayer mp) {
+                mp.setVolume(0f, 0f);
+                mp.start();
+
+                /*pauseVideo.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        mp.pause();
+                    }
+                }, 5000);
+
+                resumeVideo.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        mp.start();
+                    }
+                }, 1000);
+             */
+            }
+        });
 
         videoView.start();
 
     }
-
-
 
     @Override
     public int getResourceIdForActivityLayout() {
