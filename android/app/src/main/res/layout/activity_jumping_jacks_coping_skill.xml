@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/textViewTitle"
-        android:layout_width="0dp"
+        android:layout_width="800dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="190dp"
         android:layout_marginStart="190dp"
@@ -39,6 +39,20 @@
         app:srcCompat="@drawable/ic_close"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <VideoView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="300dp"
+            android:layout_marginStart="300dp"
+            android:layout_marginTop="220dp"
+            android:id="@+id/videoView" />
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

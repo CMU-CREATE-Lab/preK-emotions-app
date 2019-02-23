@@ -2,16 +2,13 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
-import android.support.constraint.ConstraintLayout;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
-
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
+
+import static org.cmucreatelab.android.flutterprek.R.id.textViewTitle;
 
 public class JumpingJacksCopingSkillActivity extends AbstractCopingSkillActivity {
 
@@ -22,18 +19,11 @@ public class JumpingJacksCopingSkillActivity extends AbstractCopingSkillActivity
 
         findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
         findViewById(R.id.overlayYesNo).setVisibility(View.GONE);
+
         TextView textViewTitle = findViewById(R.id.textViewTitle);
         textViewTitle.setText(getTextTitleResource());
         textViewTitle.setTextColor(getColorResourceForTitle());
 
-        ConstraintLayout backgroundView = findViewById(R.id.activityBackground);
-
-        VideoView videoView = new VideoView(this);
-        videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.jumpingjacks);
-
-        backgroundView.addView(videoView, new ViewGroup.LayoutParams(400, 400));
-
-        videoView.start();
     }
 
     @Override
@@ -46,12 +36,19 @@ public class JumpingJacksCopingSkillActivity extends AbstractCopingSkillActivity
     protected void onResume() {
         super.onResume();
         playAudio(getAudioFileForCopingSkillTitle());
+
+        VideoView videoView = findViewById(R.id.videoView);
+        videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.jumpingjacks);
+
+        videoView.start();
+
     }
+
 
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout.activity_static_coping_skill;
+        return R.layout.activity_jumping_jacks_coping_skill;
     }
 
 
