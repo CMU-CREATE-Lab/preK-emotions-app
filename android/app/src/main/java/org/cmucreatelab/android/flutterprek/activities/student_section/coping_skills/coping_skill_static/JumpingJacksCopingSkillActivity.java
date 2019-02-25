@@ -11,6 +11,8 @@ import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
 
 import java.util.Timer;
+import java.util.TimerTask;
+
 
 import static org.cmucreatelab.android.flutterprek.R.id.textViewTitle;
 
@@ -57,28 +59,27 @@ public class JumpingJacksCopingSkillActivity extends AbstractCopingSkillActivity
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 
             @Override
-            public final void onPrepared(MediaPlayer mp) {
+            public final void onPrepared(final MediaPlayer mp) {
                 mp.setVolume(0f, 0f);
                 mp.start();
 
-                /*pauseVideo.schedule(new TimerTask() {
+                pauseVideo.schedule(new TimerTask() {
                     @Override
                     public void run() {
                         mp.pause();
+
+                        resumeVideo.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                mp.start();
+                            }
+                        }, 1000);
                     }
                 }, 5000);
 
-                resumeVideo.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        mp.start();
-                    }
-                }, 1000);
-             */
+
             }
         });
-
-        videoView.start();
 
     }
 
