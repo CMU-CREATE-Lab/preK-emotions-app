@@ -1,44 +1,15 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static;
 
-import android.os.Bundle;
 import android.support.annotation.ColorRes;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.VideoView;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
 
-public class JumpingJacksCopingSkillActivity extends AbstractCopingSkillActivity {
-
-    VideoView videoView;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
-        findViewById(R.id.overlayYesNo).setVisibility(View.GONE);
-
-        videoView = findViewById(R.id.videoView);
-
-        TextView textViewTitle = findViewById(R.id.textViewTitle);
-        textViewTitle.setText(getTextTitleResource());
-        textViewTitle.setTextColor(getColorResourceForTitle());
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        videoView.pause();
-    }
+public class JumpingJacksCopingSkillActivity extends VideoCopingSkillActivity {
 
 
     @Override
     protected void onResume() {
         super.onResume();
         playAudio(getAudioFileForCopingSkillTitle());
-
     }
 
 
@@ -55,16 +26,24 @@ public class JumpingJacksCopingSkillActivity extends AbstractCopingSkillActivity
     }
 
 
+    @Override
+    public String getVideoFileForCopingSkillTitle() {
+        return "android.resource://" + getPackageName() + "/" + R.raw.jumpingjacks;
+    }
+
+
     public String getAudioFileForCopingSkillTitle() {
         return "etc/audio_prompts/audio_jumping_jacks.wav";
     }
 
 
+    @Override
     public int getResourceForBackground() {
         return R.drawable.background_jumping_jacks;
     }
 
 
+    @Override
     public int getTextTitleResource() {
         return R.string.coping_skill_jumping_jacks;
     }

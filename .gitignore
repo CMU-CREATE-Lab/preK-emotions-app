@@ -3,3 +3,4 @@ android/.idea
 
 # ignore stock/test images
 android/app/src/main/assets/etc/
+android/app/src/main/res/raw/

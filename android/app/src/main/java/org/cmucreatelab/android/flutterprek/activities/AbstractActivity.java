@@ -32,11 +32,6 @@ public abstract class AbstractActivity extends AppCompatActivity {
         }
     }
 
-    public void playVideo() {
-
-    }
-
-
 
     /**
      * Hide navigation buttons to make the activity take up the entire screen.
