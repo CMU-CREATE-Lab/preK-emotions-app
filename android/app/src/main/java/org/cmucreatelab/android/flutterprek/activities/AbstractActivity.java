@@ -9,6 +9,7 @@ import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.video.VideoPlayer;
 
 /**
  * All activities in the project should extend from this class.
@@ -20,7 +21,6 @@ public abstract class AbstractActivity extends AppCompatActivity {
         playAudio(filepath, null);
     }
 
-
     public void playAudio(String filepath, MediaPlayer.OnCompletionListener listener) {
         if (filepath != null) {
             AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
@@ -31,6 +31,11 @@ public abstract class AbstractActivity extends AppCompatActivity {
             Log.w(Constants.LOG_TAG, "ignoring call to playAudio() with null filepath.");
         }
     }
+
+    public void playVideo() {
+
+    }
+
 
 
     /**
