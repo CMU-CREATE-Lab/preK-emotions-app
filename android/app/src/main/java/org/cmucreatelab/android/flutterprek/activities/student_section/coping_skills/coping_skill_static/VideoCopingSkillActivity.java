@@ -54,7 +54,7 @@ public abstract class VideoCopingSkillActivity extends AbstractCopingSkillActivi
     @Override
     protected void onResume() {
         super.onResume();
-        VideoPlayer.getInstance(getApplicationContext()).playVideo(useAudioFromVideo(), listener);
+        VideoPlayer.getInstance(getApplicationContext()).playVideo(useAudioFromVideo(), getListener());
     }
 
 
@@ -71,8 +71,8 @@ public abstract class VideoCopingSkillActivity extends AbstractCopingSkillActivi
     }
 
 
-    public VideoView getVideoView() {
-        return videoView;
+    public MediaPlayer.OnCompletionListener getListener() {
+        return listener;
     }
 
 
