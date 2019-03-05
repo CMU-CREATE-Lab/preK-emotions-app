@@ -11,6 +11,7 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.EmptyStaticCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.JumpingJacksCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.ShareCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.YogaCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 
 public class CopingSkillMapper {
@@ -39,7 +40,9 @@ public class CopingSkillMapper {
                 break;
             case "coping_skill_5":
                 Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: Jumping Jacks");
-                copingSkillClass = JumpingJacksCopingSkillActivity.class;
+                //copingSkillClass = JumpingJacksCopingSkillActivity.class;
+                // TODO testing
+                copingSkillClass = YogaCopingSkillActivity.class;
                 break;
             case "coping_skill_6":
                 Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: Share");

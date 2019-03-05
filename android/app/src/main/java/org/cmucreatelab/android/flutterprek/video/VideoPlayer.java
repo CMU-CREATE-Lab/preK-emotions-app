@@ -33,8 +33,8 @@ public class VideoPlayer {
         videoView.setMediaController(mc);
     }
 
-    public void playVideo(final MediaPlayer.OnCompletionListener listener) {
-        initializePlayer(listener);
+    public void playVideo(boolean useAudio, final MediaPlayer.OnCompletionListener listener) {
+        initializePlayer(useAudio, listener);
     }
 
     public void pause() {
@@ -45,14 +45,14 @@ public class VideoPlayer {
         releasePlayer();
     }
 
-    private void initializePlayer(final MediaPlayer.OnCompletionListener listener) {
+    private void initializePlayer(final boolean useAudio, final MediaPlayer.OnCompletionListener listener) {
 
         appVideoView.setOnPreparedListener(
                 new MediaPlayer.OnPreparedListener() {
                     @Override
                     public void onPrepared(MediaPlayer mediaPlayer) {
                         // Start playing!
-                        mediaPlayer.setVolume(0f, 0f);
+                        if (!useAudio) mediaPlayer.setVolume(0f, 0f);
                         appVideoView.start();
                     }
                 });

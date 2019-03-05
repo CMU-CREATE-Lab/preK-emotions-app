@@ -105,6 +105,10 @@
             android:name=".activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.RecordUseWordsActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.student_section.coping_skills.coping_skill_static.YogaCopingSkillActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
 
 </manifest>

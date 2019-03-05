@@ -55,7 +55,7 @@ public abstract class VideoCopingSkillActivity extends AbstractCopingSkillActivi
     @Override
     protected void onResume() {
         super.onResume();
-        VideoPlayer.getInstance(getApplicationContext()).playVideo(listener);
+        VideoPlayer.getInstance(getApplicationContext()).playVideo(useAudioFromVideo(), listener);
     }
 
 
@@ -88,5 +88,8 @@ public abstract class VideoCopingSkillActivity extends AbstractCopingSkillActivi
     /** Get the string resource for the text that appears on the coping skill. */
     @StringRes
     public abstract int getTextTitleResource();
+
+
+    public abstract boolean useAudioFromVideo();
 
 }

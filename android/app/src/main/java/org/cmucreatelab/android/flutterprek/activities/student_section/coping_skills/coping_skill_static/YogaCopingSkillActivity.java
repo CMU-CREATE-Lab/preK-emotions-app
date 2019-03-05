@@ -1,16 +1,10 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static;
 
 import android.support.annotation.ColorRes;
+
 import org.cmucreatelab.android.flutterprek.R;
 
-public class JumpingJacksCopingSkillActivity extends VideoCopingSkillActivity {
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        playAudio(getAudioFileForCopingSkillTitle());
-    }
+public class YogaCopingSkillActivity extends VideoCopingSkillActivity {
 
 
     @Override
@@ -28,7 +22,7 @@ public class JumpingJacksCopingSkillActivity extends VideoCopingSkillActivity {
 
     @Override
     public String getVideoFileForCopingSkillTitle() {
-        return "android.resource://" + getPackageName() + "/" + R.raw.jumpingjacks;
+        return "android.resource://" + getPackageName() + "/" + R.raw.yoga_sad;
     }
 
 
@@ -45,13 +39,13 @@ public class JumpingJacksCopingSkillActivity extends VideoCopingSkillActivity {
 
     @Override
     public int getTextTitleResource() {
-        return R.string.coping_skill_jumping_jacks;
+        return R.string.empty;
     }
 
 
     @Override
     public boolean useAudioFromVideo() {
-        return false;
+        return true;
     }
 
 }
