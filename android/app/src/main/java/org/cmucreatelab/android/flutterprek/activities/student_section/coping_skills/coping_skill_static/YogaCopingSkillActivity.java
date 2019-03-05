@@ -2,7 +2,7 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 
 import org.cmucreatelab.android.flutterprek.R;
 
-public class YogaCopingSkillActivity extends VideoCopingSkillActivity {
+public abstract class YogaCopingSkillActivity extends VideoCopingSkillActivity {
 
 
     @Override
@@ -12,14 +12,8 @@ public class YogaCopingSkillActivity extends VideoCopingSkillActivity {
 
 
     @Override
-    public String getVideoFileForCopingSkillTitle() {
-        return "android.resource://" + getPackageName() + "/" + R.raw.yoga_mad_excited;
-    }
-
-
-    @Override
     public int getResourceForBackground() {
-        return R.drawable.background_flower_sky;
+        return R.drawable.background_jumping_jacks;
     }
 
 
