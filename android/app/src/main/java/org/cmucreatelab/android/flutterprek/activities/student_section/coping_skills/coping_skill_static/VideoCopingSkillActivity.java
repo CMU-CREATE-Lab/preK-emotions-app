@@ -1,6 +1,5 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static;
 
-import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;

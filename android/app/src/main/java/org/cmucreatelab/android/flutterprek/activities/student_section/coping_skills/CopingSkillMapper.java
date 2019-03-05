@@ -40,13 +40,15 @@ public class CopingSkillMapper {
                 break;
             case "coping_skill_5":
                 Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: Jumping Jacks");
-                //copingSkillClass = JumpingJacksCopingSkillActivity.class;
-                // TODO testing
-                copingSkillClass = YogaCopingSkillActivity.class;
+                copingSkillClass = JumpingJacksCopingSkillActivity.class;
                 break;
             case "coping_skill_6":
                 Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: Share");
                 copingSkillClass = ShareCopingSkillActivity.class;
+                break;
+            case "coping_skill_7":
+                Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: Yoga Mad");
+                copingSkillClass = YogaCopingSkillActivity.class;
                 break;
             default:
                 Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: None (default)");
