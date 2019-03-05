@@ -74,7 +74,7 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".activities.student_section.coping_skills.coping_skill_static.JumpingJacksCopingSkillActivity"
+            android:name=".activities.student_section.coping_skills.coping_skill_video.JumpingJacksCopingSkillActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
@@ -106,15 +106,15 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".activities.student_section.coping_skills.coping_skill_static.YogaMadExcitedActivity"
+            android:name=".activities.student_section.coping_skills.coping_skill_video.YogaMadExcitedActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".activities.student_section.coping_skills.coping_skill_static.YogaSadActivity"
+            android:name=".activities.student_section.coping_skills.coping_skill_video.YogaSadActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".activities.student_section.coping_skills.coping_skill_static.YogaHappyActivity"
+            android:name=".activities.student_section.coping_skills.coping_skill_video.YogaHappyActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>

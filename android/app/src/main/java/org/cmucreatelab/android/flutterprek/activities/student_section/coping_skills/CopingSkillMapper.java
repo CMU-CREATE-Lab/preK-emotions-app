@@ -9,12 +9,11 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.CuddleCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.DanceCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.EmptyStaticCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.JumpingJacksCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.JumpingJacksCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.ShareCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.YogaCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.YogaHappyActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.YogaMadExcitedActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.YogaSadActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.YogaHappyActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.YogaMadExcitedActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.YogaSadActivity;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 
 public class CopingSkillMapper {

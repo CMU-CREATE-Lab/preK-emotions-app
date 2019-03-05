@@ -6,24 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_flower_sky"
-    tools:context=".activities.student_section.coping_skills.coping_skill_static.VideoCopingSkillActivity">
-
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="800dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="190dp"
-        android:layout_marginStart="190dp"
-        android:layout_marginTop="56dp"
-        android:fontFamily="@font/source_sans_pro"
-        android:lines="4"
-        android:text="@string/coping_skill_static_placeholder"
-        android:textAlignment="center"
-        android:textColor="@color/colorWhite"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".activities.student_section.coping_skills.coping_skill_video.VideoCopingSkillActivity">
 
     <include
         android:id="@+id/overlayYesNo"

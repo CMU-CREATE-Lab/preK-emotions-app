@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static;
+package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video;
 
 import org.cmucreatelab.android.flutterprek.R;
 
@@ -14,12 +14,6 @@ public abstract class YogaCopingSkillActivity extends VideoCopingSkillActivity {
     @Override
     public int getResourceForBackground() {
         return R.drawable.background_jumping_jacks;
-    }
-
-
-    @Override
-    public int getTextTitleResource() {
-        return R.string.empty;
     }
 
 
