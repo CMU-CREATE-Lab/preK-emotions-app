@@ -23,6 +23,8 @@ public class JumpingJacksCopingSkillActivity extends AbstractCopingSkillActivity
 
         videoView = findViewById(R.id.videoView);
 
+        initVideo(this, videoView, "android.resource://" + getPackageName() + "/" + R.raw.jumpingjacks);
+
         TextView textViewTitle = findViewById(R.id.textViewTitle);
         textViewTitle.setText(getTextTitleResource());
         textViewTitle.setTextColor(getColorResourceForTitle());
@@ -39,6 +41,8 @@ public class JumpingJacksCopingSkillActivity extends AbstractCopingSkillActivity
     protected void onResume() {
         super.onResume();
         playAudio(getAudioFileForCopingSkillTitle());
+
+        playVideo();
 
     }
 

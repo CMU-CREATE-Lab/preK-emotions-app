@@ -36,8 +36,7 @@ public class VideoPlayer {
         videoView.setMediaController(mc);
     }
 
-    public void playVideo() {
-        initializePlayer();
+    public void playVideo() { initializePlayer();
     }
 
     public void pause() {
