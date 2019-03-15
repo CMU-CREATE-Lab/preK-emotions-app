@@ -10,6 +10,9 @@ public class EmptyStaticCopingSkillActivity extends StaticCopingSkillActivity {
         return null;
     }
 
+    public String getVideoFileForCopingSkillTitle() {
+        return null;
+    }
 
     @Override
     public int getResourceForBackground() {
