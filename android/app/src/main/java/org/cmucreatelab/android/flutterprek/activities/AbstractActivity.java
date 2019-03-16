@@ -36,18 +36,6 @@ public abstract class AbstractActivity extends AppCompatActivity {
         }
     }
 
-    public void initVideo(Activity activity, VideoView videoView, String videoPath) {
-        videoPlayer = VideoPlayer.getInstance(getApplicationContext());
-        videoPlayer.Init(activity, videoView, videoPath);
-    }
-
-    public void playVideo() {
-        videoPlayer.stop();
-        videoPlayer.playVideo();
-    }
-
-
-
     /**
      * Hide navigation buttons to make the activity take up the entire screen.
      */
