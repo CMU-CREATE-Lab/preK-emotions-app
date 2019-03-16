@@ -58,7 +58,7 @@
     { "uuid": "ic_dance", "fileType": "asset_image", "filePath": "coping_skills/ic_dance.png" },
     { "uuid": "ic_jumping_jacks", "fileType": "asset_image", "filePath": "coping_skills/ic_jumping_jacks.png" },
     { "uuid": "ic_share", "fileType": "asset_image", "filePath": "coping_skills/ic_share.png" },
-    { "uuid": "student_alexander", "fileType": "asset_image", "filePath": "etc/img/xman1.png" },
-    { "uuid": "student_katie", "fileType": "asset_image", "filePath": "etc/img/katie.png" }
+    { "uuid": "student_alexander", "fileType": "asset_image", "filePath": "etc/images/xman1.png" },
+    { "uuid": "student_katie", "fileType": "asset_image", "filePath": "etc/images/katie.png" }
   ]
 }

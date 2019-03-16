@@ -74,7 +74,7 @@ public class StudentIndexAdapter extends AbstractListAdapter<Student> {
             });
         } else {
             // TODO replace with some default student image
-            Util.setImageViewWithAsset(activity, (ImageView) result.findViewById(R.id.imageView), "etc/img/xman1.png");
+            Util.setImageViewWithAsset(activity, (ImageView) result.findViewById(R.id.imageView), "etc/images/xman1.png");
         }
 
         if (onClickListener) {

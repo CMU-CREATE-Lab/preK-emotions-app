@@ -6,11 +6,8 @@
   ],
   "students":
   [
-    { "uuid": "student1", "name": "Alice", "classroomUuid": "classroom1", "notes": "stuck in wonderland" },
-    { "uuid": "student2", "name": "Bob", "classroomUuid": "classroom1" },
-    { "uuid": "student3", "name": "Charles", "classroomUuid": "classroom1" },
-    { "uuid": "student4", "name": "Dana", "classroomUuid": "classroom1" },
-    { "uuid": "student5", "name": "Ed", "classroomUuid": "classroom1" },
+    { "uuid": "student1", "name": "Alice", "classroomUuid": "classroom1", "notes": "stuck in wonderland", "pictureFileUuid": "image_student1"  },
+    { "uuid": "student2", "name": "Bob", "classroomUuid": "classroom1", "pictureFileUuid": "image_student2"  },
     { "uuid": "student6", "name": "Frank", "classroomUuid": "classroom2" },
     { "uuid": "student7", "name": "Garth Marenghi", "classroomUuid": "classroom2" }
   ],
@@ -22,7 +19,10 @@
     { "uuid": "coping_skill_1", "name": "Flower Breathing", "imageFileUuid": "ic_flower_breathing" },
     { "uuid": "coping_skill_5", "name": "Jumping Jacks", "imageFileUuid": "ic_jumping_jacks" },
     { "uuid": "coping_skill_6", "name": "Share", "imageFileUuid": "ic_share" },
-    { "uuid": "coping_skill_2", "name": "Static Coping SKill", "imageFileUuid": "ic_yoga" }
+    { "uuid": "coping_skill_2", "name": "Static Coping SKill", "imageFileUuid": "ic_yoga" },
+    { "uuid": "coping_skill_7", "name": "Yoga", "imageFileUuid": "ic_yoga" },
+    { "uuid": "coping_skill_8", "name": "Yoga", "imageFileUuid": "ic_yoga" },
+    { "uuid": "coping_skill_9", "name": "Yoga", "imageFileUuid": "ic_yoga" }
   ],
   "customizations":
   [
@@ -45,10 +45,15 @@
   [
     { "uuid": "happy_share", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_6" },
     { "uuid": "happy_dance", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_4" },
+    { "uuid": "happy_flower", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_1" },
+    { "uuid": "happy_jumping_jacks", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_5" },
+    { "uuid": "happy_yoga", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_7" },
     { "uuid": "sad_flower", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "sad_cuddle", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_3" },
+    { "uuid": "sad_yoga", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_8" },
     { "uuid": "mad_flower", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_1" },
-    { "uuid": "mad_jumping_jacks", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_5" }
+    { "uuid": "mad_jumping_jacks", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_5" },
+    { "uuid": "mad_yoga", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_9" }
   ],
   "itineraryItems":
   [
@@ -68,6 +73,8 @@
   ],
   "dbFiles":
   [
+    { "uuid": "image_student1", "fileType": "asset_image", "filePath": "etc/images/katie.png" },
+    { "uuid": "image_student2", "fileType": "asset_image", "filePath": "etc/images/xman1.png" },
     { "uuid": "audio_message_happy_2", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_happy_2.wav" },
     { "uuid": "audio_something_else", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else.wav" },
     { "uuid": "audio_message_mad_1", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_mad_1.wav" },
