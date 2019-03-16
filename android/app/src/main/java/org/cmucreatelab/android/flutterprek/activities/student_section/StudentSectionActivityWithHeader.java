@@ -1,14 +1,22 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section;
 
+import android.arch.lifecycle.Observer;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.fragments.AppHeaderFragment;
+import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 
 public abstract class StudentSectionActivityWithHeader extends AbstractActivity {
 
@@ -44,12 +52,25 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
         });
     }
 
-
     public void onClickImageStudent() {
         // go back to students page
         Intent intent = new Intent(StudentSectionActivityWithHeader.this, ChooseStudentActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    public void updateImageStudent(AppCompatActivity activity, String imageID) {
+
+        if (imageID != null) {
+            final Context appContext = activity.getApplicationContext();
+            AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(imageID).observe(activity, new Observer<DbFile>() {
+                @Override
+                public void onChanged(@Nullable DbFile dbFile) {
+                    // TODO check if file type is asset
+                    Util.setImageViewWithAsset(appContext, (ImageView) findViewById(R.id.imageStudent), dbFile.getFilePath());
+                }
+            });
+        }
     }
 
 }

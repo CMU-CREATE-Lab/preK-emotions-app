@@ -54,7 +54,7 @@ public class VideoPlayer {
                     @Override
                     public void onPrepared(MediaPlayer mediaPlayer) {
                         // Start playing!
-                        mediaPlayer.setVolume(0f, 0f);
+                        //mediaPlayer.setVolume(0f, 0f);
                         appVideoView.start();
                     }
                 });

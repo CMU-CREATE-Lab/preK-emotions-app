@@ -24,6 +24,7 @@ public class JumpingJacksCopingSkillActivity extends AbstractCopingSkillActivity
         videoView = findViewById(R.id.videoView);
 
         initVideo(this, videoView, "android.resource://" + getPackageName() + "/" + R.raw.jumpingjacks);
+        // initVideo(this, videoView, getFilesDir().getParent() + "/etc/YogaSad.mp4");
 
         TextView textViewTitle = findViewById(R.id.textViewTitle);
         textViewTitle.setText(getTextTitleResource());

@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.DebugCorner;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -31,6 +33,8 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
             // send to next activity
             Intent chooseEmotionActivity = new Intent(ChooseStudentActivity.this, ChooseEmotionActivity.class);
             startActivity(chooseEmotionActivity);
+
+            updateImageStudent(ChooseStudentActivity.this, student.getPictureFileUuid());
         }
     };
 
@@ -65,9 +69,11 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
     }
 
 
+
     @Override
     public void onClickImageStudent() {
         // TODO go to teacher section (does nothing for now)
+
     }
 
 }
