@@ -30,11 +30,13 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
             Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
             // track selection with GlobalHandler
             GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.studentUuid = student.getUuid();
+            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.imageUuid = student.getPictureFileUuid();
+
             // send to next activity
             Intent chooseEmotionActivity = new Intent(ChooseStudentActivity.this, ChooseEmotionActivity.class);
             startActivity(chooseEmotionActivity);
 
-            updateImageStudent(ChooseStudentActivity.this, student.getPictureFileUuid());
+            //updateImageStudent(ChooseStudentActivity.this, student.getPictureFileUuid());
         }
     };
 

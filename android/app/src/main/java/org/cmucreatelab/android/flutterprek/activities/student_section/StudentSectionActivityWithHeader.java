@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
@@ -50,6 +51,10 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
                 onClickImageStudent();
             }
         });
+
+        //String imageID = GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.imageUuid;
+        //Log.i("kayla", imageID);
+        updateImageStudent(StudentSectionActivityWithHeader.this);
     }
 
     public void onClickImageStudent() {
@@ -59,9 +64,11 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
         startActivity(intent);
     }
 
-    public void updateImageStudent(AppCompatActivity activity, String imageID) {
+    public void updateImageStudent(AppCompatActivity activity) {
 
-        if (imageID != null) {
+        String imageID = GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.imageUuid;
+
+        if (imageID != null && imageID != "") {
             final Context appContext = activity.getApplicationContext();
             AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(imageID).observe(activity, new Observer<DbFile>() {
                 @Override
