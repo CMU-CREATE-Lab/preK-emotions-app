@@ -27,13 +27,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/imageStudent"
         android:layout_marginEnd="22dp"
         style="@style/AppHeaderImages"
         android:layout_width="36sp"
         android:layout_height="36sp"
         android:background="@drawable/ic_mindfulnest_header_student_section"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageInfo"
+        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/imageStudent"
+        android:layout_width="36sp"
+        android:layout_height="36sp"
+        android:src="@drawable/ic_mindfulnest_header_student_section"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageInfo"
         app:layout_constraintTop_toTopOf="parent" />
