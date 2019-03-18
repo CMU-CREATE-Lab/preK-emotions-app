@@ -22,7 +22,8 @@
     { "uuid": "coping_skill_2", "name": "Static Coping SKill", "imageFileUuid": "ic_yoga" },
     { "uuid": "coping_skill_7", "name": "Yoga", "imageFileUuid": "ic_yoga" },
     { "uuid": "coping_skill_8", "name": "Yoga", "imageFileUuid": "ic_yoga" },
-    { "uuid": "coping_skill_9", "name": "Yoga", "imageFileUuid": "ic_yoga" }
+    { "uuid": "coping_skill_9", "name": "Yoga", "imageFileUuid": "ic_yoga" },
+    { "uuid": "coping_skill_10", "name": "Magic Wand", "imageFileUuid": "ic_conducting"}
   ],
   "customizations":
   [
@@ -48,6 +49,7 @@
     { "uuid": "happy_flower", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "happy_jumping_jacks", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_5" },
     { "uuid": "happy_yoga", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_7" },
+    { "uuid": "happy_wand", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_10"},
     { "uuid": "sad_flower", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "sad_cuddle", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_3" },
     { "uuid": "sad_yoga", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_8" },
@@ -89,6 +91,7 @@
     { "uuid": "ic_cuddle", "fileType": "asset_image", "filePath": "coping_skills/ic_cuddle.png" },
     { "uuid": "ic_dance", "fileType": "asset_image", "filePath": "coping_skills/ic_dance.png" },
     { "uuid": "ic_jumping_jacks", "fileType": "asset_image", "filePath": "coping_skills/ic_jumping_jacks.png" },
-    { "uuid": "ic_share", "fileType": "asset_image", "filePath": "coping_skills/ic_share.png" }
+    { "uuid": "ic_share", "fileType": "asset_image", "filePath": "coping_skills/ic_share.png" },
+    { "uuid": "ic_conducting", "fileType": "asset_image", "filePath": "coping_skills/ic_conducting.png" }
   ]
 }
