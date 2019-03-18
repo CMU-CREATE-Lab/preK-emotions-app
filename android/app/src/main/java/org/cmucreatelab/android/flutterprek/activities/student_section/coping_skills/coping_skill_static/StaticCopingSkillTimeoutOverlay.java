@@ -10,6 +10,7 @@ public class StaticCopingSkillTimeoutOverlay {
 
     private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 30000;
     private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
+    private static final String AUDIO_FILE_PROMPT_MORE_TIME = "etc/audio_prompts/audio_more_time.wav";
     private AbstractActivity activity;
     private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
     private boolean overlayIsDisplayed = false;
@@ -30,6 +31,7 @@ public class StaticCopingSkillTimeoutOverlay {
     private void displayOverlay() {
         timerToDisplayOverlay.stopTimer();
         overlayIsDisplayed = true;
+        activity.playAudio(AUDIO_FILE_PROMPT_MORE_TIME);
         activity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
         timerToExitFromOverlay.startTimer();
     }
