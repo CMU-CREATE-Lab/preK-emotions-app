@@ -52,8 +52,6 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
             }
         });
 
-        //String imageID = GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.imageUuid;
-        //Log.i("kayla", imageID);
         updateImageStudent(StudentSectionActivityWithHeader.this);
     }
 

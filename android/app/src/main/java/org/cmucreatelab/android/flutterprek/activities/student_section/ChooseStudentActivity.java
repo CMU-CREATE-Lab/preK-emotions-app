@@ -36,7 +36,6 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
             Intent chooseEmotionActivity = new Intent(ChooseStudentActivity.this, ChooseEmotionActivity.class);
             startActivity(chooseEmotionActivity);
 
-            //updateImageStudent(ChooseStudentActivity.this, student.getPictureFileUuid());
         }
     };
 
@@ -69,7 +68,6 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
     public int getResourceIdForActivityLayout() {
         return R.layout._student_section__activity_choose_student;
     }
-
 
 
     @Override
