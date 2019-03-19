@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.fragments.RecordFragment;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -36,6 +37,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
 
     private View viewForCircleAnimation;
     private View layoutCircles, layoutRecordButton;
+    private RecordFragment recordFragment;
 
 
     private void stopRecording() {
@@ -119,6 +121,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
         audioRecorder = new AudioRecorder(getApplicationContext());
 
         // assign views
+        this.recordFragment = (RecordFragment) (getSupportFragmentManager().findFragmentById(R.id.recordFragment));
         this.viewForCircleAnimation = findViewById(R.id.imageViewCircleGreen);
         this.layoutCircles = findViewById(R.id.layoutCircles);
         this.layoutRecordButton = findViewById(R.id.layoutRecordButton);

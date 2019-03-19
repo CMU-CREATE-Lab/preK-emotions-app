@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.fragments.MoveOnFragment;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
@@ -16,6 +17,8 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 import java.io.File;
 
 public class MoveOnUseWordsActivity extends PostCopingSkillActivity {
+
+    private MoveOnFragment moveOnFragment;
 
 
     private void goToNextPostCopingSkillActivity(Class nextClass) {
@@ -69,6 +72,8 @@ public class MoveOnUseWordsActivity extends PostCopingSkillActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.moveOnFragment = (MoveOnFragment) (getSupportFragmentManager().findFragmentById(R.id.moveOnFragment));
 
         findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
             @Override
