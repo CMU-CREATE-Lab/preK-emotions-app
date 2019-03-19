@@ -35,6 +35,7 @@ public class Constants {
     /**
      * Set this to use hardcoded values for the MindfulNest BLE devices.
      * This is helpful when there are multiple stations in the same room.
+     * Otherwise set to null.
      */
     public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = null;
 

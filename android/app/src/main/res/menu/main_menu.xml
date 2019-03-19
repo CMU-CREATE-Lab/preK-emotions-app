@@ -25,7 +25,8 @@
                 android:title="@string/menu_students" />
             <item android:id="@+id/menu_choose_emotion"
                 android:title="@string/menu_emotions" />
-            <item android:id="@+id/menu_choose_coping_skill"
+            <item
+                android:id="@+id/menu_choose_coping_skill"
                 android:title="@string/menu_coping_skills" />
         </menu>
     </item>
