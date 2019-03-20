@@ -12,12 +12,11 @@ import android.view.ViewAnimationUtils;
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.fragments.AbstractFragment;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.RecordUseWordsActivity;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.audio.audio_recording.AudioRecorder;
 
-public class RecordFragment extends AbstractFragment {
+public class RecordFragment extends UseWordsFragment {
 
     private static final long MAXIMUM_RECORD_LENGTH_MILLISECONDS = 20000;
     // NOTE: the visual portion of the animation is roughly 3/5 of the actual duration of the animation, so this value should be roughly 2/3 of the value above
@@ -38,8 +37,6 @@ public class RecordFragment extends AbstractFragment {
 
     private View viewForCircleAnimation;
     private View layoutCircles, layoutRecordButton;
-
-    public RecordUseWordsActivity activity;
 
 
     private void stopRecording() {
@@ -88,9 +85,6 @@ public class RecordFragment extends AbstractFragment {
         this.layoutCircles = view.findViewById(R.id.layoutCircles);
         this.layoutRecordButton = view.findViewById(R.id.layoutRecordButton);
 
-        // previously invisible view
-        viewForCircleAnimation.setVisibility(View.INVISIBLE);
-
         viewForCircleAnimation.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
@@ -99,22 +93,36 @@ public class RecordFragment extends AbstractFragment {
                 checkToBeginRecording();
             }
         });
+    }
 
-        view.findViewById(R.id.imageViewStop).setOnClickListener(new View.OnClickListener() {
+
+    @Override
+    public void initializeFragment() {
+        activityIsCancelled = false;
+        recordButtonPressed = false;
+        startedRecording = false;
+
+        // previously invisible view
+        viewForCircleAnimation.setVisibility(View.INVISIBLE);
+        // make sure correct display
+        layoutRecordButton.setVisibility(View.VISIBLE);
+        layoutCircles.setVisibility(View.GONE);
+
+        getFragmentView().findViewById(R.id.imageViewStop).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 stopRecordingAndMoveOn();
             }
         });
 
-        view.findViewById(R.id.imageViewRecordButton).setOnClickListener(new View.OnClickListener() {
+        getFragmentView().findViewById(R.id.imageViewRecordButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 recordButtonPressed = true;
                 layoutRecordButton.setVisibility(View.GONE);
                 layoutCircles.setVisibility(View.VISIBLE);
                 // avoid timeout overlay when you press to start recording
-                activity.releaseOverlayTimers();
+                getPostCopingSkillActivity().releaseOverlayTimers();
                 checkToBeginRecording();
             }
         });
@@ -141,16 +149,10 @@ public class RecordFragment extends AbstractFragment {
     }
 
 
-    public void displayFragment(RecordUseWordsActivity activity) {
-        this.activity = activity;
-        getView().setVisibility(View.VISIBLE);
-    }
-
-
     public void stopRecordingAndMoveOn() {
         timerToStopRecording.stopTimer();
         stopRecording();
-        activity.goToNextPostCopingSkillActivity();
+        getPostCopingSkillActivity().setCurrentFragment(RecordUseWordsActivity.FragmentState.MOVE_ON);
     }
 
 

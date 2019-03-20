@@ -1,50 +1,17 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.fragments;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.fragments.AbstractFragment;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_rejoin_friends.RejoinFriendsActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.MoveOnUseWordsActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.RecordUseWordsActivity;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 
 import java.io.File;
 
-public class MoveOnFragment extends AbstractFragment {
-
-    public MoveOnUseWordsActivity activity;
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        view.findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.goToNextPostCopingSkillActivity(RecordUseWordsActivity.class);
-            }
-        });
-        view.findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.goToNextPostCopingSkillActivity(RejoinFriendsActivity.class);
-            }
-        });
-        view.findViewById(R.id.layoutPlayButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addRecordedAudio(true);
-            }
-        });
-    }
+public class MoveOnFragment extends UseWordsFragment {
 
 
     @Override
@@ -53,7 +20,33 @@ public class MoveOnFragment extends AbstractFragment {
     }
 
 
+    @Override
+    public void initializeFragment() {
+        final RecordUseWordsActivity activity = getPostCopingSkillActivity();
+        getFragmentView().findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.setCurrentFragment(RecordUseWordsActivity.FragmentState.RECORD);
+            }
+        });
+        getFragmentView().findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.goToNextPostCopingSkillActivity();
+            }
+        });
+        getFragmentView().findViewById(R.id.layoutPlayButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addRecordedAudio(true);
+            }
+        });
+    }
+
+
     public void addRecordedAudio(boolean playback) {
+        RecordUseWordsActivity activity = getPostCopingSkillActivity();
+
         // release timers if we are playing back audio
         activity.releaseOverlayTimers();
 
@@ -69,12 +62,6 @@ public class MoveOnFragment extends AbstractFragment {
                 audioPlayer.addAudioFromInternalStorage(recordedAudioFile.getAbsolutePath());
             }
         }
-    }
-
-
-    public void displayFragment(MoveOnUseWordsActivity activity) {
-        this.activity = activity;
-        getView().setVisibility(View.VISIBLE);
     }
 
 }
