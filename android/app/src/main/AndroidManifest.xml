@@ -117,6 +117,10 @@
             android:name=".activities.student_section.coping_skills.coping_skill_static.StaticSqueezeCopingSkillActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.student_section.coping_skills.coping_skill_talk_about_it.TalkAboutItActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
 
 </manifest>

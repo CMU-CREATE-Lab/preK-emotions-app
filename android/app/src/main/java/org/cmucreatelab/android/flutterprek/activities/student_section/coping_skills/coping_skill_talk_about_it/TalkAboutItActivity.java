@@ -1,38 +1,34 @@
-package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words;
+package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_talk_about_it;
 
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.PostCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_rejoin_friends.RejoinFriendsActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.StudentSectionTimeoutOverlay;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.fragments.MoveOnFragment;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.fragments.RecordFragment;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.fragments.UseWordsFragment;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 
-public class RecordUseWordsActivity extends PostCopingSkillActivity implements UseWordsFragment.ActivityCallback {
+public class TalkAboutItActivity extends AbstractCopingSkillActivity implements UseWordsFragment.ActivityCallback {
+
+    private StudentSectionTimeoutOverlay timeoutOverlay;
 
     private RecordFragment recordFragment;
     private MoveOnFragment moveOnFragment;
 
 
     @Override
-    public String getAudioFileForPostCopingSkillTitle() {
-        return null;
-    }
-
-
-    @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout._coping_skill__activity_record_and_move_on;
+        return R.layout._coping_skill__activity_talk_about_it;
     }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.timeoutOverlay = new StudentSectionTimeoutOverlay(this);
         this.recordFragment = (RecordFragment) (getSupportFragmentManager().findFragmentById(R.id.recordFragment));
         this.moveOnFragment = (MoveOnFragment) (getSupportFragmentManager().findFragmentById(R.id.moveOnFragment));
     }
@@ -42,6 +38,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity implements U
     protected void onResume() {
         setFragment(UseWordsFragment.FragmentState.RECORD);
         super.onResume();
+        timeoutOverlay.onResumeActivity();
     }
 
 
@@ -50,6 +47,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity implements U
         // Avoid recording while in background
         recordFragment.onPauseActivity();
         super.onPause();
+        timeoutOverlay.onPauseActivity();
     }
 
 
@@ -79,10 +77,17 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity implements U
 
 
     public void goToNextActivity() {
-        Intent intent = new Intent(this, RejoinFriendsActivity.class);
-        // avoid making new instance of RecordUseWordsActivity
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        finish();
+    }
+
+
+    public void releaseOverlayTimers() {
+        timeoutOverlay.releaseTimers();
+    }
+
+
+    public void restartOverlayTimers() {
+        timeoutOverlay.restartTimers();
     }
 
 }

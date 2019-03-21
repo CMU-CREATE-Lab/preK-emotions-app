@@ -10,6 +10,7 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.DanceCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.EmptyStaticCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.StaticSqueezeCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_talk_about_it.TalkAboutItActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.JumpingJacksCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.ShareCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.YogaHappyActivity;
@@ -64,6 +65,10 @@ public class CopingSkillMapper {
             case "coping_skill_10":
                 Log.v(Constants.LOG_TAG,  "createIntentFromCopingSkill: Static Squeeze");
                 copingSkillClass = StaticSqueezeCopingSkillActivity.class;
+                break;
+            case "coping_skill_11":
+                Log.v(Constants.LOG_TAG,  "createIntentFromCopingSkill: Talk About It");
+                copingSkillClass = TalkAboutItActivity.class;
                 break;
             default:
                 Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: None (default)");

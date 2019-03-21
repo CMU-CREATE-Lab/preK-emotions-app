@@ -6,7 +6,6 @@ import android.view.View;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.RecordUseWordsActivity;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 
 import java.io.File;
@@ -22,17 +21,17 @@ public class MoveOnFragment extends UseWordsFragment {
 
     @Override
     public void initializeFragment() {
-        final RecordUseWordsActivity activity = getPostCopingSkillActivity();
+        final ActivityCallback activityCallback = getActivityCallback();
         getFragmentView().findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.setCurrentFragment(RecordUseWordsActivity.FragmentState.RECORD);
+                activityCallback.setFragment(FragmentState.RECORD);
             }
         });
         getFragmentView().findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.goToNextPostCopingSkillActivity();
+                activityCallback.goToNextActivity();
             }
         });
         getFragmentView().findViewById(R.id.layoutPlayButton).setOnClickListener(new View.OnClickListener() {
@@ -45,10 +44,10 @@ public class MoveOnFragment extends UseWordsFragment {
 
 
     public void addRecordedAudio(boolean playback) {
-        RecordUseWordsActivity activity = getPostCopingSkillActivity();
+        ActivityCallback activityCallback = getActivityCallback();
 
         // release timers if we are playing back audio
-        activity.releaseOverlayTimers();
+        activityCallback.releaseOverlayTimers();
 
         File recordedAudioFile = GlobalHandler.getInstance(getActivity().getApplicationContext()).studentSectionNavigationHandler.recordedAudioFile;
         if (recordedAudioFile != null) {
@@ -56,7 +55,7 @@ public class MoveOnFragment extends UseWordsFragment {
             AudioPlayer audioPlayer = AudioPlayer.getInstance(getActivity().getApplicationContext());
             if (playback) {
                 audioPlayer.stop();
-                audioPlayer.addAudioFromInternalStorage(recordedAudioFile.getAbsolutePath(), activity);
+                audioPlayer.addAudioFromInternalStorage(recordedAudioFile.getAbsolutePath(), activityCallback);
                 audioPlayer.playAudio();
             } else {
                 audioPlayer.addAudioFromInternalStorage(recordedAudioFile.getAbsolutePath());

@@ -12,7 +12,6 @@ import android.view.ViewAnimationUtils;
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.RecordUseWordsActivity;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.audio.audio_recording.AudioRecorder;
 
@@ -122,7 +121,7 @@ public class RecordFragment extends UseWordsFragment {
                 layoutRecordButton.setVisibility(View.GONE);
                 layoutCircles.setVisibility(View.VISIBLE);
                 // avoid timeout overlay when you press to start recording
-                getPostCopingSkillActivity().releaseOverlayTimers();
+                getActivityCallback().releaseOverlayTimers();
                 checkToBeginRecording();
             }
         });
@@ -152,7 +151,7 @@ public class RecordFragment extends UseWordsFragment {
     public void stopRecordingAndMoveOn() {
         timerToStopRecording.stopTimer();
         stopRecording();
-        getPostCopingSkillActivity().setCurrentFragment(RecordUseWordsActivity.FragmentState.MOVE_ON);
+        getActivityCallback().setFragment(FragmentState.MOVE_ON);
     }
 
 
