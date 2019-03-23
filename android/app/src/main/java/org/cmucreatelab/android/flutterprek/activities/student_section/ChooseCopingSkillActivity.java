@@ -20,6 +20,7 @@ import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillIndex
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
+import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 
 import java.util.List;
 
@@ -33,8 +34,9 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
 
     private final CopingSkillIndexAdapter.ClickListener listener = new CopingSkillIndexAdapter.ClickListener() {
         @Override
-        public void onClick(CopingSkill copingSkill) {
+        public void onClick(CopingSkill copingSkill, List<ItineraryItem> itineraryItems) {
             Log.d(Constants.LOG_TAG, "onClick coping skill = " + copingSkill.getName());
+            Log.d(Constants.LOG_TAG, "coping skill itineraryItems.size = " + itineraryItems.size());
             // track selection with GlobalHandler
             GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.copingSkillUuid = copingSkill.getUuid();
             Intent copingSkillActivity = CopingSkillMapper.createIntentFromCopingSkill(ChooseCopingSkillActivity.this, copingSkill);

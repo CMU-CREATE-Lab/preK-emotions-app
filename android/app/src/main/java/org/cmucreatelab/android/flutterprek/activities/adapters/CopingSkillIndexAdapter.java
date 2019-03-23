@@ -15,6 +15,7 @@ import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
+import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class CopingSkillIndexAdapter extends AbstractListAdapter<CopingSkill> {
     private final ClickListener clickListener;
 
     public interface ClickListener {
-        void onClick(CopingSkill copingSkill);
+        void onClick(CopingSkill copingSkill, List<ItineraryItem> itineraryItems);
     }
 
 
@@ -75,14 +76,20 @@ public class CopingSkillIndexAdapter extends AbstractListAdapter<CopingSkill> {
             });
         }
 
-        if (onClickListener) {
-            result.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickListener.onClick(copingSkill);
+        final Context appContext = activity.getApplicationContext();
+        AppDatabase.getInstance(appContext).intermediateTablesDAO().getItineraryItemsForCopingSkill(copingSkill.getUuid()).observe(activity, new Observer<List<ItineraryItem>>() {
+            @Override
+            public void onChanged(@Nullable final List<ItineraryItem> itineraryItems) {
+                if (onClickListener) {
+                    result.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clickListener.onClick(copingSkill, itineraryItems);
+                        }
+                    });
                 }
-            });
-        }
+            }
+        });
 
         return result;
     }

@@ -71,7 +71,13 @@
     },
     { "uuid": "sad_settings", "ownerUuid": "emotion2", "sequenceId": 1, "capabilityId": "display_emotion",
       "capabilityParameters": "{\"message\":\"It's ok to feel sad sometimes. Try one of these things when you feel sad.\",\"background-color\":\"#75adae\",\"audio\":\"audio_message_sad_2\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less sad?\",\"somethingElseAudio\":\"audio_something_else_sad\"}"
-    }
+    },
+
+
+    { "uuid": "coping_skill_1_part1", "ownerUuid": "coping_skill_1", "sequenceId": 1, "capabilityId": "coping_skill_flower", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_1_part2", "ownerUuid": "coping_skill_1", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_1_part3", "ownerUuid": "coping_skill_1", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_1_part4", "ownerUuid": "coping_skill_1", "sequenceId": 4, "capabilityId": "post_coping_skill_use_words", "capabilityParameters": "{}" }
   ],
   "sessionsCopingSkills":
   [
