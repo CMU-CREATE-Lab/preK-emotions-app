@@ -83,7 +83,12 @@ public class GsonWithPopulatedDatabaseTest {
         JsonElement e1 = parser.parse(buildGson().toJson(gsonDatabaseParser, GsonDatabaseParser.class));
         // build second json element from DB
         JsonElement e2 = parser.parse(buildGson().toJson(GsonDatabaseParser.fromDb(db), GsonDatabaseParser.class));
-        // compare
+
+        // compare each key from stored json element
+        for (String key: e1.getAsJsonObject().keySet()) {
+            assertEquals(e1.getAsJsonObject().get(key), e2.getAsJsonObject().get(key));
+        }
+        // then compare entire json
         assertEquals(e1, e2);
     }
 
