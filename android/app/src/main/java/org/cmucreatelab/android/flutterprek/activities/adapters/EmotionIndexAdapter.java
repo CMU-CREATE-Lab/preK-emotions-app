@@ -14,6 +14,7 @@ import android.widget.TextView;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
+import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
@@ -52,6 +53,23 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
     }
 
 
+    private void playAudioFeeling(String e) {
+
+        AudioPlayer audioPlayer = AudioPlayer.getInstance(activity.getApplicationContext());
+
+        if (e.equals("Happy")) {
+            audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_emotion_happy.wav");
+        }
+        else if (e.equals("Sad")) {
+            audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_emotion_sad.wav");
+
+        }
+        else if (e.equals("Mad")){
+            audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_emotion_mad.wav");
+        }
+        audioPlayer.playAudio();
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final View result;
@@ -68,6 +86,16 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
         textView.setText(emotion.getName());
 //        // TODO demo emotion (remove later and replace with DB-defined image)
 //        Util.setImageViewWithAsset(appContext, (ImageView) result.findViewById(R.id.imageView), getAssetPathFromPosition(position));
+
+
+        result.findViewById(R.id.imageEmotionAudio).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playAudioFeeling(emotion.getName());
+            }
+        });
+
+
 
         if (emotion.getImageFileUuid() != null) {
             final Context appContext = activity.getApplicationContext();

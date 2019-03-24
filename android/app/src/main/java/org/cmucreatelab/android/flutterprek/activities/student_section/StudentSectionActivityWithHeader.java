@@ -76,6 +76,7 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
                 }
             });
         }
+
     }
 
 }

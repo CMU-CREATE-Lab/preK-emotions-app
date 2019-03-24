@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -73,6 +74,15 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
     @Override
     public void onClickImageStudent() {
         // TODO go to teacher section (does nothing for now)
+
+    }
+
+    @Override
+    public void updateImageStudent(AppCompatActivity activity) {
+
+        ((ImageView)findViewById(R.id.imageStudent)).setBackgroundResource(R.drawable.ic_mindfulnest_header_student_section);
+
+
 
     }
 
