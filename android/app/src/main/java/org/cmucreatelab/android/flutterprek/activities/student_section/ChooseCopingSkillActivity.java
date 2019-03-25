@@ -13,7 +13,6 @@ import android.widget.TextView;
 import org.cmucreatelab.android.flutterprek.SessionTracker;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.CopingSkillMapper;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillIndexAdapter;
@@ -39,12 +38,8 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
             GlobalHandler globalHandler = GlobalHandler.getInstance(getApplicationContext());
             globalHandler.getSessionTracker().onSelectedCopingSkill(ChooseCopingSkillActivity.this, copingSkill, itineraryItems);
 
-            // TODO handle passing off itineraryItems
-//            Log.d(Constants.LOG_TAG, "coping skill itineraryItems.size = " + itineraryItems.size());
             // track selection with GlobalHandler
             globalHandler.studentSectionNavigationHandler.copingSkillUuid = copingSkill.getUuid();
-//            Intent copingSkillActivity = CopingSkillMapper.createIntentFromCopingSkill(ChooseCopingSkillActivity.this, copingSkill);
-//            startActivity(copingSkillActivity);
             Intent copingSkillActivity = globalHandler.getSessionTracker().getNextIntentFromItinerary(ChooseCopingSkillActivity.this, 0);
             startActivity(copingSkillActivity);
         }

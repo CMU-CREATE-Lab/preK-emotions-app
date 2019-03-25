@@ -3,17 +3,22 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 
+import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.PostCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_rejoin_friends.RejoinFriendsActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.fragments.MoveOnFragment;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.fragments.RecordFragment;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.fragments.UseWordsFragment;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 
+import static org.cmucreatelab.android.flutterprek.SessionTracker.ITINERARY_INDEX;
+
 public class RecordUseWordsActivity extends PostCopingSkillActivity implements UseWordsFragment.ActivityCallback {
 
+    private int itineraryIndex;
     private RecordFragment recordFragment;
     private MoveOnFragment moveOnFragment;
 
@@ -33,6 +38,13 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity implements U
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        itineraryIndex = getIntent().getIntExtra(ITINERARY_INDEX, -1);
+        if (itineraryIndex < 0) {
+            Log.e(Constants.LOG_TAG, "received bad (or default) value for ITINERARY_INDEX; ending session");
+            GlobalHandler.getInstance(getApplicationContext()).endCurrentSession(this);
+        }
+
         this.recordFragment = (RecordFragment) (getSupportFragmentManager().findFragmentById(R.id.recordFragment));
         this.moveOnFragment = (MoveOnFragment) (getSupportFragmentManager().findFragmentById(R.id.moveOnFragment));
     }
@@ -79,10 +91,10 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity implements U
 
 
     public void goToNextActivity() {
-        Intent intent = new Intent(this, RejoinFriendsActivity.class);
-        // avoid making new instance of RecordUseWordsActivity
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intent = GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().getNextIntentFromItinerary(this, itineraryIndex);
         startActivity(intent);
+        // make sure you don't go to record, but rather the screen to choose to record.
+        finish();
     }
 
 }

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 
@@ -21,9 +22,7 @@ public class StudentSectionTimeoutOverlay {
 
     private void finishSession() {
         releaseTimers();
-        Intent intent = new Intent(activity, ChooseStudentActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        activity.startActivity(intent);
+        GlobalHandler.getInstance(activity.getApplicationContext()).endCurrentSession(activity);
     }
 
 

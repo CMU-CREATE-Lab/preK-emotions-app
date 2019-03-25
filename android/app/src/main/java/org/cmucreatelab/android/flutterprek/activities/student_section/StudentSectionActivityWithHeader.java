@@ -57,9 +57,7 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
 
     public void onClickImageStudent() {
         // go back to students page
-        Intent intent = new Intent(StudentSectionActivityWithHeader.this, ChooseStudentActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        GlobalHandler.getInstance(getApplicationContext()).endCurrentSession(this);
     }
 
     public void updateImageStudent(AppCompatActivity activity) {

@@ -137,15 +137,6 @@ public class SessionTracker {
                     return new Intent(currentActivity, ChooseCopingSkillActivity.class);
                 }
                 if (selectedEmotion.selectedCopingSkills.size() > 0) {
-//                    SelectedCopingSkill selectedCopingSkill = selectedEmotion.selectedCopingSkills.get(selectedEmotion.selectedCopingSkills.size() - 1);
-//                    if (selectedCopingSkill.itineraryItems.size() > 0) {
-//                        ItineraryItem itineraryItem = selectedCopingSkill.itineraryItems.get(0);
-//                        // TODO make intent from itinerary item
-//                    } else {
-//                        // { do something else }
-//                        Intent intent = new Intent(this, nextClass);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    }
                     Intent intent = new Intent(currentActivity, ChooseCopingSkillActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     populateChooseAnotherIntentWithEmotionInfo(currentActivity.getApplicationContext(), intent);

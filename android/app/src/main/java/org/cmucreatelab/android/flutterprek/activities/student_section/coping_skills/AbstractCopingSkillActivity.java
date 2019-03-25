@@ -6,19 +6,26 @@ import android.util.Log;
 import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_finished_exercise.FinishedExerciseActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.HeartBeatingActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_rejoin_friends.RejoinFriendsActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.UseWordsActivity;
+
+import static org.cmucreatelab.android.flutterprek.SessionTracker.ITINERARY_INDEX;
 
 public abstract class AbstractCopingSkillActivity extends AbstractActivity {
+
+    private int itineraryIndex;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        itineraryIndex = getIntent().getIntExtra(ITINERARY_INDEX, -1);
+        if (itineraryIndex < 0) {
+            Log.e(Constants.LOG_TAG, "received bad (or default) value for ITINERARY_INDEX; ending session");
+            GlobalHandler.getInstance(getApplicationContext()).endCurrentSession(this);
+        }
 
         // close
         findViewById(R.id.buttonClose).setOnClickListener(new View.OnClickListener() {
@@ -31,35 +38,12 @@ public abstract class AbstractCopingSkillActivity extends AbstractActivity {
     }
 
 
-//    /**
-//     * When finishing Coping Skill activities, always return to the Choose Student page.
-//     */
-//    @Override
-//    public void finish() {
-//        Intent chooseStudentActivity = new Intent(this, ChooseStudentActivity.class);
-//        chooseStudentActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(chooseStudentActivity);
-//    }
     /**
      * When finishing Coping Skill activities, begin the follow-up coping skill prompts.
      */
     @Override
     public void finish() {
-        // TODO on finish, revisit the itinerary items to see where you should be (if none go to "rejoin friends")
-        // heart beating
-        Intent postCopingActivity = new Intent(this, HeartBeatingActivity.class);
-//        // finished exercise
-//        Intent postCopingActivity = new Intent(this, FinishedExerciseActivity.class);
-//        // use words
-//        Intent postCopingActivity = new Intent(this, UseWordsActivity.class);
-//        // use words: record
-//        Intent postCopingActivity = new Intent(this, RecordUseWordsActivity.class);
-//        // use words: move on
-//        Intent postCopingActivity = new Intent(this, MoveOnUseWordsActivity.class);
-//        // rejoin friends
-//        Intent postCopingActivity = new Intent(this, RejoinFriendsActivity.class);
-        // NOTE: only relevant when activity already exists in stack
-        //postCopingActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent postCopingActivity = GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().getNextIntentFromItinerary(this, itineraryIndex);
         startActivity(postCopingActivity);
     }
 
