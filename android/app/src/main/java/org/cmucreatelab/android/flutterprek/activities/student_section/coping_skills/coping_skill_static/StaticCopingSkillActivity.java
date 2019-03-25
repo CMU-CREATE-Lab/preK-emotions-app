@@ -73,8 +73,6 @@ public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActiv
      */
     public abstract String getAudioFileForCopingSkillTitle();
 
-    public abstract String getVideoFileForCopingSkillTitle();
-
 
     /** Get the background resource for the coping skill. */
     @DrawableRes

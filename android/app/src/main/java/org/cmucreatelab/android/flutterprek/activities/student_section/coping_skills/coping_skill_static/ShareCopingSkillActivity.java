@@ -10,7 +10,6 @@ public class ShareCopingSkillActivity extends StaticCopingSkillActivity {
         return "etc/audio_prompts/audio_share.wav";
     }
 
-    public String getVideoFileForCopingSkillTitle() { return null; }
 
     @Override
     public int getResourceForBackground() {

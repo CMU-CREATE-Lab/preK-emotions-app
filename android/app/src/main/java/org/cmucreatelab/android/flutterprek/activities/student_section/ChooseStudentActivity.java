@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.DebugCorner;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -79,11 +78,7 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
 
     @Override
     public void updateImageStudent(AppCompatActivity activity) {
-
         ((ImageView)findViewById(R.id.imageStudent)).setBackgroundResource(R.drawable.ic_mindfulnest_header_student_section);
-
-
-
     }
 
 }

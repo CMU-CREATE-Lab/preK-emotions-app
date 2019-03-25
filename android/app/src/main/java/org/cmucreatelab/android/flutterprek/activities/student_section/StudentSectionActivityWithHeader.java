@@ -63,7 +63,6 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
     }
 
     public void updateImageStudent(AppCompatActivity activity) {
-
         String imageID = GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.imageUuid;
 
         if (imageID != null && imageID != "") {
