@@ -5,12 +5,15 @@ import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.DebugCorner;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -28,9 +31,12 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
             Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
             // track selection with GlobalHandler
             GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.studentUuid = student.getUuid();
+            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.imageUuid = student.getPictureFileUuid();
+
             // send to next activity
             Intent chooseEmotionActivity = new Intent(ChooseStudentActivity.this, ChooseEmotionActivity.class);
             startActivity(chooseEmotionActivity);
+
         }
     };
 
@@ -68,6 +74,16 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
     @Override
     public void onClickImageStudent() {
         // TODO go to teacher section (does nothing for now)
+
+    }
+
+    @Override
+    public void updateImageStudent(AppCompatActivity activity) {
+
+        ((ImageView)findViewById(R.id.imageStudent)).setBackgroundResource(R.drawable.ic_mindfulnest_header_student_section);
+
+
+
     }
 
 }

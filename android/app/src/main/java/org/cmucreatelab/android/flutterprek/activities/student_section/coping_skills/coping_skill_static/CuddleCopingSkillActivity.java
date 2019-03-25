@@ -12,6 +12,7 @@ public class CuddleCopingSkillActivity extends StaticCopingSkillActivity {
         return "etc/audio_prompts/audio_cuddle.wav";
     }
 
+    public String getVideoFileForCopingSkillTitle() { return null; }
 
     @Override
     public int getResourceForBackground() {

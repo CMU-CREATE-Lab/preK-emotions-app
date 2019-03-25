@@ -1,11 +1,13 @@
 package org.cmucreatelab.android.flutterprek.activities;
 
+import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.VideoView;
 
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -16,6 +18,8 @@ import org.cmucreatelab.android.flutterprek.video.VideoPlayer;
  */
 public abstract class AbstractActivity extends AppCompatActivity {
 
+
+    VideoPlayer videoPlayer;
 
     public void playAudio(String filepath) {
         playAudio(filepath, null);
@@ -31,7 +35,6 @@ public abstract class AbstractActivity extends AppCompatActivity {
             Log.w(Constants.LOG_TAG, "ignoring call to playAudio() with null filepath.");
         }
     }
-
 
     /**
      * Hide navigation buttons to make the activity take up the entire screen.

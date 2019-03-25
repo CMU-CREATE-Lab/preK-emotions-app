@@ -138,6 +138,23 @@
         <item name="android:textSize">@dimen/grid_view_lower_text_size</item>
     </style>
 
+    <style name="GridViewItemLowerTitle2" parent="textBold">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40sp</item>
+        <item name="android:background">@drawable/card_half_bottom</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/grid_view_lower_padding</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textColor">@color/colorGridLowerTitle</item>
+        <item name="android:textSize">@dimen/grid_view_lower_text_size</item>
+    </style>
+
+    <style name="GridViewItemLowerImageTitle" >
+        <item name="android:layout_width">40sp</item>
+        <item name="android:layout_height">40sp</item>
+        <item name="android:background">@drawable/ic_emotion_play_title</item>
+    </style>
 
     <!-- Non-grid Items -->
     <style name="NonGridViewItem">

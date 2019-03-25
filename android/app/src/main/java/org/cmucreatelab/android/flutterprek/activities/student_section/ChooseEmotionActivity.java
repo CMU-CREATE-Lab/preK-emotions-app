@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
@@ -108,6 +109,17 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithTimeout {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        findViewById(R.id.imagePlayAudioView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playAudioHowAreYouFeeling();
+            }
+        });
+
+
+
 
         StudentSectionNavigationHandler navigationHandler = GlobalHandler.getInstance(this).studentSectionNavigationHandler;
         LiveData<List<Emotion>> liveData = getLiveDataFromQuery(navigationHandler.classroomUuid, navigationHandler.studentUuid);

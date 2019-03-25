@@ -27,13 +27,23 @@
 
             <TextView
                 android:id="@+id/textTitle"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/StudentSectionText"
                 android:text="@string/choose_emotion_prompt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingRight="10dp" />
+
+            <ImageView
+                android:id="@+id/imagePlayAudioView"
+                android:layout_width="36sp"
+                android:layout_height="36sp"
+                app:layout_constraintLeft_toRightOf="@id/textTitle"
+                app:layout_constraintTop_toTopOf="@id/textTitle"
+                app:layout_constraintBottom_toBottomOf="@id/textTitle"
+                app:srcCompat="@drawable/icon_play_sound_blue" />
 
             <GridView
                 android:id="@+id/emotionsGridView"
@@ -42,7 +52,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+                app:layout_constraintTop_toBottomOf="@id/imagePlayAudioView" />
+
+
         </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
