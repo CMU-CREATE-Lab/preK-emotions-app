@@ -89,7 +89,7 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
                     // TODO check type?
-                    audioPlayer.addAudioFromAssets(dbFile.getFilePath());
+                    audioPlayer.addAudioFromAssets(dbFile.getFileaPath());
                     audioPlayer.playAudio();
                 }
             });

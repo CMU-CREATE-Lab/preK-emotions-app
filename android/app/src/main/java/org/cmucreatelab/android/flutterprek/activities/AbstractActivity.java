@@ -17,10 +17,7 @@ import org.cmucreatelab.android.flutterprek.video.VideoPlayer;
  * All activities in the project should extend from this class.
  */
 public abstract class AbstractActivity extends AppCompatActivity {
-
-
-    VideoPlayer videoPlayer;
-
+    
     public void playAudio(String filepath) {
         playAudio(filepath, null);
     }
