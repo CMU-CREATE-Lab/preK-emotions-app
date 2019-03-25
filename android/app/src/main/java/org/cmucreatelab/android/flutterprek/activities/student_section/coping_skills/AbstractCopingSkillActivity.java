@@ -45,6 +45,7 @@ public abstract class AbstractCopingSkillActivity extends AbstractActivity {
      */
     @Override
     public void finish() {
+        // TODO on finish, revisit the itinerary items to see where you should be (if none go to "rejoin friends")
         // heart beating
         Intent postCopingActivity = new Intent(this, HeartBeatingActivity.class);
 //        // finished exercise

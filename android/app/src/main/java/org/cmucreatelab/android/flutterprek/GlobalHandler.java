@@ -2,11 +2,15 @@ package org.cmucreatelab.android.flutterprek;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
+import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 import org.cmucreatelab.android.flutterprek.ble.flower.BleFlower;
 import org.cmucreatelab.android.flutterprek.ble.DeviceConnectionHandler;
 import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 /**
  *
@@ -19,6 +23,7 @@ public class GlobalHandler {
     public BleFlower bleFlower;
     public final StudentSectionNavigationHandler studentSectionNavigationHandler;
     public final DeviceConnectionHandler deviceConnectionHandler;
+    private SessionTracker sessionTracker;
 
 
     private GlobalHandler(Context context) {
@@ -43,6 +48,44 @@ public class GlobalHandler {
 
 
     // public methods
+
+
+    public void startNewSession(Student student) {
+        if (currentSessionIsActive()) {
+            Log.w(Constants.LOG_TAG, "call to startNewSession while another session is active.");
+        }
+        sessionTracker = new SessionTracker(student);
+    }
+
+
+    public boolean currentSessionIsActive() {
+        return (sessionTracker != null && !sessionTracker.isFinished());
+    }
+
+
+    public SessionTracker getSessionTracker() {
+        return sessionTracker;
+    }
+
+
+    public boolean endCurrentSession(AbstractActivity currentActivity) {
+        boolean result = false;
+        if (currentSessionIsActive()) {
+            result = sessionTracker.endSession();
+        } else {
+            Log.w(Constants.LOG_TAG, "called endCurrentSession but no current session active");
+        }
+
+        // go back to student screen (regardless of value of result)
+        Intent intent = new Intent(currentActivity, ChooseStudentActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        currentActivity.startActivity(intent);
+
+        return result;
+    }
+
+
+    // BLE methods
 
 
     public boolean isFlowerConnected() {

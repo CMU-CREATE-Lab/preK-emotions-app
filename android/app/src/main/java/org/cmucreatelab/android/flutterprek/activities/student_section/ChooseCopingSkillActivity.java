@@ -10,11 +10,11 @@ import android.util.Log;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import org.cmucreatelab.android.flutterprek.SessionTracker;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.CopingSkillMapper;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
-import org.cmucreatelab.android.flutterprek.StudentSectionNavigationHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -36,7 +36,8 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
         @Override
         public void onClick(CopingSkill copingSkill, List<ItineraryItem> itineraryItems) {
             Log.d(Constants.LOG_TAG, "onClick coping skill = " + copingSkill.getName());
-            Log.d(Constants.LOG_TAG, "coping skill itineraryItems.size = " + itineraryItems.size());
+            // TODO handle passing off itineraryItems
+//            Log.d(Constants.LOG_TAG, "coping skill itineraryItems.size = " + itineraryItems.size());
             // track selection with GlobalHandler
             GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.copingSkillUuid = copingSkill.getUuid();
             Intent copingSkillActivity = CopingSkillMapper.createIntentFromCopingSkill(ChooseCopingSkillActivity.this, copingSkill);
@@ -106,15 +107,21 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
         parseIntent(getIntent());
         customizeDisplayForEmotion();
 
-        StudentSectionNavigationHandler navigationHandler = GlobalHandler.getInstance(this).studentSectionNavigationHandler;
-        LiveData<List<CopingSkill>> liveData = getLiveDataFromQuery(navigationHandler.classroomUuid, navigationHandler.studentUuid, navigationHandler.emotionUuid);
-        liveData.observe(this, new Observer<List<CopingSkill>>() {
-            @Override
-            public void onChanged(@Nullable List<CopingSkill> copingSkills) {
-                GridView copingSkillsGridView = findViewById(R.id.copingSkillsGridView);
-                copingSkillsGridView.setAdapter(new CopingSkillIndexAdapter(ChooseCopingSkillActivity.this, copingSkills, listener));
-            }
-        });
+        GlobalHandler globalHandler = GlobalHandler.getInstance(this);
+        if (!globalHandler.currentSessionIsActive()) {
+            Log.e(Constants.LOG_TAG, "ChooseCopingSkillActivity.onCreate while current session is not active; ending session");
+            globalHandler.endCurrentSession(this);
+        } else {
+            SessionTracker sessionTracker = globalHandler.getSessionTracker();
+            LiveData<List<CopingSkill>> liveData = getLiveDataFromQuery(sessionTracker.getStudent().getClassroomUuid(), sessionTracker.getStudent().getUuid(), sessionTracker.getLastSelectedEmotion().getUuid());
+            liveData.observe(this, new Observer<List<CopingSkill>>() {
+                @Override
+                public void onChanged(@Nullable List<CopingSkill> copingSkills) {
+                    GridView copingSkillsGridView = findViewById(R.id.copingSkillsGridView);
+                    copingSkillsGridView.setAdapter(new CopingSkillIndexAdapter(ChooseCopingSkillActivity.this, copingSkills, listener));
+                }
+            });
+        }
     }
 
 

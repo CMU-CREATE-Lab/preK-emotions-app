@@ -18,6 +18,7 @@ import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionIndexAdap
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,12 +35,17 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithTimeout {
         @Override
         public void onClick(Emotion emotion, List<ItineraryItem> itineraryItems) {
             Log.d(Constants.LOG_TAG, "onClick emotion = " + emotion.getName());
+            GlobalHandler globalHandler = GlobalHandler.getInstance(getApplicationContext());
+
             // track selection with GlobalHandler
-            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.emotionUuid = emotion.getUuid();
-            // send to next activity
-            Intent chooseCopingSkillActivity = new Intent(ChooseEmotionActivity.this, ChooseCopingSkillActivity.class);
+            globalHandler.studentSectionNavigationHandler.emotionUuid = emotion.getUuid();
+
+            // next activity
+            globalHandler.getSessionTracker().onSelectedEmotion(ChooseEmotionActivity.this, emotion, itineraryItems);
+            Intent chooseCopingSkillActivity = globalHandler.getSessionTracker().getNextIntent(ChooseEmotionActivity.this);
 
             // add custom message/background
+            // TODO generate this elsewhere
             String message=null, backgroundColor=null, audioFile=null, somethingElseMessage="", somethingElseAudio="";
             for (ItineraryItem item: itineraryItems) {
                 // TODO check for proper capabilityId?
@@ -86,6 +92,7 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithTimeout {
             GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.emotionBackgroundColor = backgroundColor;
             GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.somethingElseMessage = somethingElseMessage;
             GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.somethingElseAudio = somethingElseAudio;
+
             startActivity(chooseCopingSkillActivity);
         }
     };
@@ -110,7 +117,6 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithTimeout {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         findViewById(R.id.imagePlayAudioView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,18 +124,22 @@ public class ChooseEmotionActivity extends StudentSectionActivityWithTimeout {
             }
         });
 
+        GlobalHandler globalHandler = GlobalHandler.getInstance(this);
+        if (!globalHandler.currentSessionIsActive()) {
+            Log.e(Constants.LOG_TAG, "ChooseEmotionActivity.onCreate while current session is not active; ending session");
+            globalHandler.endCurrentSession(this);
+        } else {
+            Student student = globalHandler.getSessionTracker().getStudent();
 
-
-
-        StudentSectionNavigationHandler navigationHandler = GlobalHandler.getInstance(this).studentSectionNavigationHandler;
-        LiveData<List<Emotion>> liveData = getLiveDataFromQuery(navigationHandler.classroomUuid, navigationHandler.studentUuid);
-        liveData.observe(this, new Observer<List<Emotion>>() {
-            @Override
-            public void onChanged(@Nullable List<Emotion> emotions) {
-                GridView emotionsGridView = findViewById(R.id.emotionsGridView);
-                emotionsGridView.setAdapter(new EmotionIndexAdapter(ChooseEmotionActivity.this, emotions, listener));
-            }
-        });
+            LiveData<List<Emotion>> liveData = getLiveDataFromQuery(student.getClassroomUuid(), student.getUuid());
+            liveData.observe(this, new Observer<List<Emotion>>() {
+                @Override
+                public void onChanged(@Nullable List<Emotion> emotions) {
+                    GridView emotionsGridView = findViewById(R.id.emotionsGridView);
+                    emotionsGridView.setAdapter(new EmotionIndexAdapter(ChooseEmotionActivity.this, emotions, listener));
+                }
+            });
+        }
     }
 
 
