@@ -105,7 +105,7 @@
     { "uuid": "coping_skill_9_part2", "ownerUuid": "coping_skill_9", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_9_part3", "ownerUuid": "coping_skill_9", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
 
-    { "uuid": "coping_skill_10_part1", "ownerUuid": "coping_skill_10", "sequenceId": 1, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_10_part1", "ownerUuid": "coping_skill_10", "sequenceId": 1, "capabilityId": "coping_skill_static.squeeze", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_10_part2", "ownerUuid": "coping_skill_10", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_10_part3", "ownerUuid": "coping_skill_10", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
 
