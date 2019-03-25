@@ -21,8 +21,6 @@ import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingS
 public class CopingSkillMapper {
 
 
-    // TODO createIntentFromItineraryItems
-
     public static Intent createIntentFromCopingSkill(Activity activity, CopingSkill copingSkill) {
         Intent result;
         Class copingSkillClass;

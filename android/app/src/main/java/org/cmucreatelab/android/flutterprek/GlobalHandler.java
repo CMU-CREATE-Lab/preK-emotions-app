@@ -77,8 +77,7 @@ public class GlobalHandler {
         }
 
         // go back to student screen (regardless of value of result)
-        Intent intent = new Intent(currentActivity, ChooseStudentActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intent = SessionTracker.getIntentForEndSession(currentActivity);
         currentActivity.startActivity(intent);
 
         return result;

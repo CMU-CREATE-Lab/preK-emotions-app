@@ -36,11 +36,16 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
         @Override
         public void onClick(CopingSkill copingSkill, List<ItineraryItem> itineraryItems) {
             Log.d(Constants.LOG_TAG, "onClick coping skill = " + copingSkill.getName());
+            GlobalHandler globalHandler = GlobalHandler.getInstance(getApplicationContext());
+            globalHandler.getSessionTracker().onSelectedCopingSkill(ChooseCopingSkillActivity.this, copingSkill, itineraryItems);
+
             // TODO handle passing off itineraryItems
 //            Log.d(Constants.LOG_TAG, "coping skill itineraryItems.size = " + itineraryItems.size());
             // track selection with GlobalHandler
-            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.copingSkillUuid = copingSkill.getUuid();
-            Intent copingSkillActivity = CopingSkillMapper.createIntentFromCopingSkill(ChooseCopingSkillActivity.this, copingSkill);
+            globalHandler.studentSectionNavigationHandler.copingSkillUuid = copingSkill.getUuid();
+//            Intent copingSkillActivity = CopingSkillMapper.createIntentFromCopingSkill(ChooseCopingSkillActivity.this, copingSkill);
+//            startActivity(copingSkillActivity);
+            Intent copingSkillActivity = globalHandler.getSessionTracker().getNextIntentFromItinerary(ChooseCopingSkillActivity.this, 0);
             startActivity(copingSkillActivity);
         }
     };
