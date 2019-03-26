@@ -3,6 +3,7 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.choose_e
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,6 +17,7 @@ import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionIndexAdap
 import org.cmucreatelab.android.flutterprek.activities.student_section.StudentSectionActivityWithTimeout;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.fragments.ChooseEmotionFragment;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.fragments.RecordFragment;
+import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.fragments.TalkAboutItFragment;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
@@ -31,7 +33,7 @@ import static org.cmucreatelab.android.flutterprek.activities.student_section.Ch
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_BACKGROUND_COLOR;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_MESSAGE;
 
-public class ChooseEmotionAndTalkAboutItActivity extends StudentSectionActivityWithTimeout {
+public class ChooseEmotionAndTalkAboutItActivity extends StudentSectionActivityWithTimeout implements TalkAboutItFragment.ActivityCallback {
 
     private ChooseEmotionFragment chooseEmotionFragment;
     private RecordFragment recordFragment;
@@ -118,6 +120,21 @@ public class ChooseEmotionAndTalkAboutItActivity extends StudentSectionActivityW
     }
 
 
+    private void playAudioRecord() {
+        AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+        audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_record_press_button.wav");
+        audioPlayer.playAudio();
+    }
+
+
+    private void playAudioWhichFeelingDidYouDescribe() {
+        AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+        // TODO replace audio file/path
+        audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_how_are_you_feeling.wav");
+        audioPlayer.playAudio();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,15 +171,35 @@ public class ChooseEmotionAndTalkAboutItActivity extends StudentSectionActivityW
     @Override
     protected void onResume() {
         super.onResume();
-        playAudioHowAreYouFeeling();
-        this.recordFragment.getView().setVisibility(View.GONE);
-        this.chooseEmotionFragment.getView().setVisibility(View.VISIBLE);
+        setFragment(TalkAboutItFragment.FragmentState.EMOTION_OR_RECORD);
     }
 
 
     @Override
     public int getResourceIdForActivityLayout() {
         return R.layout._student_section__activity_choose_emotion_and_talk_about_it;
+    }
+
+
+    @Override
+    public void setFragment(TalkAboutItFragment.FragmentState fragmentState) {
+        recordFragment.displayFragment(fragmentState, this);
+        chooseEmotionFragment.displayFragment(fragmentState, this);
+
+        if (fragmentState == TalkAboutItFragment.FragmentState.RECORD) {
+            // TODO handle playback first, then play this audio
+            playAudioWhichFeelingDidYouDescribe();
+        } else if (fragmentState == TalkAboutItFragment.FragmentState.EMOTION_OR_PLAYBACK) {
+            playAudioRecord();
+        } else {
+            playAudioHowAreYouFeeling();
+        }
+    }
+
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+
     }
 
 }
