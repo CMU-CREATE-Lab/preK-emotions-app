@@ -8,6 +8,7 @@
     <string name="menu_section_student">Student Section</string>
     <string name="menu_web">Web View</string>
     <string name="choose_emotion_prompt">How are you feeling?</string>
+    <string name="talk_about_it">Talk About It</string>
     <string name="choose_coping_skill_placeholder">Placeholder text for Coping Skill</string>
     <string name="choose_classroom_prompt">Choose Class</string>
     <string name="heart_beating_prompt">Place your hand on your heart. How fast is your heart beating?</string>

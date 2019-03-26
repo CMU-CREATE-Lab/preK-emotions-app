@@ -5,8 +5,9 @@ import android.content.Intent;
 
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseEmotionActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionAndTalkAboutItActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.ItineraryItemToIntentMapper;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_rejoin_friends.RejoinFriendsActivity;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
@@ -128,7 +129,8 @@ public class SessionTracker {
     public Intent getNextIntent(AbstractActivity currentActivity) {
         if (!emotionPromptDisplayed) {
             emotionPromptDisplayed = true;
-            return new Intent(currentActivity, ChooseEmotionActivity.class);
+            //return new Intent(currentActivity, ChooseEmotionActivity.class);
+            return new Intent(currentActivity, ChooseEmotionAndTalkAboutItActivity.class);
         } else {
             if (selectedEmotions.size() > 0) {
                 SelectedEmotion selectedEmotion = selectedEmotions.get(selectedEmotions.size() - 1);

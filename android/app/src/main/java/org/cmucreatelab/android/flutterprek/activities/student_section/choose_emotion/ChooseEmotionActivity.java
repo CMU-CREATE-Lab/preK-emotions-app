@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities.student_section;
+package org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
@@ -9,11 +9,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 
+import org.cmucreatelab.android.flutterprek.activities.student_section.StudentSectionActivityWithTimeout;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.StudentSectionNavigationHandler;
 import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
