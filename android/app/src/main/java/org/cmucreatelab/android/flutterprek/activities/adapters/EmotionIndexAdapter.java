@@ -96,6 +96,8 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
                     Util.setImageViewWithAsset(appContext, (ImageView) result.findViewById(R.id.imageView), dbFile.getFilePath());
                 }
             });
+        } else {
+            ((ImageView) result.findViewById(R.id.imageView)).setImageResource(R.drawable.ic_placeholder);
         }
 
         AppDatabase.getInstance(appContext).intermediateTablesDAO().getItineraryItemsForEmotion(emotion.getUuid()).observe(activity, new Observer<List<ItineraryItem>>() {

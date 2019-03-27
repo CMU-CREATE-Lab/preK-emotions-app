@@ -74,6 +74,8 @@ public class CopingSkillIndexAdapter extends AbstractListAdapter<CopingSkill> {
                     Util.setImageViewWithAsset(appContext, (ImageView) result.findViewById(R.id.imageView), dbFile.getFilePath());
                 }
             });
+        } else {
+            ((ImageView) result.findViewById(R.id.imageView)).setImageResource(R.drawable.ic_placeholder);
         }
 
         final Context appContext = activity.getApplicationContext();
