@@ -1,6 +1,5 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -11,8 +10,8 @@ import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 
 public class StudentSectionTimeoutOverlay {
 
-    private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 25000;
-    private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
+    private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 180000; // 3 minutes
+    private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 15000;
     private static final String AUDIO_FILE_PROMPT_MORE_TIME = "etc/audio_prompts/audio_more_time.wav";
 
     private AbstractActivity activity;
