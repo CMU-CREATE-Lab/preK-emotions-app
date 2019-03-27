@@ -114,23 +114,11 @@ public class SessionTracker {
     }
 
 
-    public CopingSkill getLastSelectedCopingSkill() {
-        if (selectedEmotions.size() > 0) {
-            SelectedEmotion selectedEmotion = selectedEmotions.get(selectedEmotions.size() - 1);
-            if (selectedEmotion.selectedCopingSkills.size() > 0) {
-                SelectedCopingSkill selectedCopingSkill = selectedEmotion.selectedCopingSkills.get(selectedEmotion.selectedCopingSkills.size() - 1);
-                return selectedCopingSkill.copingSkill;
-            }
-        }
-        return null;
-    }
-
-
     public Intent getNextIntent(AbstractActivity currentActivity) {
         if (!emotionPromptDisplayed) {
             emotionPromptDisplayed = true;
-            //return new Intent(currentActivity, ChooseEmotionActivity.class);
-            return new Intent(currentActivity, ChooseEmotionAndTalkAboutItActivity.class);
+            Class chooseEmotionClass = Constants.CHOOSE_EMOTION_WITH_TALK_ABOUT_IT_OPTION ? ChooseEmotionAndTalkAboutItActivity.class : ChooseEmotionActivity.class;
+            return new Intent(currentActivity, chooseEmotionClass);
         } else {
             if (selectedEmotions.size() > 0) {
                 SelectedEmotion selectedEmotion = selectedEmotions.get(selectedEmotions.size() - 1);
@@ -159,9 +147,6 @@ public class SessionTracker {
             if (selectedEmotion.selectedCopingSkills.size() > 0) {
                 SelectedCopingSkill selectedCopingSkill = selectedEmotion.selectedCopingSkills.get(selectedEmotion.selectedCopingSkills.size() - 1);
                 if (index < selectedCopingSkill.itineraryItems.size()) {
-                    // TODO increment index
-                    // TODO make intent from itinerary item
-                    //return null;
                     ItineraryItem itineraryItem = selectedCopingSkill.itineraryItems.get(index);
                     int incrementedIndex = index + 1;
 
