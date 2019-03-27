@@ -129,8 +129,7 @@ public class ChooseEmotionAndTalkAboutItActivity extends StudentSectionActivityW
 
     private void playAudioWhichFeelingDidYouDescribe() {
         AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
-        // TODO replace audio file/path
-        audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_how_are_you_feeling.wav");
+        audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_what_feeling.wav");
         audioPlayer.playAudio();
     }
 
@@ -186,20 +185,23 @@ public class ChooseEmotionAndTalkAboutItActivity extends StudentSectionActivityW
         recordFragment.displayFragment(fragmentState, this);
         chooseEmotionFragment.displayFragment(fragmentState, this);
 
+        AudioPlayer.getInstance(getApplicationContext()).stop();
         if (fragmentState == TalkAboutItFragment.FragmentState.RECORD) {
-            // TODO handle playback first, then play this audio
-            playAudioWhichFeelingDidYouDescribe();
-        } else if (fragmentState == TalkAboutItFragment.FragmentState.EMOTION_OR_PLAYBACK) {
             playAudioRecord();
+        } else if (fragmentState == TalkAboutItFragment.FragmentState.EMOTION_OR_PLAYBACK) {
+            chooseEmotionFragment.addRecordedAudio(false);
+            playAudioWhichFeelingDidYouDescribe();
         } else {
             playAudioHowAreYouFeeling();
         }
+        restartOverlayTimers();
     }
 
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-
+        // restart the timers after audio playback completes
+        restartOverlayTimers();
     }
 
 }
