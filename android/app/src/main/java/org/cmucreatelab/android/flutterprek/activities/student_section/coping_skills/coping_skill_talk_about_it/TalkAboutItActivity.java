@@ -58,6 +58,7 @@ public class TalkAboutItActivity extends AbstractCopingSkillActivity implements 
     }
 
 
+    @Override
     public void setFragment(UseWordsFragment.FragmentState fragmentState) {
         String audioToPlay;
         if (fragmentState == UseWordsFragment.FragmentState.RECORD) {
@@ -76,16 +77,19 @@ public class TalkAboutItActivity extends AbstractCopingSkillActivity implements 
     }
 
 
+    @Override
     public void goToNextActivity() {
         finish();
     }
 
 
+    @Override
     public void releaseOverlayTimers() {
         timeoutOverlay.releaseTimers();
     }
 
 
+    @Override
     public void restartOverlayTimers() {
         timeoutOverlay.restartTimers();
     }

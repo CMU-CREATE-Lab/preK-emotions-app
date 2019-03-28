@@ -49,6 +49,11 @@ public class GlobalHandler {
     // public methods
 
 
+    /**
+     * Start a new session for a student.
+     *
+     * @param student Every session has a Student associated with it.
+     */
     public void startNewSession(Student student) {
         if (currentSessionIsActive()) {
             Log.w(Constants.LOG_TAG, "call to startNewSession while another session is active.");
@@ -57,16 +62,30 @@ public class GlobalHandler {
     }
 
 
+    /**
+     * Check if the current session is active.
+     *
+     * @return false if the session is finished or if it is not set (null).
+     */
     public boolean currentSessionIsActive() {
         return (sessionTracker != null && !sessionTracker.isFinished());
     }
 
 
+    /**
+     * @return the current session.
+     */
     public SessionTracker getSessionTracker() {
         return sessionTracker;
     }
 
 
+    /**
+     * Ends the current session.
+     *
+     * @param currentActivity the current activity (this is called to start a new activity).
+     * @return true if the session was successfully ended (and was not already ended), false otherwise.
+     */
     public boolean endCurrentSession(AbstractActivity currentActivity) {
         boolean result = false;
         if (currentSessionIsActive()) {

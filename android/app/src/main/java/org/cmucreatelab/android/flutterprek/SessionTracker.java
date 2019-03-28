@@ -114,6 +114,12 @@ public class SessionTracker {
     }
 
 
+    /**
+     * Construct an intent for the next activity to be run in the session.
+     *
+     * @param currentActivity
+     * @return The Intent object for the next activity to be passed to startActivity().
+     */
     public Intent getNextIntent(AbstractActivity currentActivity) {
         if (!emotionPromptDisplayed) {
             emotionPromptDisplayed = true;
@@ -142,6 +148,13 @@ public class SessionTracker {
     }
 
 
+    /**
+     * Construct an intent for the next activity to be run in the session from within an ItineraryItem.
+     *
+     * @param currentActivity
+     * @param index the index (usually sequenceId) of the ItineraryItem that is currently running.
+     * @return The Intent object for the next activity to be passed to startActivity().
+     */
     public Intent getNextIntentFromItinerary(AbstractActivity currentActivity, int index) {
         if (selectedEmotions.size() > 0) {
             SelectedEmotion selectedEmotion = selectedEmotions.get(selectedEmotions.size() - 1);
@@ -175,6 +188,11 @@ public class SessionTracker {
     }
 
 
+    /**
+     * Ends the session.
+     *
+     * @return true if the state changes from not finished to finished, false otherwise.
+     */
     public boolean endSession() {
         if (!isFinished) {
             isFinished = true;

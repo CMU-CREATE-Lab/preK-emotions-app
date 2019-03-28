@@ -72,6 +72,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity implements U
     }
 
 
+    @Override
     public void setFragment(UseWordsFragment.FragmentState fragmentState) {
         String audioToPlay;
         if (fragmentState == UseWordsFragment.FragmentState.RECORD) {
@@ -90,6 +91,7 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity implements U
     }
 
 
+    @Override
     public void goToNextActivity() {
         Intent intent = GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().getNextIntentFromItinerary(this, itineraryIndex);
         startActivity(intent);
