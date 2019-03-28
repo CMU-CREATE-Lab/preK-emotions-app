@@ -80,6 +80,7 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
 
     }
 
+
     @Override
     public void updateImageStudent(AppCompatActivity activity) {
         ((ImageView)findViewById(R.id.imageStudent)).setBackgroundResource(R.drawable.ic_mindfulnest_header_student_section);

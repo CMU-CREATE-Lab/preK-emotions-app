@@ -24,7 +24,7 @@ public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActiv
         findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
         TextView textViewTitle = findViewById(R.id.textViewTitle);
         textViewTitle.setText(getTextTitleResource());
-        textViewTitle.setTextColor(getColorResourceForTitle());
+        textViewTitle.setTextColor(getResources().getColor(getColorResourceForTitle()));
     }
 
 

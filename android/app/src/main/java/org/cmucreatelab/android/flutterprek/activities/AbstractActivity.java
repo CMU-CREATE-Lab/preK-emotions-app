@@ -20,6 +20,7 @@ public abstract class AbstractActivity extends AppCompatActivity {
         playAudio(filepath, null);
     }
 
+
     public void playAudio(String filepath, MediaPlayer.OnCompletionListener listener) {
         if (filepath != null) {
             AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());

@@ -141,6 +141,7 @@ public class SessionTracker {
         }
     }
 
+
     public Intent getNextIntentFromItinerary(AbstractActivity currentActivity, int index) {
         if (selectedEmotions.size() > 0) {
             SelectedEmotion selectedEmotion = selectedEmotions.get(selectedEmotions.size() - 1);
