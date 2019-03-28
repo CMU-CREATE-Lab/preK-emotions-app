@@ -7,7 +7,7 @@
   [
     { "uuid": "student1", "name": "Alice", "classroomUuid": "classroom1", "pictureFileUuid": "image_student1" },
     { "uuid": "student2", "name": "Bob", "classroomUuid": "classroom1", "pictureFileUuid": "image_student2" },
-    { "uuid": "student3", "name": "Teacher", "classroomUuid": "classroom1" }
+    { "uuid": "student3", "name": "Miss Emily", "classroomUuid": "classroom1", "pictureFileUuid": "image_student3" }
   ],
   "copingSkills":
   [
@@ -18,7 +18,6 @@
     { "uuid": "coping_skill_6", "name": "Share", "imageFileUuid": "ic_share" },
     { "uuid": "coping_skill_10", "name": "Squeeze", "imageFileUuid": "ic_squeeze" },
     { "uuid": "coping_skill_2", "name": "Static Coping Skill", "imageFileUuid": "ic_jumping_jacks" },
-    { "uuid": "coping_skill_11", "name": "Talk About It", "imageFileUuid": "ic_talk" },
     { "uuid": "coping_skill_7", "name": "Stretching", "imageFileUuid": "ic_jumping_jacks" },
     { "uuid": "coping_skill_8", "name": "Stretching", "imageFileUuid": "ic_jumping_jacks" },
     { "uuid": "coping_skill_9", "name": "Stretching", "imageFileUuid": "ic_jumping_jacks" }
@@ -38,16 +37,12 @@
     { "uuid": "happy_flower", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "happy_jumping_jacks", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_5" },
     { "uuid": "happy_yoga", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_7" },
-    { "uuid": "happy_talk", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_11" },
     { "uuid": "sad_flower", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_1" },
-    { "uuid": "sad_cuddle", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_3" },
     { "uuid": "sad_yoga", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_8" },
-    { "uuid": "sad_talk", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_11" },
     { "uuid": "mad_flower", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "mad_jumping_jacks", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_5" },
     { "uuid": "mad_yoga", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_9" },
-    { "uuid": "mad_squeeze", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_10" },
-    { "uuid": "mad_talk", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_11" }
+    { "uuid": "mad_squeeze", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_10" }
   ],
   "itineraryItems":
   [
@@ -103,6 +98,7 @@
   [
     { "uuid": "image_student1", "fileType": "asset_image", "filePath": "etc/images/katie.png" },
     { "uuid": "image_student2", "fileType": "asset_image", "filePath": "etc/images/xman1.png" },
+    { "uuid": "image_student3", "fileType": "asset_image", "filePath": "etc/images/emily.png" },
     { "uuid": "audio_message_happy_2", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_happy_2.wav" },
     { "uuid": "audio_something_else", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else.wav" },
     { "uuid": "audio_message_mad_1", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_mad_1.wav" },
