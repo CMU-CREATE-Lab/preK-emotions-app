@@ -34,6 +34,14 @@ public class ChooseEmotionAndTalkAboutItActivity extends ChooseEmotionAbstractAc
 
 
     @Override
+    protected void onPause() {
+        // Avoid recording while in background
+        recordFragment.onPauseActivity();
+        super.onPause();
+    }
+
+
+    @Override
     public int getResourceIdForActivityLayout() {
         return R.layout._student_section__activity_choose_emotion_and_talk_about_it;
     }

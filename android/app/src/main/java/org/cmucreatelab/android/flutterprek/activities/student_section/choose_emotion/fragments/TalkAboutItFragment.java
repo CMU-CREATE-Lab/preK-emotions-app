@@ -15,7 +15,9 @@ public abstract class TalkAboutItFragment extends AbstractFragment {
     private FragmentState currentFragmentState;
 
     public enum FragmentState {
-        EMOTION_OR_RECORD, RECORD, EMOTION_OR_PLAYBACK
+        EMOTION_OR_RECORD,
+        RECORD,
+        EMOTION_OR_PLAYBACK
     }
 
     public interface ActivityCallback extends MediaPlayer.OnCompletionListener {
@@ -37,12 +39,6 @@ public abstract class TalkAboutItFragment extends AbstractFragment {
     }
 
 
-    public void displayFragment(FragmentState currentFragmentState, ActivityCallback activity) {
-        this.currentFragmentState = currentFragmentState;
-        this.activityCallback = activity;
-    }
-
-
     public ActivityCallback getActivityCallback() {
         return activityCallback;
     }
@@ -56,6 +52,18 @@ public abstract class TalkAboutItFragment extends AbstractFragment {
     @NonNull
     public View getFragmentView() {
         return fragmentView;
+    }
+
+
+    /**
+     * Control display of fragments in an activity, given a current state.
+     *
+     * @param currentFragmentState The current fragment state which you are trying to display.
+     * @param activity An activity that implements the ActivityCallback interface.
+     */
+    public void displayFragment(FragmentState currentFragmentState, ActivityCallback activity) {
+        this.currentFragmentState = currentFragmentState;
+        this.activityCallback = activity;
     }
 
 
