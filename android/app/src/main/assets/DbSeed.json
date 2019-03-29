@@ -21,6 +21,7 @@
     { "uuid": "coping_skill_10", "name": "Squeeze", "imageFileUuid": "ic_squeeze" },
     { "uuid": "coping_skill_2", "name": "Static Coping Skill", "imageFileUuid": "ic_yoga" },
     { "uuid": "coping_skill_11", "name": "Talk About It", "imageFileUuid": "ic_talk" },
+    { "uuid": "coping_skill_12", "name": "Talk to the Teacher", "imageFileUuid": "ic_talk_teacher" },
     { "uuid": "coping_skill_7", "name": "Yoga", "imageFileUuid": "ic_yoga" },
     { "uuid": "coping_skill_8", "name": "Yoga", "imageFileUuid": "ic_yoga" },
     { "uuid": "coping_skill_9", "name": "Yoga", "imageFileUuid": "ic_yoga" }
@@ -58,7 +59,8 @@
     { "uuid": "mad_jumping_jacks", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_5" },
     { "uuid": "mad_yoga", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_9" },
     { "uuid": "mad_squeeze", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_10" },
-    { "uuid": "mad_talk", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_11" }
+    { "uuid": "mad_talk", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_11" },
+    { "uuid": "mad_talk_teacher", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_12" }
   ],
   "itineraryItems":
   [
@@ -111,7 +113,10 @@
 
     { "uuid": "coping_skill_11_part1", "ownerUuid": "coping_skill_11", "sequenceId": 1, "capabilityId": "coping_skill_talk_about_it", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_11_part2", "ownerUuid": "coping_skill_11", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
-    { "uuid": "coping_skill_11_part3", "ownerUuid": "coping_skill_11", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" }
+    { "uuid": "coping_skill_11_part3", "ownerUuid": "coping_skill_11", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
+
+    { "uuid": "coping_skill_12_part1", "ownerUuid": "coping_skill_12", "sequenceId": 1, "capabilityId": "coping_skill_talk_to_the_teacher", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_12_part2", "ownerUuid": "coping_skill_12", "sequenceId": 2, "capabilityId": "finish", "capabilityParameters": "{}" }
   ],
   "sessionsCopingSkills":
   [
@@ -137,6 +142,7 @@
     { "uuid": "ic_jumping_jacks", "fileType": "asset_image", "filePath": "coping_skills/ic_jumping_jacks.png" },
     { "uuid": "ic_share", "fileType": "asset_image", "filePath": "coping_skills/ic_share.png" },
     { "uuid": "ic_squeeze", "fileType": "asset_image", "filePath": "coping_skills/ic_squeeze.png" },
-    { "uuid": "ic_talk", "fileType": "asset_image", "filePath": "coping_skills/ic_talk.png" }
+    { "uuid": "ic_talk", "fileType": "asset_image", "filePath": "coping_skills/ic_talk.png" },
+    { "uuid": "ic_talk_teacher", "fileType": "asset_image", "filePath": "coping_skills/ic_talk_teacher.png" }
   ]
 }

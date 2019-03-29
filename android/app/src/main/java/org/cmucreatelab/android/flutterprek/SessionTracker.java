@@ -8,7 +8,6 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCop
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionAndTalkAboutItActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.ItineraryItemToIntentMapper;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_rejoin_friends.RejoinFriendsActivity;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
@@ -30,6 +29,7 @@ public class SessionTracker {
     private final Date startedAt;
     private final Student student;
     private final ArrayList<SelectedEmotion> selectedEmotions = new ArrayList<>();
+    private final ItineraryItemToIntentMapper itineraryItemToIntentMapper = new ItineraryItemToIntentMapper(this);
 
     private boolean emotionPromptDisplayed = false, isFinished = false;
     private Date finishedAt;
@@ -161,10 +161,10 @@ public class SessionTracker {
             if (selectedEmotion.selectedCopingSkills.size() > 0) {
                 SelectedCopingSkill selectedCopingSkill = selectedEmotion.selectedCopingSkills.get(selectedEmotion.selectedCopingSkills.size() - 1);
                 if (index < selectedCopingSkill.itineraryItems.size()) {
+                    Intent intent;
                     ItineraryItem itineraryItem = selectedCopingSkill.itineraryItems.get(index);
                     int incrementedIndex = index + 1;
-
-                    Intent intent = ItineraryItemToIntentMapper.createIntentFromItineraryItem(currentActivity, itineraryItem);
+                    intent = itineraryItemToIntentMapper.createIntentFromItineraryItem(currentActivity, itineraryItem);
                     intent.putExtra(ITINERARY_INDEX, incrementedIndex);
                     return intent;
                 }
