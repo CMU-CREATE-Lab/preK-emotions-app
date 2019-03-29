@@ -28,8 +28,10 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
     public static final String INTENT_MESSAGE = "message";
     public static final String INTENT_AUDIO_FILE = "audio_message";
     public static final String INTENT_BACKGROUND_COLOR = "background_color";
+    public static final String INTENT_CHOOSE_ANOTHER = "choose_another";
 
     private String message, backgroundColor, audioFile;
+    private boolean showFirst = true;
 
     private final CopingSkillIndexAdapter.ClickListener listener = new CopingSkillIndexAdapter.ClickListener() {
         @Override
@@ -51,6 +53,9 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
             return AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkills();
         }
         // TODO determine coping skills to display based on current class/student
+        if (showFirst) {
+            return AppDatabase.getInstance(this).copingSkillDAO().getCopingSkillsForEmotionOnFirst(emotionUuid);
+        }
         return AppDatabase.getInstance(this).copingSkillDAO().getCopingSkillsForEmotion(emotionUuid);
     }
 
@@ -76,6 +81,7 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
         } catch (Exception e) {
             e.printStackTrace();
         }
+        showFirst = !intent.getBooleanExtra(INTENT_CHOOSE_ANOTHER, false);
     }
 
 

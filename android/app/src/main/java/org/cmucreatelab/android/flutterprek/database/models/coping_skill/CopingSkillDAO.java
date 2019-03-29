@@ -39,4 +39,10 @@ public interface CopingSkillDAO {
             "WHERE emotions_coping_skills.emotion_uuid = :emotionUuid ORDER BY name ASC")
     LiveData<List<CopingSkill>> getCopingSkillsForEmotion(String emotionUuid);
 
+    @Query("SELECT coping_skills.* from coping_skills " +
+            "INNER JOIN emotions_coping_skills ON (emotions_coping_skills.coping_skill_uuid = coping_skills.uuid) " +
+            "LEFT JOIN customizations ON (customizations.owner_uuid = coping_skills.uuid AND customizations.`key` = 'showAfterFirst') " +
+            "WHERE emotions_coping_skills.emotion_uuid = :emotionUuid AND customizations.`key` IS NULL ORDER BY name ASC")
+    LiveData<List<CopingSkill>> getCopingSkillsForEmotionOnFirst(String emotionUuid);
+
 }

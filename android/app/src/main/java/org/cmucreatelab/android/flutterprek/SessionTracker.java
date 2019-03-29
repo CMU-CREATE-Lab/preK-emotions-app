@@ -20,6 +20,7 @@ import java.util.List;
 
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_AUDIO_FILE;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_BACKGROUND_COLOR;
+import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_CHOOSE_ANOTHER;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_MESSAGE;
 
 public class SessionTracker {
@@ -78,6 +79,7 @@ public class SessionTracker {
             somethingElseAudio = "etc/audio_prompts/audio_something_else.wav";
         }
 
+        intent.putExtra(INTENT_CHOOSE_ANOTHER, true);
         intent.putExtra(INTENT_BACKGROUND_COLOR, backgroundColor);
         intent.putExtra(INTENT_MESSAGE, somethingElseMessage);
         intent.putExtra(INTENT_AUDIO_FILE, somethingElseAudio);
