@@ -11,6 +11,8 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 
 public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActivity {
 
+    private static final long DEFAULT_DISPLAY_OVERLAY_AFTER_MILLISECONDS = 30000;
+    private static final long DEFAULT_DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
     private StaticCopingSkillTimeoutOverlay staticCopingSkillTimeoutOverlay;
 
 
@@ -22,7 +24,7 @@ public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActiv
         findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
         TextView textViewTitle = findViewById(R.id.textViewTitle);
         textViewTitle.setText(getTextTitleResource());
-        textViewTitle.setTextColor(getColorResourceForTitle());
+        textViewTitle.setTextColor(getResources().getColor(getColorResourceForTitle()));
     }
 
 
@@ -54,14 +56,22 @@ public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActiv
     }
 
 
+    public long getMillisecondsToDisplayOverlay() {
+        return DEFAULT_DISPLAY_OVERLAY_AFTER_MILLISECONDS;
+    }
+
+
+    public long getMillisecondsToDismissOverlay() {
+        return DEFAULT_DISMISS_OVERLAY_AFTER_MILLISECONDS;
+    }
+
+
     /**
      * Static coping skills will always have some centered text. This is the audio file associated with that text.
      *
      * @return relative path in assets for the audio file.
      */
     public abstract String getAudioFileForCopingSkillTitle();
-
-    public abstract String getVideoFileForCopingSkillTitle();
 
 
     /** Get the background resource for the coping skill. */

@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.DebugCorner;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -30,13 +29,17 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
         public void onClick(Student student) {
             Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
             // track selection with GlobalHandler
-            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.studentUuid = student.getUuid();
-            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.imageUuid = student.getPictureFileUuid();
+            GlobalHandler globalHandler = GlobalHandler.getInstance(getApplicationContext());
+            globalHandler.studentSectionNavigationHandler.studentUuid = student.getUuid();
+            globalHandler.studentSectionNavigationHandler.imageUuid = student.getPictureFileUuid();
+
+            // start new session for student
+            globalHandler.startNewSession(student);
 
             // send to next activity
-            Intent chooseEmotionActivity = new Intent(ChooseStudentActivity.this, ChooseEmotionActivity.class);
+            //Intent chooseEmotionActivity = new Intent(ChooseStudentActivity.this, ChooseEmotionActivity.class);
+            Intent chooseEmotionActivity = globalHandler.getSessionTracker().getNextIntent(ChooseStudentActivity.this);
             startActivity(chooseEmotionActivity);
-
         }
     };
 
@@ -77,13 +80,10 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
 
     }
 
+
     @Override
     public void updateImageStudent(AppCompatActivity activity) {
-
         ((ImageView)findViewById(R.id.imageStudent)).setBackgroundResource(R.drawable.ic_mindfulnest_header_student_section);
-
-
-
     }
 
 }

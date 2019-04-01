@@ -2,7 +2,6 @@ package org.cmucreatelab.android.flutterprek.activities.student_section;
 
 import android.arch.lifecycle.Observer;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -55,18 +54,17 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
         updateImageStudent(StudentSectionActivityWithHeader.this);
     }
 
+
     public void onClickImageStudent() {
         // go back to students page
-        Intent intent = new Intent(StudentSectionActivityWithHeader.this, ChooseStudentActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        GlobalHandler.getInstance(getApplicationContext()).endCurrentSession(this);
     }
 
-    public void updateImageStudent(AppCompatActivity activity) {
 
+    public void updateImageStudent(AppCompatActivity activity) {
         String imageID = GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.imageUuid;
 
-        if (imageID != null && imageID != "") {
+        if (!imageID.isEmpty()) {
             final Context appContext = activity.getApplicationContext();
             AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(imageID).observe(activity, new Observer<DbFile>() {
                 @Override
@@ -76,7 +74,6 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
                 }
             });
         }
-
     }
 
 }

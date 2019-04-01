@@ -15,6 +15,9 @@ public class Constants {
     /** Determines if the flower activity should display the debug window (shows BLE name and last message received). */
     public static final boolean FLOWER_SHOW_DEBUG_WINDOW = false;
 
+    /** Determines what type of activity will run for the "choose emotion" step of a student's session. Setting to false will use the legacy interface (displays emotions only). */
+    public static final boolean CHOOSE_EMOTION_WITH_TALK_ABOUT_IT_OPTION = true;
+
     public static final UARTSettings FLOWER_UART_SETTINGS;
 
     static {
@@ -35,6 +38,7 @@ public class Constants {
     /**
      * Set this to use hardcoded values for the MindfulNest BLE devices.
      * This is helpful when there are multiple stations in the same room.
+     * Otherwise set to null.
      */
     public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = null;
 

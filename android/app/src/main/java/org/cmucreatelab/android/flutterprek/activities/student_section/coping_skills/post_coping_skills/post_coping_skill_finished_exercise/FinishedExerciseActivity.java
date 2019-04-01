@@ -2,20 +2,25 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.PostCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.UseWordsActivity;
+
+import static org.cmucreatelab.android.flutterprek.SessionTracker.ITINERARY_INDEX;
 
 public class FinishedExerciseActivity extends PostCopingSkillActivity {
 
+    private int itineraryIndex;
+
 
     private void goToNextPostCopingSkillActivity() {
-        Intent intent = new Intent(this, UseWordsActivity.class);
+        Intent intent = GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().getNextIntentFromItinerary(this, itineraryIndex);
         startActivity(intent);
     }
 
@@ -59,6 +64,12 @@ public class FinishedExerciseActivity extends PostCopingSkillActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        itineraryIndex = getIntent().getIntExtra(ITINERARY_INDEX, -1);
+        if (itineraryIndex < 0) {
+            Log.e(Constants.LOG_TAG, "received bad (or default) value for ITINERARY_INDEX; ending session");
+            GlobalHandler.getInstance(getApplicationContext()).endCurrentSession(this);
+        }
 
         determineDisplayForFeelingUnchanged();
 

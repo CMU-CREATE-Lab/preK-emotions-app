@@ -1,17 +1,17 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 
 public class StudentSectionTimeoutOverlay {
 
-    private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 25000;
-    private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
+    private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 180000; // 3 minutes
+    private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 15000;
     private static final String AUDIO_FILE_PROMPT_MORE_TIME = "etc/audio_prompts/audio_more_time.wav";
 
     private AbstractActivity activity;
@@ -21,9 +21,7 @@ public class StudentSectionTimeoutOverlay {
 
     private void finishSession() {
         releaseTimers();
-        Intent intent = new Intent(activity, ChooseStudentActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        activity.startActivity(intent);
+        GlobalHandler.getInstance(activity.getApplicationContext()).endCurrentSession(activity);
     }
 
 

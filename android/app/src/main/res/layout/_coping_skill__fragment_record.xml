@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/StudentSectionLayoutWithText" >
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/StudentSectionText"
+        android:text="@string/record_prompt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/layoutCircles"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle">
+
+        <FrameLayout
+            android:id="@+id/imageViewCircles"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/shape_oval_transparent">
+
+            <ImageView
+                android:id="@+id/imageViewCircleGreen"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/shape_oval_green" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/imageViewStop"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ic_stop_recording" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutRecordButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle">
+
+        <ImageView
+            android:id="@+id/imageViewRecordButton"
+            android:layout_width="155dp"
+            android:layout_height="155dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_record" />
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

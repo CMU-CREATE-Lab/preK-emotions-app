@@ -2,24 +2,24 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 
 import org.cmucreatelab.android.flutterprek.R;
 
-public class ShareCopingSkillActivity extends StaticCopingSkillActivity {
+public class StaticSqueezeCopingSkillActivity extends StaticCopingSkillActivity {
 
 
     @Override
     public String getAudioFileForCopingSkillTitle() {
-        return "etc/audio_prompts/audio_share.wav";
+        return "etc/audio_prompts/audio_squeeze.wav";
     }
 
 
     @Override
     public int getResourceForBackground() {
-        return R.drawable.background_share;
+        return R.drawable.background_squeeze;
     }
 
 
     @Override
     public int getTextTitleResource() {
-        return R.string.coping_skill_share;
+        return R.string.coping_skill_static_squeeze;
     }
 
 }

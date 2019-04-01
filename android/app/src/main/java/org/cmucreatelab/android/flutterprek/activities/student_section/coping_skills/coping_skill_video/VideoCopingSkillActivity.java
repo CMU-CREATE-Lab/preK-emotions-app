@@ -28,7 +28,7 @@ public abstract class VideoCopingSkillActivity extends AbstractCopingSkillActivi
         super.onCreate(savedInstanceState);
         findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
         videoView = findViewById(R.id.videoView);
-        VideoPlayer.getInstance(getApplicationContext()).Init(this, videoView, getFilePathForVideo());
+        VideoPlayer.getInstance(getApplicationContext()).prepareViewWithVideo(this, videoView, getFilePathForVideo());
 
         // TODO display overlay after video finishes
         findViewById(R.id.overlayYesNo).setVisibility(View.GONE);

@@ -4,13 +4,14 @@ import org.cmucreatelab.android.flutterprek.R;
 
 public class CuddleCopingSkillActivity extends StaticCopingSkillActivity {
 
+    private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 90000;
+
 
     @Override
     public String getAudioFileForCopingSkillTitle() {
         return "etc/audio_prompts/audio_cuddle.wav";
     }
 
-    public String getVideoFileForCopingSkillTitle() { return null; }
 
     @Override
     public int getResourceForBackground() {
@@ -21,6 +22,12 @@ public class CuddleCopingSkillActivity extends StaticCopingSkillActivity {
     @Override
     public int getTextTitleResource() {
         return R.string.coping_skill_cuddle;
+    }
+
+
+    @Override
+    public long getMillisecondsToDisplayOverlay() {
+        return DISPLAY_OVERLAY_AFTER_MILLISECONDS;
     }
 
 }

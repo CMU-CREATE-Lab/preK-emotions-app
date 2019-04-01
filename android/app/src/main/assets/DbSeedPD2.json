@@ -1,15 +1,13 @@
 {
   "classrooms":
   [
-    { "uuid": "classroom1", "name": "My Classroom" },
-    { "uuid": "classroom2", "name": "Room 123" }
+    { "uuid": "classroom1", "name": "My Classroom" }
   ],
   "students":
   [
-    { "uuid": "student1", "name": "Alice", "classroomUuid": "classroom1", "notes": "stuck in wonderland", "pictureFileUuid": "image_student1"  },
-    { "uuid": "student2", "name": "Bob", "classroomUuid": "classroom1", "pictureFileUuid": "image_student2"  },
-    { "uuid": "student6", "name": "Frank", "classroomUuid": "classroom2" },
-    { "uuid": "student7", "name": "Garth Marenghi", "classroomUuid": "classroom2" }
+    { "uuid": "student1", "name": "Alice", "classroomUuid": "classroom1", "pictureFileUuid": "image_student1" },
+    { "uuid": "student2", "name": "Bob", "classroomUuid": "classroom1", "pictureFileUuid": "image_student2" },
+    { "uuid": "student3", "name": "Teacher", "classroomUuid": "classroom1" }
   ],
   "copingSkills":
   [
@@ -19,29 +17,20 @@
     { "uuid": "coping_skill_5", "name": "Jumping Jacks", "imageFileUuid": "ic_jumping_jacks" },
     { "uuid": "coping_skill_6", "name": "Share", "imageFileUuid": "ic_share" },
     { "uuid": "coping_skill_10", "name": "Squeeze", "imageFileUuid": "ic_squeeze" },
-    { "uuid": "coping_skill_2", "name": "Static Coping Skill", "imageFileUuid": "ic_yoga" },
+    { "uuid": "coping_skill_2", "name": "Static Coping Skill", "imageFileUuid": "ic_jumping_jacks" },
     { "uuid": "coping_skill_11", "name": "Talk About It", "imageFileUuid": "ic_talk" },
-    { "uuid": "coping_skill_7", "name": "Yoga", "imageFileUuid": "ic_yoga" },
-    { "uuid": "coping_skill_8", "name": "Yoga", "imageFileUuid": "ic_yoga" },
-    { "uuid": "coping_skill_9", "name": "Yoga", "imageFileUuid": "ic_yoga" }
+    { "uuid": "coping_skill_7", "name": "Stretching", "imageFileUuid": "ic_jumping_jacks" },
+    { "uuid": "coping_skill_8", "name": "Stretching", "imageFileUuid": "ic_jumping_jacks" },
+    { "uuid": "coping_skill_9", "name": "Stretching", "imageFileUuid": "ic_jumping_jacks" }
   ],
-  "customizations":
-  [
-    { "uuid": "custom_happybg_alice", "basedOnUuid": "emotion1", "key": "background-color", "value": "#7580ff", "ownerUuid": "student1" },
-    { "uuid": "custom_happybg_classroom1", "basedOnUuid": "emotion1", "key": "background-color", "value": "#ff0000", "ownerUuid": "classroom1" },
-    { "uuid": "custom_happybg_default", "basedOnUuid": "emotion1", "key": "background-color", "value": "#00ff00" }
-  ],
+  "customizations": [],
   "emotions":
   [
     { "name": "Happy", "uuid": "emotion1", "imageFileUuid": "ic_happy" },
     { "name": "Sad", "uuid": "emotion2", "imageFileUuid": "ic_sad" },
-    { "name": "Mad", "uuid": "emotion3", "imageFileUuid": "ic_mad" },
-    { "name": "Scared", "uuid": "emotion4", "ownerUuid": "classroom2" }
+    { "name": "Mad", "uuid": "emotion3", "imageFileUuid": "ic_mad" }
   ],
-  "sessions":
-  [
-    { "uuid": "session1", "studentUuid": "student1", "startedAt": 1540923974 }
-  ],
+  "sessions": [],
   "emotionsCopingSkills":
   [
     { "uuid": "happy_share", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_6" },
@@ -107,16 +96,9 @@
 
     { "uuid": "coping_skill_10_part1", "ownerUuid": "coping_skill_10", "sequenceId": 1, "capabilityId": "coping_skill_static.squeeze", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_10_part2", "ownerUuid": "coping_skill_10", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
-    { "uuid": "coping_skill_10_part3", "ownerUuid": "coping_skill_10", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
-
-    { "uuid": "coping_skill_11_part1", "ownerUuid": "coping_skill_11", "sequenceId": 1, "capabilityId": "coping_skill_talk_about_it", "capabilityParameters": "{}" },
-    { "uuid": "coping_skill_11_part2", "ownerUuid": "coping_skill_11", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
-    { "uuid": "coping_skill_11_part3", "ownerUuid": "coping_skill_11", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" }
+    { "uuid": "coping_skill_10_part3", "ownerUuid": "coping_skill_10", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" }
   ],
-  "sessionsCopingSkills":
-  [
-    { "uuid": "thinkaboutit_step1", "sessionUuid": "session1", "copingSkillUuid": "coping_skill_1", "startedAt": 1540923981 }
-  ],
+  "sessionsCopingSkills": [],
   "dbFiles":
   [
     { "uuid": "image_student1", "fileType": "asset_image", "filePath": "etc/images/katie.png" },
