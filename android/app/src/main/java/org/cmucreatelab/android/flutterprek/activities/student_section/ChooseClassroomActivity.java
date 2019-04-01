@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -52,6 +53,7 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
     }
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +68,10 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
 
         this.debugCorner = new DebugCorner(this);
         checkAndRequestBle();
+
+        findViewById(R.id.imageStudent).setEnabled(false);
+        findViewById(R.id.imageStudent).setVisibility(View.GONE);
+
     }
 
 

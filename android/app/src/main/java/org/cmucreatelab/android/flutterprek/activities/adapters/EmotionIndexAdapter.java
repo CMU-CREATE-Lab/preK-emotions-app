@@ -81,7 +81,7 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
         TextView textView = result.findViewById(R.id.text1);
         textView.setText(emotion.getName());
 
-        result.findViewById(R.id.imageEmotionAudio).setOnClickListener(new View.OnClickListener() {
+        result.findViewById(R.id.imagePlayAudioView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 playAudioFeeling(emotion.getName());
