@@ -28,14 +28,15 @@
 
             <TextView
                 android:id="@+id/textTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="650dp"
                 android:layout_height="wrap_content"
                 style="@style/StudentSectionText"
                 android:text="@string/choose_coping_skill_placeholder"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:paddingRight="10dp" />
+                app:layout_constraintEnd_toStartOf="@id/imagePlayAudioView"
+                android:paddingRight="10dp"
+                 />
 
             <ImageView
                 android:id="@+id/imagePlayAudioView"

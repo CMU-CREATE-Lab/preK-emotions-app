@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <ImageView
-        android:id="@+id/imageEmotionAudio"
+        android:id="@+id/imagePlayAudioView"
         style="@style/GridViewItemLowerImageTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

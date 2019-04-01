@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -104,6 +105,7 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         parseIntent(getIntent());
         customizeDisplayForEmotion();
 
@@ -136,5 +138,6 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
     public int getResourceIdForActivityLayout() {
         return R.layout._student_section__activity_choose_coping_skill;
     }
+
 
 }
