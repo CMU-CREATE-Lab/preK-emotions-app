@@ -12,7 +12,6 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.JumpingJacksCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.ShareCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.YogaHappyActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.YogaMadExcitedActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.YogaSadActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand.WandCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
@@ -59,7 +58,8 @@ public class CopingSkillMapper {
                 break;
             case "coping_skill_9":
                 Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: Yoga Mad");
-                copingSkillClass = YogaMadExcitedActivity.class;
+                // copingSkillClass = YogaMadExcitedActivity.class;
+                copingSkillClass = CuddleCopingSkillActivity.class;
                 break;
             case "coping_skill_10":
                 Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: Wand");
