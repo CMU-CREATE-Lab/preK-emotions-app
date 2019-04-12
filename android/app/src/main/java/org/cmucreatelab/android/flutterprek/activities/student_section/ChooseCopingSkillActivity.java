@@ -93,7 +93,7 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
                     // TODO check type?
-                    audioPlayer.addAudioFromAssets(dbFile.getFileaPath());
+                    audioPlayer.addAudioFromAssets(dbFile.getFilePath());
                     audioPlayer.playAudio();
                 }
             });
@@ -105,6 +105,12 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        findViewById(R.id.imagePlayAudioView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playAudioFile();
+            }
+        });
 
         parseIntent(getIntent());
         customizeDisplayForEmotion();
