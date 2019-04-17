@@ -64,7 +64,7 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
     public void updateImageStudent(AppCompatActivity activity) {
         String imageID = GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.imageUuid;
 
-        if (!imageID.isEmpty()) {
+        if (imageID != null && !imageID.isEmpty()) {
             final Context appContext = activity.getApplicationContext();
             AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(imageID).observe(activity, new Observer<DbFile>() {
                 @Override
