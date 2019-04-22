@@ -76,7 +76,7 @@ public class SessionTracker {
             somethingElseMessage = "Would you like to try something else?";
         }
         if (somethingElseAudio.isEmpty()) {
-            somethingElseAudio = "etc/audio_prompts/audio_something_else.wav";
+            somethingElseAudio = "audio_something_else";
         }
 
         intent.putExtra(INTENT_CHOOSE_ANOTHER, true);

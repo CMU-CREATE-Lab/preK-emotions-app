@@ -70,7 +70,10 @@
     { "uuid": "mad_talk_teacher", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_12" },
     { "uuid": "scared_flower", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "scared_cuddle", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_3" },
-    { "uuid": "scared_talk_teacher", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_12" }
+    { "uuid": "scared_talk_teacher", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_12" },
+    { "uuid": "worried_flower", "emotionUuid": "emotion4", "copingSkillUuid": "coping_skill_1" },
+    { "uuid": "worried_cuddle", "emotionUuid": "emotion4", "copingSkillUuid": "coping_skill_3" },
+    { "uuid": "worried_talk_teacher", "emotionUuid": "emotion4", "copingSkillUuid": "coping_skill_12" }
   ],
   "itineraryItems":
   [
@@ -85,6 +88,9 @@
     },
     { "uuid": "scared_settings", "ownerUuid": "emotion5", "sequenceId": 1, "capabilityId": "display_emotion",
       "capabilityParameters": "{\"message\":\"We all feel scared sometimes. Try one of these things when you feel scared.\",\"background-color\":\"#5790b9\",\"audio\":\"audio_message_scared_1\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less scared?\",\"somethingElseAudio\":\"audio_something_else_scared\"}"
+    },
+    { "uuid": "worried_settings", "ownerUuid": "emotion4", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\":\"Worried message will go here.\",\"background-color\":\"#809baf\"}"
     },
 
 
