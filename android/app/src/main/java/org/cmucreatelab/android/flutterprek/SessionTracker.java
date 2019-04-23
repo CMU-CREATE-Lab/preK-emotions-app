@@ -27,6 +27,7 @@ public class SessionTracker {
 
     public static final String ITINERARY_INDEX = "itinerary_index";
 
+    private final SessionMode sessionMode;
     private final Date startedAt;
     private final Student student;
     private final ArrayList<SelectedEmotion> selectedEmotions = new ArrayList<>();
@@ -34,6 +35,10 @@ public class SessionTracker {
 
     private boolean emotionPromptDisplayed = false, isFinished = false;
     private Date finishedAt;
+
+    public enum SessionMode {
+        NORMAL, CHECK_IN
+    }
 
     public static class SelectedCopingSkill {
         public final CopingSkill copingSkill;
@@ -87,13 +92,19 @@ public class SessionTracker {
 
 
     public SessionTracker(Student student) {
-        this(new Date(), student);
+        this(new Date(), student, SessionMode.NORMAL);
     }
 
 
-    public SessionTracker(Date startedAt, Student student) {
+    public SessionTracker(Student student, SessionMode sessionMode) {
+        this(new Date(), student, sessionMode);
+    }
+
+
+    public SessionTracker(Date startedAt, Student student, SessionMode sessionMode) {
         this.startedAt = startedAt;
         this.student = student;
+        this.sessionMode = sessionMode;
     }
 
 
@@ -128,6 +139,11 @@ public class SessionTracker {
             Class chooseEmotionClass = Constants.CHOOSE_EMOTION_WITH_TALK_ABOUT_IT_OPTION ? ChooseEmotionAndTalkAboutItActivity.class : ChooseEmotionActivity.class;
             return new Intent(currentActivity, chooseEmotionClass);
         } else {
+            // check-in will end the session after an emotion is selected
+            if (sessionMode == SessionMode.CHECK_IN) {
+                endSession();
+                return SessionTracker.getIntentForEndSession(currentActivity);
+            }
             if (selectedEmotions.size() > 0) {
                 SelectedEmotion selectedEmotion = selectedEmotions.get(selectedEmotions.size() - 1);
                 if (!selectedEmotion.promptDisplayed) {
