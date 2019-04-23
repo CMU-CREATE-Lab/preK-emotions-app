@@ -20,15 +20,17 @@
     { "uuid": "coping_skill_6", "name": "Share", "imageFileUuid": "ic_share" },
     { "uuid": "coping_skill_10", "name": "Squeeze", "imageFileUuid": "ic_squeeze" },
     { "uuid": "coping_skill_2", "name": "Static Coping Skill", "imageFileUuid": "ic_yoga" },
-    { "uuid": "coping_skill_11", "name": "Talk About It", "imageFileUuid": "ic_talk" },
-    { "uuid": "coping_skill_12", "name": "Talk to the Teacher", "imageFileUuid": "ic_talk_teacher" },
     { "uuid": "coping_skill_7", "name": "Stretching", "imageFileUuid": "ic_stretching" },
     { "uuid": "coping_skill_8", "name": "Stretching", "imageFileUuid": "ic_stretching" },
-    { "uuid": "coping_skill_9", "name": "Stretching", "imageFileUuid": "ic_stretching" }
+    { "uuid": "coping_skill_9", "name": "Stretching", "imageFileUuid": "ic_stretching" },
+    { "uuid": "coping_skill_11", "name": "Talk About It", "imageFileUuid": "ic_talk" },
+    { "uuid": "coping_skill_12", "name": "Talk to the Teacher", "imageFileUuid": "ic_talk_teacher" }
   ],
   "customizations":
   [
     { "uuid": "showafterfirst_coping_skill_12", "key": "showAfterFirst", "value": "", "ownerUuid": "coping_skill_12" },
+    { "uuid": "customization_classroom1", "key": "sessionMode", "value": "normal", "ownerUuid": "classroom1" },
+    { "uuid": "customization_classroom2", "key": "sessionMode", "value": "checkIn", "ownerUuid": "classroom2" },
 
     { "uuid": "foo_coping_skill_12", "key": "foo", "value": "bar", "ownerUuid": "coping_skill_12" },
     { "uuid": "foo_coping_skill_11", "key": "foo", "value": "bar", "ownerUuid": "coping_skill_11" },

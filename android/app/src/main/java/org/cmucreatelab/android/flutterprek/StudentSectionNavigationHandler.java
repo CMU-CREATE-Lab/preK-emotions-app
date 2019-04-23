@@ -8,6 +8,8 @@ public class StudentSectionNavigationHandler {
 
     public @NonNull String classroomUuid = "";
 
+    public String classroomSessionMode = null;
+
     public @NonNull String imageUuid = "";
 
     public @NonNull String studentUuid = "";
