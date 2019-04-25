@@ -7,7 +7,8 @@
   "students":
   [
     { "uuid": "student1", "name": "Alice", "classroomUuid": "classroom1", "notes": "stuck in wonderland", "pictureFileUuid": "image_student1"  },
-    { "uuid": "student2", "name": "Bob", "classroomUuid": "classroom1", "pictureFileUuid": "image_student2"  },
+    { "uuid": "student2", "name": "Charles", "classroomUuid": "classroom1", "pictureFileUuid": "image_student2"  },
+    { "uuid": "student3", "name": "Silent Bob", "classroomUuid": "classroom1" },
     { "uuid": "student6", "name": "Frank", "classroomUuid": "classroom2" },
     { "uuid": "student7", "name": "Garth Marenghi", "classroomUuid": "classroom2" }
   ],
@@ -31,6 +32,7 @@
     { "uuid": "showafterfirst_coping_skill_12", "key": "showAfterFirst", "value": "", "ownerUuid": "coping_skill_12" },
     { "uuid": "customization_classroom1", "key": "sessionMode", "value": "normal", "ownerUuid": "classroom1" },
     { "uuid": "customization_classroom2", "key": "sessionMode", "value": "checkIn", "ownerUuid": "classroom2" },
+    { "uuid": "customization_student3", "key": "disableAudio", "value": "", "ownerUuid": "student3" },
 
     { "uuid": "foo_coping_skill_12", "key": "foo", "value": "bar", "ownerUuid": "coping_skill_12" },
     { "uuid": "foo_coping_skill_11", "key": "foo", "value": "bar", "ownerUuid": "coping_skill_11" },

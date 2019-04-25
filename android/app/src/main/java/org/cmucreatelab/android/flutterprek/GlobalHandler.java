@@ -9,6 +9,7 @@ import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.ble.flower.BleFlower;
 import org.cmucreatelab.android.flutterprek.ble.DeviceConnectionHandler;
 import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
+import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 /**
@@ -54,7 +55,7 @@ public class GlobalHandler {
      *
      * @param student Every session has a Student associated with it.
      */
-    public void startNewSession(Student student) {
+    public void startNewSession(StudentWithCustomizations student) {
         if (currentSessionIsActive()) {
             Log.w(Constants.LOG_TAG, "call to startNewSession while another session is active.");
         }

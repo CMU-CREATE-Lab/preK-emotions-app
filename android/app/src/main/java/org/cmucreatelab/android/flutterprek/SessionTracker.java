@@ -9,6 +9,7 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.choose_em
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionAndTalkAboutItActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_rejoin_friends.RejoinFriendsActivity;
+import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
@@ -30,6 +31,7 @@ public class SessionTracker {
     private final SessionMode sessionMode;
     private final Date startedAt;
     private final Student student;
+    private final boolean audioIsDisabled;
     private final ArrayList<SelectedEmotion> selectedEmotions = new ArrayList<>();
     private final ItineraryItemToIntentMapper itineraryItemToIntentMapper = new ItineraryItemToIntentMapper(this);
 
@@ -91,19 +93,21 @@ public class SessionTracker {
     }
 
 
-    public SessionTracker(Student student) {
+    public SessionTracker(StudentWithCustomizations student) {
         this(new Date(), student, SessionMode.NORMAL);
     }
 
 
-    public SessionTracker(Student student, SessionMode sessionMode) {
+    public SessionTracker(StudentWithCustomizations student, SessionMode sessionMode) {
         this(new Date(), student, sessionMode);
     }
 
 
-    public SessionTracker(Date startedAt, Student student, SessionMode sessionMode) {
+    public SessionTracker(Date startedAt, StudentWithCustomizations student, SessionMode sessionMode) {
         this.startedAt = startedAt;
-        this.student = student;
+        this.student = student.student;
+        // TODO you need to make sure that coping skills/post coping skills are not available as well.
+        this.audioIsDisabled = student.disableAudio();
         this.sessionMode = sessionMode;
     }
 
@@ -136,7 +140,7 @@ public class SessionTracker {
     public Intent getNextIntent(AbstractActivity currentActivity) {
         if (!emotionPromptDisplayed) {
             emotionPromptDisplayed = true;
-            Class chooseEmotionClass = Constants.CHOOSE_EMOTION_WITH_TALK_ABOUT_IT_OPTION ? ChooseEmotionAndTalkAboutItActivity.class : ChooseEmotionActivity.class;
+            Class chooseEmotionClass = (Constants.CHOOSE_EMOTION_WITH_TALK_ABOUT_IT_OPTION && !audioIsDisabled) ? ChooseEmotionAndTalkAboutItActivity.class : ChooseEmotionActivity.class;
             return new Intent(currentActivity, chooseEmotionClass);
         } else {
             // check-in will end the session after an emotion is selected
