@@ -8,6 +8,7 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCop
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionAndTalkAboutItActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.HeartBeatingActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_rejoin_friends.RejoinFriendsActivity;
 import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
@@ -27,6 +28,7 @@ import static org.cmucreatelab.android.flutterprek.activities.student_section.Ch
 public class SessionTracker {
 
     public static final String ITINERARY_INDEX = "itinerary_index";
+    public static final boolean promptHeartbeatForCheckin = true;
 
     private final SessionMode sessionMode;
     private final Date startedAt;
@@ -145,8 +147,14 @@ public class SessionTracker {
         } else {
             // check-in will end the session after an emotion is selected
             if (sessionMode == SessionMode.CHECK_IN) {
-                endSession();
-                return SessionTracker.getIntentForEndSession(currentActivity);
+                if (promptHeartbeatForCheckin) {
+                    Intent intent = new Intent(currentActivity, HeartBeatingActivity.class);
+                    intent.putExtra(ITINERARY_INDEX, 0);
+                    return intent;
+                } else {
+                    endSession();
+                    return SessionTracker.getIntentForEndSession(currentActivity);
+                }
             }
             if (selectedEmotions.size() > 0) {
                 SelectedEmotion selectedEmotion = selectedEmotions.get(selectedEmotions.size() - 1);
@@ -178,6 +186,11 @@ public class SessionTracker {
      * @return The Intent object for the next activity to be passed to startActivity().
      */
     public Intent getNextIntentFromItinerary(AbstractActivity currentActivity, int index) {
+        // check-in will end the session after prompting for heartbeat
+        if (sessionMode == SessionMode.CHECK_IN) {
+            endSession();
+            return SessionTracker.getIntentForEndSession(currentActivity);
+        }
         if (selectedEmotions.size() > 0) {
             SelectedEmotion selectedEmotion = selectedEmotions.get(selectedEmotions.size() - 1);
             if (selectedEmotion.selectedCopingSkills.size() > 0) {
