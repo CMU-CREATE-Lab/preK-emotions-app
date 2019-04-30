@@ -101,7 +101,7 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
 
 
     public void addAudioFromAssets(String filepath) {
-        audioFilesQueue.add(new AudioFile(filepath, StorageType.ASSET, null));
+        addAudioFromAssets(filepath, null);
     }
 
 
@@ -111,7 +111,7 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener {
 
 
     public void addAudioFromInternalStorage(String filepath) {
-        audioFilesQueue.add(new AudioFile(filepath, StorageType.INTERNAL_STORAGE, null));
+        addAudioFromInternalStorage(filepath, null);
     }
 
 

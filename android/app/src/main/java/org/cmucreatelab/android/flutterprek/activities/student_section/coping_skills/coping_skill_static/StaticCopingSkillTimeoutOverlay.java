@@ -8,9 +8,15 @@ import org.cmucreatelab.android.flutterprek.R;
 public class StaticCopingSkillTimeoutOverlay {
 
     private static final String AUDIO_FILE_PROMPT_MORE_TIME = "etc/audio_prompts/audio_more_time.wav";
-    private StaticCopingSkillActivity activity;
-    private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
+    private final StaticCopingSkillActivity activity;
+    private final BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
+    private final OverlayOptionListener listener;
     private boolean overlayIsDisplayed = false;
+
+    public interface OverlayOptionListener {
+        void onClickNo();
+        void onClickYes();
+    }
 
 
     private void releaseTimers() {
@@ -53,7 +59,13 @@ public class StaticCopingSkillTimeoutOverlay {
 
 
     public StaticCopingSkillTimeoutOverlay(StaticCopingSkillActivity activity) {
+        this(activity, null);
+    }
+
+
+    public StaticCopingSkillTimeoutOverlay(StaticCopingSkillActivity activity, final OverlayOptionListener listener) {
         this.activity = activity;
+        this.listener = listener;
 
         timerToDisplayOverlay = new BackgroundTimer(activity.getMillisecondsToDisplayOverlay(), new BackgroundTimer.TimeExpireListener() {
             @Override
@@ -74,12 +86,18 @@ public class StaticCopingSkillTimeoutOverlay {
             @Override
             public void onClick(View v) {
                 hideOverlay();
+                if (listener != null) {
+                    listener.onClickYes();
+                }
             }
         });
         activity.findViewById(R.id.overlayYesNo).findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finishActivity();
+                if (listener != null) {
+                    listener.onClickNo();
+                }
             }
         });
 
