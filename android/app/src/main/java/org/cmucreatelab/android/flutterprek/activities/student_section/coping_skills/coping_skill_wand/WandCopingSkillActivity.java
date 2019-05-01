@@ -5,41 +5,72 @@ import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.StaticCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.StaticCopingSkillTimeoutOverlay;
 
 public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
 
     private StaticCopingSkillTimeoutOverlay staticCopingSkillTimeoutOverlay;
+    private boolean activityIsPaused = false;
+    private WandStateHandler wandStateHandler;
+    private WandCopingSkillProcess wandCopingSkillProcess;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // TODO Needed?
         staticCopingSkillTimeoutOverlay = new StaticCopingSkillTimeoutOverlay(this);
+        //wandCopingSkillProcess = new WandCopingSkillProcess(this);
 
-        //findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
-        TextView textViewTitle = findViewById(R.id.textViewTitle);
-        textViewTitle.setText(getTextTitleResource());
-        textViewTitle.setTextColor(getResources().getColor(getColorResourceForTitle()));
+        findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
+        TextView textView = findViewById(R.id.textViewTitle);
+        textView.setText(getTextTitleResource());
+        textView.setTextColor(getResources().getColor(getColorResourceForTitle()));
+
+
+        findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wandStateHandler.initializeState();
+            }
+        });
+        findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        wandStateHandler = new WandStateHandler(this);
     }
 
 
     @Override
     protected void onPause() {
+        activityIsPaused = true;
         super.onPause();
+        Log.d(Constants.LOG_TAG,"Stopping Scan...");
+        // avoid playing through after early exit
+        wandStateHandler.pauseState();
         staticCopingSkillTimeoutOverlay.onPauseActivity();
     }
 
 
     @Override
     protected void onResume() {
+        activityIsPaused = false;
         super.onResume();
+        wandStateHandler.initializeState();
+        wandStateHandler.lookForWand();
         playAudio(getAudioFileForCopingSkillTitle());
+        // TODO Needed?
         staticCopingSkillTimeoutOverlay.onResumeActivity();
     }
 
@@ -78,6 +109,10 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     @StringRes
     public int getTextTitleResource() {
         return R.string.coping_skill_wand;
+    }
+
+    public boolean isPaused() {
+        return activityIsPaused;
     }
 
 }

@@ -7,6 +7,7 @@ import android.util.Log;
 import org.cmucreatelab.android.flutterprek.ble.flower.BleFlower;
 import org.cmucreatelab.android.flutterprek.ble.DeviceConnectionHandler;
 import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
+import org.cmucreatelab.android.flutterprek.ble.wand.BleWand;
 
 /**
  *
@@ -17,6 +18,7 @@ public class GlobalHandler {
 
     public final Context appContext;
     public BleFlower bleFlower;
+    public BleWand bleWand;
     public final StudentSectionNavigationHandler studentSectionNavigationHandler;
     public final DeviceConnectionHandler deviceConnectionHandler;
 
@@ -49,6 +51,10 @@ public class GlobalHandler {
         return (bleFlower != null && bleFlower.isConnected());
     }
 
+    public boolean isWandConnected() {
+        return (bleWand != null && bleWand.isConnected());
+    }
+
 
     /**
      * start a new BLE connection with a BLE device
@@ -57,7 +63,7 @@ public class GlobalHandler {
      * @param connectionListener Listen for connection state changes.
      */
     public synchronized void startConnection(Class classToValidate, BluetoothDevice bluetoothDevice, UARTConnection.ConnectionListener connectionListener) {
-        // TODO check for device type (assumes flower for now)
+        // TODO check for device type (assumes flower or wand for now)
         if (bleFlower != null) {
             Log.w(Constants.LOG_TAG, "current bleFlower in GlobalHandler is not null; attempting to close.");
             try {
@@ -67,6 +73,16 @@ public class GlobalHandler {
             }
         }
         this.bleFlower = new BleFlower(appContext, bluetoothDevice, connectionListener);
+
+        if (bleWand != null) {
+            Log.w(Constants.LOG_TAG, "current bleWand in GlobalHandler is not null; attempting to close.");
+            try {
+                bleWand.disconnect();
+            } catch (Exception e) {
+                Log.e(Constants.LOG_TAG, "Exception caught in GlobalHandler.startConnection (likely null reference in UARTConnection); Exception message was: ``" + e.getMessage() + "''");
+            }
+        }
+        this.bleWand = new BleWand(appContext, bluetoothDevice, connectionListener);
     }
 
 }

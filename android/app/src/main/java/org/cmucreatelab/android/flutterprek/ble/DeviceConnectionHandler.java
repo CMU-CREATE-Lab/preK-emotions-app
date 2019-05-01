@@ -7,6 +7,7 @@ import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.ble.flower.BleFlower;
+import org.cmucreatelab.android.flutterprek.ble.wand.BleWand;
 
 /**
  * Determines if a broadcasted bluetooth device is valid for the app to try connecting to.
@@ -42,6 +43,10 @@ public class DeviceConnectionHandler {
         return deviceName.startsWith("FL");
     }
 
+    private boolean validateWandOnPrefix(@NonNull String deviceName) {
+        return deviceName.startsWith("WA");
+    }
+
 
     private boolean validateFlowerHardcoded(@NonNull String deviceName) {
         if (hardcodedBleFlower == null) {
@@ -49,6 +54,15 @@ public class DeviceConnectionHandler {
             return false;
         }
         return deviceName.equals(hardcodedBleFlower);
+    }
+
+
+    private boolean validateWandHardcoded(@NonNull String deviceName) {
+        if (hardcodedBleWand == null) {
+            Log.w(Constants.LOG_TAG, "Hardcoded value was null; returning false");
+            return false;
+        }
+        return deviceName.equals(hardcodedBleWand);
     }
 
 
@@ -78,6 +92,11 @@ public class DeviceConnectionHandler {
                 return validateFlowerHardcoded(deviceName);
             }
             return validateFlowerOnPrefix(deviceName);
+        } else if(classToValidate == BleWand.class) {
+            if (usesHardcodedBleDevices) {
+                return validateWandHardcoded(deviceName);
+            }
+            return validateWandOnPrefix(deviceName);
         } else {
             Log.e(Constants.LOG_TAG, "checkIfValidBleDevice Could not determine class; returning false");
         }
