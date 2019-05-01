@@ -57,7 +57,6 @@ public class BleWandScanner implements UARTConnection.ConnectionListener {
 
 
     private void startScan() {
-        isScanning = true;
         // TODO ScanFilter https://developer.android.com/reference/android/bluetooth/le/ScanFilter
         BluetoothLeScanner scanner = bluetoothAdapter.getBluetoothLeScanner();
         if (scanner == null) {
@@ -65,6 +64,7 @@ public class BleWandScanner implements UARTConnection.ConnectionListener {
             return;
         }
         scanner.startScan(scanCallback);
+        isScanning = true;
     }
 
 

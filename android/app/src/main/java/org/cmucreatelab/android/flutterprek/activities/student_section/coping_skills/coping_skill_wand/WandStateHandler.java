@@ -69,24 +69,22 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
     private void changeState(WandStateHandler.State newState) {
         currentState = newState;
+        byte[] color = null;
         if (currentState == WandStateHandler.State.STOPPED) {
             // Turn off light on tip of wand
             //TODO Send the off command
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    activity.findViewById(R.id.activityBackground).setBackgroundResource(activity.getResourceForBackground());
-                    TextView textView = activity.findViewById(R.id.textViewTitle);
-                    textView.setText(activity.getTextTitleResource());
-                    textView.setTextColor(activity.getResources().getColor(activity.getColorResourceForTitle()));
-                }
-            });
+            color = new byte[] {0x02};
         } else if (currentState == WandStateHandler.State.SLOW) {
             // Turn lights rainbow colors matching the tempo of the music
             // TODO send commands
+            color = new byte[] {0x03};
         } else if (currentState == WandStateHandler.State.FAST) {
             // Turn off lights on the tip of wand
             // TODO Send the off command
+            color = new byte[] {0x04};
+        }
+        if(bleWand != null) {
+            bleWand.writeData(color);
         }
     }
 
@@ -119,6 +117,9 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             lastNotification = reformedData;
             updateDebugWindow();
         }
+
+        // TODO update the position/motion of the wand
+        changeState(State.STOPPED);
     }
 
 
@@ -126,6 +127,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     public void onConnected() {
         Log.d(Constants.LOG_TAG, "WandStateHandler: onConnected");
         updateConnectionErrorView();
+        updateDebugWindow();
     }
 
 
@@ -133,7 +135,6 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     public void onDisconnected() {
         Log.d(Constants.LOG_TAG, "WandStateHandler: onDisconnected");
         updateConnectionErrorView();
-        //TODO
         lookForWand();
     }
 
@@ -163,6 +164,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
 
     public void initializeState() {
+        activity.setScreen();
         changeState(WandStateHandler.State.STOPPED);
 
     }

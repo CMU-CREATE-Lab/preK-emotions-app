@@ -30,7 +30,7 @@ public class Constants {
                 .setUARTServiceUUID(UUID.fromString("BEA5760D-503D-4920-B000-101E7306B000"))
                 .setRxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb"))
                 .setTxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fe"))
-                .setRxConfigUUID(UUID.fromString("00002A05-0000-1000-8000-00805F9B34FB"))
+                .setRxConfigUUID(UUID.fromString("00002902-0000-1000-8000-00805F9B34FB"))
                 .build();
     }
 

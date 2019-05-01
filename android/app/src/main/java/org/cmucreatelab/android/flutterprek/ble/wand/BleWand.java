@@ -43,13 +43,23 @@ public class BleWand {
         if (bluetoothDevice == null) {
             Log.w(Constants.LOG_TAG, "getDeviceName with null bluetooth device");
             return null;
+        } else {
+            return bluetoothDevice.getName();
         }
-        return bluetoothDevice.getName();
     }
 
 
     public void disconnect() {
         this.uartConnection.disconnect();
+    }
+
+    public void writeData(byte[] bytes){
+        if(bytes != null) {
+            boolean wrote = this.uartConnection.writeBytes(bytes);
+            if (!wrote) {
+                Log.w(Constants.LOG_TAG, "Value: " + bytes[0] + " was not written");
+            }
+        }
     }
 
 

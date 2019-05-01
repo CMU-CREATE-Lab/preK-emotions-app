@@ -29,16 +29,18 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         staticCopingSkillTimeoutOverlay = new StaticCopingSkillTimeoutOverlay(this);
         //wandCopingSkillProcess = new WandCopingSkillProcess(this);
 
-        findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
+        /*findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
         TextView textView = findViewById(R.id.textViewTitle);
         textView.setText(getTextTitleResource());
         textView.setTextColor(getResources().getColor(getColorResourceForTitle()));
-
+*/
+        setScreen();
 
         findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 wandStateHandler.initializeState();
+                findViewById(R.id.activityBackground).setVisibility(View.INVISIBLE);
             }
         });
         findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
@@ -113,6 +115,13 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
 
     public boolean isPaused() {
         return activityIsPaused;
+    }
+
+    public void setScreen() {
+        findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
+        TextView textView = findViewById(R.id.textViewTitle);
+        textView.setText(getTextTitleResource());
+        textView.setTextColor(getResources().getColor(getColorResourceForTitle()));
     }
 
 }

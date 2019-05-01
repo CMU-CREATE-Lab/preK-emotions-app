@@ -63,26 +63,31 @@ public class GlobalHandler {
      * @param connectionListener Listen for connection state changes.
      */
     public synchronized void startConnection(Class classToValidate, BluetoothDevice bluetoothDevice, UARTConnection.ConnectionListener connectionListener) {
-        // TODO check for device type (assumes flower or wand for now)
-        if (bleFlower != null) {
-            Log.w(Constants.LOG_TAG, "current bleFlower in GlobalHandler is not null; attempting to close.");
-            try {
-                bleFlower.disconnect();
-            } catch (Exception e) {
-                Log.e(Constants.LOG_TAG, "Exception caught in GlobalHandler.startConnection (likely null reference in UARTConnection); Exception message was: ``" + e.getMessage() + "''");
-            }
-        }
-        this.bleFlower = new BleFlower(appContext, bluetoothDevice, connectionListener);
 
-        if (bleWand != null) {
-            Log.w(Constants.LOG_TAG, "current bleWand in GlobalHandler is not null; attempting to close.");
-            try {
-                bleWand.disconnect();
-            } catch (Exception e) {
-                Log.e(Constants.LOG_TAG, "Exception caught in GlobalHandler.startConnection (likely null reference in UARTConnection); Exception message was: ``" + e.getMessage() + "''");
+        if(classToValidate == BleFlower.class) {
+            if (bleFlower != null) {
+                Log.w(Constants.LOG_TAG, "current bleFlower in GlobalHandler is not null; attempting to close.");
+                try {
+                    bleFlower.disconnect();
+                } catch (Exception e) {
+                    Log.e(Constants.LOG_TAG, "Exception caught in GlobalHandler.startConnection (likely null reference in UARTConnection); Exception message was: ``" + e.getMessage() + "''");
+                }
             }
+            this.bleFlower = new BleFlower(appContext, bluetoothDevice, connectionListener);
         }
-        this.bleWand = new BleWand(appContext, bluetoothDevice, connectionListener);
+        if(classToValidate == BleWand.class){
+            if (bleWand != null) {
+                Log.w(Constants.LOG_TAG, "current bleWand in GlobalHandler is not null; attempting to close.");
+                try {
+                    bleWand.disconnect();
+                } catch (Exception e) {
+                    Log.e(Constants.LOG_TAG, "Exception caught in GlobalHandler.startConnection (likely null reference in UARTConnection); Exception message was: ``" + e.getMessage() + "''");
+                }
+            }
+            Log.w(Constants.LOG_TAG, "Trying to create new BleWand");
+            this.bleWand = new BleWand(appContext, bluetoothDevice, connectionListener);
+            Log.w(Constants.LOG_TAG, "Created new BleWand");
+        }
     }
 
 }

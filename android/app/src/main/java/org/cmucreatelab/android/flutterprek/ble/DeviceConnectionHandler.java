@@ -44,7 +44,7 @@ public class DeviceConnectionHandler {
     }
 
     private boolean validateWandOnPrefix(@NonNull String deviceName) {
-        return deviceName.startsWith("WA");
+        return deviceName.startsWith("MNW");
     }
 
 
