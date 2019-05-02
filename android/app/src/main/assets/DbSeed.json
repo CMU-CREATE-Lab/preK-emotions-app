@@ -82,16 +82,16 @@
   "itineraryItems":
   [
     { "uuid": "happy_settings", "ownerUuid": "emotion1", "sequenceId": 1, "capabilityId": "display_emotion",
-      "capabilityParameters": "{\"message\":\"It's nice to feel happy. Try one of these things when you feel happy.\",\"background-color\":\"#f3bb41\",\"audio\":\"audio_message_happy_2\",\"somethingElseMessage\":\"Would you like to try something else?\",\"somethingElseAudio\":\"audio_something_else\"}"
+      "capabilityParameters": "{\"message\":\"It's nice to feel happy. Try one of these things when you feel happy.\",\"background-color\":\"#f3bb41\",\"audio\":\"audio_message_happy_2\",\"somethingElseMessage\":\"Would you like to try something else?\",\"somethingElseAudio\":\"audio_something_else\",\"checkInMessage\":\"It's nice to feel happy. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_happy\"}"
     },
     { "uuid": "mad_settings", "ownerUuid": "emotion3", "sequenceId": 1, "capabilityId": "display_emotion",
-      "capabilityParameters": "{\"message\":\"Everyone feels mad sometimes. Try one of these things when you feel mad.\",\"background-color\":\"#dc6d69\",\"audio\":\"audio_message_mad_1\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less mad?\",\"somethingElseAudio\":\"audio_something_else_mad\"}"
+      "capabilityParameters": "{\"message\":\"Everyone feels mad sometimes. Try one of these things when you feel mad.\",\"background-color\":\"#dc6d69\",\"audio\":\"audio_message_mad_1\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less mad?\",\"somethingElseAudio\":\"audio_something_else_mad\",\"checkInMessage\":\"Everyone feels mad sometimes. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_mad\"}"
     },
     { "uuid": "sad_settings", "ownerUuid": "emotion2", "sequenceId": 1, "capabilityId": "display_emotion",
-      "capabilityParameters": "{\"message\":\"It's ok to feel sad sometimes. Try one of these things when you feel sad.\",\"background-color\":\"#75adae\",\"audio\":\"audio_message_sad_2\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less sad?\",\"somethingElseAudio\":\"audio_something_else_sad\"}"
+      "capabilityParameters": "{\"message\":\"It's ok to feel sad sometimes. Try one of these things when you feel sad.\",\"background-color\":\"#75adae\",\"audio\":\"audio_message_sad_2\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less sad?\",\"somethingElseAudio\":\"audio_something_else_sad\",\"checkInMessage\":\"It's ok to feel sad sometimes. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_sad\"}"
     },
     { "uuid": "scared_settings", "ownerUuid": "emotion5", "sequenceId": 1, "capabilityId": "display_emotion",
-      "capabilityParameters": "{\"message\":\"We all feel scared sometimes. Try one of these things when you feel scared.\",\"background-color\":\"#5790b9\",\"audio\":\"audio_message_scared_1\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less scared?\",\"somethingElseAudio\":\"audio_something_else_scared\"}"
+      "capabilityParameters": "{\"message\":\"We all feel scared sometimes. Try one of these things when you feel scared.\",\"background-color\":\"#5790b9\",\"audio\":\"audio_message_scared_1\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less scared?\",\"somethingElseAudio\":\"audio_something_else_scared\",\"checkInMessage\":\"We all feel scared sometimes. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_scared\"}"
     },
     { "uuid": "worried_settings", "ownerUuid": "emotion4", "sequenceId": 1, "capabilityId": "display_emotion",
       "capabilityParameters": "{\"message\":\"Worried message will go here.\",\"background-color\":\"#809baf\"}"
@@ -157,6 +157,10 @@
     { "uuid": "audio_something_else_sad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else_sad.wav" },
     { "uuid": "audio_message_scared_1", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_scared_1.wav" },
     { "uuid": "audio_something_else_scared", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else_scared.wav" },
+    { "uuid": "audio_message_check_in_happy", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_happy.wav" },
+    { "uuid": "audio_message_check_in_mad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_mad.wav" },
+    { "uuid": "audio_message_check_in_sad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_sad.wav" },
+    { "uuid": "audio_message_check_in_scared", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_scared.wav" },
     { "uuid": "ic_happy", "fileType": "asset_image", "filePath": "emotions/ic_happy.png" },
     { "uuid": "ic_sad", "fileType": "asset_image", "filePath": "emotions/ic_sad.png" },
     { "uuid": "ic_mad", "fileType": "asset_image", "filePath": "emotions/ic_mad.png" },

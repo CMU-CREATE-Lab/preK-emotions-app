@@ -129,6 +129,10 @@
             android:name=".activities.student_section.coping_skills.coping_skill_talk_to_the_teacher.TalkToTheTeacherCopingSkillActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.student_section.check_in.DisplayEmotionCheckInActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
 
 </manifest>
