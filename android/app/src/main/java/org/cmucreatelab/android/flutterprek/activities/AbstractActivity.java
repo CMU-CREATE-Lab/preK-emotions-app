@@ -18,6 +18,7 @@ public abstract class AbstractActivity extends AppCompatActivity {
 
 
     public void playAudio(String filepath) {
+        Log.e(Constants.LOG_TAG, "AbstractActivity: Calling playAudio with null listener");
         playAudio(filepath, null);
     }
 

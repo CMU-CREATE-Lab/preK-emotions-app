@@ -12,13 +12,13 @@
         android:id="@+id/textViewDebug"
         android:layout_width="190dp"
         android:layout_height="200dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="#66000000"
+        android:gravity="center_vertical"
         android:lines="7"
         android:padding="16dp"
         android:text="Wand Coping Skill"
-        android:gravity="center_vertical"
         android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,9 +27,9 @@
         android:id="@+id/textViewTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="140dp"
         android:layout_marginStart="140dp"
         android:layout_marginTop="76dp"
+        android:layout_marginEnd="140dp"
         android:fontFamily="@font/source_sans_pro"
         android:lines="4"
         android:text="@string/coping_skill_static_placeholder"
@@ -40,9 +40,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageViewWandHand"
+        android:layout_width="294dp"
+        android:layout_height="369dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+        app:srcCompat="@drawable/wand_hand" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/leftGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="153.6dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/rightGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="153.6dp" />
+
     <include
         android:id="@+id/overlayYesNo"
-        layout="@layout/overlay_yes_no" />
+        layout="@layout/overlay_yes_no"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/buttonClose"
@@ -51,18 +74,18 @@
         android:layout_marginStart="22dp"
         android:layout_marginTop="19dp"
         android:background="#0000"
-        app:srcCompat="@drawable/ic_close"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close" />
 
     <ImageButton
         android:id="@+id/wandConnectionError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
         android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
         android:background="#0000"
-        app:srcCompat="@drawable/ic_connection_error"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_connection_error" />
 </android.support.constraint.ConstraintLayout>

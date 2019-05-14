@@ -29,6 +29,7 @@ public class Constants {
         WAND_UART_SETTINGS = new UARTSettings.Builder()
                 .setUARTServiceUUID(UUID.fromString("BEA5760D-503D-4920-B000-101E7306B000"))
                 .setRxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb"))
+                //.setRxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fc"))
                 .setTxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fe"))
                 .setRxConfigUUID(UUID.fromString("00002902-0000-1000-8000-00805F9B34FB"))
                 .build();

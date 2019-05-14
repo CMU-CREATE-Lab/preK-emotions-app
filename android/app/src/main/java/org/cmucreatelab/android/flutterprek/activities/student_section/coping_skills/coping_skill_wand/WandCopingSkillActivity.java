@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand;
 
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -16,7 +17,7 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 
 public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
 
-    private StaticCopingSkillTimeoutOverlay staticCopingSkillTimeoutOverlay;
+    //private StaticCopingSkillTimeoutOverlay staticCopingSkillTimeoutOverlay;
     private boolean activityIsPaused = false;
     private WandStateHandler wandStateHandler;
     private WandCopingSkillProcess wandCopingSkillProcess;
@@ -26,23 +27,24 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO Needed?
-        staticCopingSkillTimeoutOverlay = new StaticCopingSkillTimeoutOverlay(this);
-        //wandCopingSkillProcess = new WandCopingSkillProcess(this);
+        //staticCopingSkillTimeoutOverlay = new StaticCopingSkillTimeoutOverlay(this);
+        wandCopingSkillProcess = new WandCopingSkillProcess(this);
 
-        /*findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
-        TextView textView = findViewById(R.id.textViewTitle);
-        textView.setText(getTextTitleResource());
-        textView.setTextColor(getResources().getColor(getColorResourceForTitle()));
-*/
         setScreen();
+        wandCopingSkillProcess.startWandMoving();
 
-        findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
+        // TODO test taking this out and seeing if just hide overlay does the right thing?
+        /*findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 wandStateHandler.initializeState();
-                findViewById(R.id.activityBackground).setVisibility(View.INVISIBLE);
+                findViewById(R.id.activityBackground).setVisibility(View.VISIBLE);
+                findViewById(R.id.overlayYesNo).setVisibility(View.INVISIBLE);
+                //staticCopingSkillTimeoutOverlay.onResumeActivity();
+                // TODO make this the right call
+                wandCopingSkillProcess.onResumeActivity();
             }
-        });
+        });*/
         findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +53,7 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         });
 
         wandStateHandler = new WandStateHandler(this);
+
     }
 
 
@@ -61,7 +64,8 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         Log.d(Constants.LOG_TAG,"Stopping Scan...");
         // avoid playing through after early exit
         wandStateHandler.pauseState();
-        staticCopingSkillTimeoutOverlay.onPauseActivity();
+        //staticCopingSkillTimeoutOverlay.onPauseActivity();
+        wandCopingSkillProcess.onPauseActivity();
     }
 
 
@@ -71,9 +75,12 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         super.onResume();
         wandStateHandler.initializeState();
         wandStateHandler.lookForWand();
+        //playAudio(getAudioFileForCopingSkillTitle());
         playAudio(getAudioFileForCopingSkillTitle());
         // TODO Needed?
-        staticCopingSkillTimeoutOverlay.onResumeActivity();
+        //staticCopingSkillTimeoutOverlay.onResumeActivity();
+        wandCopingSkillProcess.onResumeActivity();
+        wandCopingSkillProcess.playSong();
     }
 
 
@@ -89,16 +96,21 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         return R.color.colorWhite;
     }
 
-
-    /**
-     * Static coping skills will always have some centered text. This is the audio file associated with that text.
-     *
-     * @return relative path in assets for the audio file.
-     */
     public String getAudioFileForCopingSkillTitle() {
         return "etc/audio_prompts/audio_wand.wav";
     }
 
+    public String getAudioFileForMusic() {
+        return "etc/audio_prompts/audio_wand_music.wav";
+    }
+
+    public void playMusic(){
+        playAudio(getAudioFileForMusic(), new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+        });
+    }
 
     /** Get the background resource for the coping skill. */
     @DrawableRes
