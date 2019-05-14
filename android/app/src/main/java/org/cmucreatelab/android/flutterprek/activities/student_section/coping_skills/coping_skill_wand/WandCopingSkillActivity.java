@@ -76,7 +76,14 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         wandStateHandler.initializeState();
         wandStateHandler.lookForWand();
         //playAudio(getAudioFileForCopingSkillTitle());
-        playAudio(getAudioFileForCopingSkillTitle());
+        playAudio(getAudioFileForCopingSkillTitle(), new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                if (mp == null) return;
+                if (mp.isPlaying()) {
+                    mp.stop();
+                }
+            }
+        });
         // TODO Needed?
         //staticCopingSkillTimeoutOverlay.onResumeActivity();
         wandCopingSkillProcess.onResumeActivity();
