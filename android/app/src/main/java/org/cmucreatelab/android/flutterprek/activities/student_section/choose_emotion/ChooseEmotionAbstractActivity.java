@@ -27,6 +27,8 @@ import java.util.List;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_AUDIO_FILE;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_BACKGROUND_COLOR;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_MESSAGE;
+import static org.cmucreatelab.android.flutterprek.activities.student_section.check_in.DisplayEmotionCheckInActivity.INTENT_CHECKIN_AUDIO_FILE;
+import static org.cmucreatelab.android.flutterprek.activities.student_section.check_in.DisplayEmotionCheckInActivity.INTENT_CHECKIN_MESSAGE;
 
 public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivityWithTimeout {
 
@@ -43,11 +45,11 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
 
             // next activity
             globalHandler.getSessionTracker().onSelectedEmotion(ChooseEmotionAbstractActivity.this, emotion, itineraryItems);
-            Intent chooseCopingSkillActivity = globalHandler.getSessionTracker().getNextIntent(ChooseEmotionAbstractActivity.this);
+            Intent nextActivityIntent = globalHandler.getSessionTracker().getNextIntent(ChooseEmotionAbstractActivity.this);
 
             // add custom message/background
             // TODO generate this elsewhere
-            String message=null, backgroundColor=null, audioFile=null, somethingElseMessage="", somethingElseAudio="";
+            String message=null, backgroundColor=null, audioFile=null, somethingElseMessage="", somethingElseAudio="", checkInMessage=null, checkInAudio=null;
             for (ItineraryItem item: itineraryItems) {
                 // TODO check for proper capabilityId?
                 Log.i(Constants.LOG_TAG, "capabilityParams=" + item.getCapabilityParameters().toString());
@@ -67,6 +69,8 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                // something else
                 try {
                     somethingElseMessage = jsonObject.getString("somethingElseMessage");
                 } catch (JSONException e) {
@@ -77,24 +81,42 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                // check-in
+                try {
+                    checkInMessage = jsonObject.getString("checkInMessage");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    checkInAudio = jsonObject.getString("checkInAudio");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
             if (message != null) {
-                chooseCopingSkillActivity.putExtra(INTENT_MESSAGE, message);
+                nextActivityIntent.putExtra(INTENT_MESSAGE, message);
             }
             if (backgroundColor != null) {
-                chooseCopingSkillActivity.putExtra(INTENT_BACKGROUND_COLOR, backgroundColor);
+                nextActivityIntent.putExtra(INTENT_BACKGROUND_COLOR, backgroundColor);
             } else {
                 backgroundColor = "";
             }
             if (audioFile != null) {
-                chooseCopingSkillActivity.putExtra(INTENT_AUDIO_FILE, audioFile);
+                nextActivityIntent.putExtra(INTENT_AUDIO_FILE, audioFile);
+            }
+            if (checkInMessage != null) {
+                nextActivityIntent.putExtra(INTENT_CHECKIN_MESSAGE, checkInMessage);
+            }
+            if (checkInAudio != null) {
+                nextActivityIntent.putExtra(INTENT_CHECKIN_AUDIO_FILE, checkInAudio);
             }
 
             GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.emotionBackgroundColor = backgroundColor;
             GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.somethingElseMessage = somethingElseMessage;
             GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.somethingElseAudio = somethingElseAudio;
 
-            startActivity(chooseCopingSkillActivity);
+            startActivity(nextActivityIntent);
         }
     };
 

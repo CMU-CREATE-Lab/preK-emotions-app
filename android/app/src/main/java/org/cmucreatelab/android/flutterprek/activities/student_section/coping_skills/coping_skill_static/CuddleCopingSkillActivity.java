@@ -15,7 +15,7 @@ public class CuddleCopingSkillActivity extends StaticCopingSkillActivity {
 
     @Override
     public int getResourceForBackground() {
-        return R.drawable.background_cuddle;
+        return R.drawable.background_cuddle_alternative;
     }
 
 

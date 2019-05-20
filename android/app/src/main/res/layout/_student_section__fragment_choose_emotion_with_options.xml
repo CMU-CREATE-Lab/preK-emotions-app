@@ -72,12 +72,11 @@
 
         <GridView
             android:id="@+id/emotionsGridView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
             android:gravity="center"
             android:columnWidth="165sp"
-            android:horizontalSpacing="25sp"
+            android:horizontalSpacing="20dp"
             android:numColumns="auto_fit"
             android:stretchMode="spacingWidthUniform"
             android:verticalSpacing="25sp" />

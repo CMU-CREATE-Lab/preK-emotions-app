@@ -19,7 +19,7 @@ public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActiv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        staticCopingSkillTimeoutOverlay = new StaticCopingSkillTimeoutOverlay(this);
+        staticCopingSkillTimeoutOverlay = createTimeoutOverlay();
 
         findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
         TextView textViewTitle = findViewById(R.id.textViewTitle);
@@ -53,6 +53,11 @@ public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActiv
     @ColorRes
     public int getColorResourceForTitle() {
         return R.color.colorWhite;
+    }
+
+
+    public StaticCopingSkillTimeoutOverlay createTimeoutOverlay() {
+        return new StaticCopingSkillTimeoutOverlay(this);
     }
 
 

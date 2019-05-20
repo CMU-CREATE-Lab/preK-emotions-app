@@ -13,15 +13,8 @@ public class JumpingJacksCopingSkillActivity extends VideoCopingSkillActivity {
         super.onCreate(savedInstanceState);
 
         TextView textViewTitle = findViewById(R.id.textViewTitle);
-        textViewTitle.setText(R.string.coping_skill_jumping_jacks);
+        textViewTitle.setText(R.string.empty);
         textViewTitle.setTextColor(getResources().getColor(R.color.colorWhite));
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        playAudio(getAudioFileForCopingSkillTitle());
     }
 
 
@@ -33,7 +26,7 @@ public class JumpingJacksCopingSkillActivity extends VideoCopingSkillActivity {
 
     @Override
     public String getFilePathForVideo() {
-        return "android.resource://" + getPackageName() + "/" + R.raw.jumpingjacks;
+        return "android.resource://" + getPackageName() + "/" + R.raw.jumpingjacks_with_wristband_prompt;
     }
 
 
@@ -45,12 +38,7 @@ public class JumpingJacksCopingSkillActivity extends VideoCopingSkillActivity {
 
     @Override
     public boolean useAudioFromVideo() {
-        return false;
-    }
-
-
-    public String getAudioFileForCopingSkillTitle() {
-        return "etc/audio_prompts/audio_jumping_jacks.wav";
+        return true;
     }
 
 }

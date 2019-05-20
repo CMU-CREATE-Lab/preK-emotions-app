@@ -5,11 +5,12 @@ import android.content.Intent;
 
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.check_in.DisplayEmotionCheckInActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionAndTalkAboutItActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.ItineraryItemToIntentMapper;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_rejoin_friends.RejoinFriendsActivity;
+import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
@@ -21,18 +22,28 @@ import java.util.List;
 
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_AUDIO_FILE;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_BACKGROUND_COLOR;
+import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_CHOOSE_ANOTHER;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_MESSAGE;
 
 public class SessionTracker {
 
     public static final String ITINERARY_INDEX = "itinerary_index";
+    public static final boolean promptHeartbeatForCheckin = false;
+    public static final boolean promptDisplayEmotionForCheckIn = true;
 
+    private final SessionMode sessionMode;
     private final Date startedAt;
     private final Student student;
+    private final boolean audioIsDisabled;
     private final ArrayList<SelectedEmotion> selectedEmotions = new ArrayList<>();
+    private final ItineraryItemToIntentMapper itineraryItemToIntentMapper = new ItineraryItemToIntentMapper(this);
 
     private boolean emotionPromptDisplayed = false, isFinished = false;
     private Date finishedAt;
+
+    public enum SessionMode {
+        NORMAL, CHECK_IN
+    }
 
     public static class SelectedCopingSkill {
         public final CopingSkill copingSkill;
@@ -75,23 +86,32 @@ public class SessionTracker {
             somethingElseMessage = "Would you like to try something else?";
         }
         if (somethingElseAudio.isEmpty()) {
-            somethingElseAudio = "etc/audio_prompts/audio_something_else.wav";
+            somethingElseAudio = "audio_something_else";
         }
 
+        intent.putExtra(INTENT_CHOOSE_ANOTHER, true);
         intent.putExtra(INTENT_BACKGROUND_COLOR, backgroundColor);
         intent.putExtra(INTENT_MESSAGE, somethingElseMessage);
         intent.putExtra(INTENT_AUDIO_FILE, somethingElseAudio);
     }
 
 
-    public SessionTracker(Student student) {
-        this(new Date(), student);
+    public SessionTracker(StudentWithCustomizations student) {
+        this(new Date(), student, SessionMode.NORMAL);
     }
 
 
-    public SessionTracker(Date startedAt, Student student) {
+    public SessionTracker(StudentWithCustomizations student, SessionMode sessionMode) {
+        this(new Date(), student, sessionMode);
+    }
+
+
+    public SessionTracker(Date startedAt, StudentWithCustomizations student, SessionMode sessionMode) {
         this.startedAt = startedAt;
-        this.student = student;
+        this.student = student.student;
+        // TODO you need to make sure that coping skills/post coping skills are not available as well.
+        this.audioIsDisabled = student.disableAudio();
+        this.sessionMode = sessionMode;
     }
 
 
@@ -123,9 +143,23 @@ public class SessionTracker {
     public Intent getNextIntent(AbstractActivity currentActivity) {
         if (!emotionPromptDisplayed) {
             emotionPromptDisplayed = true;
-            Class chooseEmotionClass = Constants.CHOOSE_EMOTION_WITH_TALK_ABOUT_IT_OPTION ? ChooseEmotionAndTalkAboutItActivity.class : ChooseEmotionActivity.class;
+            Class chooseEmotionClass = (Constants.CHOOSE_EMOTION_WITH_TALK_ABOUT_IT_OPTION && !audioIsDisabled) ? ChooseEmotionAndTalkAboutItActivity.class : ChooseEmotionActivity.class;
             return new Intent(currentActivity, chooseEmotionClass);
         } else {
+            // check-in will end the session after an emotion is selected
+            if (sessionMode == SessionMode.CHECK_IN) {
+                // TODO probably remove heartbeat prompt
+//                if (promptHeartbeatForCheckin) {
+//                    Intent intent = new Intent(currentActivity, HeartBeatingActivity.class);
+                if (promptDisplayEmotionForCheckIn) {
+                    Intent intent = new Intent(currentActivity, DisplayEmotionCheckInActivity.class);
+                    intent.putExtra(ITINERARY_INDEX, 0);
+                    return intent;
+                } else {
+                    endSession();
+                    return SessionTracker.getIntentForEndSession(currentActivity);
+                }
+            }
             if (selectedEmotions.size() > 0) {
                 SelectedEmotion selectedEmotion = selectedEmotions.get(selectedEmotions.size() - 1);
                 if (!selectedEmotion.promptDisplayed) {
@@ -156,15 +190,20 @@ public class SessionTracker {
      * @return The Intent object for the next activity to be passed to startActivity().
      */
     public Intent getNextIntentFromItinerary(AbstractActivity currentActivity, int index) {
+        // check-in will end the session after prompting for heartbeat
+        if (sessionMode == SessionMode.CHECK_IN) {
+            endSession();
+            return SessionTracker.getIntentForEndSession(currentActivity);
+        }
         if (selectedEmotions.size() > 0) {
             SelectedEmotion selectedEmotion = selectedEmotions.get(selectedEmotions.size() - 1);
             if (selectedEmotion.selectedCopingSkills.size() > 0) {
                 SelectedCopingSkill selectedCopingSkill = selectedEmotion.selectedCopingSkills.get(selectedEmotion.selectedCopingSkills.size() - 1);
                 if (index < selectedCopingSkill.itineraryItems.size()) {
+                    Intent intent;
                     ItineraryItem itineraryItem = selectedCopingSkill.itineraryItems.get(index);
                     int incrementedIndex = index + 1;
-
-                    Intent intent = ItineraryItemToIntentMapper.createIntentFromItineraryItem(currentActivity, itineraryItem);
+                    intent = itineraryItemToIntentMapper.createIntentFromItineraryItem(currentActivity, itineraryItem);
                     intent.putExtra(ITINERARY_INDEX, incrementedIndex);
                     return intent;
                 }
