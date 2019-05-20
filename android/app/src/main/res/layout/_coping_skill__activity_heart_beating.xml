@@ -16,6 +16,16 @@
             android:layout_width="match_parent"
             android:layout_height="65sp" />
 
+        <fragment
+            android:id="@+id/heartFragment"
+            android:name="org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.fragments.FeelHeartFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appHeader" />
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -24,6 +34,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appHeader">
+
+            <ImageView
+                android:id="@+id/imagePlayAudioView"
+                android:layout_width="36sp"
+                android:layout_height="36sp"
+                app:layout_constraintLeft_toRightOf="@id/textTitle"
+                app:layout_constraintTop_toTopOf="@id/textTitle"
+                app:layout_constraintBottom_toBottomOf="@id/textTitle"
+                app:srcCompat="@drawable/icon_play_sound_blue" />
 
             <TextView
                 android:id="@+id/textTitle"
