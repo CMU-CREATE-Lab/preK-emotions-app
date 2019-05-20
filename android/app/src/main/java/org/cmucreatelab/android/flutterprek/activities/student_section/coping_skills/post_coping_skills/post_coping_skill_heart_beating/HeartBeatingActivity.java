@@ -12,13 +12,15 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.PostCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.fragments.FeelHeartFragment;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.fragments.VideoFragment;
 
 import static org.cmucreatelab.android.flutterprek.SessionTracker.ITINERARY_INDEX;
 
-public class HeartBeatingActivity extends PostCopingSkillActivity {
+public class HeartBeatingActivity extends PostCopingSkillActivity implements VideoFragment.ActivityCallback{
 
     private int itineraryIndex;
-
+    private FeelHeartFragment heartFragment;
 
     private void goToNextPostCopingSkillActivity() {
         Intent intent = GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().getNextIntentFromItinerary(this, itineraryIndex);
@@ -56,20 +58,47 @@ public class HeartBeatingActivity extends PostCopingSkillActivity {
         heartSlow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO record choice (slow)
                 goToNextPostCopingSkillActivity();
             }
         });
         heartFast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO record choice (fast)
-                goToNextPostCopingSkillActivity();
-            }
+                goToNextPostCopingSkillActivity();          }
         });
 
         heartSlow.startAnimation(slow);
         heartFast.startAnimation(fast);
+
+        this.heartFragment = (FeelHeartFragment) (getSupportFragmentManager().findFragmentById(R.id.heartFragment));
+
+    }
+
+    @Override
+    protected void onResume() {
+        setFragment(VideoFragment.FragmentState.PLAY);
+        super.onResume();
+    }
+
+    @Override
+    public void setFragment(VideoFragment.FragmentState fragmentState) {
+        String videoToPlay = "android.resource://" + getPackageName() + "/" + R.raw.hand_on_heart;
+
+        if (fragmentState == VideoFragment.FragmentState.PLAY) {
+            heartFragment.displayFragment(true, this);
+        } else {
+            heartFragment.displayFragment(false, this);
+        }
+        restartOverlayTimers();
+
+    }
+
+    @Override
+    public void goToNextActivity() {
+        Intent intent = GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().getNextIntentFromItinerary(this, itineraryIndex);
+        startActivity(intent);
+        // make sure you don't go to record, but rather the screen to choose to record.
+        finish();
     }
 
 }

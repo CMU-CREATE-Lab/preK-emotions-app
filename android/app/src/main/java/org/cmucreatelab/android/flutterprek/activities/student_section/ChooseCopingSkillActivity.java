@@ -111,6 +111,12 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        findViewById(R.id.imagePlayAudioView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playAudioFile();
+            }
+        });
 
         parseIntent(getIntent());
         customizeDisplayForEmotion();

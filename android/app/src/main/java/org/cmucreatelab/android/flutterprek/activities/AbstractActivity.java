@@ -15,7 +15,6 @@ import org.cmucreatelab.android.flutterprek.Constants;
  */
 public abstract class AbstractActivity extends AppCompatActivity {
 
-
     /**
      * Hide navigation buttons to make the activity take up the entire screen.
      */
