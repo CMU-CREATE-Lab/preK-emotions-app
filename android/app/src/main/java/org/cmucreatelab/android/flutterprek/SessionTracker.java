@@ -36,7 +36,11 @@ public class SessionTracker {
     private final Student student;
     private final boolean audioIsDisabled;
     private final ArrayList<SelectedEmotion> selectedEmotions = new ArrayList<>();
+<<<<<<< HEAD
     private final org.cmucreatelab.android.flutterprek.ItineraryItemToIntentMapper itineraryItemToIntentMapper = new org.cmucreatelab.android.flutterprek.ItineraryItemToIntentMapper(this);
+=======
+    private final ItineraryItemToIntentMapper itineraryItemToIntentMapper = new ItineraryItemToIntentMapper(this);
+>>>>>>> master
 
     private boolean emotionPromptDisplayed = false, isFinished = false;
     private Date finishedAt;

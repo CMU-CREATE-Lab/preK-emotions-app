@@ -39,6 +39,9 @@ public class FinishedExerciseActivity extends PostCopingSkillActivity {
             // mad
             imageResource = R.drawable.ic_mad;
             title = "Mad";
+        } else if (emotionUuid.equals("emotion5")) {
+            imageResource = R.drawable.ic_scared;
+            title = "Scared";
         } else {
             // hide by default (happy)
             findViewById(R.id.viewFeelingUnchanged).setVisibility(View.GONE);

@@ -13,7 +13,7 @@ public abstract class YogaCopingSkillActivity extends VideoCopingSkillActivity {
 
     @Override
     public int getResourceForBackground() {
-        return R.drawable.background_jumping_jacks;
+        return R.drawable.background_stretching;
     }
 
 
