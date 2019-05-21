@@ -56,10 +56,10 @@
         <item name="android:layout_marginTop">40sp</item>
     </style>
     <style name="StudentSectionText">
-        <item name="android:layout_marginBottom">0sp</item>
-        <item name="android:layout_marginEnd">0sp</item>
-        <item name="android:layout_marginStart">0sp</item>
-        <item name="android:layout_marginTop">0sp</item>
+        <item name="android:layout_marginBottom">40sp</item>
+        <item name="android:layout_marginEnd">8sp</item>
+        <item name="android:layout_marginStart">8sp</item>
+        <item name="android:layout_marginTop">20sp</item>
         <item name="android:fontFamily">@font/source_sans_pro</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/colorGray</item>
