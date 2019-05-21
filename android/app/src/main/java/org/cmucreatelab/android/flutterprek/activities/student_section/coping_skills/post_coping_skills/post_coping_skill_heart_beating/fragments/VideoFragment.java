@@ -24,12 +24,11 @@ public abstract class VideoFragment extends AbstractFragment {
 
         void goToNextActivity();
 
-        void releaseOverlayTimers();
+        //void releaseOverlayTimers();
 
-        void restartOverlayTimers();
+        //void restartOverlayTimers();
 
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

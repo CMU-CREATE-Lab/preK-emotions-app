@@ -55,7 +55,6 @@ public class VideoPlayer {
         return classInstance;
     }
 
-
     // public methods
 
 
