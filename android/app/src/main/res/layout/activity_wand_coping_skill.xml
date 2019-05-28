@@ -12,7 +12,7 @@
         android:id="@+id/textViewDebug"
         android:layout_width="190dp"
         android:layout_height="200dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="264dp"
         android:layout_marginEnd="16dp"
         android:background="#66000000"
         android:gravity="center_vertical"

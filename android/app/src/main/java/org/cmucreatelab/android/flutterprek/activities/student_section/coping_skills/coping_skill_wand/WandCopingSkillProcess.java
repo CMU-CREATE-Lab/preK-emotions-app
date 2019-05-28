@@ -17,8 +17,8 @@ import org.cmucreatelab.android.flutterprek.R;
 
 public class WandCopingSkillProcess {
 
-    private static final long SONG_DURATION = 23000;
-    private static final long TEMPO = 1000;
+    private static final long SONG_DURATION = 120000;
+    private static final long TEMPO = 1300;
     private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
     private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
     private boolean overlayIsDisplayed = false;
@@ -32,6 +32,7 @@ public class WandCopingSkillProcess {
     }
 
     private void finishActivity() {
+        // TODO change to stopped state
         releaseTimers();
         wandCopingSkillActivity.finish();
     }
@@ -96,6 +97,7 @@ public class WandCopingSkillProcess {
     }
 
     public void onPauseActivity() {
+
         releaseTimers();
     }
 
@@ -141,7 +143,7 @@ public class WandCopingSkillProcess {
         RotateAnimation rot = new RotateAnimation(45, 0,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
                 1.0f);
-        rot.setStartOffset(50);
+        //rot.setStartOffset(50);
         rot.setDuration(TEMPO);
         rot.setRepeatCount(repCount);
         rot.setRepeatMode(2);
@@ -152,7 +154,7 @@ public class WandCopingSkillProcess {
         animation.setDuration(TEMPO);
         animation.setRepeatCount(repCount);
         animation.setRepeatMode(2);
-        animation.setFillAfter(true);
+        //animation.setFillAfter(true);
         wandMov.addAnimation(animation);
         wandView.startAnimation(wandMov);
     }

@@ -1,11 +1,16 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand;
 
 
+import android.Manifest;
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -14,20 +19,26 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.StaticCopingSkillTimeoutOverlay;
+import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
 
-    //private StaticCopingSkillTimeoutOverlay staticCopingSkillTimeoutOverlay;
     private boolean activityIsPaused = false;
     private WandStateHandler wandStateHandler;
     private WandCopingSkillProcess wandCopingSkillProcess;
+    private boolean volumeLow = false;
+    private int lastVolume = 0;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO Needed?
-        //staticCopingSkillTimeoutOverlay = new StaticCopingSkillTimeoutOverlay(this);
         wandCopingSkillProcess = new WandCopingSkillProcess(this);
 
         setScreen();
@@ -53,6 +64,26 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         });
 
         wandStateHandler = new WandStateHandler(this);
+        //TODO Delete
+        /*File path = this.getFilesDir();
+        File file = new File(path, "slow.txt");
+        Log.e(Constants.LOG_TAG, "Path is"+path.toString());
+        try {
+            FileOutputStream stream = new FileOutputStream(file);
+            try {
+                stream.write("text-to-write".getBytes());
+            } catch (IOException e) {
+                Log.e("Exception", "File write failed: " + e.toString());
+            } finally {
+                stream.close();
+            }
+        }catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+        */
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+
 
     }
 
@@ -62,9 +93,7 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         activityIsPaused = true;
         super.onPause();
         Log.d(Constants.LOG_TAG,"Stopping Scan...");
-        // avoid playing through after early exit
         wandStateHandler.pauseState();
-        //staticCopingSkillTimeoutOverlay.onPauseActivity();
         wandCopingSkillProcess.onPauseActivity();
     }
 
@@ -75,17 +104,7 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         super.onResume();
         wandStateHandler.initializeState();
         wandStateHandler.lookForWand();
-        //playAudio(getAudioFileForCopingSkillTitle());
-        playAudio(getAudioFileForCopingSkillTitle(), new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                if (mp == null) return;
-                if (mp.isPlaying()) {
-                    mp.stop();
-                }
-            }
-        });
-        // TODO Needed?
-        //staticCopingSkillTimeoutOverlay.onResumeActivity();
+        playAudio(getAudioFileForCopingSkillTitle());
         wandCopingSkillProcess.onResumeActivity();
         wandCopingSkillProcess.playSong();
     }
@@ -108,15 +127,38 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     }
 
     public String getAudioFileForMusic() {
-        return "etc/audio_prompts/audio_wand_music.wav";
+        return "etc/music/WandMusic.wav";
     }
 
     public void playMusic(){
-        playAudio(getAudioFileForMusic(), new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-            }
-        });
+        AudioPlayer.getInstance(getApplicationContext()).addAudioFromAssets(getAudioFileForMusic());
+    }
+
+    public void setVolumeLow() {
+        //TODO fix to set to a volume
+        //TODO is there a way to set relative to current volume? Like half round down?
+        AudioManager audioManager =
+                (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+
+        //TODO save the volume and state volume is at low
+        lastVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        if(!volumeLow) {
+            volumeLow = true;
+            int setVol = Math.max(1, lastVolume / 6);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, setVol, AudioManager.FLAG_PLAY_SOUND);
+        }
+    }
+
+    public void setVolumeHigh() {
+        //TODO fix to set to a volume
+        //TODO is there a way to get current volume before setting low and use that volume?
+        if(volumeLow) {
+            AudioManager audioManager =
+                    (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_PLAY_SOUND);
+        }
+
+        volumeLow = false;
     }
 
     /** Get the background resource for the coping skill. */
@@ -141,6 +183,18 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         TextView textView = findViewById(R.id.textViewTitle);
         textView.setText(getTextTitleResource());
         textView.setTextColor(getResources().getColor(getColorResourceForTitle()));
+    }
+
+    public void finish(){
+        wandStateHandler.pauseState();
+        // TODO set volume to original
+        if(volumeLow) {
+            AudioManager audioManager =
+                    (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_PLAY_SOUND);
+        }
+
+        super.finish();
     }
 
 }

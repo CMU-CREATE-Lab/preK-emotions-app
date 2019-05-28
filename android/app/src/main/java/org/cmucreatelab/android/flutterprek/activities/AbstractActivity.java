@@ -25,7 +25,7 @@ public abstract class AbstractActivity extends AppCompatActivity {
     public void playAudio(String filepath, MediaPlayer.OnCompletionListener listener) {
         if (filepath != null) {
             AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
-            //audioPlayer.stop();
+            audioPlayer.stop();
             audioPlayer.addAudioFromAssets(filepath, listener);
             audioPlayer.playAudio();
         } else {
