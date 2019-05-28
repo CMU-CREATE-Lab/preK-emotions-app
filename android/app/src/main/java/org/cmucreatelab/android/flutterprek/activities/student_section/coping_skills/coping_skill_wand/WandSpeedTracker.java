@@ -16,59 +16,90 @@ import java.util.Collections;
 public class WandSpeedTracker {
 
     private WandCopingSkillActivity activity;
-    private ArrayList<Integer> vals1;
-    private ArrayList<Integer> vals2;
-    private ArrayList<Integer> vals3;
-    private ArrayList<Long> time;
+    private int[] vals1;
+    private int[] vals2;
+    private int[] vals3;
+    private long[] time;
+    private int index = 0;
+    private int sgn = 0;
+    private double prevVal1 = 0.0;
+    private double prevSlope1 = 0.0;
+    private double prevVal2 = 0.0;
+    private double prevSlope2 = 0.0;
+    private double prevVal3 = 0.0;
+    private double prevSlope3 = 0.0;
+    private int window;
 
-    public WandSpeedTracker(WandCopingSkillActivity activity) {
+    public WandSpeedTracker(WandCopingSkillActivity activity, int window) {
 
         this.activity = activity;
-        vals1 = new ArrayList<>(1);
-        vals2 = new ArrayList<>(1);
-        vals3 = new ArrayList<>(1);
-        time = new ArrayList<>(1);
+        this.window = window;
+        vals1 = new int[window];
+        vals2 = new int[window];
+        vals3 = new int[window];
+        time = new long[window];
     }
 
     public void writeValsToArray(int[] vals, long curTime) {
-        vals1.add(vals[0]);
-        vals2.add(vals[1]);
-        vals3.add(vals[2]);
-        time.add(curTime);
+        vals1[index] = vals[0];
+        vals2[index] = vals[1];
+        vals3[index] = vals[2];
+        time[index] = curTime;
+        index++;
+        if (index >= window) {
+            index = 0;
+        }
+    }
+
+    public void countSigns() {
+        int signSum = 0;
+        int sum1 = 0;
+        double smooth1 = 0;
+        for(int i = 0; i < vals1.length; i++) {
+            sum1 += vals1[i];
+        }
+        smooth1 = sum1/vals1.length;
+        double slope1 = smooth1 - prevVal1;
+        if (slope1*prevSlope1 < 0) {
+            signSum++;
+        }
+        prevVal1 = smooth1;
+        prevSlope1 = slope1;
+
+        int sum2 = 0;
+        int smooth2 = 0;
+        for(int i = 0; i < vals1.length; i++) {
+            sum2 += vals1[i];
+        }
+        smooth2 = sum2/vals1.length;
+        double slope2 = smooth2 - prevVal2;
+        if (slope2*prevSlope2 < 0) {
+            signSum++;
+        }
+        prevVal2 = smooth2;
+        prevSlope2 = slope2;
+
+        int sum3 = 0;
+        int smooth3 = 0;
+        for(int i = 0; i < vals1.length; i++) {
+            sum3 += vals1[i];
+        }
+        smooth3 = sum3/vals1.length;
+        double slope3 = smooth3 - prevVal3;
+        if (slope3*prevSlope3 < 0) {
+            signSum++;
+        }
+        prevVal3 = smooth3;
+        prevSlope3 = slope3;
+
+        if(signSum >= 2) {
+            sgn++;
+        }
     }
 
     public int getSpeed() {
         int speed = -1;
-        /*
-        // Find the maximum range in the data
-        int maxRange1 = Math.abs(Collections.max(vals1) - Collections.min(vals1));
-        int maxRange2 = Math.abs(Collections.max(vals2) - Collections.min(vals2));
-        int maxRange3 = Math.abs(Collections.max(vals3) - Collections.min(vals3));
-        int avgRange = (maxRange1 + maxRange2 + maxRange3)/3;
-
-        Log.e(Constants.LOG_TAG, "Vals1: " + vals1.toString());
-        Log.e(Constants.LOG_TAG, "Vals2: " + vals2.toString());
-        Log.e(Constants.LOG_TAG, "Vals3: " + vals3.toString());
-        Log.e(Constants.LOG_TAG, "Vals1 Range: " + maxRange1);
-        Log.e(Constants.LOG_TAG, "Vals2 Range: " + maxRange2);
-        Log.e(Constants.LOG_TAG, "Vals3 Range: " + maxRange3);
-        Log.e(Constants.LOG_TAG, "Avg Range: " + avgRange);
-
-
-        if(avgRange > 500 && avgRange < 4900) {
-            // Wand moving slowly
-            speed = 1;
-        } else if(avgRange >= 4900) {
-            // Wand moving fast
-            speed = 2;
-        } else {
-            speed = 0;
-        }
-
-        writeRangeToFile(avgRange);
-
-        */
-
+/*
         Log.e(Constants.LOG_TAG, "Smoothing");
         // Smooth the data
         ArrayList<Double> smoothVals1 = movingAverage(vals1);
@@ -109,6 +140,20 @@ public class WandSpeedTracker {
         writeArraysToFile("slow_smooth.txt", lists2);
 
         resetArrays();
+*/
+
+        if(sgn <= 3 && sgn >= 1) {
+            // Moving sowly
+            speed = 1;
+        } else if (sgn > 3) {
+            // Moving fast
+            speed = 2;
+        } else {
+            speed = 0;
+        }
+
+        Log.e(Constants.LOG_TAG, "Sign count was: "+sgn);
+        sgn = 0;
 
         return speed;
     }
@@ -156,13 +201,13 @@ public class WandSpeedTracker {
         return sgns;
     }
 
-    private void resetArrays () {
+    /*private void resetArrays () {
         Log.e(Constants.LOG_TAG, "The size of the final array was "+time.size());
         time = new ArrayList<>(1);
         vals1 = new ArrayList<>(1);
         vals2 = new ArrayList<>(1);
         vals3 = new ArrayList<>(1);
-    }
+    }*/
 
     private void writeArraysToFile (String fileName, ArrayList[] lists) {
         String state = Environment.getExternalStorageState();

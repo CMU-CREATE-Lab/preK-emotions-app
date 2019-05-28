@@ -33,11 +33,13 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
     private long curTime = 0;
     private long lastPeriod = 0;
-    private int period = 2000;
+    // Number of readings for a period
+    private int period = 120;
     private WandStateHandler.State currentState = WandStateHandler.State.STOPPED;
 
-    // Delete later
     private int dataCount = 0;
+    private int periodCount = 0;
+    private int window = 3;
 
 
     private void updateDebugWindow() {
@@ -107,7 +109,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     public WandStateHandler(WandCopingSkillActivity activity) {
         this.activity = activity;
         this.bleWandScanner = new BleWandScanner(activity, this, this);
-        this.wandSpeedTracker = new WandSpeedTracker(activity);
+        this.wandSpeedTracker = new WandSpeedTracker(activity, window);
 
         // debug window
         //TODO
@@ -126,15 +128,53 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             Log.v(Constants.LOG_TAG, "onReceivedData ignored while activity is paused.");
             return;
         }
-
+/*
         if(lastPeriod == 0) { lastPeriod = System.currentTimeMillis(); }
 
         prevTime = curTime;
         curTime = System.currentTimeMillis();
+*/
+        dataCount++;
+        periodCount++;
+        Log.e(Constants.LOG_TAG, "total count: "+dataCount+", period count: "+periodCount);
+
         curVals = new int[] {Integer.parseInt(arg1), Integer.parseInt(arg2), Integer.parseInt(arg3)};
 
         wandSpeedTracker.writeValsToArray(curVals, curTime);
 
+        if(periodCount >= 120) {
+            Log.e(Constants.LOG_TAG, "Calling getSpeed()");
+            int state = -1;
+            state = wandSpeedTracker.getSpeed();
+
+            switch (state) {
+                case 2:
+                    //Fast
+                    changeState(State.FAST);
+                    break;
+                case 1:
+                    //Slow
+                    changeState(State.SLOW);
+                    break;
+                case 0:
+                    //Not moving
+                    changeState(State.STOPPED);
+                    break;
+                case -1 :
+                    break;
+                default:
+            }
+            periodCount = 0;
+            Log.e(Constants.LOG_TAG, "Returned from getSpeed()");
+        }
+
+        if (dataCount >= 5) {
+            Log.e(Constants.LOG_TAG, "Calling countSigns()");
+            wandSpeedTracker.countSigns();
+            Log.e(Constants.LOG_TAG, "Returned from countSigns()");
+        }
+
+/*
         if (Math.abs((int)(curTime - lastPeriod)) >= period) {
             Log.e(Constants.LOG_TAG, "Calling getSpeed function");
 
@@ -162,6 +202,9 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             }
         }
         dataCount++;
+*/
+
+        Log.e(Constants.LOG_TAG, "Done.");
 
         if (SHOW_DEBUG_WINDOW) {
             String reformedData = arg1+","+arg2+","+arg3;
