@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
@@ -33,6 +34,9 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     private WandCopingSkillProcess wandCopingSkillProcess;
     private boolean volumeLow = false;
     private int lastVolume = 0;
+    private int delay = 500;
+    private Thread t;
+    private static volatile boolean running;
 
 
 
@@ -44,18 +48,6 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         setScreen();
         wandCopingSkillProcess.startWandMoving();
 
-        // TODO test taking this out and seeing if just hide overlay does the right thing?
-        /*findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                wandStateHandler.initializeState();
-                findViewById(R.id.activityBackground).setVisibility(View.VISIBLE);
-                findViewById(R.id.overlayYesNo).setVisibility(View.INVISIBLE);
-                //staticCopingSkillTimeoutOverlay.onResumeActivity();
-                // TODO make this the right call
-                wandCopingSkillProcess.onResumeActivity();
-            }
-        });*/
         findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,49 +56,56 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         });
 
         wandStateHandler = new WandStateHandler(this);
-        //TODO Delete
-        /*File path = this.getFilesDir();
-        File file = new File(path, "slow.txt");
-        Log.e(Constants.LOG_TAG, "Path is"+path.toString());
-        try {
-            FileOutputStream stream = new FileOutputStream(file);
-            try {
-                stream.write("text-to-write".getBytes());
-            } catch (IOException e) {
-                Log.e("Exception", "File write failed: " + e.toString());
-            } finally {
-                stream.close();
-            }
-        }catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-        */
+
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
 
+        running = true;
 
+        t = new Thread() {
+            @Override
+            public void run() {
+                while (running) {
+                    try {
+                        Thread.sleep(delay);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                wandStateHandler.update();
+                            }
+                        });
+                        if(Thread.interrupted()) {
+                            return;
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        t.start();
     }
 
 
     @Override
     protected void onPause() {
         activityIsPaused = true;
-        super.onPause();
         Log.d(Constants.LOG_TAG,"Stopping Scan...");
         wandStateHandler.pauseState();
         wandCopingSkillProcess.onPauseActivity();
+        super.onPause();
     }
 
 
     @Override
     protected void onResume() {
         activityIsPaused = false;
-        super.onResume();
         wandStateHandler.initializeState();
         wandStateHandler.lookForWand();
         playAudio(getAudioFileForCopingSkillTitle());
         wandCopingSkillProcess.onResumeActivity();
         wandCopingSkillProcess.playSong();
+        super.onResume();
     }
 
 
@@ -135,14 +134,11 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     }
 
     public void setVolumeLow() {
-        //TODO fix to set to a volume
-        //TODO is there a way to set relative to current volume? Like half round down?
         AudioManager audioManager =
                 (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
-        //TODO save the volume and state volume is at low
-        lastVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         if(!volumeLow) {
+            lastVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
             volumeLow = true;
             int setVol = Math.max(1, lastVolume / 6);
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, setVol, AudioManager.FLAG_PLAY_SOUND);
@@ -150,8 +146,6 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     }
 
     public void setVolumeHigh() {
-        //TODO fix to set to a volume
-        //TODO is there a way to get current volume before setting low and use that volume?
         if(volumeLow) {
             AudioManager audioManager =
                     (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -194,7 +188,9 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_PLAY_SOUND);
         }
 
+        t.interrupt();
+        running = false;
+
         super.finish();
     }
-
 }

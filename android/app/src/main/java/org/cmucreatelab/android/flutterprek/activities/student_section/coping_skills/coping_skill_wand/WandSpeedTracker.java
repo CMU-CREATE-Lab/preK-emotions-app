@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class WandSpeedTracker {
 
@@ -99,53 +98,11 @@ public class WandSpeedTracker {
 
     public int getSpeed() {
         int speed = -1;
-/*
-        Log.e(Constants.LOG_TAG, "Smoothing");
-        // Smooth the data
-        ArrayList<Double> smoothVals1 = movingAverage(vals1);
-        ArrayList<Double> smoothVals2 = movingAverage(vals2);
-        ArrayList<Double> smoothVals3 = movingAverage(vals3);
 
-        Log.e(Constants.LOG_TAG, "Counting Signs");
-        // Count the number of sign changes in each of the values
-        int sgn1 = signChanges(smoothVals1);
-        int sgn2 = signChanges(smoothVals1);
-        int sgn3 = signChanges(smoothVals1);
-
-        int sgn = (sgn1 + sgn2 + sgn3)/3;
-
-        Log.e(Constants.LOG_TAG, "Vals1: " + smoothVals1.toString());
-        Log.e(Constants.LOG_TAG, "Vals2: " + smoothVals2.toString());
-        Log.e(Constants.LOG_TAG, "Vals3: " + smoothVals3.toString());
-        Log.e(Constants.LOG_TAG, "Vals1 Sign Count: " + sgn1);
-        Log.e(Constants.LOG_TAG, "Vals2 Sign Count: " + sgn2);
-        Log.e(Constants.LOG_TAG, "Vals3 Sign Count: " + sgn3);
-        Log.e(Constants.LOG_TAG, "Avg Sign Count: " + sgn);
-
-        if(sgn <= 3 && sgn >= 1) {
+        if(sgn <= 5 && sgn >= 1) {
             // Moving sowly
             speed = 1;
-        } else if (sgn > 3) {
-            // Moving fast
-            speed = 2;
-        } else {
-            speed = 0;
-        }
-
-
-        ArrayList[] lists = {vals1, vals2, vals3, time};
-        writeArraysToFile("slow.txt", lists);
-
-        ArrayList[] lists2 = {smoothVals1, smoothVals2, smoothVals3, time};
-        writeArraysToFile("slow_smooth.txt", lists2);
-
-        resetArrays();
-*/
-
-        if(sgn <= 3 && sgn >= 1) {
-            // Moving sowly
-            speed = 1;
-        } else if (sgn > 3) {
+        } else if (sgn > 5) {
             // Moving fast
             speed = 2;
         } else {
@@ -157,57 +114,6 @@ public class WandSpeedTracker {
 
         return speed;
     }
-
-    private ArrayList<Double> movingAverage (ArrayList<Integer> data) {
-        int n = data.size();
-        ArrayList<Double> smooth = new ArrayList<>(n);
-
-        Log.e(Constants.LOG_TAG, "Made Array");
-
-        double average;
-        int count;
-        for (int i = 0; i < n; i++) {
-            average = 0;
-            count = 0;
-            for(int j = i-3; j < i+3; j++) {
-                if(j >= 0 && j < n) {
-                    average += (double) data.get(j);
-                    count++;
-                }
-            }
-            average = average/count;
-            smooth.set(i, average);
-        }
-
-        Log.e(Constants.LOG_TAG, "finished for");
-
-        return smooth;
-    }
-
-    private int signChanges(ArrayList<Double> data) {
-        int sgns = 0;
-        double prev = data.get(0);
-        double prevSlope = 0.0;
-
-        for(int i = 0; i < data.size(); i++) {
-            double slope = data.get(i) - prev;
-            if (slope * prevSlope < 0) {
-                sgns++;
-            }
-            prevSlope = slope;
-            prev = data.get(i);
-        }
-
-        return sgns;
-    }
-
-    /*private void resetArrays () {
-        Log.e(Constants.LOG_TAG, "The size of the final array was "+time.size());
-        time = new ArrayList<>(1);
-        vals1 = new ArrayList<>(1);
-        vals2 = new ArrayList<>(1);
-        vals3 = new ArrayList<>(1);
-    }*/
 
     private void writeArraysToFile (String fileName, ArrayList[] lists) {
         String state = Environment.getExternalStorageState();
@@ -279,10 +185,5 @@ public class WandSpeedTracker {
                 Log.e("Exception", "File write failed: " + e.toString());
             }
         }
-    }
-
-    private double[] fit_sine (double[] sample) {
-        double [] ans = {0.0};
-        return ans;
     }
 }

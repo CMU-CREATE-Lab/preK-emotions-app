@@ -42,6 +42,7 @@ public class WandCopingSkillProcess {
         overlayIsDisplayed = true;
         wandCopingSkillActivity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
         timerToExitFromOverlay.startTimer();
+        //TODO stop wand and reset it on the screen
     }
 
     private void hideOverlay() {
@@ -126,6 +127,7 @@ public class WandCopingSkillProcess {
         //Log.e("Width", "" + width);
 
         //TODO make this read from the actual view?
+        //TODO fix bug that happens after reset
         handWidth = 303;
 
         //Log.e("Hand Width", "" + handWidth);
