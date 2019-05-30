@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity;
@@ -10,10 +11,12 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.choose_em
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionAndTalkAboutItActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_rejoin_friends.RejoinFriendsActivity;
+import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
+import org.cmucreatelab.android.flutterprek.database.models.session.Session;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.ArrayList;
@@ -31,12 +34,14 @@ public class SessionTracker {
     public static final boolean promptHeartbeatForCheckin = false;
     public static final boolean promptDisplayEmotionForCheckIn = true;
 
+    private final Session roomSession;
     private final SessionMode sessionMode;
     private final Date startedAt;
     private final Student student;
     private final boolean audioIsDisabled;
     private final ArrayList<SelectedEmotion> selectedEmotions = new ArrayList<>();
     private final ItineraryItemToIntentMapper itineraryItemToIntentMapper = new ItineraryItemToIntentMapper(this);
+    public final Context appContext;
 
     private boolean emotionPromptDisplayed = false, isFinished = false;
     private Date finishedAt;
@@ -96,22 +101,46 @@ public class SessionTracker {
     }
 
 
-    public SessionTracker(StudentWithCustomizations student) {
-        this(new Date(), student, SessionMode.NORMAL);
+    private void insertSessionModel() {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                AppDatabase.getInstance(appContext).sessionDAO().insert(roomSession);
+            }
+        });
     }
 
 
-    public SessionTracker(StudentWithCustomizations student, SessionMode sessionMode) {
-        this(new Date(), student, sessionMode);
+    private void updateSessionModel() {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                AppDatabase.getInstance(appContext).sessionDAO().update(roomSession);
+            }
+        });
     }
 
 
-    public SessionTracker(Date startedAt, StudentWithCustomizations student, SessionMode sessionMode) {
+    public SessionTracker(Context appContext, StudentWithCustomizations student) {
+        this(appContext, new Date(), student, SessionMode.NORMAL);
+    }
+
+
+    public SessionTracker(Context appContext, StudentWithCustomizations student, SessionMode sessionMode) {
+        this(appContext, new Date(), student, sessionMode);
+    }
+
+
+    public SessionTracker(Context appContext, Date startedAt, StudentWithCustomizations student, SessionMode sessionMode) {
         this.startedAt = startedAt;
         this.student = student.student;
         // TODO you need to make sure that coping skills/post coping skills are not available as well.
         this.audioIsDisabled = student.disableAudio();
         this.sessionMode = sessionMode;
+
+        this.appContext = appContext;
+        this.roomSession = new Session(this.student.getUuid(), this.startedAt);
+        insertSessionModel();
     }
 
 
@@ -216,6 +245,8 @@ public class SessionTracker {
 
     public void onSelectedEmotion(AbstractActivity currentActivity, Emotion emotion, List<ItineraryItem> itineraryItems) {
         selectedEmotions.add(new SelectedEmotion(emotion, itineraryItems));
+        roomSession.setEmotionUuid(emotion.getUuid());
+        updateSessionModel();
     }
 
 
@@ -236,6 +267,8 @@ public class SessionTracker {
         if (!isFinished) {
             isFinished = true;
             finishedAt = new Date();
+            roomSession.setEndedAt(finishedAt);
+            updateSessionModel();
             return true;
         }
         return false;

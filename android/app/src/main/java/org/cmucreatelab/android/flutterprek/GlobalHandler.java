@@ -60,7 +60,7 @@ public class GlobalHandler {
             Log.w(Constants.LOG_TAG, "call to startNewSession while another session is active.");
         }
         String sessionMode = studentSectionNavigationHandler.classroomSessionMode;
-        sessionTracker = (sessionMode != null && sessionMode.equals("checkIn")) ? new SessionTracker(student, SessionTracker.SessionMode.CHECK_IN) : new SessionTracker(student);
+        sessionTracker = (sessionMode != null && sessionMode.equals("checkIn")) ? new SessionTracker(appContext, student, SessionTracker.SessionMode.CHECK_IN) : new SessionTracker(appContext, student);
     }
 
 
