@@ -16,6 +16,7 @@ import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomiza
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
+import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.SessionCopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.session.Session;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
@@ -116,6 +117,16 @@ public class SessionTracker {
             @Override
             public void run() {
                 AppDatabase.getInstance(appContext).sessionDAO().update(roomSession);
+            }
+        });
+    }
+
+
+    private void insertSessionCopingSkillModel(final SessionCopingSkill sessionCopingSkill) {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                AppDatabase.getInstance(appContext).intermediateTablesDAO().insert(sessionCopingSkill);
             }
         });
     }
@@ -254,6 +265,7 @@ public class SessionTracker {
         if (selectedEmotions.size() > 0) {
             SelectedEmotion selectedEmotion = selectedEmotions.get(selectedEmotions.size() - 1);
             selectedEmotion.selectedCopingSkills.add(new SelectedCopingSkill(copingSkill, itineraryItems));
+            insertSessionCopingSkillModel(new SessionCopingSkill(roomSession.getUuid(), copingSkill.getUuid(), new Date()));
         }
     }
 
