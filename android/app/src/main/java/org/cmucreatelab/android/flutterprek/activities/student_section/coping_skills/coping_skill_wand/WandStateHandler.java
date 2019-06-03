@@ -155,7 +155,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         }
 
         if(periodCount >= period) {
-            Log.e(Constants.LOG_TAG, "Calling getSpeed()");
+            //Log.e(Constants.LOG_TAG, "Calling getSpeed()");
             int state = -1;
             state = wandSpeedTracker.getSpeed();
 
@@ -177,7 +177,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
                 default:
             }
             periodCount = 0;
-            Log.e(Constants.LOG_TAG, "Returned from getSpeed()");
+            //Log.e(Constants.LOG_TAG, "Returned from getSpeed()");
         }
 
     }

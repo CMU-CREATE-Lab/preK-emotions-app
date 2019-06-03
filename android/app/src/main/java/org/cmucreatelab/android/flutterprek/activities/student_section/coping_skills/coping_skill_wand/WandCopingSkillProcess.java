@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand;
 
 import android.graphics.Point;
+import android.media.AudioFormat;
 import android.support.constraint.Guideline;
 import android.util.Log;
 import android.view.Display;
@@ -15,9 +16,11 @@ import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 
+import java.io.File;
+
 public class WandCopingSkillProcess {
 
-    private static final long SONG_DURATION = 120000;
+    private static final long SONG_DURATION = 10000; //170000
     private static final long TEMPO = 1300;
     private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
     private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
@@ -32,7 +35,6 @@ public class WandCopingSkillProcess {
     }
 
     private void finishActivity() {
-        // TODO change to stopped state
         releaseTimers();
         wandCopingSkillActivity.finish();
     }
@@ -41,8 +43,9 @@ public class WandCopingSkillProcess {
         timerToDisplayOverlay.stopTimer();
         overlayIsDisplayed = true;
         wandCopingSkillActivity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
+        stopWandMoving();
+        stopSong();
         timerToExitFromOverlay.startTimer();
-        //TODO stop wand and reset it on the screen
     }
 
     private void hideOverlay() {
@@ -60,7 +63,7 @@ public class WandCopingSkillProcess {
         finishActivity();
     }
 
-    public WandCopingSkillProcess(WandCopingSkillActivity wandCopingSkillActivity) {
+    public WandCopingSkillProcess(final WandCopingSkillActivity wandCopingSkillActivity) {
         this.wandCopingSkillActivity = wandCopingSkillActivity;
 
         timerToDisplayOverlay = new BackgroundTimer(SONG_DURATION, new BackgroundTimer.TimeExpireListener() {
@@ -82,8 +85,9 @@ public class WandCopingSkillProcess {
             @Override
             public void onClick(View v) {
                 // TODO Fix this so it starts the activity over again
-                hideOverlay();
+                wandCopingSkillActivity.setScreen();
                 playSong();
+                hideOverlay();
                 startWandMoving();
             }
         });
@@ -118,25 +122,16 @@ public class WandCopingSkillProcess {
 
     public void startWandMoving(){
         // TODO clean up
-        Guideline rightGuideline = wandCopingSkillActivity.findViewById(R.id.rightGuideline);
-        float xStart = rightGuideline.getX();
         Display display = wandCopingSkillActivity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        //Log.e("Width", "" + width);
 
         //TODO make this read from the actual view?
-        //TODO fix bug that happens after reset
         handWidth = 303;
 
         //Log.e("Hand Width", "" + handWidth);
-        float xLimit = ((float)width)*((float)0.15);
         float xDist = ((float)width)*((float)0.7) - handWidth;
-        /*Log.e(Constants.LOG_TAG, "startWandMoving - x Limit is: " + xLimit);
-        Log.e(Constants.LOG_TAG, "startWandMoving - x Start is: " + xStart);
-        Log.e(Constants.LOG_TAG, "startWandMoving - x Distance is: " + xDist);
-        */
         ImageView wandView = wandCopingSkillActivity.findViewById(R.id.imageViewWandHand);
 
         AnimationSet wandMov = new AnimationSet(true);
@@ -145,29 +140,34 @@ public class WandCopingSkillProcess {
         RotateAnimation rot = new RotateAnimation(45, 0,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
                 1.0f);
-        //rot.setStartOffset(50);
         rot.setDuration(TEMPO);
         rot.setRepeatCount(repCount);
         rot.setRepeatMode(2);
         wandMov.addAnimation(rot);
 
-        TranslateAnimation animation = new TranslateAnimation(xStart, -xDist, 0.0f, 0.0f);
-        //TranslateAnimation animation = new TranslateAnimation(xStart, 0.0f, 0.0f, 0.0f);
+        TranslateAnimation animation = new TranslateAnimation(0.0f, -xDist, 0.0f, 0.0f);
         animation.setDuration(TEMPO);
         animation.setRepeatCount(repCount);
         animation.setRepeatMode(2);
-        //animation.setFillAfter(true);
         wandMov.addAnimation(animation);
         wandView.startAnimation(wandMov);
     }
 
+    public void stopWandMoving () {
+        ImageView wandView = wandCopingSkillActivity.findViewById(R.id.imageViewWandHand);
+        wandView.clearAnimation();
+    }
+
     public void playSong(){
         // Play the song
-        Log.e(Constants.LOG_TAG, "Attempting to play audio");
         wandCopingSkillActivity.playMusic();
-        //wandCopingSkillActivity.playAudio(wandCopingSkillActivity.getAudioFileForMusic());
         // Start a timer
         timerToDisplayOverlay.startTimer();
+    }
+
+    public void stopSong() {
+        wandCopingSkillActivity.stopMusic();
+        timerToDisplayOverlay.stopTimer();
     }
 
 }

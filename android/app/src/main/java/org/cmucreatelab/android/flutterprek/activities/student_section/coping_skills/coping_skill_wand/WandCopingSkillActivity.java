@@ -131,6 +131,11 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
 
     public void playMusic(){
         AudioPlayer.getInstance(getApplicationContext()).addAudioFromAssets(getAudioFileForMusic());
+        AudioPlayer.getInstance(getApplicationContext()).playAudio();
+    }
+
+    public void stopMusic () {
+        AudioPlayer.getInstance(getApplicationContext()).stop();
     }
 
     public void setVolumeLow() {

@@ -109,7 +109,7 @@ public class WandSpeedTracker {
             speed = 0;
         }
 
-        Log.e(Constants.LOG_TAG, "Sign count was: "+sgn);
+        //Log.e(Constants.LOG_TAG, "Sign count was: "+sgn);
         sgn = 0;
 
         return speed;
