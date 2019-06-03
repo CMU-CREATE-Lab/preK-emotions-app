@@ -7,14 +7,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.DebugCorner;
 import org.cmucreatelab.android.flutterprek.activities.adapters.ClassroomWithCustomizationsIndexAdapter;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.LoginActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.ClassroomWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
@@ -75,6 +78,18 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
     @Override
     public int getResourceIdForActivityLayout() {
         return R.layout._student_section__activity_choose_classroom;
+    }
+
+
+    @Override
+    public void onClickImageStudent() {
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
+
+    @Override
+    public void updateImageStudent(AppCompatActivity activity) {
+        ((ImageView)findViewById(R.id.imageStudent)).setBackgroundResource(R.drawable.ic_mindfulnest_header_student_section);
     }
 
 }

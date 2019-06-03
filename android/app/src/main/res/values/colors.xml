@@ -2,7 +2,7 @@
 <resources>
     <!-- colors for app theme -->
     <color name="colorPrimary">#5bddc5</color>
-    <color name="colorPrimaryDark">#5bddc5</color>
+    <color name="colorPrimaryDark">#4d9185</color>
     <color name="colorAccent">#5bddc5</color>
     <!-- drawer fragment -->
     <color name="colorTextDrawerTitle">@color/colorGray</color>
@@ -22,5 +22,6 @@
     <color name="colorDarkGray">#2d2d2d</color>
     <color name="colorBlack">#000</color>
     <color name="colorTransparent">#00ffffff</color>
+    <color name="colorError">#ff0000</color>
     <color name="colorNone"></color>
 </resources>

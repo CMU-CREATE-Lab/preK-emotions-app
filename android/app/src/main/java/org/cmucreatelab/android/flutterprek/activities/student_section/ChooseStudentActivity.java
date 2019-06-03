@@ -16,6 +16,7 @@ import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.DebugCorner;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentWithCustomizationsIndexAdapter;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.LoginActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
@@ -79,8 +80,7 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
 
     @Override
     public void onClickImageStudent() {
-        // TODO go to teacher section (does nothing for now)
-
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
 
