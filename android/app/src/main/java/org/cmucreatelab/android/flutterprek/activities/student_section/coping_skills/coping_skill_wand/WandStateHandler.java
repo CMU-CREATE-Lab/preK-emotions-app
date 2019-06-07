@@ -30,7 +30,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
     private long curTime = 0;
     // Number of readings for a period
-    private int period = 120;
+    private int period = 70; //120 // 60 //100
     private WandStateHandler.State currentState = WandStateHandler.State.STOPPED;
 
     private int dataCount = 0;
@@ -121,9 +121,6 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             return;
         }
 
-        prevTime = curTime;
-        curTime = System.currentTimeMillis();
-
         dataCount++;
         periodCount++;
         //Log.e(Constants.LOG_TAG, "total count: "+dataCount+", period count: "+periodCount);
@@ -137,8 +134,10 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             wandSpeedTracker.countSigns();
             //Log.e(Constants.LOG_TAG, "Returned from countSigns()");
         }
-
         //Log.e(Constants.LOG_TAG, "Done.");
+
+        prevTime = curTime;
+        curTime = System.currentTimeMillis();
 
         if (SHOW_DEBUG_WINDOW) {
             String reformedData = arg1+","+arg2+","+arg3;
@@ -150,34 +149,35 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     public void update() {
         long tempTime = System.currentTimeMillis();
 
-        if(tempTime - prevTime > 1500) {
+        Log.e(Constants.LOG_TAG, "temp time - prev time: " + (tempTime-prevTime));
+        if(tempTime - prevTime > 1000) {
             changeState(State.STOPPED);
-        }
+        } else {
+            if (periodCount >= period) {
+                //Log.e(Constants.LOG_TAG, "Calling getSpeed()");
+                int state = -1;
+                state = wandSpeedTracker.getSpeed();
 
-        if(periodCount >= period) {
-            //Log.e(Constants.LOG_TAG, "Calling getSpeed()");
-            int state = -1;
-            state = wandSpeedTracker.getSpeed();
-
-            switch (state) {
-                case 2:
-                    //Fast
-                    changeState(State.FAST);
-                    break;
-                case 1:
-                    //Slow
-                    changeState(State.SLOW);
-                    break;
-                case 0:
-                    //Not moving
-                    changeState(State.STOPPED);
-                    break;
-                case -1 :
-                    break;
-                default:
+                switch (state) {
+                    case 2:
+                        //Fast
+                        changeState(State.FAST);
+                        break;
+                    case 1:
+                        //Slow
+                        changeState(State.SLOW);
+                        break;
+                    case 0:
+                        //Not moving
+                        changeState(State.STOPPED);
+                        break;
+                    case -1:
+                        break;
+                    default:
+                }
+                periodCount = 0;
+                //Log.e(Constants.LOG_TAG, "Returned from getSpeed()");
             }
-            periodCount = 0;
-            //Log.e(Constants.LOG_TAG, "Returned from getSpeed()");
         }
 
     }

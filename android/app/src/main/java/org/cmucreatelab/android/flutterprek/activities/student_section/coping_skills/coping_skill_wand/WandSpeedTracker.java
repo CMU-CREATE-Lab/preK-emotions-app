@@ -99,17 +99,20 @@ public class WandSpeedTracker {
     public int getSpeed() {
         int speed = -1;
 
-        if(sgn <= 5 && sgn >= 1) {
-            // Moving sowly
+        //TODO is the zero a good cutoff
+        if(sgn <= 3 && sgn >= 0) {
+            // Moving slowly
             speed = 1;
-        } else if (sgn > 5) {
+        } else if (sgn > 2) {
             // Moving fast
             speed = 2;
         } else {
             speed = 0;
         }
 
-        //Log.e(Constants.LOG_TAG, "Sign count was: "+sgn);
+        Log.e(Constants.LOG_TAG, "Sign count was: "+sgn);
+        int temp = sgn;
+        writeRangeToFile(temp);
         sgn = 0;
 
         return speed;
@@ -163,7 +166,7 @@ public class WandSpeedTracker {
             // Create the folder.
             File folder = new File(path);
             // Create the file.
-            File file = new File(folder, "range.txt");
+            File file = new File(folder, "signs.txt");
 
             try
             {
