@@ -1,9 +1,11 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.R;
 
@@ -48,7 +50,11 @@ public class LoginActivity extends TeacherSectionActivityWithHeader {
     public void onClickButtonLogin() {
         if (checkPassword()) {
             findViewById(R.id.textViewErrorPrompt).setVisibility(View.INVISIBLE);
-            // TODO proceed to teacher section
+            // clear the text field
+            ((EditText)findViewById(R.id.editTextPassword)).setText("");
+            // proceed to teacher section
+            startActivity(new Intent(this, SessionIndexActivity.class));
+            finish();
         } else {
             findViewById(R.id.textViewErrorPrompt).setVisibility(View.VISIBLE);
         }
