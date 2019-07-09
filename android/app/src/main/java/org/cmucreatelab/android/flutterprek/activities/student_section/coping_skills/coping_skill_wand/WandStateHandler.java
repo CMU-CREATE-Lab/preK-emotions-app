@@ -35,7 +35,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
     private int dataCount = 0;
     private int periodCount = 0;
-    private int window = 3;
+    private int window = 5;
 
 
     private void updateDebugWindow() {
@@ -73,6 +73,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     private void updateWand(BleWand bleWand) {
         this.bleWand = bleWand;
         this.bleWand.notificationCallback = this;
+        this.bleWand.notificationCallback2 = this;
     }
 
 
@@ -115,7 +116,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     }
 
     @Override
-    public void onReceivedData(String arg1, String arg2, String arg3) {
+    public void onReceivedData(String arg1, String arg2, String arg3, String type) {
         if (activity.isPaused()) {
             Log.v(Constants.LOG_TAG, "onReceivedData ignored while activity is paused.");
             return;
@@ -127,7 +128,18 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
         curVals = new int[] {Integer.parseInt(arg1), Integer.parseInt(arg2), Integer.parseInt(arg3)};
 
-        wandSpeedTracker.writeValsToArray(curVals, curTime);
+        prevTime = curTime;
+        curTime = System.currentTimeMillis();
+
+        //Log.e(Constants.LOG_TAG, "Type is: "+type);
+        if (type.equalsIgnoreCase("accel")) {
+            //Log.e(Constants.LOG_TAG, "Type recorded: "+type);
+            wandSpeedTracker.writeValsToArray(curVals, curTime);
+        }
+        if (type.equalsIgnoreCase("gyro")) {
+            //Log.e(Constants.LOG_TAG, "Type recorded: "+type);
+            wandSpeedTracker.writeGyroToArray(curVals, curTime);
+        }
 
         if (dataCount >= window) {
             //Log.e(Constants.LOG_TAG, "Calling countSigns()");
@@ -135,9 +147,6 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             //Log.e(Constants.LOG_TAG, "Returned from countSigns()");
         }
         //Log.e(Constants.LOG_TAG, "Done.");
-
-        prevTime = curTime;
-        curTime = System.currentTimeMillis();
 
         if (SHOW_DEBUG_WINDOW) {
             String reformedData = arg1+","+arg2+","+arg3;

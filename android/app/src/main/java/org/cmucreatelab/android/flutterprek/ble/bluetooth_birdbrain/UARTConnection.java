@@ -43,10 +43,13 @@ public class UARTConnection extends BluetoothGattCallback {
     private BluetoothGatt btGatt;
     private BluetoothGattCharacteristic tx;
     private BluetoothGattCharacteristic rx;
+    private BluetoothGattCharacteristic rx2;
     // NOTE: issues with writing if descriptor is not written to first.
     private boolean onDescriptorWriteForNotify = false;
 
     private BluetoothDevice bluetoothDevice;
+
+    private List<BluetoothGattCharacteristic> rxChars = new ArrayList<>();
 
     /**
      * Initializes a UARTConnection. This needs to know the context the Bluetooth connection is
@@ -196,6 +199,21 @@ public class UARTConnection extends BluetoothGattCallback {
             Log.e(TAG, "Unable to set descriptor");
             return false;
         }
+
+        /*
+        // Enable RX notification
+        if (!btGatt.setCharacteristicNotification(rx2, true)) {
+            Log.e(TAG, "Unable to set characteristic notification");
+            return false;
+        }
+        BluetoothGattDescriptor descriptor2 = rx2.getDescriptor(rxConfigUUID);
+        descriptor2.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+        if (!btGatt.writeDescriptor(descriptor2)) {
+            Log.e(TAG, "Unable to set descriptor");
+            return false;
+        }
+        */
+
         Log.d(TAG, "Successfully established connection to " + device);
         return true;
 
@@ -223,9 +241,33 @@ public class UARTConnection extends BluetoothGattCallback {
         if (status == BluetoothGatt.GATT_SUCCESS) {
             tx = gatt.getService(uartUUID).getCharacteristic(txUUID);
             rx = gatt.getService(uartUUID).getCharacteristic(rxUUID);
+            //rx2 = gatt.getService(uartUUID).getCharacteristic(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb"));
+
+            rxChars.add(rx);
+            rxChars.add(rx2);
+
+            //requestCharacteristics(gatt);
+
             // Notify that the setup process is completed
             gatt.requestConnectionPriority(BluetoothGatt.CONNECTION_PRIORITY_BALANCED);
             doneLatch.countDown();
+        }
+    }
+
+    public void requestCharacteristics(BluetoothGatt gatt) {
+        gatt.readCharacteristic(rxChars.get(rxChars.size()-1));
+    }
+
+    @Override
+    public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+        if (status == 0) {
+            rxChars.remove(rxChars.get(rxChars.size() - 1));
+
+            if (rxChars.size() > 0) {
+                requestCharacteristics(gatt);
+            } else {
+                gatt.disconnect();
+            }
         }
     }
 

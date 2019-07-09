@@ -18,8 +18,13 @@ public class WandSpeedTracker {
     private int[] vals1;
     private int[] vals2;
     private int[] vals3;
+    private int[] gyro1;
+    private int[] gyro2;
+    private int[] gyro3;
     private long[] time;
+    private long[] gyro_time;
     private int index = 0;
+    private int gyro_index = 0;
     private int sgn = 0;
     private double prevVal1 = 0.0;
     private double prevSlope1 = 0.0;
@@ -28,6 +33,7 @@ public class WandSpeedTracker {
     private double prevVal3 = 0.0;
     private double prevSlope3 = 0.0;
     private int window;
+    int fileNumber;
 
     public WandSpeedTracker(WandCopingSkillActivity activity, int window) {
 
@@ -37,6 +43,13 @@ public class WandSpeedTracker {
         vals2 = new int[window];
         vals3 = new int[window];
         time = new long[window];
+        gyro1 = new int[window];
+        gyro2 = new int[window];
+        gyro3 = new int[window];
+        gyro_time = new long[window];
+        time = new long[window];
+        Constants.fileStart++;
+        fileNumber = Constants.fileStart;
     }
 
     public void writeValsToArray(int[] vals, long curTime) {
@@ -47,10 +60,38 @@ public class WandSpeedTracker {
         index++;
         if (index >= window) {
             index = 0;
+            String fileName = "testVals" + fileNumber + ".txt";
+            ArrayList arrays = new ArrayList();
+            arrays.add(vals1);
+            arrays.add(vals2);
+            arrays.add(vals3);
+            arrays.add(time);
+            writeArraysToFile(fileName, arrays);
+        }
+    }
+
+    public void writeGyroToArray(int[] vals, long curTime) {
+        gyro1[gyro_index] = vals[0];
+        gyro2[gyro_index] = vals[1];
+        gyro3[gyro_index] = vals[2];
+        gyro_time[gyro_index] = curTime;
+        gyro_index++;
+        if (gyro_index >= window) {
+            gyro_index = 0;
+            String fileName = "gyroVals" + fileNumber + ".txt";
+            ArrayList arrays = new ArrayList();
+            arrays.add(gyro1);
+            arrays.add(gyro2);
+            arrays.add(gyro3);
+            arrays.add(gyro_time);
+            Log.e(Constants.LOG_TAG, "Writting gyro arrays to file");
+            writeArraysToFile(fileName, arrays);
         }
     }
 
     public void countSigns() {
+        //TODO try thresholdng the change in slope so it doesn't register if it's too small
+
         int signSum = 0;
         int sum1 = 0;
         double smooth1 = 0;
@@ -118,14 +159,14 @@ public class WandSpeedTracker {
         return speed;
     }
 
-    private void writeArraysToFile (String fileName, ArrayList[] lists) {
+    private void writeArraysToFile (String fileName, ArrayList lists) {
         String state = Environment.getExternalStorageState();
         if (!Environment.MEDIA_MOUNTED.equals(state)) {
             return;
         } else {
             // Is writable
-            String path = activity.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).toString() + File.separator  + "Wand";
-            Log.e(Constants.LOG_TAG, path);
+            String path = activity.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).toString(); // + File.separator  + "Wand";
+            //Log.e(Constants.LOG_TAG, path);
             // Create the folder.
             File folder = new File(path);
             // Create the file.
@@ -140,8 +181,12 @@ public class WandSpeedTracker {
                 FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
                 BufferedWriter bw = new BufferedWriter(fw);
                 //run through arrays and write all values
-                for (int i = 0; i < lists[0].size(); i++) {
-                    bw.write(lists[0].get(i).toString()+","+lists[1].get(i).toString()+","+lists[2].get(i).toString()+","+lists[3].get(i).toString()+"\n");
+                int[] v1 = (int[]) lists.get(0);
+                int[] v2 = (int[]) lists.get(1);
+                int[] v3 = (int[]) lists.get(2);
+                long[] t = (long[]) lists.get(3);
+                for (int i = 0; i < v1.length; i++) {
+                    bw.write(v1[i]+","+v2[i]+","+v3[i]+","+t[i]+"\n");
                 }
 
                 bw.close();
@@ -161,12 +206,14 @@ public class WandSpeedTracker {
             return;
         } else {
             // Is writable
-            String path = activity.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).toString() + File.separator  + "Wand";
-            Log.e(Constants.LOG_TAG, path);
+            String path = activity.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).toString();// + File.separator  + "New Folder";
+            //Log.e(Constants.LOG_TAG, path);
             // Create the folder.
             File folder = new File(path);
             // Create the file.
-            File file = new File(folder, "signs.txt");
+            String filename = "signs"+fileNumber+".txt";
+            //Log.e(Constants.LOG_TAG, filename);
+            File file = new File(folder, filename);
 
             try
             {

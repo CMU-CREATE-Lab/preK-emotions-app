@@ -18,6 +18,10 @@ public class Constants {
 
     public static final UARTSettings FLOWER_UART_SETTINGS;
     public static final UARTSettings WAND_UART_SETTINGS;
+    public static final UARTSettings WAND2_UART_SETTINGS;
+
+    //TODO Delete
+    public static int fileStart = 0;
 
     static {
         FLOWER_UART_SETTINGS = new UARTSettings.Builder()
@@ -28,8 +32,17 @@ public class Constants {
                 .build();
         WAND_UART_SETTINGS = new UARTSettings.Builder()
                 .setUARTServiceUUID(UUID.fromString("BEA5760D-503D-4920-B000-101E7306B000"))
-                //.setRxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb"))
-                .setRxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fc"))
+                //Gyroscope
+                .setRxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb"))
+                //Accelerometer
+                //.setRxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fc"))
+                .setTxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fe"))
+                .setRxConfigUUID(UUID.fromString("00002902-0000-1000-8000-00805F9B34FB"))
+                .build();
+        WAND2_UART_SETTINGS = new UARTSettings.Builder()
+                .setUARTServiceUUID(UUID.fromString("BEA5760D-503D-4920-B000-101E7306B000"))
+                .setRxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb"))
+                //.setRxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fc"))
                 .setTxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fe"))
                 .setRxConfigUUID(UUID.fromString("00002902-0000-1000-8000-00805F9B34FB"))
                 .build();

@@ -43,6 +43,11 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        AudioPlayer.getInstance(getApplicationContext()).stop();
+        AudioPlayer.getInstance(getApplicationContext()).addAudioFromAssets(getAudioFileForCopingSkillTitle());
+        AudioPlayer.getInstance(getApplicationContext()).playAudio();
+
         wandCopingSkillProcess = new WandCopingSkillProcess(this);
 
         setScreen();
@@ -131,7 +136,7 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
 
     public void playMusic(){
         AudioPlayer.getInstance(getApplicationContext()).addAudioFromAssets(getAudioFileForMusic());
-        AudioPlayer.getInstance(getApplicationContext()).playAudio();
+        //AudioPlayer.getInstance(getApplicationContext()).playAudio();
     }
 
     public void stopMusic () {
