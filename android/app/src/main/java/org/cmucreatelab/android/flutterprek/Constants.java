@@ -33,9 +33,9 @@ public class Constants {
         WAND_UART_SETTINGS = new UARTSettings.Builder()
                 .setUARTServiceUUID(UUID.fromString("BEA5760D-503D-4920-B000-101E7306B000"))
                 //Gyroscope
-                .setRxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb"))
+                //.setRxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb"))
                 //Accelerometer
-                //.setRxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fc"))
+                .setRxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fc"))
                 .setTxCharacteristicUUID(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fe"))
                 .setRxConfigUUID(UUID.fromString("00002902-0000-1000-8000-00805F9B34FB"))
                 .build();
@@ -51,7 +51,7 @@ public class Constants {
     public static final DeviceConnectionHandler.HardcodedValues
             STATION_TEST = new DeviceConnectionHandler.HardcodedValues("test","FLOWER-AEF3D",null, null, null),
             STATION_TEST_V2 = new DeviceConnectionHandler.HardcodedValues("test-v2","FLOWER-30384",null, null, null),
-            STATION_1 = new DeviceConnectionHandler.HardcodedValues("heart","FLOWER-9B4BC","MNSQ1","MNWD2","MNYG1"),
+            STATION_1 = new DeviceConnectionHandler.HardcodedValues("heart","FLOWER-9B4BC","MNSQ1","MNYG3","MNYG1"),
             STATION_2 = new DeviceConnectionHandler.HardcodedValues("star","FLOWER-9C915","MNSQ2","MNWD1","MNYG2");
 
     /**

@@ -26,10 +26,14 @@ public class BleWand {
                 Log.d(Constants.LOG_TAG, "newData='" + new String(newData).trim() + "'");
                 if (notificationCallback != null) {
                     String[] params = new String(newData).trim().split(",");
+                    params[0] = params[0].substring(1);
                     if (params.length < 3) {
                         Log.e(Constants.LOG_TAG, "parsed less than three params from notification='"+new String(newData).trim()+"'; unable to call NotificationCallback.");
                         return;
                     }
+                    params[0] = params[0].replaceAll("\\s", "");
+                    params[1] = params[1].replaceAll("\\s", "");
+                    params[2] = params[2].replaceAll("\\s", "");
                     notificationCallback.onReceivedData(params[0], params[1], params[2], "accel");
                 }
             }

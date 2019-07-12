@@ -36,6 +36,7 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     private int lastVolume = 0;
     private int delay = 500;
     private Thread t;
+    private Thread t_log;
     private static volatile boolean running;
 
 
@@ -89,6 +90,29 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
             }
         };
         t.start();
+
+        t_log = new Thread() {
+            @Override
+            public void run() {
+                while(running) {
+                    try {
+                        Thread.sleep(20);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                wandStateHandler.logData();
+                            }
+                        });
+                        if(Thread.interrupted()) {
+                            return;
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        t_log.start();
     }
 
 
@@ -199,6 +223,7 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         }
 
         t.interrupt();
+        t_log.interrupt();
         running = false;
 
         super.finish();

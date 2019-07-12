@@ -37,6 +37,8 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     private int periodCount = 0;
     private int window = 5;
 
+    private String[] data;
+    private boolean log = false;
 
     private void updateDebugWindow() {
         if (SHOW_DEBUG_WINDOW) {
@@ -122,31 +124,11 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             return;
         }
 
-        dataCount++;
-        periodCount++;
-        //Log.e(Constants.LOG_TAG, "total count: "+dataCount+", period count: "+periodCount);
-
-        curVals = new int[] {Integer.parseInt(arg1), Integer.parseInt(arg2), Integer.parseInt(arg3)};
-
         prevTime = curTime;
         curTime = System.currentTimeMillis();
 
-        //Log.e(Constants.LOG_TAG, "Type is: "+type);
-        if (type.equalsIgnoreCase("accel")) {
-            //Log.e(Constants.LOG_TAG, "Type recorded: "+type);
-            wandSpeedTracker.writeValsToArray(curVals, curTime);
-        }
-        if (type.equalsIgnoreCase("gyro")) {
-            //Log.e(Constants.LOG_TAG, "Type recorded: "+type);
-            wandSpeedTracker.writeGyroToArray(curVals, curTime);
-        }
-
-        if (dataCount >= window) {
-            //Log.e(Constants.LOG_TAG, "Calling countSigns()");
-            wandSpeedTracker.countSigns();
-            //Log.e(Constants.LOG_TAG, "Returned from countSigns()");
-        }
-        //Log.e(Constants.LOG_TAG, "Done.");
+        data = new String[] {arg1, arg2, arg3, type};
+        log = true;
 
         if (SHOW_DEBUG_WINDOW) {
             String reformedData = arg1+","+arg2+","+arg3;
@@ -189,6 +171,38 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             }
         }
 
+    }
+
+    public void logData(){
+        // If the log flag is set, take the string and parse the info
+        if (log) {
+            curVals = new int[] {Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])};
+            String type = data[3];
+            //Log.e(Constants.LOG_TAG, "Type is: "+type);
+            if (type.equalsIgnoreCase("accel")) {
+                //Log.e(Constants.LOG_TAG, "Type recorded: "+type);
+                wandSpeedTracker.writeValsToArray(curVals, curTime);
+            }
+            if (type.equalsIgnoreCase("gyro")) {
+                //Log.e(Constants.LOG_TAG, "Type recorded: "+type);
+                wandSpeedTracker.writeGyroToArray(curVals, curTime);
+            }
+
+            //Log.e(Constants.LOG_TAG, "Logged data");
+
+            dataCount++;
+            periodCount++;
+
+            if (dataCount >= window) {
+                //Log.e(Constants.LOG_TAG, "Calling countSigns()");
+                wandSpeedTracker.countSigns();
+                //Log.e(Constants.LOG_TAG, "Returned from countSigns()");
+            }
+
+            //Log.e(Constants.LOG_TAG, "Counted signs");
+
+            log = false;
+        }
     }
 
     @Override
