@@ -1,6 +1,8 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section;
 
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.session.Session;
+
+import java.util.List;
 
 public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
 
@@ -16,47 +22,47 @@ public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView textView;
-        public MyViewHolder(View v) {
+    public static class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
+        public final TextView textView, textDate;
+
+        public ItemSessionRecyclerViewHolder(View v) {
             super(v);
             textView = v.findViewById(R.id.textFlutterName);
+            textDate = v.findViewById(R.id.textDate);
         }
     }
 
-    public static class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
-        private String[] mDataset;
+    public static class SessionAdapter extends RecyclerView.Adapter<ItemSessionRecyclerViewHolder> {
+        private final List<Session> sessions;
 
-        // Provide a suitable constructor (depends on the kind of dataset)
-        public MyAdapter(String[] myDataset) {
-            mDataset = myDataset;
+        public SessionAdapter(List<Session> sessions) {
+            this.sessions = sessions;
         }
 
         // Create new views (invoked by the layout manager)
         @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ItemSessionRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             // create a new view
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item_session, parent, false);
-            MyViewHolder vh = new MyViewHolder(v);
+            ItemSessionRecyclerViewHolder vh = new ItemSessionRecyclerViewHolder(v);
             return vh;
         }
 
         // Replace the contents of a view (invoked by the layout manager)
         @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
-            // - get element from your dataset at this position
-            // - replace the contents of the view with that element
-            holder.textView.setText("placeholder"+mDataset[position]);
+        public void onBindViewHolder(ItemSessionRecyclerViewHolder holder, int position) {
+            Session session = sessions.get(position);
+            String textTitle = session.getUuid();
+            String date = session.getStartedAt().toString();
+
+            holder.textView.setText(textTitle);
+            holder.textDate.setText(date);
         }
 
         // Return the size of your dataset (invoked by the layout manager)
         @Override
         public int getItemCount() {
-            return mDataset.length;
+            return sessions.size();
         }
     }
 
@@ -75,9 +81,13 @@ public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(new String[]{"1", "2"});
-        recyclerView.setAdapter(mAdapter);
+        AppDatabase.getInstance(this).sessionDAO().getAllSessions().observe(this, new Observer<List<Session>>() {
+            @Override
+            public void onChanged(@Nullable List<Session> sessions) {
+                mAdapter = new SessionAdapter(sessions);
+                recyclerView.setAdapter(mAdapter);
+            }
+        });
     }
 
 
