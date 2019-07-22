@@ -32,7 +32,7 @@ public interface SessionDAO {
     @Delete
     void delete(Session session);
 
-    @Query("SELECT * FROM sessions")
+    @Query("SELECT * FROM sessions ORDER BY started_at DESC")
     LiveData<List<Session>> getAllSessions();
 
     @Query("SELECT * FROM sessions WHERE uuid = :sessionUuid LIMIT 1")

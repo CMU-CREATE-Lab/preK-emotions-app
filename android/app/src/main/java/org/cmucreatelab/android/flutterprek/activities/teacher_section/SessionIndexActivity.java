@@ -11,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.session.Session;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;
 
@@ -23,19 +26,44 @@ public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
     private RecyclerView.LayoutManager layoutManager;
 
     public static class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
-        public final TextView textView, textDate;
+        public final TextView textView, textDate, textStudent, textEmotion;
 
         public ItemSessionRecyclerViewHolder(View v) {
             super(v);
             textView = v.findViewById(R.id.textFlutterName);
             textDate = v.findViewById(R.id.textDate);
+            textStudent = v.findViewById(R.id.textStudent);
+            textEmotion = v.findViewById(R.id.textEmotion);
+        }
+
+        public synchronized void updateWithItem(SessionAdapter.Item item) {
+            String textTitle = item.session.getUuid();
+            String date = item.session.getStartedAt().toString();
+
+            textView.setText(textTitle);
+            textDate.setText(date);
+            if (item.student != null) textStudent.setText(item.student.getName());
+            if (item.emotion != null) textEmotion.setText(item.emotion.getName());
         }
     }
 
     public static class SessionAdapter extends RecyclerView.Adapter<ItemSessionRecyclerViewHolder> {
+        private final AbstractActivity activity;
         private final List<Session> sessions;
 
-        public SessionAdapter(List<Session> sessions) {
+        public class Item {
+            public final Session session;
+            public Student student;
+            public Emotion emotion;
+
+            public Item(Session session) {
+                this.session = session;
+            }
+        }
+
+
+        public SessionAdapter(AbstractActivity activity, List<Session> sessions) {
+            this.activity = activity;
             this.sessions = sessions;
         }
 
@@ -50,13 +78,24 @@ public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
 
         // Replace the contents of a view (invoked by the layout manager)
         @Override
-        public void onBindViewHolder(ItemSessionRecyclerViewHolder holder, int position) {
-            Session session = sessions.get(position);
-            String textTitle = session.getUuid();
-            String date = session.getStartedAt().toString();
+        public void onBindViewHolder(final ItemSessionRecyclerViewHolder holder, int position) {
+            final Item item = new SessionAdapter.Item(sessions.get(position));
+            holder.updateWithItem(item);
 
-            holder.textView.setText(textTitle);
-            holder.textDate.setText(date);
+            AppDatabase.getInstance(activity.getApplicationContext()).studentDAO().getStudent(item.session.getStudentUuid()).observe(activity, new Observer<Student>() {
+                @Override
+                public void onChanged(@Nullable Student student) {
+                    item.student = student;
+                    holder.updateWithItem(item);
+                }
+            });
+            AppDatabase.getInstance(activity.getApplicationContext()).emotionDAO().getEmotion(item.session.getEmotionUuid()).observe(activity, new Observer<Emotion>() {
+                @Override
+                public void onChanged(@Nullable Emotion emotion) {
+                    item.emotion = emotion;
+                    holder.updateWithItem(item);
+                }
+            });
         }
 
         // Return the size of your dataset (invoked by the layout manager)
@@ -84,7 +123,7 @@ public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
         AppDatabase.getInstance(this).sessionDAO().getAllSessions().observe(this, new Observer<List<Session>>() {
             @Override
             public void onChanged(@Nullable List<Session> sessions) {
-                mAdapter = new SessionAdapter(sessions);
+                mAdapter = new SessionAdapter(SessionIndexActivity.this, sessions);
                 recyclerView.setAdapter(mAdapter);
             }
         });
