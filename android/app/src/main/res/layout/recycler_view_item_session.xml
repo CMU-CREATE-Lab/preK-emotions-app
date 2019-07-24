@@ -1,74 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="120dp"
     android:orientation="horizontal"
-    android:layout_marginBottom="20dp"
-    android:background="@color/colorPrimaryDark">
+    android:layout_margin="10dp"
+    android:background="@drawable/card">
+
 
     <ImageView
-        android:id="@+id/imageCheck"
-        android:layout_width="60dp"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/ic_thumb_up" />
+        android:id="@+id/imageStudent"
+        style="@style/GridViewItemThumbnail.CenterCrop"
+        android:layout_width="160dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/card"
+        app:srcCompat="@drawable/ic_placeholder" />
 
-    <TextView
-        android:id="@+id/textFlutterName"
-        android:text="placeholder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:textColor="@color/colorError" />
-
-    <TextView
-        android:id="@+id/textDate"
-        android:text="placeholder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:textColor="@color/colorBlack" />
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        >
+        android:id="@+id/layoutCenter"
+        android:layout_width="160dp"
+        android:layout_height="0dp"
+        android:layout_margin="2dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageStudent"
+        app:layout_constraintBottom_toBottomOf="parent" >
 
         <TextView
             android:id="@+id/textStudent"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:padding="2dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text=" "
+            android:text="Student"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/imageEmotion"
+            style="@style/GridViewItemThumbnail.FitCenter"
+            android:layout_width="160dp"
+            android:layout_height="0dp"
+            android:background="@drawable/card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textStudent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@null" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layoutRight"
+        android:layout_width="160dp"
+        android:layout_height="0dp"
+        android:layout_margin="2dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layoutCenter"
+        app:layout_constraintBottom_toBottomOf="parent" >
+
+        <TextView
+            android:id="@+id/textLabelCopingSkills"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Coping Skills"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textEmotion"
-            android:layout_width="wrap_content"
+            android:id="@+id/textNumberOfCopingSkills"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="2dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:text=" "
+            app:layout_constraintTop_toBottomOf="@id/textLabelCopingSkills"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="0"
             android:textSize="16sp" />
 
     </android.support.constraint.ConstraintLayout>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

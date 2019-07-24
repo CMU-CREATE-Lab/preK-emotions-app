@@ -49,6 +49,9 @@ public interface IntermediateTablesDAO {
     @Query("SELECT * FROM sessions_coping_skills")
     LiveData<List<SessionCopingSkill>> getAllSessionCopingSkills();
 
+    @Query("SELECT * FROM sessions_coping_skills WHERE session_uuid = :sessionUuid ORDER BY started_at ASC")
+    LiveData<List<SessionCopingSkill>> getSessionCopingSkillsFromSessionUuid(String sessionUuid);
+
     @Query("SELECT itinerary_items.* FROM itinerary_items " +
             "WHERE itinerary_items.owner_uuid = :emotionUuid ORDER BY sequence_id ASC")
     LiveData<List<ItineraryItem>> getItineraryItemsForEmotion(String emotionUuid);
