@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities.teacher_section;
+package org.cmucreatelab.android.flutterprek.activities.teacher_section.session_index;
 
 import android.arch.lifecycle.Observer;
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.TeacherSectionActivityWithHeader;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
@@ -26,29 +27,33 @@ import java.util.List;
 
 public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
 
-    private RecyclerView recyclerView;
+    private RecyclerView sessionsRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     public static class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
         public final TextView textStudent, textNumberOfCopingSkills;
         public final ImageView imageStudent, imageEmotion;
+        public final AbstractActivity activity;
+        private final RecyclerView sessionsCopingSkillRecyclerView;
 
-        public final Context appContext;
-
-        public ItemSessionRecyclerViewHolder(View v) {
+        public ItemSessionRecyclerViewHolder(AbstractActivity activity, View v) {
             super(v);
-            appContext = v.getContext().getApplicationContext();
+            this.activity = activity;
+            final Context appContext = activity.getApplicationContext();
 
             textStudent = v.findViewById(R.id.textStudent);
             imageEmotion = v.findViewById(R.id.imageEmotion);
             imageStudent = v.findViewById(R.id.imageStudent);
             textNumberOfCopingSkills = v.findViewById(R.id.textNumberOfCopingSkills);
+            sessionsCopingSkillRecyclerView = v.findViewById(R.id.sessionCopingSkillsRecyclerView);
+            sessionsCopingSkillRecyclerView.setLayoutManager(new LinearLayoutManager(appContext, LinearLayoutManager.HORIZONTAL, false));
         }
 
         public synchronized void updateWithItem(SessionAdapter.Item item) {
             String textTitle = item.session.getUuid();
             String date = item.session.getStartedAt().toString();
+            final Context appContext = activity.getApplicationContext();
 
             if (item.student != null) textStudent.setText(item.student.getName());
 
@@ -60,6 +65,8 @@ public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
             if (item.emotionDbFile != null) Util.setImageViewWithAsset(appContext, imageEmotion, item.emotionDbFile.getFilePath());
             if (item.sessionCopingSkillList != null) {
                 textNumberOfCopingSkills.setText(String.valueOf(item.sessionCopingSkillList.size()));
+                RecyclerView.Adapter adapter = new SessionCopingSkillAdapter(activity, item.sessionCopingSkillList);
+                sessionsCopingSkillRecyclerView.setAdapter(adapter);
             }
         }
     }
@@ -80,7 +87,6 @@ public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
             }
         }
 
-
         public SessionAdapter(AbstractActivity activity, List<Session> sessions) {
             this.activity = activity;
             this.sessions = sessions;
@@ -93,7 +99,7 @@ public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item_session, parent, false);
             // debug view
             //View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item_session_debug, parent, false);
-            ItemSessionRecyclerViewHolder vh = new ItemSessionRecyclerViewHolder(v);
+            ItemSessionRecyclerViewHolder vh = new ItemSessionRecyclerViewHolder(activity, v);
             return vh;
         }
 
@@ -159,21 +165,21 @@ public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        recyclerView = (RecyclerView) findViewById(R.id.sessionsRecyclerView);
+        sessionsRecyclerView = (RecyclerView) findViewById(R.id.sessionsRecyclerView);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
+        sessionsRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        sessionsRecyclerView.setLayoutManager(layoutManager);
 
         AppDatabase.getInstance(this).sessionDAO().getAllSessions().observe(this, new Observer<List<Session>>() {
             @Override
             public void onChanged(@Nullable List<Session> sessions) {
                 mAdapter = new SessionAdapter(SessionIndexActivity.this, sessions);
-                recyclerView.setAdapter(mAdapter);
+                sessionsRecyclerView.setAdapter(mAdapter);
             }
         });
     }

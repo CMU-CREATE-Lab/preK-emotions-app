@@ -142,7 +142,7 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".activities.teacher_section.SessionIndexActivity"
+            android:name=".activities.teacher_section.session_index.SessionIndexActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
