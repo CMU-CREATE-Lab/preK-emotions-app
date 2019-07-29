@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities.teacher_section.session_index;
+package org.cmucreatelab.android.flutterprek.activities.adapters.session_index;
 
 import android.arch.lifecycle.Observer;
 import android.content.Context;
@@ -23,18 +23,6 @@ public class SessionCopingSkillAdapter extends RecyclerView.Adapter<SessionCopin
 
     private final AbstractActivity activity;
     private final List<SessionCopingSkill> sessionCopingSkills;
-
-//    public static class Item {
-//        public final Session session;
-//        public Student student;
-//        public Emotion emotion;
-//        public DbFile studentDbFile, emotionDbFile;
-//        public List<SessionCopingSkill> sessionCopingSkillList;
-//
-//        public Item(Session session) {
-//            this.session = session;
-//        }
-//    }
 
     public static class ItemSessionCopingSkillRecyclerViewHolder extends RecyclerView.ViewHolder {
         public final Context appContext;
@@ -73,9 +61,6 @@ public class SessionCopingSkillAdapter extends RecyclerView.Adapter<SessionCopin
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final ItemSessionCopingSkillRecyclerViewHolder holder, int position) {
-//        final SessionIndexActivity.SessionAdapter.Item item = new SessionIndexActivity.SessionAdapter.Item(sessionCopingSkills.get(position));
-//        holder.updateWithItem(item);
-
         SessionCopingSkill sessionCopingSkill = sessionCopingSkills.get(position);
         // TODO there's a better way to query this with JOINs
         final AppDatabase appDatabase = AppDatabase.getInstance(activity.getApplicationContext());
