@@ -13,7 +13,7 @@ import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 
 public class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
 
-    public final TextView textStudent, textNumberOfCopingSkills;
+    public final TextView textStudent, textNumberOfCopingSkills, textDate;
     public final ImageView imageStudent, imageEmotion;
     public final AbstractActivity activity;
     private final RecyclerView sessionsCopingSkillRecyclerView;
@@ -30,6 +30,7 @@ public class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
         textNumberOfCopingSkills = v.findViewById(R.id.textNumberOfCopingSkills);
         sessionsCopingSkillRecyclerView = v.findViewById(R.id.sessionCopingSkillsRecyclerView);
         sessionsCopingSkillRecyclerView.setLayoutManager(new LinearLayoutManager(appContext, LinearLayoutManager.HORIZONTAL, false));
+        textDate = v.findViewById(R.id.textDate);
     }
 
 
@@ -51,6 +52,7 @@ public class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
             RecyclerView.Adapter adapter = new SessionCopingSkillAdapter(activity, item.sessionCopingSkillList);
             sessionsCopingSkillRecyclerView.setAdapter(adapter);
         }
+        textDate.setText(date);
     }
 
 }
