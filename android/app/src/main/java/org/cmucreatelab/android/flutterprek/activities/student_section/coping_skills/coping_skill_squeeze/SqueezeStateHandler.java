@@ -59,7 +59,6 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
                     textView.setText(displayOnUiThread);
                 }
             });
-
         }
     }
 
@@ -170,7 +169,6 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // TMP
                         if (currentState != State.END) {
                             animator.pause();
                             activity.findViewById(R.id.balloon).setRotation(0);
@@ -181,7 +179,6 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
             }
 
         }
-
     }
 
 
@@ -241,13 +238,8 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
                         }
                     }
                 }
-                //if (firstRandom == 1) {
-                //    activity.findViewById(R.id.balloon).setRotation(new Random().nextInt(10) - 5);
-                //}
             }
         });
-        // TMP
-        //animator.start();
         changeState(State.STOPPED);
     }
 
@@ -296,7 +288,6 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     public void initializeState() {
         activity.setScreen();
         changeState(State.STOPPED);
-
     }
 
 
