@@ -7,6 +7,7 @@ import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.ble.flower.BleFlower;
+import org.cmucreatelab.android.flutterprek.ble.squeeze.BleSqueeze;
 
 /**
  * Determines if a broadcasted bluetooth device is valid for the app to try connecting to.
@@ -42,6 +43,9 @@ public class DeviceConnectionHandler {
         return deviceName.startsWith("FL");
     }
 
+    private boolean validateSqueezeOnPrefix(@NonNull String deviceName) {
+        return deviceName.startsWith("MNSQ");
+    }
 
     private boolean validateFlowerHardcoded(@NonNull String deviceName) {
         if (hardcodedBleFlower == null) {
@@ -51,6 +55,13 @@ public class DeviceConnectionHandler {
         return deviceName.equals(hardcodedBleFlower);
     }
 
+    private boolean validateSqueezeHardcoded(@NonNull String deviceName) {
+        if (hardcodedBleSqueeze == null) {
+            Log.w(Constants.LOG_TAG, "Hardcoded value was null; returning false");
+            return false;
+        }
+        return deviceName.equals(hardcodedBleSqueeze);
+    }
 
     public DeviceConnectionHandler(@Nullable HardcodedValues hardcodedValues) {
         if (hardcodedValues == null) {
@@ -77,7 +88,13 @@ public class DeviceConnectionHandler {
             if (usesHardcodedBleDevices) {
                 return validateFlowerHardcoded(deviceName);
             }
-            return validateFlowerOnPrefix(deviceName);
+            return validateSqueezeOnPrefix(deviceName);
+        } else if (classToValidate == BleSqueeze.class) {
+            Log.v(Constants.LOG_TAG, "found valid squeeze class");
+            if (usesHardcodedBleDevices) {
+                return validateSqueezeHardcoded(deviceName);
+            }
+            return validateSqueezeOnPrefix(deviceName);
         } else {
             Log.e(Constants.LOG_TAG, "checkIfValidBleDevice Could not determine class; returning false");
         }

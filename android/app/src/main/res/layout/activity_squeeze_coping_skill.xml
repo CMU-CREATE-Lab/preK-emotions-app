@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.student_section.coping_skills.coping_skill_squeeze.SqueezeCopingSkillActivity">
+
+    <ImageView
+        android:id="@+id/squeeze_background_15"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_15"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_14"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_14"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_13"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_13"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_12"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_12"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_11"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_11"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_10"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_10"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_9"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_9"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_8"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_8"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_7"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_7"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_6"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_6"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_5"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_5"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_4"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_4"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_3"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_3"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_2"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_1"/>
+
+
+    <TextView
+        android:id="@+id/textViewDebug"
+        android:layout_width="190dp"
+        android:layout_height="200dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#66000000"
+        android:lines="7"
+        android:padding="16dp"
+        android:text="Squeeze Coping Skill"
+        android:gravity="center_vertical"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="140dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="76dp"
+        android:fontFamily="@font/source_sans_pro"
+        android:lines="4"
+        android:text="@string/coping_skill_static_placeholder"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/overlayYesNo"
+        layout="@layout/overlay_yes_no" />
+
+    <ImageButton
+        android:id="@+id/buttonClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="19dp"
+        android:background="#0000"
+        app:srcCompat="@drawable/ic_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/squeezeConnectionError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="0dp"
+        android:background="#0000"
+        app:srcCompat="@drawable/ic_connection_error"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="400dp"
+        android:scaleType="fitXY"
+        android:id="@+id/balloon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/ic_balloon"/>
+
+    <ImageView
+        android:id="@+id/gradient"
+        android:layout_width="40dp"
+        android:layout_height="300dp"
+        android:layout_margin="15dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/activityBackground"
+        app:layout_constraintEnd_toEndOf="@+id/activityBackground"
+        android:src="@drawable/green_yellow_red_gradient"/>
+
+    <ImageView
+        android:id="@+id/gradient_pointer"
+        android:layout_height="5dp"
+        android:layout_width="60dp"
+        app:layout_constraintLeft_toLeftOf="@+id/gradient"
+        app:layout_constraintRight_toRightOf="@+id/gradient"
+        app:layout_constraintBottom_toBottomOf="@+id/gradient"
+        android:src="@drawable/shape_rectangle"
+    />
+
+</android.support.constraint.ConstraintLayout>

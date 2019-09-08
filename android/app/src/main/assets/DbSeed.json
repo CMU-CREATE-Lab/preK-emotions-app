@@ -19,7 +19,7 @@
     { "uuid": "coping_skill_1", "name": "Flower Breathing", "imageFileUuid": "ic_flower_breathing" },
     { "uuid": "coping_skill_5", "name": "Jumping Jacks", "imageFileUuid": "ic_jumping_jacks" },
     { "uuid": "coping_skill_6", "name": "Share", "imageFileUuid": "ic_share" },
-    { "uuid": "coping_skill_10", "name": "Squeeze", "imageFileUuid": "ic_squeeze" },
+    { "uuid": "coping_skill_10", "name": "Squeeze", "imageFileUuid": "ic_balloon_squeeze" },
     { "uuid": "coping_skill_2", "name": "Static Coping Skill", "imageFileUuid": "ic_yoga" },
     { "uuid": "coping_skill_7", "name": "Stretching", "imageFileUuid": "ic_stretching" },
     { "uuid": "coping_skill_8", "name": "Stretching", "imageFileUuid": "ic_stretching" },
@@ -132,13 +132,12 @@
     { "uuid": "coping_skill_9_part2", "ownerUuid": "coping_skill_9", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_9_part3", "ownerUuid": "coping_skill_9", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
 
-    { "uuid": "coping_skill_10_part1", "ownerUuid": "coping_skill_10", "sequenceId": 1, "capabilityId": "coping_skill_static.squeeze", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_10_part1", "ownerUuid": "coping_skill_10", "sequenceId": 1, "capabilityId": "coping_skill_squeeze", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_10_part2", "ownerUuid": "coping_skill_10", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_10_part3", "ownerUuid": "coping_skill_10", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
 
     { "uuid": "coping_skill_11_part1", "ownerUuid": "coping_skill_11", "sequenceId": 1, "capabilityId": "coping_skill_talk_about_it", "capabilityParameters": "{}" },
-    { "uuid": "coping_skill_11_part2", "ownerUuid": "coping_skill_11", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
-    { "uuid": "coping_skill_11_part3", "ownerUuid": "coping_skill_11", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
+
 
     { "uuid": "coping_skill_13_part1", "ownerUuid": "coping_skill_13", "sequenceId": 1, "capabilityId": "coping_skill_video.yoga_scared", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_13_part2", "ownerUuid": "coping_skill_13", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
@@ -180,7 +179,7 @@
     { "uuid": "ic_dance", "fileType": "asset_image", "filePath": "coping_skills/ic_dance.png" },
     { "uuid": "ic_jumping_jacks", "fileType": "asset_image", "filePath": "coping_skills/ic_jumping_jacks.png" },
     { "uuid": "ic_share", "fileType": "asset_image", "filePath": "coping_skills/ic_share.png" },
-    { "uuid": "ic_squeeze", "fileType": "asset_image", "filePath": "coping_skills/ic_squeeze.png" },
+    { "uuid": "ic_balloon_squeeze", "fileType": "asset_image", "filePath": "coping_skills/ic_balloon_squeeze.png" },
     { "uuid": "ic_talk", "fileType": "asset_image", "filePath": "coping_skills/ic_talk.png" },
     { "uuid": "ic_talk_teacher", "fileType": "asset_image", "filePath": "coping_skills/ic_talk_teacher.png" }
   ]

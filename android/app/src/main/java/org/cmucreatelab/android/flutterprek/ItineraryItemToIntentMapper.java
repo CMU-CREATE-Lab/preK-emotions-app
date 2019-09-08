@@ -9,7 +9,7 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.DanceCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.EmptyStaticCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.ShareCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.StaticSqueezeCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_squeeze.SqueezeCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_talk_to_the_teacher.TalkToTheTeacherCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_talk_about_it.TalkAboutItActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.JumpingJacksCopingSkillActivity;
@@ -70,8 +70,8 @@ public class ItineraryItemToIntentMapper {
             case "coping_skill_video.yoga_scared":
                 copingSkillClass = YogaScaredActivity.class;
                 break;
-            case "coping_skill_static.squeeze":
-                copingSkillClass = StaticSqueezeCopingSkillActivity.class;
+            case "coping_skill_squeeze":
+                copingSkillClass = SqueezeCopingSkillActivity.class;
                 break;
             case "coping_skill_talk_about_it":
                 copingSkillClass = TalkAboutItActivity.class;
