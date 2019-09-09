@@ -22,7 +22,8 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
         DISCOVERED,
         STOPPED,
         SQUEEZING,
-        END
+        BACKGROUND_STOP,
+        ACTIVITY_END
     }
 
     private static final boolean SHOW_DEBUG_WINDOW = Constants.SQUEEZE_SHOW_DEBUG_WINDOW;
@@ -32,13 +33,13 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     private BleSqueeze bleSqueeze;
     private String lastNotification = "";
     private SqueezeStateHandler.State currentState = State.STOPPED;
-    private final int numBackgroundImages = 15;
+    private static final int numBackgroundImages = 15;
     private final ValueAnimator animator = ValueAnimator.ofFloat(0.0f, (float)numBackgroundImages);
-    private final int squeezeThreshold = 5;
+    private static final int squeezeThreshold = 5;
     private boolean foundRestState = false;
     private int restStateValue;
     private int lastSqueezeVal;
-    private long defaultAnimSpeed = 90000L;
+    private static final long defaultAnimSpeed = 45000L;
     private String balloonAnimateDirection = "left";
     private boolean changedBalloonAnimateDirection = false;
 
@@ -121,7 +122,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
             updateDebugWindow();
         }
 
-        //if (currentState == State.END) {
+        //if (currentState == State.BACKGROUND_STOP) {
         //    return;
         //}
 
@@ -163,13 +164,13 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
                     }
                 });
             } else {
-                if (currentState != State.END) {
+                if (currentState != State.BACKGROUND_STOP) {
                     changeState(State.STOPPED);
                 }
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (currentState != State.END) {
+                        if (currentState != State.BACKGROUND_STOP) {
                             animator.pause();
                             activity.findViewById(R.id.balloon).setRotation(0);
                         }
@@ -194,7 +195,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                if (currentState == State.END) return;
+                if (currentState == State.BACKGROUND_STOP) return;
                 final float progress = (float) animation.getAnimatedValue();
                 // Animate background
                 final float height = backgroundImages[0].getHeight();
@@ -205,10 +206,11 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
                 }
                 // Stop animating background roughly 10px before the last image starts going off the screen
                 if (progress > 0 && backgroundImages[backgroundImages.length - 1].getTranslationY() >= -10) {
-                    changeState(State.END);
+                    changeState(State.BACKGROUND_STOP);
                     animator.end();
                     activity.findViewById(R.id.balloon).setRotation(0);
                     //activity.findViewById(R.id.gradient_pointer).setTranslationY(0);
+                    // TODO: Need to have the balloon now move up and off the screen. Does this happen on its own? Does the student have to keep squeezing?
                 }
                 // Animate balloon
                 int firstRandom = new Random().nextInt(2);

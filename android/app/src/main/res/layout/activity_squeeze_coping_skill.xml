@@ -189,7 +189,7 @@
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/activityBackground"
         app:layout_constraintEnd_toEndOf="@+id/activityBackground"
-        android:src="@drawable/green_yellow_red_gradient"/>
+        android:src="@drawable/white_purple_gradient"/>
 
     <ImageView
         android:id="@+id/gradient_pointer"

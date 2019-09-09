@@ -33,6 +33,7 @@ public class Constants {
         SQUEEZE_UART_SETTINGS = new UARTSettings.Builder()
                 // first on main screen
                 .setUARTServiceUUID(UUID.fromString("BEA5760D-503D-4920-B000-101E7306B000"))
+                // last on main screen
                 .setRxCharacteristicUUID(UUID.fromString("0000FFE1-0000-1000-8000-00805F9B34FD"))
                 .setTxCharacteristicUUID(UUID.fromString("0000FFE1-0000-1000-8000-00805F9B34FD"))
                 // page with the value
@@ -45,7 +46,7 @@ public class Constants {
             STATION_TEST = new DeviceConnectionHandler.HardcodedValues("test","FLOWER-AEF3D",null, null, null),
             STATION_TEST_V2 = new DeviceConnectionHandler.HardcodedValues("test-v2","FLOWER-30384",null, null, null),
             STATION_1 = new DeviceConnectionHandler.HardcodedValues("heart","FLOWER-9B4BC","MNSQ1","MNWD1","MNYG1"),
-            STATION_2 = new DeviceConnectionHandler.HardcodedValues("star","FLOWER-9C915","MNSQ2","MNWD2","MNYG2");
+            STATION_2 = new DeviceConnectionHandler.HardcodedValues("star","FLOWER-9C915","MNSQ3","MNWD2","MNYG2");
 
     /**
      * Set this to use hardcoded values for the MindfulNest BLE devices.

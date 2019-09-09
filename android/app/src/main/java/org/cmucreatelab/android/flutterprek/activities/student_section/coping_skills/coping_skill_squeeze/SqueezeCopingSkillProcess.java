@@ -6,7 +6,7 @@ import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.R;
 
 public class SqueezeCopingSkillProcess {
-    private static final long SQUEEZE_DURATION = 170000;
+    private static final long SQUEEZE_DURATION_MILLISECONDS = 170000;
     private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
     private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
     private boolean overlayIsDisplayed = false;
@@ -56,7 +56,7 @@ public class SqueezeCopingSkillProcess {
     public SqueezeCopingSkillProcess(final SqueezeCopingSkillActivity squeezeCopingSkillActivity) {
         this.squeezeCopingSkillActivity = squeezeCopingSkillActivity;
 
-        timerToDisplayOverlay = new BackgroundTimer(SQUEEZE_DURATION, new BackgroundTimer.TimeExpireListener() {
+        timerToDisplayOverlay = new BackgroundTimer(SQUEEZE_DURATION_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
             @Override
             public void timerExpired() {
                 timerToDisplayOverlay.stopTimer();
