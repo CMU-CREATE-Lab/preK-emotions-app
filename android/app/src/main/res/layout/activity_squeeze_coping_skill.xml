@@ -8,6 +8,41 @@
     tools:context=".activities.student_section.coping_skills.coping_skill_squeeze.SqueezeCopingSkillActivity">
 
     <ImageView
+        android:id="@+id/squeeze_background_20"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_20"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_19"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_19"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_18"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_18"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_17"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_17"/>
+
+    <ImageView
+        android:id="@+id/squeeze_background_16"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_squeeze4_16"/>
+
+    <ImageView
         android:id="@+id/squeeze_background_15"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -189,7 +224,7 @@
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/activityBackground"
         app:layout_constraintEnd_toEndOf="@+id/activityBackground"
-        android:src="@drawable/white_purple_gradient"/>
+        android:src="@drawable/white_orange_gradient"/>
 
     <ImageView
         android:id="@+id/gradient_pointer"

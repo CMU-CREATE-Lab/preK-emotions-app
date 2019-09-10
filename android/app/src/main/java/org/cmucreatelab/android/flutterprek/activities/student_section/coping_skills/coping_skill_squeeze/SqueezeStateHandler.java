@@ -22,8 +22,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
         DISCOVERED,
         STOPPED,
         SQUEEZING,
-        BACKGROUND_STOP,
-        ACTIVITY_END
+        ACTIVITY_END,
     }
 
     private static final boolean SHOW_DEBUG_WINDOW = Constants.SQUEEZE_SHOW_DEBUG_WINDOW;
@@ -32,14 +31,14 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     private final BleSqueezeScanner bleSqueezeScanner;
     private BleSqueeze bleSqueeze;
     private String lastNotification = "";
-    private SqueezeStateHandler.State currentState = State.STOPPED;
-    private static final int numBackgroundImages = 15;
+    private static State currentState = State.STOPPED;
+    private static final int numBackgroundImages = 20;
     private final ValueAnimator animator = ValueAnimator.ofFloat(0.0f, (float)numBackgroundImages);
     private static final int squeezeThreshold = 5;
     private boolean foundRestState = false;
     private int restStateValue;
     private int lastSqueezeVal;
-    private static final long defaultAnimSpeed = 45000L;
+    private static final long defaultAnimSpeed = 65000L;
     private String balloonAnimateDirection = "left";
     private boolean changedBalloonAnimateDirection = false;
 
@@ -83,15 +82,33 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
 
     private void changeState(SqueezeStateHandler.State newState) {
         currentState = newState;
-
     }
 
 
     private void recalculateRestState(int squeezeVal) {
+        // Add some wiggle room for sensor jitter
         if (squeezeVal >= lastSqueezeVal - 2 && squeezeVal <= lastSqueezeVal + 2 && lastSqueezeVal < 998) {
             restStateValue = squeezeVal;
         }
         lastSqueezeVal = squeezeVal;
+    }
+
+
+    private void handleActivityEndState() {
+        changeState(State.ACTIVITY_END);
+        animator.end();
+        SqueezeCopingSkillProcess.releaseTimers();
+        activity.findViewById(R.id.gradient).setVisibility(View.GONE);
+        activity.findViewById(R.id.gradient_pointer).setVisibility(View.GONE);
+        activity.findViewById(R.id.balloon).setVisibility(View.GONE);
+        activity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
+        ((TextView)activity.findViewById(R.id.textViewOverlayTitle)).setText(R.string.coping_skill_squeeze_overlay);
+        ((TextView)activity.findViewById(R.id.textViewTitle)).setText("");
+    }
+
+
+    public static State getCurrentState() {
+        return currentState;
     }
 
 
@@ -111,7 +128,6 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
 
     @Override
     public void onReceivedData(@NonNull String arg1) {
-
         if (activity.isPaused()) {
             Log.v(Constants.LOG_TAG, "onReceivedData ignored while activity is paused.");
             return;
@@ -122,19 +138,20 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
             updateDebugWindow();
         }
 
-        //if (currentState == State.BACKGROUND_STOP) {
-        //    return;
-        //}
+        if (currentState == State.ACTIVITY_END) {
+            return;
+        }
 
         final int currentSqueezeValue = Integer.parseInt(arg1);
 
+        // What squeeze state the squeezer begins at.
         if (!foundRestState) {
             restStateValue = Integer.parseInt(arg1);
             foundRestState = true;
         } else {
             recalculateRestState(currentSqueezeValue);
-            //Log.v(Constants.LOG_TAG,"squeezeVal: " + currentSqueezeValue + " vs " + (restStateValue + squeezeThreshold));
             if (currentSqueezeValue >= restStateValue + squeezeThreshold) {
+                SqueezeCopingSkillProcess.resetTimers();
                 if (currentState == State.STOPPED) {
                     changeState(State.SQUEEZING);
                     activity.runOnUiThread(new Runnable() {
@@ -149,10 +166,8 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
                     });
                 }
 
-                // 1040 is a relatively randomly chosen "max" value observed from the pressure sensor
+                // 1040 is a relatively random chosen "max" value observed from the pressure sensor
                 float relativePressureAmount = ((currentSqueezeValue - restStateValue) / (1040f - restStateValue));
-                // do other fancy stuff like...
-                // speed up/slow down background
                 // change pressure gauge
                 int gradientImageHeight = activity.findViewById(R.id.gradient).getHeight();
                 final float pressureGaugeIndicatorTranslation = Math.min(gradientImageHeight, relativePressureAmount * gradientImageHeight);
@@ -164,13 +179,13 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
                     }
                 });
             } else {
-                if (currentState != State.BACKGROUND_STOP) {
+                if (currentState != State.ACTIVITY_END) {
                     changeState(State.STOPPED);
                 }
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (currentState != State.BACKGROUND_STOP) {
+                        if (currentState != State.ACTIVITY_END) {
                             animator.pause();
                             activity.findViewById(R.id.balloon).setRotation(0);
                         }
@@ -195,7 +210,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                if (currentState == State.BACKGROUND_STOP) return;
+                if (currentState == State.ACTIVITY_END) return;
                 final float progress = (float) animation.getAnimatedValue();
                 // Animate background
                 final float height = backgroundImages[0].getHeight();
@@ -206,11 +221,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
                 }
                 // Stop animating background roughly 10px before the last image starts going off the screen
                 if (progress > 0 && backgroundImages[backgroundImages.length - 1].getTranslationY() >= -10) {
-                    changeState(State.BACKGROUND_STOP);
-                    animator.end();
-                    activity.findViewById(R.id.balloon).setRotation(0);
-                    //activity.findViewById(R.id.gradient_pointer).setTranslationY(0);
-                    // TODO: Need to have the balloon now move up and off the screen. Does this happen on its own? Does the student have to keep squeezing?
+                    handleActivityEndState();
                 }
                 // Animate balloon
                 int firstRandom = new Random().nextInt(2);
@@ -229,7 +240,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
                         balloonAnimateDirection = "left";
                         changedBalloonAnimateDirection = false;
                     } else if (!changedBalloonAnimateDirection){
-                        int secondRandom = new Random().nextInt(20);
+                        int secondRandom = new Random().nextInt(15);
                         if (secondRandom == 1) {
                             if (balloonAnimateDirection.equals("right")) {
                                 balloonAnimateDirection = "left";

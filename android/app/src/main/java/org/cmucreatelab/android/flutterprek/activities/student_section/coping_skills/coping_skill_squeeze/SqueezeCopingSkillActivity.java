@@ -61,7 +61,6 @@ public class SqueezeCopingSkillActivity extends AbstractCopingSkillActivity {
         squeezeStateHandler.lookForSqueeze();
         //playAudio(getAudioFileForCopingSkillTitle());
         squeezeCopingSkillProcess.onResumeActivity();
-        //squeezeCopingSkillProcess.playSong();
         super.onResume();
     }
 
@@ -109,7 +108,6 @@ public class SqueezeCopingSkillActivity extends AbstractCopingSkillActivity {
 
 
     public void setScreen() {
-        //findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
         TextView textView = findViewById(R.id.textViewTitle);
         textView.setText(getTextTitleResource());
         textView.setTextColor(getResources().getColor(getColorResourceForTitle()));
