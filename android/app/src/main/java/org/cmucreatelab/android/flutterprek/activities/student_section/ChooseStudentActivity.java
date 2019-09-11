@@ -5,15 +5,19 @@ import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.DebugCorner;
+import org.cmucreatelab.android.flutterprek.activities.adapters.StudentWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;
@@ -22,14 +26,22 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
 
     private DebugCorner debugCorner;
 
-    private final StudentIndexAdapter.ClickListener listener = new StudentIndexAdapter.ClickListener() {
+    private final StudentWithCustomizationsIndexAdapter.ClickListener listener = new StudentWithCustomizationsIndexAdapter.ClickListener() {
         @Override
-        public void onClick(Student student) {
+        public void onClick(StudentWithCustomizations studentWithCustomizations) {
+            final Student student = studentWithCustomizations.student;
             Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
             // track selection with GlobalHandler
-            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.studentUuid = student.getUuid();
+            GlobalHandler globalHandler = GlobalHandler.getInstance(getApplicationContext());
+            globalHandler.studentSectionNavigationHandler.studentUuid = student.getUuid();
+            globalHandler.studentSectionNavigationHandler.imageUuid = student.getPictureFileUuid();
+
+            // start new session for student
+            globalHandler.startNewSession(studentWithCustomizations);
+
             // send to next activity
-            Intent chooseEmotionActivity = new Intent(ChooseStudentActivity.this, ChooseEmotionActivity.class);
+            //Intent chooseEmotionActivity = new Intent(ChooseStudentActivity.this, ChooseEmotionActivity.class);
+            Intent chooseEmotionActivity = globalHandler.getSessionTracker().getNextIntent(ChooseStudentActivity.this);
             startActivity(chooseEmotionActivity);
         }
     };
@@ -40,18 +52,18 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
         super.onCreate(savedInstanceState);
 
         String classroomUuid = GlobalHandler.getInstance(this).studentSectionNavigationHandler.classroomUuid;
-        LiveData<List<Student>> liveData;
+        LiveData<List<StudentWithCustomizations>> liveData;
         if (classroomUuid.isEmpty()) {
-            liveData = AppDatabase.getInstance(this).studentDAO().getAllStudents();
+            liveData = AppDatabase.getInstance(this).studentDAO().getAllStudentsWithCustomizations();
         } else {
-            liveData = AppDatabase.getInstance(this).studentDAO().getAllStudentsFromClassroom(classroomUuid);
+            liveData = AppDatabase.getInstance(this).studentDAO().getAllStudentsWithCustomizationsFromClassroom(classroomUuid);
         }
 
-        liveData.observe(this, new Observer<List<Student>>() {
+        liveData.observe(this, new Observer<List<StudentWithCustomizations>>() {
             @Override
-            public void onChanged(@Nullable List<Student> students) {
+            public void onChanged(@Nullable List<StudentWithCustomizations> students) {
                 GridView studentsGridView = findViewById(R.id.studentsGridView);
-                studentsGridView.setAdapter(new StudentIndexAdapter(ChooseStudentActivity.this, students, listener));
+                studentsGridView.setAdapter(new StudentWithCustomizationsIndexAdapter(ChooseStudentActivity.this, students, listener));
             }
         });
 
@@ -68,6 +80,13 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
     @Override
     public void onClickImageStudent() {
         // TODO go to teacher section (does nothing for now)
+
+    }
+
+
+    @Override
+    public void updateImageStudent(AppCompatActivity activity) {
+        ((ImageView)findViewById(R.id.imageStudent)).setBackgroundResource(R.drawable.ic_mindfulnest_header_student_section);
     }
 
 }

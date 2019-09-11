@@ -46,6 +46,7 @@ public class AppHeaderFragment extends AbstractFragment {
     }
 
 
+    /** Set header to be transparent when {@param flag} is true. */
     public void setHeaderTransparency(boolean flag) {
         int color = flag ? Color.alpha(100) : getResources().getColor(R.color.colorPrimary);
         getView().setBackgroundColor(color);

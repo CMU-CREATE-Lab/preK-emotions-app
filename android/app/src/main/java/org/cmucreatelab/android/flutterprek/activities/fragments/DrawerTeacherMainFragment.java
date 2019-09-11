@@ -15,6 +15,9 @@ import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSki
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.EmotionIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.StudentIndexActivity;
 
+/**
+ * Fragment for the Drawer on the left-hand side of the screen in the teacher section of the app.
+ */
 public class DrawerTeacherMainFragment extends AbstractFragment {
 
     public enum Section {

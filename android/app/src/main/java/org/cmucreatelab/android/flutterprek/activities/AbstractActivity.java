@@ -9,28 +9,11 @@ import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
-import org.cmucreatelab.android.flutterprek.video.VideoPlayer;
 
 /**
  * All activities in the project should extend from this class.
  */
 public abstract class AbstractActivity extends AppCompatActivity {
-
-
-    public void playAudio(String filepath) {
-        playAudio(filepath, null);
-    }
-
-    public void playAudio(String filepath, MediaPlayer.OnCompletionListener listener) {
-        if (filepath != null) {
-            AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
-            audioPlayer.stop();
-            audioPlayer.addAudioFromAssets(filepath, listener);
-            audioPlayer.playAudio();
-        } else {
-            Log.w(Constants.LOG_TAG, "ignoring call to playAudio() with null filepath.");
-        }
-    }
 
 
     /**
@@ -61,6 +44,29 @@ public abstract class AbstractActivity extends AppCompatActivity {
         Log.i(Constants.LOG_TAG, "onPause");
         AudioPlayer.getInstance(getApplicationContext()).stop();
         super.onPause();
+    }
+
+
+    public void playAudio(String filepath) {
+        playAudio(filepath, null);
+    }
+
+
+    /**
+     * Play an audio file from the assets directory. Stops any audio that is playing currently.
+     *
+     * @param filepath Filepath for the audio asset.
+     * @param listener Callback for when the added audio finishes playing
+     */
+    public void playAudio(String filepath, MediaPlayer.OnCompletionListener listener) {
+        if (filepath != null) {
+            AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+            audioPlayer.stop();
+            audioPlayer.addAudioFromAssets(filepath, listener);
+            audioPlayer.playAudio();
+        } else {
+            Log.w(Constants.LOG_TAG, "ignoring call to playAudio() with null filepath.");
+        }
     }
 
 

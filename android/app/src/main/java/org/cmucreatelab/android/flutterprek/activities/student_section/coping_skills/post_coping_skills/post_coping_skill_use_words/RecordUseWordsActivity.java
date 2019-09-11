@@ -1,114 +1,37 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words;
 
-import android.animation.Animator;
 import android.content.Intent;
-import android.os.Build;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewAnimationUtils;
 
-import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
-import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.PostCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.audio.audio_recording.AudioRecorder;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.fragments.MoveOnFragment;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.fragments.RecordFragment;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.fragments.UseWordsFragment;
+import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 
-public class RecordUseWordsActivity extends PostCopingSkillActivity {
+import static org.cmucreatelab.android.flutterprek.SessionTracker.ITINERARY_INDEX;
 
-    private static final long MAXIMUM_RECORD_LENGTH_MILLISECONDS = 20000;
-    // NOTE: the visual portion of the animation is roughly 3/5 of the actual duration of the animation, so this value should be roughly 2/3 of the value above
-    private static final long ANIMATION_OFFSET_IN_MILLISECONDS = 12000;
+public class RecordUseWordsActivity extends PostCopingSkillActivity implements UseWordsFragment.ActivityCallback {
 
-    private AudioRecorder audioRecorder;
-    private final BackgroundTimer timerToStopRecording = new BackgroundTimer(MAXIMUM_RECORD_LENGTH_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
-        @Override
-        public void timerExpired() {
-            stopRecordingAndMoveOn();
-        }
-    });
-
-    private boolean activityIsCancelled = false;
-    private boolean layoutAnimationIsReady = false;
-    private boolean recordButtonPressed = false;
-    private boolean startedRecording = false;
-
-    private View viewForCircleAnimation;
-    private View layoutCircles, layoutRecordButton;
-
-
-    private void stopRecording() {
-        audioRecorder.stopRecording();
-    }
-
-
-    private void circleRevealAnimation(View myView) {
-        // Check if the runtime version is at least Lollipop
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // get the center for the clipping circle
-            int cx = myView.getWidth() / 2;
-            int cy = myView.getHeight() / 2;
-
-            // get the final radius for the clipping circle
-            float finalRadius = (float) Math.hypot(cx, cy);
-
-            // create the animator for this view (the start radius is zero)
-            Animator anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0f, finalRadius);
-            anim.setDuration(MAXIMUM_RECORD_LENGTH_MILLISECONDS+ANIMATION_OFFSET_IN_MILLISECONDS);
-
-            // make the view visible and start the animation
-            myView.setVisibility(View.VISIBLE);
-            anim.start();
-        } else {
-            // set the view to visible without a circular reveal animation below Lollipop
-            myView.setVisibility(View.VISIBLE);
-        }
-    }
-
-
-    private void goToNextPostCopingSkillActivity() {
-        Intent intent = new Intent(this, MoveOnUseWordsActivity.class);
-        startActivity(intent);
-    }
-
-
-    public void checkToBeginRecording() {
-        if (activityIsCancelled) {
-            Log.w(Constants.LOG_TAG, "checkToBeginRecording but activityIsCancelled is true; returning");
-            return;
-        } else if (startedRecording) {
-            Log.w(Constants.LOG_TAG, "checkToBeginRecording but startedRecording is true; returning");
-            return;
-        } else if (layoutAnimationIsReady && recordButtonPressed) {
-            startedRecording = true;
-
-            // be certain that audio won't play when you start recording
-            AudioPlayer.getInstance(getApplicationContext()).stop();
-
-            audioRecorder.startRecording();
-            circleRevealAnimation(viewForCircleAnimation);
-            timerToStopRecording.startTimer();
-        }
-    }
-
-
-    public void stopRecordingAndMoveOn() {
-        timerToStopRecording.stopTimer();
-        stopRecording();
-        goToNextPostCopingSkillActivity();
-    }
+    private int itineraryIndex;
+    private RecordFragment recordFragment;
+    private MoveOnFragment moveOnFragment;
 
 
     @Override
     public String getAudioFileForPostCopingSkillTitle() {
-        return "etc/audio_prompts/audio_record_press_button.wav";
+        return null;
     }
 
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout._coping_skill__activity_record;
+        return R.layout._coping_skill__activity_record_and_move_on;
     }
 
 
@@ -116,54 +39,63 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        audioRecorder = new AudioRecorder(getApplicationContext());
+        itineraryIndex = getIntent().getIntExtra(ITINERARY_INDEX, -1);
+        if (itineraryIndex < 0) {
+            Log.e(Constants.LOG_TAG, "received bad (or default) value for ITINERARY_INDEX; ending session");
+            GlobalHandler.getInstance(getApplicationContext()).endCurrentSession(this);
+        }
 
-        // assign views
-        this.viewForCircleAnimation = findViewById(R.id.imageViewCircleGreen);
-        this.layoutCircles = findViewById(R.id.layoutCircles);
-        this.layoutRecordButton = findViewById(R.id.layoutRecordButton);
-
-        // previously invisible view
-        viewForCircleAnimation.setVisibility(View.INVISIBLE);
-
-        viewForCircleAnimation.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                v.removeOnLayoutChangeListener(this);
-                layoutAnimationIsReady = true;
-                checkToBeginRecording();
-            }
-        });
-
-        findViewById(R.id.imageViewStop).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopRecordingAndMoveOn();
-            }
-        });
-
-        findViewById(R.id.imageViewRecordButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recordButtonPressed = true;
-                layoutRecordButton.setVisibility(View.GONE);
-                layoutCircles.setVisibility(View.VISIBLE);
-                // avoid timeout overlay when you press to start recording
-                releaseOverlayTimers();
-                checkToBeginRecording();
-            }
-        });
+        this.recordFragment = (RecordFragment) (getSupportFragmentManager().findFragmentById(R.id.recordFragment));
+        this.moveOnFragment = (MoveOnFragment) (getSupportFragmentManager().findFragmentById(R.id.moveOnFragment));
     }
 
 
-    // Avoid recording while in background
+    @Override
+    protected void onResume() {
+        setFragment(UseWordsFragment.FragmentState.RECORD);
+        super.onResume();
+    }
+
+
     @Override
     protected void onPause() {
-        activityIsCancelled = true;
-        timerToStopRecording.stopTimer();
+        // Avoid recording while in background
+        recordFragment.onPauseActivity();
         super.onPause();
+    }
 
-        stopRecording();
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        // restart the timers after audio playback completes
+        restartOverlayTimers();
+    }
+
+
+    @Override
+    public void setFragment(UseWordsFragment.FragmentState fragmentState) {
+        String audioToPlay;
+        if (fragmentState == UseWordsFragment.FragmentState.RECORD) {
+            recordFragment.displayFragment(true, this);
+            moveOnFragment.displayFragment(false, this);
+            audioToPlay = "etc/audio_prompts/audio_record_press_button.wav";
+        } else {
+            recordFragment.displayFragment(false, this);
+            moveOnFragment.displayFragment(true, this);
+            audioToPlay = "etc/audio_prompts/audio_move_on.wav";
+            moveOnFragment.addRecordedAudio(false);
+        }
+        AudioPlayer.getInstance(getApplicationContext()).stop();
+        playAudio(audioToPlay);
+        restartOverlayTimers();
+    }
+
+
+    @Override
+    public void goToNextActivity() {
+        Intent intent = GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().getNextIntentFromItinerary(this, itineraryIndex);
+        startActivity(intent);
+        // make sure you don't go to record, but rather the screen to choose to record.
         finish();
     }
 

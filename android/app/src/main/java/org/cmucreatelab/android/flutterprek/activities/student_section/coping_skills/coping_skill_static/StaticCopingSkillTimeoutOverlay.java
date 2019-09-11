@@ -4,15 +4,19 @@ import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 
 public class StaticCopingSkillTimeoutOverlay {
 
-    private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 30000;
-    private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
-    private AbstractActivity activity;
-    private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
+    private static final String AUDIO_FILE_PROMPT_MORE_TIME = "etc/audio_prompts/audio_more_time.wav";
+    private final StaticCopingSkillActivity activity;
+    private final BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
+    private final OverlayOptionListener listener;
     private boolean overlayIsDisplayed = false;
+
+    public interface OverlayOptionListener {
+        void onClickNo();
+        void onClickYes();
+    }
 
 
     private void releaseTimers() {
@@ -30,6 +34,7 @@ public class StaticCopingSkillTimeoutOverlay {
     private void displayOverlay() {
         timerToDisplayOverlay.stopTimer();
         overlayIsDisplayed = true;
+        activity.playAudio(AUDIO_FILE_PROMPT_MORE_TIME);
         activity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
         timerToExitFromOverlay.startTimer();
     }
@@ -53,17 +58,23 @@ public class StaticCopingSkillTimeoutOverlay {
     }
 
 
-    public StaticCopingSkillTimeoutOverlay(AbstractActivity activity) {
-        this.activity = activity;
+    public StaticCopingSkillTimeoutOverlay(StaticCopingSkillActivity activity) {
+        this(activity, null);
+    }
 
-        timerToDisplayOverlay = new BackgroundTimer(DISPLAY_OVERLAY_AFTER_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
+
+    public StaticCopingSkillTimeoutOverlay(StaticCopingSkillActivity activity, final OverlayOptionListener listener) {
+        this.activity = activity;
+        this.listener = listener;
+
+        timerToDisplayOverlay = new BackgroundTimer(activity.getMillisecondsToDisplayOverlay(), new BackgroundTimer.TimeExpireListener() {
             @Override
             public void timerExpired() {
                 timerToDisplayOverlay.stopTimer();
                 onTimerToDisplayOverlayExpired();
             }
         });
-        timerToExitFromOverlay = new BackgroundTimer(DISMISS_OVERLAY_AFTER_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
+        timerToExitFromOverlay = new BackgroundTimer(activity.getMillisecondsToDismissOverlay(), new BackgroundTimer.TimeExpireListener() {
             @Override
             public void timerExpired() {
                 timerToExitFromOverlay.stopTimer();
@@ -75,12 +86,18 @@ public class StaticCopingSkillTimeoutOverlay {
             @Override
             public void onClick(View v) {
                 hideOverlay();
+                if (listener != null) {
+                    listener.onClickYes();
+                }
             }
         });
         activity.findViewById(R.id.overlayYesNo).findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finishActivity();
+                if (listener != null) {
+                    listener.onClickNo();
+                }
             }
         });
 

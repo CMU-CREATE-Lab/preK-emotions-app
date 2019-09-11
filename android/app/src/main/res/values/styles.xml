@@ -45,8 +45,8 @@
 
     <style name="StudentSectionLayoutWithText">
         <item name="android:layout_marginBottom">40sp</item>
-        <item name="android:layout_marginEnd">140sp</item>
-        <item name="android:layout_marginStart">140sp</item>
+        <item name="android:layout_marginEnd">100dp</item>
+        <item name="android:layout_marginStart">100dp</item>
         <item name="android:layout_marginTop">40sp</item>
     </style>
     <style name="StudentSectionLayoutNoText">
@@ -74,7 +74,7 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_margin">40sp</item>
         <item name="android:columnWidth">165sp</item>
-        <item name="android:horizontalSpacing">25sp</item>
+        <item name="android:horizontalSpacing">20dp</item>
         <item name="android:numColumns">auto_fit</item>
         <item name="android:stretchMode">columnWidth</item>
         <item name="android:verticalSpacing">25sp</item>
@@ -84,7 +84,7 @@
         <item name="android:layout_height">0dp</item>
         <item name="android:gravity">center</item>
         <item name="android:columnWidth">165sp</item>
-        <item name="android:horizontalSpacing">25sp</item>
+        <item name="android:horizontalSpacing">20dp</item>
         <item name="android:numColumns">auto_fit</item>
         <item name="android:stretchMode">spacingWidthUniform</item>
         <item name="android:verticalSpacing">25sp</item>
@@ -138,6 +138,23 @@
         <item name="android:textSize">@dimen/grid_view_lower_text_size</item>
     </style>
 
+    <style name="GridViewItemLowerTitle2" parent="textBold">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40sp</item>
+        <item name="android:background">@drawable/card_half_bottom</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/grid_view_lower_padding</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textColor">@color/colorGridLowerTitle</item>
+        <item name="android:textSize">@dimen/grid_view_lower_text_size</item>
+    </style>
+
+    <style name="GridViewItemLowerImageTitle" >
+        <item name="android:layout_width">40sp</item>
+        <item name="android:layout_height">40sp</item>
+        <item name="android:background">@drawable/ic_emotion_play_title</item>
+    </style>
 
     <!-- Non-grid Items -->
     <style name="NonGridViewItem">

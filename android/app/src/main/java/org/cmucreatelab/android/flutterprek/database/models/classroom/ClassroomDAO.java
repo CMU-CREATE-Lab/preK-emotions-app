@@ -6,6 +6,8 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import org.cmucreatelab.android.flutterprek.database.models.ClassroomWithCustomizations;
+
 import java.util.List;
 
 /**
@@ -30,6 +32,9 @@ public interface ClassroomDAO {
 
     @Query("SELECT * from classrooms ORDER BY name ASC")
     LiveData<List<Classroom>> getAllClassrooms();
+
+    @Query("SELECT * from classrooms ORDER BY name ASC")
+    LiveData<List<ClassroomWithCustomizations>> getAllClassroomsWithCustomizations();
 
     @Query("SELECT * FROM classrooms WHERE uuid = :classroomUuid LIMIT 1")
     LiveData<Classroom> getClassroom(String classroomUuid);

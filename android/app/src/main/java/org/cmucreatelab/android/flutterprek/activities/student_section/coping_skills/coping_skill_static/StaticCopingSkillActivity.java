@@ -11,18 +11,20 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 
 public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActivity {
 
+    private static final long DEFAULT_DISPLAY_OVERLAY_AFTER_MILLISECONDS = 30000;
+    private static final long DEFAULT_DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
     private StaticCopingSkillTimeoutOverlay staticCopingSkillTimeoutOverlay;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        staticCopingSkillTimeoutOverlay = new StaticCopingSkillTimeoutOverlay(this);
+        staticCopingSkillTimeoutOverlay = createTimeoutOverlay();
 
         findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
         TextView textViewTitle = findViewById(R.id.textViewTitle);
         textViewTitle.setText(getTextTitleResource());
-        textViewTitle.setTextColor(getColorResourceForTitle());
+        textViewTitle.setTextColor(getResources().getColor(getColorResourceForTitle()));
     }
 
 
@@ -51,6 +53,21 @@ public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActiv
     @ColorRes
     public int getColorResourceForTitle() {
         return R.color.colorWhite;
+    }
+
+
+    public StaticCopingSkillTimeoutOverlay createTimeoutOverlay() {
+        return new StaticCopingSkillTimeoutOverlay(this);
+    }
+
+
+    public long getMillisecondsToDisplayOverlay() {
+        return DEFAULT_DISPLAY_OVERLAY_AFTER_MILLISECONDS;
+    }
+
+
+    public long getMillisecondsToDismissOverlay() {
+        return DEFAULT_DISMISS_OVERLAY_AFTER_MILLISECONDS;
     }
 
 

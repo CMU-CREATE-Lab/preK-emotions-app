@@ -30,7 +30,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
     private long curTime = 0;
     // Number of readings for a period
-    private int period = 70; //120 // 60 //100
+    private int period = 70; //50 //120 // 60 //100
     private WandStateHandler.State currentState = WandStateHandler.State.STOPPED;
 
     private int dataCount = 0;

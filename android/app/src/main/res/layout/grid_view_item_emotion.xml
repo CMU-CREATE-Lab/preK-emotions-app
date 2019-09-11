@@ -13,9 +13,16 @@
 
     <TextView
         android:id="@+id/text1"
-        style="@style/GridViewItemLowerTitle"
+        style="@style/GridViewItemLowerTitle2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageEmotionAudio"
+        style="@style/GridViewItemLowerImageTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        />
+
 
 </android.support.constraint.ConstraintLayout>

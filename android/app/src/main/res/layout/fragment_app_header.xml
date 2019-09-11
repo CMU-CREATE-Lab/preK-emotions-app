@@ -27,15 +27,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/imageStudent"
-        android:layout_marginEnd="22dp"
-        style="@style/AppHeaderImages"
         android:layout_width="36sp"
         android:layout_height="36sp"
-        android:background="@drawable/ic_mindfulnest_header_student_section"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/ic_mindfulnest_header_student_section"
         app:layout_constraintEnd_toStartOf="@+id/imageInfo"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:civ_border_width="1.5dp"
+        />
 
 </android.support.constraint.ConstraintLayout>
