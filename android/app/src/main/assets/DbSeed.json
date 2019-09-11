@@ -19,13 +19,7 @@
     { "uuid": "coping_skill_1", "name": "Flower Breathing", "imageFileUuid": "ic_flower_breathing" },
     { "uuid": "coping_skill_5", "name": "Jumping Jacks", "imageFileUuid": "ic_jumping_jacks" },
     { "uuid": "coping_skill_6", "name": "Share", "imageFileUuid": "ic_share" },
-<<<<<<< HEAD
-    { "uuid": "coping_skill_2", "name": "Static Coping SKill", "imageFileUuid": "ic_yoga" },
-    { "uuid": "coping_skill_7", "name": "Yoga", "imageFileUuid": "ic_yoga" },
-    { "uuid": "coping_skill_8", "name": "Yoga", "imageFileUuid": "ic_yoga" },
-    { "uuid": "coping_skill_9", "name": "Yoga", "imageFileUuid": "ic_yoga" },
-    { "uuid": "coping_skill_10", "name": "Magic Wand", "imageFileUuid": "ic_conducting"}
-=======
+    { "uuid": "coping_skill_14", "name": "Magic Wand", "imageFileUuid": "ic_conducting"}
     { "uuid": "coping_skill_10", "name": "Squeeze", "imageFileUuid": "ic_squeeze" },
     { "uuid": "coping_skill_2", "name": "Static Coping Skill", "imageFileUuid": "ic_yoga" },
     { "uuid": "coping_skill_7", "name": "Stretching", "imageFileUuid": "ic_stretching" },
@@ -34,7 +28,6 @@
     { "uuid": "coping_skill_13", "name": "Stretching", "imageFileUuid": "ic_stretching" },
     { "uuid": "coping_skill_11", "name": "Talk About It", "imageFileUuid": "ic_talk" },
     { "uuid": "coping_skill_12", "name": "Talk to the Teacher", "imageFileUuid": "ic_talk_teacher" }
->>>>>>> master
   ],
   "customizations":
   [
