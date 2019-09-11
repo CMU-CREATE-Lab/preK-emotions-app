@@ -11,6 +11,7 @@ import org.cmucreatelab.android.flutterprek.ble.DeviceConnectionHandler;
 import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
 import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
+import org.cmucreatelab.android.flutterprek.ble.squeeze.BleSqueeze;
 
 /**
  *
@@ -21,6 +22,7 @@ public class GlobalHandler {
 
     public final Context appContext;
     public BleFlower bleFlower;
+    public BleSqueeze bleSqueeze;
     public final StudentSectionNavigationHandler studentSectionNavigationHandler;
     public final DeviceConnectionHandler deviceConnectionHandler;
     private SessionTracker sessionTracker;
@@ -49,6 +51,9 @@ public class GlobalHandler {
 
     // public methods
 
+    public boolean isSqueezeConnected() {
+        return (bleSqueeze != null && bleSqueeze.isConnected());
+    }
 
     /**
      * Start a new session for a student.
@@ -119,16 +124,31 @@ public class GlobalHandler {
      * @param connectionListener Listen for connection state changes.
      */
     public synchronized void startConnection(Class classToValidate, BluetoothDevice bluetoothDevice, UARTConnection.ConnectionListener connectionListener) {
-        // TODO check for device type (assumes flower for now)
-        if (bleFlower != null) {
-            Log.w(Constants.LOG_TAG, "current bleFlower in GlobalHandler is not null; attempting to close.");
-            try {
-                bleFlower.disconnect();
-            } catch (Exception e) {
-                Log.e(Constants.LOG_TAG, "Exception caught in GlobalHandler.startConnection (likely null reference in UARTConnection); Exception message was: ``" + e.getMessage() + "''");
+        if(classToValidate == BleFlower.class) {
+            if (bleFlower != null) {
+                Log.w(Constants.LOG_TAG, "current bleFlower in GlobalHandler is not null; attempting to close.");
+                try {
+                    bleFlower.disconnect();
+                } catch (Exception e) {
+                    Log.e(Constants.LOG_TAG, "Exception caught in GlobalHandler.startConnection (likely null reference in UARTConnection); Exception message was: ``" + e.getMessage() + "''");
+                }
             }
+            this.bleFlower = new BleFlower(appContext, bluetoothDevice, connectionListener);
         }
-        this.bleFlower = new BleFlower(appContext, bluetoothDevice, connectionListener);
+
+        if(classToValidate == BleSqueeze.class){
+            if (bleSqueeze != null) {
+                Log.w(Constants.LOG_TAG, "current bleSqueeze in GlobalHandler is not null; attempting to close.");
+                try {
+                    bleSqueeze.disconnect();
+                } catch (Exception e) {
+                    Log.e(Constants.LOG_TAG, "Exception caught in GlobalHandler.startConnection (likely null reference in UARTConnection); Exception message was: ``" + e.getMessage() + "''");
+                }
+            }
+            Log.w(Constants.LOG_TAG, "Trying to create new bleSqueeze");
+            this.bleSqueeze = new BleSqueeze(appContext, bluetoothDevice, connectionListener);
+            Log.w(Constants.LOG_TAG, "Created new bleSqueeze");
+        }
     }
 
 }
