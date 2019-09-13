@@ -20,6 +20,7 @@
     { "uuid": "coping_skill_5", "name": "Jumping Jacks", "imageFileUuid": "ic_jumping_jacks" },
     { "uuid": "coping_skill_6", "name": "Share", "imageFileUuid": "ic_share" },
     { "uuid": "coping_skill_10", "name": "Squeeze", "imageFileUuid": "ic_balloon_squeeze" },
+    { "uuid": "coping_skill_14", "name": "Magic Wand", "imageFileUuid": "ic_conducting"},
     { "uuid": "coping_skill_2", "name": "Static Coping Skill", "imageFileUuid": "ic_yoga" },
     { "uuid": "coping_skill_7", "name": "Stretching", "imageFileUuid": "ic_stretching" },
     { "uuid": "coping_skill_8", "name": "Stretching", "imageFileUuid": "ic_stretching" },
@@ -60,6 +61,7 @@
     { "uuid": "happy_flower", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "happy_jumping_jacks", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_5" },
     { "uuid": "happy_yoga", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_7" },
+    { "uuid": "happy_wand", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_14" },
     { "uuid": "happy_talk", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_11" },
     { "uuid": "happy_talk_teacher", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_12" },
     { "uuid": "sad_flower", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_1" },
@@ -70,6 +72,7 @@
     { "uuid": "mad_flower", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "mad_jumping_jacks", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_5" },
     { "uuid": "mad_yoga", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_9" },
+    { "uuid": "mad_wand", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_14"},
     { "uuid": "mad_squeeze", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_10" },
     { "uuid": "mad_talk", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_11" },
     { "uuid": "mad_talk_teacher", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_12" },
@@ -180,6 +183,7 @@
     { "uuid": "ic_jumping_jacks", "fileType": "asset_image", "filePath": "coping_skills/ic_jumping_jacks.png" },
     { "uuid": "ic_share", "fileType": "asset_image", "filePath": "coping_skills/ic_share.png" },
     { "uuid": "ic_balloon_squeeze", "fileType": "asset_image", "filePath": "coping_skills/ic_balloon_squeeze.png" },
+    { "uuid": "ic_conducting", "fileType": "asset_image", "filePath": "coping_skills/ic_conducting.png" },
     { "uuid": "ic_talk", "fileType": "asset_image", "filePath": "coping_skills/ic_talk.png" },
     { "uuid": "ic_talk_teacher", "fileType": "asset_image", "filePath": "coping_skills/ic_talk_teacher.png" }
   ]

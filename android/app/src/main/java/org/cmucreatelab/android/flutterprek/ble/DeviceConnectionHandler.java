@@ -8,6 +8,7 @@ import android.util.Log;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.ble.flower.BleFlower;
 import org.cmucreatelab.android.flutterprek.ble.squeeze.BleSqueeze;
+import org.cmucreatelab.android.flutterprek.ble.wand.BleWand;
 
 /**
  * Determines if a broadcasted bluetooth device is valid for the app to try connecting to.
@@ -47,6 +48,10 @@ public class DeviceConnectionHandler {
         return deviceName.startsWith("MNSQ");
     }
 
+    private boolean validateWandOnPrefix(@NonNull String deviceName) {
+        return deviceName.startsWith("MNW");
+    }
+
     private boolean validateFlowerHardcoded(@NonNull String deviceName) {
         if (hardcodedBleFlower == null) {
             Log.w(Constants.LOG_TAG, "Hardcoded value was null; returning false");
@@ -62,6 +67,15 @@ public class DeviceConnectionHandler {
         }
         return deviceName.equals(hardcodedBleSqueeze);
     }
+
+    private boolean validateWandHardcoded(@NonNull String deviceName) {
+        if (hardcodedBleWand == null) {
+            Log.w(Constants.LOG_TAG, "Hardcoded value was null; returning false");
+            return false;
+        }
+        return deviceName.equals(hardcodedBleWand);
+    }
+
 
     public DeviceConnectionHandler(@Nullable HardcodedValues hardcodedValues) {
         if (hardcodedValues == null) {
@@ -88,13 +102,18 @@ public class DeviceConnectionHandler {
             if (usesHardcodedBleDevices) {
                 return validateFlowerHardcoded(deviceName);
             }
-            return validateSqueezeOnPrefix(deviceName);
+            return validateFlowerOnPrefix(deviceName);
         } else if (classToValidate == BleSqueeze.class) {
             Log.v(Constants.LOG_TAG, "found valid squeeze class");
             if (usesHardcodedBleDevices) {
                 return validateSqueezeHardcoded(deviceName);
             }
             return validateSqueezeOnPrefix(deviceName);
+        } else if(classToValidate == BleWand.class) {
+            if (usesHardcodedBleDevices) {
+                return validateWandHardcoded(deviceName);
+            }
+            return validateWandOnPrefix(deviceName);
         } else {
             Log.e(Constants.LOG_TAG, "checkIfValidBleDevice Could not determine class; returning false");
         }

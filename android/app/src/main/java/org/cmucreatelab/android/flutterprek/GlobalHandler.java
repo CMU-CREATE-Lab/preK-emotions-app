@@ -9,6 +9,7 @@ import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.ble.flower.BleFlower;
 import org.cmucreatelab.android.flutterprek.ble.DeviceConnectionHandler;
 import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
+import org.cmucreatelab.android.flutterprek.ble.wand.BleWand;
 import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 import org.cmucreatelab.android.flutterprek.ble.squeeze.BleSqueeze;
@@ -23,6 +24,7 @@ public class GlobalHandler {
     public final Context appContext;
     public BleFlower bleFlower;
     public BleSqueeze bleSqueeze;
+    public BleWand bleWand;
     public final StudentSectionNavigationHandler studentSectionNavigationHandler;
     public final DeviceConnectionHandler deviceConnectionHandler;
     private SessionTracker sessionTracker;
@@ -116,6 +118,10 @@ public class GlobalHandler {
         return (bleFlower != null && bleFlower.isConnected());
     }
 
+    public boolean isWandConnected() {
+        return (bleWand != null && bleWand.isConnected());
+    }
+
 
     /**
      * start a new BLE connection with a BLE device
@@ -124,7 +130,7 @@ public class GlobalHandler {
      * @param connectionListener Listen for connection state changes.
      */
     public synchronized void startConnection(Class classToValidate, BluetoothDevice bluetoothDevice, UARTConnection.ConnectionListener connectionListener) {
-        if(classToValidate == BleFlower.class) {
+        if (classToValidate == BleFlower.class) {
             if (bleFlower != null) {
                 Log.w(Constants.LOG_TAG, "current bleFlower in GlobalHandler is not null; attempting to close.");
                 try {
@@ -135,8 +141,7 @@ public class GlobalHandler {
             }
             this.bleFlower = new BleFlower(appContext, bluetoothDevice, connectionListener);
         }
-
-        if(classToValidate == BleSqueeze.class){
+        if (classToValidate == BleSqueeze.class) {
             if (bleSqueeze != null) {
                 Log.w(Constants.LOG_TAG, "current bleSqueeze in GlobalHandler is not null; attempting to close.");
                 try {
@@ -148,6 +153,19 @@ public class GlobalHandler {
             Log.w(Constants.LOG_TAG, "Trying to create new bleSqueeze");
             this.bleSqueeze = new BleSqueeze(appContext, bluetoothDevice, connectionListener);
             Log.w(Constants.LOG_TAG, "Created new bleSqueeze");
+        }
+        if (classToValidate == BleWand.class) {
+            if (bleWand != null) {
+                Log.w(Constants.LOG_TAG, "current bleWand in GlobalHandler is not null; attempting to close.");
+                try {
+                    bleWand.disconnect();
+                } catch (Exception e) {
+                    Log.e(Constants.LOG_TAG, "Exception caught in GlobalHandler.startConnection (likely null reference in UARTConnection); Exception message was: ``" + e.getMessage() + "''");
+                }
+            }
+            Log.w(Constants.LOG_TAG, "Trying to create new BleWand");
+            this.bleWand = new BleWand(appContext, bluetoothDevice, connectionListener);
+            Log.w(Constants.LOG_TAG, "Created new BleWand");
         }
     }
 

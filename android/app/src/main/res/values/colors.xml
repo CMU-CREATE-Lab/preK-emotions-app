@@ -14,6 +14,9 @@
     <!-- flower -->
     <color name="colorFlowerSkyLight">#b0f9ff</color>
     <color name="colorFlowerSkyDark">#a9dded</color>
+    <!-- wand -->
+    <color name="colorWandLight">#64140e</color>
+    <color name="colorWandDark">#300401</color>
     <!-- miscellaneous -->
     <color name="colorWhite">#fff</color>
     <color name="colorOffWhite">#f4f4f4</color>
