@@ -59,7 +59,7 @@ public class SqueezeCopingSkillActivity extends AbstractCopingSkillActivity {
         activityIsPaused = false;
         squeezeStateHandler.initializeState();
         squeezeStateHandler.lookForSqueeze();
-        //playAudio(getAudioFileForCopingSkillTitle());
+        playAudio(getAudioFileForCopingSkillTitle());
         squeezeCopingSkillProcess.onResumeActivity();
         super.onResume();
     }
