@@ -17,6 +17,7 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.YogaMadExcitedActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.YogaSadActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.YogaScaredActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand.WandCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_finished_exercise.FinishedExerciseActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.HeartBeatingActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.UseWordsActivity;
@@ -75,6 +76,9 @@ public class ItineraryItemToIntentMapper {
                 break;
             case "coping_skill_talk_about_it":
                 copingSkillClass = TalkAboutItActivity.class;
+                break;
+            case "coping_skill_wand":
+                copingSkillClass = WandCopingSkillActivity.class;
                 break;
             case "post_coping_skill_heart_beating":
                 copingSkillClass = HeartBeatingActivity.class;
