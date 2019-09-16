@@ -16,21 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="65sp" />
 
-        <fragment
-            android:id="@+id/drawerTeacherMain"
-            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment"
-            android:layout_width="205sp"
-            android:layout_height="0sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appHeader" />
-
         <GridView
             android:id="@+id/studentsGridView"
             style="@style/TeacherSectionGridView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/drawerTeacherMain"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appHeader" />
 
     </android.support.constraint.ConstraintLayout>

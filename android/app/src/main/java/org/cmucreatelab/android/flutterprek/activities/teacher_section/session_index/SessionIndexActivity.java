@@ -11,19 +11,29 @@ import org.cmucreatelab.android.flutterprek.activities.adapters.session_index.Se
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.TeacherSectionActivityWithHeader;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.session.Session;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
+import java.util.Collections;
 import java.util.List;
 
-public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
+public class SessionIndexActivity extends TeacherSectionActivityWithHeader implements Observer<List<Session>> {
+
+    public static final String STUDENT_KEY = "student";
 
     private RecyclerView sessionsRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private Student student = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // check for student in bundle
+        if (getIntent().hasExtra(STUDENT_KEY)) {
+            this.student = (Student) getIntent().getSerializableExtra(STUDENT_KEY);
+        }
 
         sessionsRecyclerView = (RecyclerView) findViewById(R.id.sessionsRecyclerView);
 
@@ -35,13 +45,15 @@ public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
         layoutManager = new LinearLayoutManager(this);
         sessionsRecyclerView.setLayoutManager(layoutManager);
 
-        AppDatabase.getInstance(this).sessionDAO().getAllSessions().observe(this, new Observer<List<Session>>() {
-            @Override
-            public void onChanged(@Nullable List<Session> sessions) {
-                mAdapter = new SessionAdapter(SessionIndexActivity.this, sessions);
-                sessionsRecyclerView.setAdapter(mAdapter);
-            }
-        });
+        if (student != null) {
+            //// NOTE: I mostly left these in here as a learning tool (varargs, singleton list). -tasota
+            //List<String> args = Arrays.asList(new String[]{ student.getUuid() });
+            //List<String> args = Arrays.asList(student.getUuid());
+            List<String> args = Collections.singletonList(student.getUuid());
+            AppDatabase.getInstance(this).sessionDAO().getSessionsFromStudents(args).observe(this, this);
+        } else {
+            AppDatabase.getInstance(this).sessionDAO().getAllSessions().observe(this, this);
+        }
     }
 
 
@@ -52,8 +64,9 @@ public class SessionIndexActivity extends TeacherSectionActivityWithHeader {
 
 
     @Override
-    public void onClickImageStudent() {
-        finish();
+    public void onChanged(@Nullable List<Session> sessions) {
+        mAdapter = new SessionAdapter(SessionIndexActivity.this, sessions);
+        sessionsRecyclerView.setAdapter(mAdapter);
     }
 
 }

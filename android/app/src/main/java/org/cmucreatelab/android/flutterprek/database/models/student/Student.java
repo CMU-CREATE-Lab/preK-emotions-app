@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
@@ -24,7 +25,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
 @Entity(tableName = "students", indices = @Index("classroom_uuid"), foreignKeys = @ForeignKey(entity = Classroom.class, parentColumns = "uuid", childColumns = "classroom_uuid", onDelete = CASCADE))
-public class Student {
+public class Student implements Serializable {
 
     @PrimaryKey
     @NonNull

@@ -52,8 +52,9 @@ public class LoginActivity extends TeacherSectionActivityWithHeader {
             findViewById(R.id.textViewErrorPrompt).setVisibility(View.INVISIBLE);
             // clear the text field
             ((EditText)findViewById(R.id.editTextPassword)).setText("");
-            // proceed to teacher section
-            startActivity(new Intent(this, SessionIndexActivity.class));
+//            // proceed to teacher section
+//            startActivity(new Intent(this, SessionIndexActivity.class));
+            startActivity(new Intent(this, StudentIndexActivity.class));
             finish();
         } else {
             findViewById(R.id.textViewErrorPrompt).setVisibility(View.VISIBLE);

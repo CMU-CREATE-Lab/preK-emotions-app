@@ -1,11 +1,13 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.fragments.AppHeaderFragment;
+import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 
 public abstract class TeacherSectionActivityWithHeader extends AbstractActivity {
 
@@ -29,8 +31,10 @@ public abstract class TeacherSectionActivityWithHeader extends AbstractActivity 
 
 
     public void onClickImageStudent() {
-        // does nothing by default
-        // TODO bring to student section by default?
+        // bring to student section by default
+        Intent intent = new Intent(this, ChooseStudentActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 }
