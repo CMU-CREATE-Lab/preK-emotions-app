@@ -29,7 +29,6 @@ public abstract class TeacherSectionActivityWithHeader extends AbstractActivity 
     }
 
 
-
     public void onClickImageStudent() {
         // bring to student section by default
         Intent intent = new Intent(this, ChooseStudentActivity.class);

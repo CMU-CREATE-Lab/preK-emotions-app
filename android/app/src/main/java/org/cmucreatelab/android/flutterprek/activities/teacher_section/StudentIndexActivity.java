@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
+import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapterWithSessionCount;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.session_index.SessionIndexActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
@@ -18,7 +18,7 @@ import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 import java.util.List;
 
 // TODO Student index does not actually use the "Main" drawer
-public class StudentIndexActivity extends TeacherSectionActivityWithHeader implements StudentIndexAdapter.ClickListener {
+public class StudentIndexActivity extends TeacherSectionActivityWithHeader implements StudentIndexAdapterWithSessionCount.ClickListener {
 
 
     @Override
@@ -30,7 +30,7 @@ public class StudentIndexActivity extends TeacherSectionActivityWithHeader imple
             @Override
             public void onChanged(@Nullable List<Student> students) {
                 GridView studentsGridView = findViewById(R.id.studentsGridView);
-                studentsGridView.setAdapter(new StudentIndexAdapter(StudentIndexActivity.this, students, StudentIndexActivity.this));
+                studentsGridView.setAdapter(new StudentIndexAdapterWithSessionCount(StudentIndexActivity.this, students, StudentIndexActivity.this));
             }
         });
 
