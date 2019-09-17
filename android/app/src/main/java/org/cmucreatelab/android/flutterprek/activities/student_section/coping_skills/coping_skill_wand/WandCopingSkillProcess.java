@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 
 import java.io.File;
 
@@ -45,6 +46,7 @@ public class WandCopingSkillProcess {
         wandCopingSkillActivity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
         stopWandMoving();
         stopSong();
+        wandCopingSkillActivity.playAudio("etc/audio_prompts/audio_more_time.wav");
         timerToExitFromOverlay.startTimer();
     }
 
@@ -161,6 +163,7 @@ public class WandCopingSkillProcess {
     public void playSong(){
         // Play the song
         wandCopingSkillActivity.playMusic();
+        AudioPlayer.getInstance(wandCopingSkillActivity.getApplicationContext()).playAudio();
         // Start a timer
         timerToDisplayOverlay.startTimer();
     }
