@@ -10,7 +10,7 @@ public class Constants {
     public static final String LOG_TAG = "flutterprek";
 
     /** This file is defined in the assets/ directory. */
-    public static final String DATABASE_SEED = "DbSeed.json";
+    public static final String DATABASE_SEED = "DbSeedPD3.json";
 
     /** Determines if the flower activity should display the debug window (shows BLE name and last message received). */
     public static final boolean FLOWER_SHOW_DEBUG_WINDOW = false;
@@ -75,6 +75,7 @@ public class Constants {
      * This is helpful when there are multiple stations in the same room.
      * Otherwise set to null.
      */
-    public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = STATION_2;
+    //public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = STATION_2;
+    public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = new DeviceConnectionHandler.HardcodedValues("heart + new flower","FLOWER-4D605","MNSQ1","MNWD1",null);
 
 }
