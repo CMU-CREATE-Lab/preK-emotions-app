@@ -38,7 +38,7 @@ public interface SessionDAO {
     @Query("SELECT * FROM sessions WHERE uuid = :sessionUuid LIMIT 1")
     LiveData<Session> getSession(String sessionUuid);
 
-    @Query("SELECT * FROM sessions WHERE student_uuid IN (:studentUuids)")
+    @Query("SELECT * FROM sessions WHERE student_uuid IN (:studentUuids) ORDER BY started_at DESC")
     LiveData<List<Session>> getSessionsFromStudents(List<String> studentUuids);
 
     @Query("SELECT * FROM sessions WHERE emotion_uuid IN (:emotionUuids)")
