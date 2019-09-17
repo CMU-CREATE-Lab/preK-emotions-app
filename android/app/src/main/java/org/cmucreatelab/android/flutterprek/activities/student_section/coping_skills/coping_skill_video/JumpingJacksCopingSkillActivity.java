@@ -26,7 +26,7 @@ public class JumpingJacksCopingSkillActivity extends VideoCopingSkillActivity {
 
     @Override
     public String getFilePathForVideo() {
-        return "android.resource://" + getPackageName() + "/" + R.raw.jumpingjacks_with_wristband_prompt;
+        return "android.resource://" + getPackageName() + "/" + R.raw.jumpingjacks;
     }
 
 

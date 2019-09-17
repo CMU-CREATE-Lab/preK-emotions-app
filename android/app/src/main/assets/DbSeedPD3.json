@@ -22,7 +22,8 @@
     { "uuid": "coping_skill_2", "name": "Static Coping Skill", "imageFileUuid": "ic_jumping_jacks" },
     { "uuid": "coping_skill_7", "name": "Stretching", "imageFileUuid": "ic_stretching" },
     { "uuid": "coping_skill_8", "name": "Stretching", "imageFileUuid": "ic_stretching" },
-    { "uuid": "coping_skill_9", "name": "Stretching", "imageFileUuid": "ic_stretching" }
+    { "uuid": "coping_skill_9", "name": "Stretching", "imageFileUuid": "ic_stretching" },
+    { "uuid": "coping_skill_13", "name": "Stretching", "imageFileUuid": "ic_stretching" }
   ],
   "customizations":
   [
@@ -56,6 +57,7 @@
     { "uuid": "mad_wand", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_14"},
     { "uuid": "scared_flower", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "scared_cuddle", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_3" },
+    { "uuid": "scared_yoga", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_13" },
     { "uuid": "scared_talk_teacher", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_12" }
   ],
   "itineraryItems":
@@ -109,6 +111,10 @@
     { "uuid": "coping_skill_10_part1", "ownerUuid": "coping_skill_10", "sequenceId": 1, "capabilityId": "coping_skill_squeeze", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_10_part2", "ownerUuid": "coping_skill_10", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_10_part3", "ownerUuid": "coping_skill_10", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
+
+    { "uuid": "coping_skill_13_part1", "ownerUuid": "coping_skill_13", "sequenceId": 1, "capabilityId": "coping_skill_video.yoga_scared", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_13_part2", "ownerUuid": "coping_skill_13", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_13_part3", "ownerUuid": "coping_skill_13", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
 
     { "uuid": "coping_skill_14_part1", "ownerUuid": "coping_skill_14", "sequenceId": 1, "capabilityId": "coping_skill_wand", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_14_part2", "ownerUuid": "coping_skill_14", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
