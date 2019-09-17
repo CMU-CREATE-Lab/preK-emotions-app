@@ -20,7 +20,7 @@ import java.io.File;
 
 public class WandCopingSkillProcess {
 
-    private static final long SONG_DURATION = 170000; //170000
+    private static final long SONG_DURATION = 30000; //170000
     private static final long TEMPO = 1300;
     private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
     private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;

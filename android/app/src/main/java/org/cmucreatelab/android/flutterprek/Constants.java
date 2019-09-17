@@ -15,7 +15,7 @@ public class Constants {
     /** Determines if the flower activity should display the debug window (shows BLE name and last message received). */
     public static final boolean FLOWER_SHOW_DEBUG_WINDOW = false;
     public static final boolean SQUEEZE_SHOW_DEBUG_WINDOW = false;
-    public static final boolean WAND_SHOW_DEBUG_WINDOW = true;
+    public static final boolean WAND_SHOW_DEBUG_WINDOW = false;
 
     /** Determines what type of activity will run for the "choose emotion" step of a student's session. Setting to false will use the legacy interface (displays emotions only). */
     public static final boolean CHOOSE_EMOTION_WITH_TALK_ABOUT_IT_OPTION = true;
@@ -67,8 +67,8 @@ public class Constants {
     public static final DeviceConnectionHandler.HardcodedValues
             STATION_TEST = new DeviceConnectionHandler.HardcodedValues("test","FLOWER-AEF3D",null, null, null),
             STATION_TEST_V2 = new DeviceConnectionHandler.HardcodedValues("test-v2","FLOWER-30384",null, null, null),
-            STATION_1 = new DeviceConnectionHandler.HardcodedValues("heart","FLOWER-9B4BC","MNSQ1","MNWD1","MNYG1"),
-            STATION_2 = new DeviceConnectionHandler.HardcodedValues("star","FLOWER-9C915","MNSQ3","MNWD2","MNYG2");
+            STATION_1 = new DeviceConnectionHandler.HardcodedValues("heart","FLOWER-9B4BC","MNSQ1","MNWD2","MNYG1"),
+            STATION_2 = new DeviceConnectionHandler.HardcodedValues("star","FLOWER-9C915","MNSQ3","MNWD1","MNYG2");
 
     /**
      * Set this to use hardcoded values for the MindfulNest BLE devices.

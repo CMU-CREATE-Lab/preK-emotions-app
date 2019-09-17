@@ -155,12 +155,12 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     }
 
     public String getAudioFileForMusic() {
-        return "etc/music/WandMusic.mp3";
+        return "etc/music/WandMusic.wav";
     }
 
     public void playMusic(){
-        AudioPlayer.getInstance(getApplicationContext()).addAudioFromAssets(getAudioFileForMusic());
-        AudioPlayer.getInstance(getApplicationContext()).playAudio();
+        AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+        audioPlayer.addAudioFromAssets(getAudioFileForMusic());
     }
 
     public void stopMusic () {
