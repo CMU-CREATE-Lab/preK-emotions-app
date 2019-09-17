@@ -56,14 +56,14 @@ public class HeartBeatingActivity extends PostCopingSkillActivity {
         heartSlow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO record choice (slow)
+                GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().onSelectedHeartBeat("slow");
                 goToNextPostCopingSkillActivity();
             }
         });
         heartFast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO record choice (fast)
+                GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().onSelectedHeartBeat("fast");
                 goToNextPostCopingSkillActivity();
             }
         });

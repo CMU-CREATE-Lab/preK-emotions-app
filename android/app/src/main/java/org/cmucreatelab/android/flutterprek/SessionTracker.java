@@ -14,6 +14,7 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
+import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.SessionCopingSkill;
@@ -267,6 +268,21 @@ public class SessionTracker {
             selectedEmotion.selectedCopingSkills.add(new SelectedCopingSkill(copingSkill, itineraryItems));
             insertSessionCopingSkillModel(new SessionCopingSkill(roomSession.getUuid(), copingSkill.getUuid(), new Date()));
         }
+    }
+
+
+    // TODO @tasota value should be better defined (enum perhaps)
+    public void onSelectedHeartBeat(String value) {
+        final Customization customization = new Customization("heart_beat_choice", value);
+        // TODO @tasota this should be linked to sessions_coping_skills, not sessions
+        customization.setOwnerUuid(roomSession.getUuid());
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                AppDatabase.getInstance(appContext).customizationDAO().insert(customization);
+            }
+        });
     }
 
 
