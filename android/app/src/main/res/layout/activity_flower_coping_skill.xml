@@ -84,13 +84,13 @@
     <ImageView
         android:id="@+id/imageViewFlowerLadyBug"
         android:layout_width="16dp"
-        android:layout_height="25dp"
+        android:layout_height="16dp"
         android:scaleType="fitXY"
         android:layout_marginBottom="50dp"
         android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageViewFlowerStem"
-        app:srcCompat="@drawable/ic_flower_lady_bug" />
+        app:srcCompat="@drawable/shape_oval_white" />
     <ImageView
         android:id="@+id/imageViewFlowerLadyBugArrow"
         android:layout_width="21dp"
