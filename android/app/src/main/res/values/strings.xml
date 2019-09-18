@@ -30,7 +30,7 @@
     <string name="classroom_grid_label_students">Students</string>
     <string name="classroom_grid_label_coping_skills">Coping Skills</string>
     <string name="coping_skill_flower_placeholder">Flower Text will go here</string>
-    <string name="coping_skill_flower_step_1_hold">Hold the flower with your thumb on the lady bug.</string>
+    <string name="coping_skill_flower_step_1_hold">Hold the flower and press the button on the stem.</string>
     <string name="coping_skill_flower_step_2_smell">Smell the flower</string>
     <string name="coping_skill_flower_step_3_blow">Blow on the flower</string>
     <string name="coping_skill_flower_overlay">Would you like to do flower breathing again?</string>
@@ -40,7 +40,7 @@
     <string name="coping_skill_static_squeeze">Squeeze the squeezer until you feel in control.</string>
     <string name="coping_skill_squeeze">Squeeze the squeezer until you feel in control.</string>
     <string name="coping_skill_jumping_jacks">Let\'s do some jumping jacks! Jump your feet wide. Clap your hands over your head. Jump your feet together. Lower your hands. Keep going!</string>
-    <string name="coping_skill_wand">To keep the music playing, match the speed of your wand to the wand on the screen.</string>
+    <string name="coping_skill_wand">Slowly wave the wand to make the music play.</string>
     <string name="coping_skill_share">Happiness is nice to share. Do you see any friends who could use a happy friend right now? Invite them to play with you!</string>
     <string name="coping_skill_teacher">Talk to your teacher about how you are feeling.</string>
     <string name="overlay_placeholder">Do you need more time?</string>

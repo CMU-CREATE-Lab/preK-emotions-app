@@ -151,7 +151,7 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     }
 
     public String getAudioFileForCopingSkillTitle() {
-        return "etc/audio_prompts/audio_wand.wav";
+        return "etc/audio_prompts/audio_wand_slowly.wav";
     }
 
     public String getAudioFileForMusic() {

@@ -17,7 +17,7 @@ public class FlowerCopingSkillActivity extends AbstractCopingSkillActivity {
 
 
     private void playAudioInstructions() {
-        playAudio("etc/audio_prompts/audio_flower_hold_thumb_ladybug.wav");
+        playAudio("etc/audio_prompts/audio_flower_button_stem.wav");
     }
 
 
