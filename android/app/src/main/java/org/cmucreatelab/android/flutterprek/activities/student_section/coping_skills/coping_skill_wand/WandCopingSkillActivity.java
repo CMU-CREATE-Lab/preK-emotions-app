@@ -96,7 +96,7 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
             public void run() {
                 while(running) {
                     try {
-                        Thread.sleep(20);
+                        Thread.sleep(10);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

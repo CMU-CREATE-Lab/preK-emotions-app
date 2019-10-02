@@ -64,9 +64,9 @@ public class WandSpeedTracker {
         double v1 = (double) vals[1];
         double v2 = (double) vals[2];
         double mag = Math.sqrt(v0*v0 + v1*v1 + v2*v2);
-        v0 = v0/mag;
-        v1 = v1/mag;
-        v2 = v2/mag;
+        //v0 = v0/mag;
+        //v1 = v1/mag;
+        //v2 = v2/mag;
         vals1[index] = v0;
         vals2[index] = v1;
         vals3[index] = v2;

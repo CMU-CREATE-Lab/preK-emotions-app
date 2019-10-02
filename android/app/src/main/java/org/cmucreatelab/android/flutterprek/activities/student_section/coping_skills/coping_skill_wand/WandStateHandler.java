@@ -80,23 +80,26 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
     private void changeState(WandStateHandler.State newState) {
         currentState = newState;
+        String rgb = "";
         byte[] color = null;
         if (currentState == WandStateHandler.State.STOPPED) {
             // Turn off light on tip of wand
-            color = new byte[] {0x00};
+            rgb = "255,255,255";
         } else if (currentState == WandStateHandler.State.SLOW) {
             // Turn lights rainbow colors matching the tempo of the music
             // TODO send color change command?
-            color = new byte[] {0x02};
+            rgb = "0,255,0";
             activity.setVolumeHigh();
         } else if (currentState == WandStateHandler.State.FAST) {
             // Turn off lights on the tip of wand
             // TODO Send color red?
-            color = new byte[] {0x01};
+            rgb = "255,0,0";
             activity.setVolumeLow();
         }
         if(bleWand != null) {
-            //bleWand.writeData(color);
+            color = rgb.getBytes();
+            bleWand.writeData(color);
+            bleWand.writeData(new byte[] {0x0D});
         }
     }
 
@@ -117,7 +120,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     }
 
     @Override
-    public void onReceivedData(String arg1, String arg2, String arg3) {
+    public void onReceivedData(String button, String x, String y, String z) {
         if (activity.isPaused()) {
             Log.v(Constants.LOG_TAG, "onReceivedData ignored while activity is paused.");
             return;
@@ -127,11 +130,11 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         prevTime = curTime;
         curTime = System.currentTimeMillis();
 
-        data = new String[] {arg1, arg2, arg3};
+        data = new String[] {x, y, z};
         log = true;
 
         if (SHOW_DEBUG_WINDOW) {
-            String reformedData = arg1+","+arg2+","+arg3;
+            String reformedData = button+", "+x+","+y+","+z;
             lastNotification = reformedData + "\n" + (curTime-prevTime) + "\n" + curTime + "\n" + dataCount;
             updateDebugWindow();
         }
@@ -177,31 +180,16 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         // If the log flag is set, take the string and parse the info
         if (log) {
             curVals = new int[] {Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])};
-            //String type = data[3];
-            String type = "accel";
-            //Log.e(Constants.LOG_TAG, "Type is: "+type);
-            if (type.equalsIgnoreCase("accel")) {
-                //Log.e(Constants.LOG_TAG, "Type recorded: "+type);
-                wandSpeedTracker.writeValsToArray(curVals, curTime);
-            }
-            if (type.equalsIgnoreCase("gyro")) {
-                //Log.e(Constants.LOG_TAG, "Type recorded: "+type);
-                wandSpeedTracker.writeGyroToArray(curVals, curTime);
-            }
-
-            //Log.e(Constants.LOG_TAG, "Logged data");
+            wandSpeedTracker.writeValsToArray(curVals, curTime);
+           //Log.e(Constants.LOG_TAG, "Logged data");
 
             dataCount++;
             periodCount++;
 
             if (dataCount >= window) {
-                //Log.e(Constants.LOG_TAG, "Calling countSigns()");
                 wandSpeedTracker.countSigns();
-                //Log.e(Constants.LOG_TAG, "Returned from countSigns()");
             }
-
             //Log.e(Constants.LOG_TAG, "Counted signs");
-
             log = false;
         }
     }
