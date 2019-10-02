@@ -79,21 +79,21 @@ public class FinishedExerciseActivity extends PostCopingSkillActivity {
         findViewById(R.id.viewFeelingUnchanged).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO record choice (unchanged)
+                GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().onSelectedFinishedExerciseEmotion("unchanged");
                 goToNextPostCopingSkillActivity();
             }
         });
         findViewById(R.id.viewFeelingOk).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO record choice (ok)
+                GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().onSelectedFinishedExerciseEmotion("ok");
                 goToNextPostCopingSkillActivity();
             }
         });
         findViewById(R.id.viewFeelingHappy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO record choice (happy)
+                GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().onSelectedFinishedExerciseEmotion("happy");
                 goToNextPostCopingSkillActivity();
             }
         });

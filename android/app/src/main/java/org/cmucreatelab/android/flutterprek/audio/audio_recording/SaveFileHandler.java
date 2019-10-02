@@ -26,9 +26,7 @@ public class SaveFileHandler {
         File mediaStorageDir = new File("","");
         File mediaFile;
 
-
-        //String name = globalHandler.sessionHandler.getMessageSender().getName();
-        String name = globalHandler.studentSectionNavigationHandler.studentUuid;
+        String name = globalHandler.getSessionTracker().getSessionUuid();
         if (name.contains(" ")) {
             name = name.replace(' ', '_');
         }

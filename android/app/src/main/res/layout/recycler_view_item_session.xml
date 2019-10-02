@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_margin="10dp"
     android:background="@drawable/card">
@@ -13,7 +13,7 @@
         android:id="@+id/imageStudent"
         style="@style/GridViewItemThumbnail.CenterCrop"
         android:layout_width="160dp"
-        android:layout_height="0dp"
+        android:layout_height="120dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/card"
@@ -27,7 +27,7 @@
         android:layout_margin="2dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/imageStudent"
-        app:layout_constraintBottom_toBottomOf="parent" >
+        app:layout_constraintBottom_toBottomOf="@id/imageStudent" >
 
         <TextView
             android:id="@+id/textStudent"
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/layoutCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" >
+        app:layout_constraintBottom_toBottomOf="@id/imageStudent" >
 
         <TextView
             android:id="@+id/textLabelCopingSkills"
@@ -102,6 +102,38 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textLabelCopingSkills"
             app:layout_constraintBottom_toBottomOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageStudent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" >
+
+        <ImageView
+            android:id="@+id/imageRecord"
+            style="@style/GridViewItemThumbnail.FitCenter"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/card"
+            app:srcCompat="@drawable/ic_record" />
+
+        <ImageView
+            android:id="@+id/imagePlay"
+            style="@style/GridViewItemThumbnail.FitCenter"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            app:layout_constraintStart_toEndOf="@id/imageRecord"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/card"
+            app:srcCompat="@drawable/ic_sound" />
 
     </android.support.constraint.ConstraintLayout>
 

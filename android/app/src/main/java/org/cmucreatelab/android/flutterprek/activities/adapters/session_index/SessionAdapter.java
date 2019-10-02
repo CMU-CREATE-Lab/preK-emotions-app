@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.SessionCopingSkill;
@@ -29,6 +30,7 @@ public class SessionAdapter extends RecyclerView.Adapter<ItemSessionRecyclerView
         public Emotion emotion;
         public DbFile studentDbFile, emotionDbFile;
         public List<SessionCopingSkill> sessionCopingSkillList;
+        public List<Customization> customizationList;
 
         public Item(Session session) {
             this.session = session;
@@ -99,6 +101,14 @@ public class SessionAdapter extends RecyclerView.Adapter<ItemSessionRecyclerView
             @Override
             public void onChanged(@Nullable List<SessionCopingSkill> sessionCopingSkills) {
                 item.sessionCopingSkillList = sessionCopingSkills;
+                holder.updateWithItem(item);
+            }
+        });
+
+        AppDatabase.getInstance(activity.getApplicationContext()).customizationDAO().getCustomizationsOwnedBy(item.session.getUuid()).observe(activity, new Observer<List<Customization>>() {
+            @Override
+            public void onChanged(@Nullable List<Customization> customizations) {
+                item.customizationList = customizations;
                 holder.updateWithItem(item);
             }
         });

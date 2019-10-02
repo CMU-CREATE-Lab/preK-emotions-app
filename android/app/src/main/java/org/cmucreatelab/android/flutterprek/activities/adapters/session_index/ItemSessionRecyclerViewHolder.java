@@ -10,11 +10,13 @@ import android.widget.TextView;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
+import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
 
 public class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
 
     public final TextView textStudent, textNumberOfCopingSkills, textDate;
     public final ImageView imageStudent, imageEmotion;
+    public final View layoutBottom;
     public final AbstractActivity activity;
     private final RecyclerView sessionsCopingSkillRecyclerView;
 
@@ -31,6 +33,7 @@ public class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
         sessionsCopingSkillRecyclerView = v.findViewById(R.id.sessionCopingSkillsRecyclerView);
         sessionsCopingSkillRecyclerView.setLayoutManager(new LinearLayoutManager(appContext, LinearLayoutManager.HORIZONTAL, false));
         textDate = v.findViewById(R.id.textDate);
+        layoutBottom = v.findViewById(R.id.layoutBottom);
     }
 
 
@@ -53,6 +56,16 @@ public class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
             sessionsCopingSkillRecyclerView.setAdapter(adapter);
         }
         textDate.setText(date);
+        layoutBottom.setVisibility(View.GONE);
+        if (item.customizationList != null) {
+            for (Customization customization : item.customizationList) {
+                // TODO @tasota should not use hardcoded keys
+                if (customization.getKey().equals("audio_talk_about_it")) {
+                    // TODO @tasota grab audio file
+                    layoutBottom.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 
 }

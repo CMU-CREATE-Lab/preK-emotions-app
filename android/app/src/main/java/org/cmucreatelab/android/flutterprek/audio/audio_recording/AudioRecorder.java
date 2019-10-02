@@ -58,6 +58,7 @@ public class AudioRecorder implements Serializable {
             this.mediaRecorder.release();
             this.mediaRecorder = null;
             this.isRecording = false;
+            GlobalHandler.getInstance(appContext).getSessionTracker().onRecordedTalkAboutIt(audioFile);
         }
     }
 

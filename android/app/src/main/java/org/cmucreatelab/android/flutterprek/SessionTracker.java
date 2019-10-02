@@ -21,6 +21,7 @@ import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.
 import org.cmucreatelab.android.flutterprek.database.models.session.Session;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -175,6 +176,11 @@ public class SessionTracker {
     }
 
 
+    public String getSessionUuid() {
+        return roomSession.getUuid();
+    }
+
+
     /**
      * Construct an intent for the next activity to be run in the session.
      *
@@ -273,8 +279,39 @@ public class SessionTracker {
 
     // TODO @tasota value should be better defined (enum perhaps)
     public void onSelectedHeartBeat(String value) {
+        // TODO @tasota how to handle multiple heartbeats?
         final Customization customization = new Customization("heart_beat_choice", value);
         // TODO @tasota this should be linked to sessions_coping_skills, not sessions
+        customization.setOwnerUuid(roomSession.getUuid());
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                AppDatabase.getInstance(appContext).customizationDAO().insert(customization);
+            }
+        });
+    }
+
+
+    // TODO @tasota value should be better defined (enum perhaps)
+    public void onSelectedFinishedExerciseEmotion(String value) {
+        // TODO @tasota how to handle multiples?
+        final Customization customization = new Customization("finished_exercise_emotion", value);
+        // TODO @tasota this should be linked to sessions_coping_skills, not sessions
+        customization.setOwnerUuid(roomSession.getUuid());
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                AppDatabase.getInstance(appContext).customizationDAO().insert(customization);
+            }
+        });
+    }
+
+
+    public void onRecordedTalkAboutIt(File audioFile) {
+        String value = audioFile.getAbsolutePath();
+        final Customization customization = new Customization("audio_talk_about_it", value);
         customization.setOwnerUuid(roomSession.getUuid());
 
         AsyncTask.execute(new Runnable() {
