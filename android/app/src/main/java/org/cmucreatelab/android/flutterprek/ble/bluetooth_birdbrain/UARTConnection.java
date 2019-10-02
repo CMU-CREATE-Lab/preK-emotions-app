@@ -241,10 +241,8 @@ public class UARTConnection extends BluetoothGattCallback {
         if (status == BluetoothGatt.GATT_SUCCESS) {
             tx = gatt.getService(uartUUID).getCharacteristic(txUUID);
             rx = gatt.getService(uartUUID).getCharacteristic(rxUUID);
-            //rx2 = gatt.getService(uartUUID).getCharacteristic(UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb"));
 
             rxChars.add(rx);
-            rxChars.add(rx2);
 
             //requestCharacteristics(gatt);
 

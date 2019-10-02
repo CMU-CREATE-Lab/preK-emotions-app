@@ -75,7 +75,6 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     private void updateWand(BleWand bleWand) {
         this.bleWand = bleWand;
         this.bleWand.notificationCallback = this;
-        this.bleWand.notificationCallback2 = this;
     }
 
 
@@ -97,7 +96,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             activity.setVolumeLow();
         }
         if(bleWand != null) {
-            bleWand.writeData(color);
+            //bleWand.writeData(color);
         }
     }
 
@@ -118,16 +117,17 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     }
 
     @Override
-    public void onReceivedData(String arg1, String arg2, String arg3, String type) {
+    public void onReceivedData(String arg1, String arg2, String arg3) {
         if (activity.isPaused()) {
             Log.v(Constants.LOG_TAG, "onReceivedData ignored while activity is paused.");
             return;
         }
+        //TODO BUTTON
 
         prevTime = curTime;
         curTime = System.currentTimeMillis();
 
-        data = new String[] {arg1, arg2, arg3, type};
+        data = new String[] {arg1, arg2, arg3};
         log = true;
 
         if (SHOW_DEBUG_WINDOW) {
@@ -140,7 +140,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     public void update() {
         long tempTime = System.currentTimeMillis();
 
-        Log.e(Constants.LOG_TAG, "temp time - prev time: " + (tempTime-prevTime));
+        //Log.e(Constants.LOG_TAG, "temp time - prev time: " + (tempTime-prevTime));
         if(tempTime - prevTime > 1000) {
             changeState(State.STOPPED);
         } else {
@@ -177,7 +177,8 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         // If the log flag is set, take the string and parse the info
         if (log) {
             curVals = new int[] {Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])};
-            String type = data[3];
+            //String type = data[3];
+            String type = "accel";
             //Log.e(Constants.LOG_TAG, "Type is: "+type);
             if (type.equalsIgnoreCase("accel")) {
                 //Log.e(Constants.LOG_TAG, "Type recorded: "+type);
