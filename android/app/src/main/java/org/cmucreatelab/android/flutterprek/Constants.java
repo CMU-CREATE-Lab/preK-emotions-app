@@ -68,7 +68,7 @@ public class Constants {
             STATION_TEST = new DeviceConnectionHandler.HardcodedValues("test","FLOWER-AEF3D",null, null, null),
             STATION_TEST_V2 = new DeviceConnectionHandler.HardcodedValues("test-v2","FLOWER-30384",null, null, null),
             STATION_1 = new DeviceConnectionHandler.HardcodedValues("heart","FLOWER-9B4BC","MNSQ1","MNWD2","MNYG1"),
-            STATION_2 = new DeviceConnectionHandler.HardcodedValues("star","FLOWER-9C915","MNSQ3","MNWD1","MNYG2");
+            STATION_2 = new DeviceConnectionHandler.HardcodedValues("star","FLOWER-9C915","MNSQ2","MNWD1","MNYG2");
 
     /**
      * Set this to use hardcoded values for the MindfulNest BLE devices.
@@ -76,6 +76,6 @@ public class Constants {
      * Otherwise set to null.
      */
     //public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = STATION_2;
-    public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = new DeviceConnectionHandler.HardcodedValues("heart + new flower","FLOWER-4D605","MNSQ1","MNWD1",null);
+    public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = new DeviceConnectionHandler.HardcodedValues("star + new flower","FLOWER-4D605","MNSQ2","MNWD1",null);
 
 }
