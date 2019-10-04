@@ -15,10 +15,6 @@ public class BleWand {
 
     private UARTConnection uartConnection;
     public BleWand.NotificationCallback notificationCallback = null;
-    String[] full_params = new String[4];
-    boolean partialLogged = false;
-    byte[] full_bytes = new byte[28];
-    boolean startLogged = false;
 
 
     public BleWand(Context appContext, BluetoothDevice device, UARTConnection.ConnectionListener connectionListener) {
@@ -31,7 +27,7 @@ public class BleWand {
                 if (notificationCallback != null) {
                     String[] params = new String(newData).trim().split(",");
                     if (params.length < 5) {
-                        Log.e(Constants.LOG_TAG, "parsed less than five params from notification='"+new String(newData).trim()+"'; unable to call NotificationCallback.");
+                        Log.d(Constants.LOG_TAG, "parsed less than five params from notification='"+new String(newData).trim()+"'; unable to call NotificationCallback.");
                         return;
                     } else {
                         // Trim the spaces out of the data
@@ -40,11 +36,11 @@ public class BleWand {
                         params[3] = params[3].replaceAll("\\s", "");
                         params[4] = params[4].replaceAll("\\s", "");
                         // TODO Remove after debugging
-                        Log.e(Constants.LOG_TAG, "Counter: " + params[0]);
-                        Log.e(Constants.LOG_TAG, "Button: " + params[1]);
-                        Log.e(Constants.LOG_TAG, "X: " + params[2]);
-                        Log.e(Constants.LOG_TAG, "Y: " + params[3]);
-                        Log.e(Constants.LOG_TAG, "Z: " + params[4]);
+                        //Log.e(Constants.LOG_TAG, "Counter: " + params[0]);
+                        //Log.e(Constants.LOG_TAG, "Button: " + params[1]);
+                        //Log.e(Constants.LOG_TAG, "X: " + params[2]);
+                        //Log.e(Constants.LOG_TAG, "Y: " + params[3]);
+                        //Log.e(Constants.LOG_TAG, "Z: " + params[4]);
                         // Send the data, without the counter
                         notificationCallback.onReceivedData(params[1], params[2], params[3], params[4]);
                     }
@@ -52,31 +48,6 @@ public class BleWand {
             }
         });
     }
-
-    public boolean collectData(String[] params, boolean end) {
-        Log.e(Constants.LOG_TAG, "Made it to collect data");
-        if (end) {
-            Log.e(Constants.LOG_TAG, "Partial Logged is "+ partialLogged);
-            if (partialLogged) {
-                full_params[3] = full_params[3] + params[0];
-                //full_params[3].concat(params[0]);
-                Log.e(Constants.LOG_TAG, "HERE");
-                partialLogged = false;
-                Log.e(Constants.LOG_TAG, "full params: " + Arrays.toString(full_params));
-                return true;
-            }
-            return false;
-        } else {
-            full_params[0] = params[0]; // Button
-            full_params[1] = params[1]; // X
-            full_params[2] = params[2]; // Y
-            full_params[3] = params[3]; // Partial(?) Z
-            partialLogged = true;
-            Log.e(Constants.LOG_TAG, "Logged partial data");
-            return false;
-        }
-    }
-
 
     public boolean isConnected() {
         return uartConnection.isConnected();

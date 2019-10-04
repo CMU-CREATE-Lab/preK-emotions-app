@@ -30,7 +30,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
     private long curTime = 0;
     // Number of readings for a period
-    private int period = 70; //50 //120 // 60 //100
+    private int period = 14;
     private WandStateHandler.State currentState = WandStateHandler.State.STOPPED;
 
     private int dataCount = 0;
@@ -39,6 +39,8 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
     private String[] data;
     private boolean log = false;
+
+    private String slow_color = "0,255,0";
 
     private void updateDebugWindow() {
         if (SHOW_DEBUG_WINDOW) {
@@ -83,16 +85,15 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         String rgb = "";
         byte[] color = null;
         if (currentState == WandStateHandler.State.STOPPED) {
-            // Turn off light on tip of wand
+            // Turn on the white light
             rgb = "255,255,255";
         } else if (currentState == WandStateHandler.State.SLOW) {
             // Turn lights rainbow colors matching the tempo of the music
             // TODO send color change command?
-            rgb = "0,255,0";
+            rgb = slow_color;
             activity.setVolumeHigh();
         } else if (currentState == WandStateHandler.State.FAST) {
-            // Turn off lights on the tip of wand
-            // TODO Send color red?
+            // Turn light red
             rgb = "255,0,0";
             activity.setVolumeLow();
         }
@@ -126,6 +127,24 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             return;
         }
         //TODO BUTTON
+        if (Integer.parseInt(button) == 1) {
+            int r = (int) (Math.random()*255);
+            int g = (int) (Math.random()*255);
+            int b = (int) (Math.random()*255);
+            // Check if red
+            if (r >= 200 && g <= 50 && b <=50) {
+                g += 60;
+                b += 60;
+            }
+            // Check if white
+            if (r >= 200 && b >= 200 && b >= 200) {
+                r -= 60;
+                b -= 60;
+            }
+
+            slow_color = Integer.toString(r)+","+Integer.toString(g)+","+Integer.toString(b);
+            Log.e(Constants.LOG_TAG, "Slow color: "+slow_color);
+        }
 
         prevTime = curTime;
         curTime = System.currentTimeMillis();
@@ -144,11 +163,11 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         long tempTime = System.currentTimeMillis();
 
         //Log.e(Constants.LOG_TAG, "temp time - prev time: " + (tempTime-prevTime));
-        if(tempTime - prevTime > 1000) {
+        if(tempTime - prevTime > 200) {
             changeState(State.STOPPED);
         } else {
             if (periodCount >= period) {
-                //Log.e(Constants.LOG_TAG, "Calling getSpeed()");
+                Log.e(Constants.LOG_TAG, "Period Count = " + Integer.toString(periodCount));
                 int state = -1;
                 state = wandSpeedTracker.getSpeed();
 
@@ -170,7 +189,6 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
                     default:
                 }
                 periodCount = 0;
-                //Log.e(Constants.LOG_TAG, "Returned from getSpeed()");
             }
         }
 
@@ -181,15 +199,13 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         if (log) {
             curVals = new int[] {Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])};
             wandSpeedTracker.writeValsToArray(curVals, curTime);
-           //Log.e(Constants.LOG_TAG, "Logged data");
 
             dataCount++;
             periodCount++;
 
             if (dataCount >= window) {
-                wandSpeedTracker.countSigns();
+                wandSpeedTracker.updateMaxMag(curVals);
             }
-            //Log.e(Constants.LOG_TAG, "Counted signs");
             log = false;
         }
     }
