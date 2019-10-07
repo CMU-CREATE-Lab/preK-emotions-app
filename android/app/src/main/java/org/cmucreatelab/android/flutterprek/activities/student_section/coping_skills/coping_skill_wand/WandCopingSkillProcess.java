@@ -88,6 +88,7 @@ public class WandCopingSkillProcess {
             public void onClick(View v) {
                 // TODO Fix this so it starts the activity over again
                 wandCopingSkillActivity.setScreen();
+                wandCopingSkillActivity.playAudio(wandCopingSkillActivity.getAudioFileForCopingSkillTitle());
                 playSong();
                 hideOverlay();
                 startWandMoving();
@@ -163,7 +164,7 @@ public class WandCopingSkillProcess {
     public void playSong(){
         // Play the song
         wandCopingSkillActivity.playMusic();
-        AudioPlayer.getInstance(wandCopingSkillActivity.getApplicationContext()).playAudio();
+        //AudioPlayer.getInstance(wandCopingSkillActivity.getApplicationContext()).playAudio();
         // Start a timer
         timerToDisplayOverlay.startTimer();
     }
