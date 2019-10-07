@@ -34,7 +34,7 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     private WandCopingSkillProcess wandCopingSkillProcess;
     private boolean volumeLow = false;
     private int lastVolume = 0;
-    private int delay = 500;
+    private int delay = 250;
     private Thread t;
     private Thread t_log;
     private static volatile boolean running;
