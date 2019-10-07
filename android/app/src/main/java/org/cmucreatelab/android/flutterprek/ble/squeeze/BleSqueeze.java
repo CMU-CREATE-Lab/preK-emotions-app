@@ -26,6 +26,8 @@ public class BleSqueeze {
                         Log.e(Constants.LOG_TAG, "parsed empty parameter from notification='"+new String(newData).trim()+"'; unable to call NotificationCallback.");
                         return;
                     }
+                    // remove any non-numerical characters in the message (leading a-z printed on some notifications)
+                    param = param.replaceAll("[^0-9]","");
                     notificationCallback.onReceivedData(param);
                 }
             }
