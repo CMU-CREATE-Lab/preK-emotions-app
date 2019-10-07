@@ -54,17 +54,18 @@ public class Constants {
     }
 
     public static final DeviceConnectionHandler.HardcodedValues
-            STATION_TEST = new DeviceConnectionHandler.HardcodedValues("test","FLOWER-AEF3D",null, null, null),
-            STATION_TEST_V2 = new DeviceConnectionHandler.HardcodedValues("test-v2","FLOWER-30384",null, null, null),
-            STATION_1 = new DeviceConnectionHandler.HardcodedValues("heart","FLOWER-9B4BC","MNSQ1","MNWD2","MNYG1"),
-            STATION_2 = new DeviceConnectionHandler.HardcodedValues("star","FLOWER-9C915","MNSQ3","WAND-A8D12","MNYG2");
+            STATION_HEART = new DeviceConnectionHandler.HardcodedValues("\uD83D\uDC96","FLOWER-E5F6C","MNSQ1","WAND-8A224",null),
+            STATION_STAR = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF1F","FLOWER-E5E22","MNSQ2","WAND-E1A98",null),
+            STATION_SMILEY = new DeviceConnectionHandler.HardcodedValues("🙂","FLOWER-4D605","MNSQ5","WAND-7C185",null),
+            STATION_SUN = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF1E","FLOWER-AC43D","MNSQ4","WAND-7426D",null),
+            STATION_MOON = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF19","FLOWER-E167F","MNSQ6","WAND-A8D12",null),
+            STATION_TREE = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF32","FLOWER-595A4","MNSQ3","WAND-E2A59",null);
 
     /**
      * Set this to use hardcoded values for the MindfulNest BLE devices.
      * This is helpful when there are multiple stations in the same room.
      * Otherwise set to null.
      */
-    public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = STATION_2;
-    //public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = new DeviceConnectionHandler.HardcodedValues("heart + new flower","FLOWER-4D605","MNSQ1","MNWD1",null);
+    public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = STATION_HEART;
 
 }
