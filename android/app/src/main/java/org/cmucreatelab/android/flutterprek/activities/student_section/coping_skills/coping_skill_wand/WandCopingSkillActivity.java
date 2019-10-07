@@ -132,9 +132,9 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         activityIsPaused = false;
         wandStateHandler.initializeState();
         playAudio(getAudioFileForCopingSkillTitle());
+        wandCopingSkillProcess.playSong();
         wandStateHandler.lookForWand();
         wandCopingSkillProcess.onResumeActivity();
-        wandCopingSkillProcess.playSong();
     }
 
 
