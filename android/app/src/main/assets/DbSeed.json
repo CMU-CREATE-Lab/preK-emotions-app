@@ -20,7 +20,7 @@
     { "uuid": "coping_skill_5", "name": "Jumping Jacks", "imageFileUuid": "ic_jumping_jacks" },
     { "uuid": "coping_skill_6", "name": "Share", "imageFileUuid": "ic_share" },
     { "uuid": "coping_skill_10", "name": "Squeeze", "imageFileUuid": "ic_balloon_squeeze" },
-    { "uuid": "coping_skill_14", "name": "Magic Wand", "imageFileUuid": "ic_conducting"},
+    { "uuid": "coping_skill_14", "name": "Wand", "imageFileUuid": "ic_conducting"},
     { "uuid": "coping_skill_2", "name": "Static Coping Skill", "imageFileUuid": "ic_yoga" },
     { "uuid": "coping_skill_7", "name": "Stretching", "imageFileUuid": "ic_stretching" },
     { "uuid": "coping_skill_8", "name": "Stretching", "imageFileUuid": "ic_stretching" },
