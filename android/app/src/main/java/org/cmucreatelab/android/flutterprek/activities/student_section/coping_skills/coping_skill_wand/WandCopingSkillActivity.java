@@ -128,13 +128,13 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
 
     @Override
     protected void onResume() {
+        super.onResume();
         activityIsPaused = false;
         wandStateHandler.initializeState();
-        wandStateHandler.lookForWand();
         playAudio(getAudioFileForCopingSkillTitle());
+        wandStateHandler.lookForWand();
         wandCopingSkillProcess.onResumeActivity();
         wandCopingSkillProcess.playSong();
-        super.onResume();
     }
 
 
@@ -214,6 +214,8 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     }
 
     public void finish(){
+        super.finish();
+
         wandStateHandler.pauseState();
         // TODO set volume to original
         if(volumeLow) {
@@ -225,7 +227,5 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         t.interrupt();
         t_log.interrupt();
         running = false;
-
-        super.finish();
     }
 }
