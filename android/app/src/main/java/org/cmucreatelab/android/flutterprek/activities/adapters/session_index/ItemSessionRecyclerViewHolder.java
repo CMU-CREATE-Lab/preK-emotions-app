@@ -10,6 +10,7 @@ import android.widget.TextView;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
+import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
 
 public class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
@@ -19,6 +20,16 @@ public class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
     public final View layoutBottom;
     public final AbstractActivity activity;
     private final RecyclerView sessionsCopingSkillRecyclerView;
+
+
+    private void onClickAudio(String audioFile) {
+//        // AbstractActivity.playAudio method uses assets
+//        activity.playAudio(audioFile);
+        AudioPlayer audioPlayer = AudioPlayer.getInstance(activity.getApplicationContext());
+        audioPlayer.stop();
+        audioPlayer.addAudioFromInternalStorage(audioFile);
+        audioPlayer.playAudio();
+    }
 
 
     public ItemSessionRecyclerViewHolder(AbstractActivity activity, View v) {
@@ -61,8 +72,14 @@ public class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
             for (Customization customization : item.customizationList) {
                 // TODO @tasota should not use hardcoded keys
                 if (customization.getKey().equals("audio_talk_about_it")) {
-                    // TODO @tasota grab audio file
                     layoutBottom.setVisibility(View.VISIBLE);
+                    final String audioFile = customization.getValue();
+                    layoutBottom.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onClickAudio(audioFile);
+                        }
+                    });
                 }
             }
         }
