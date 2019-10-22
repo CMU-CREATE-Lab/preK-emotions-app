@@ -1,5 +1,6 @@
 package org.cmucreatelab.android.flutterprek;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Intent;
 import android.util.Log;
 
@@ -13,6 +14,7 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_talk_to_the_teacher.TalkToTheTeacherCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_talk_about_it.TalkAboutItActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.JumpingJacksCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.ParentVideoCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.YogaHappyActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.YogaMadExcitedActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.YogaSadActivity;
@@ -70,6 +72,9 @@ public class ItineraryItemToIntentMapper {
                 break;
             case "coping_skill_video.yoga_scared":
                 copingSkillClass = YogaScaredActivity.class;
+                break;
+            case "coping_skill_video.parent":
+                copingSkillClass = ParentVideoCopingSkillActivity.class;
                 break;
             case "coping_skill_squeeze":
                 copingSkillClass = SqueezeCopingSkillActivity.class;

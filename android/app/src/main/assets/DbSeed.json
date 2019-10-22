@@ -27,6 +27,9 @@
     { "uuid": "coping_skill_9", "name": "Stretching", "imageFileUuid": "ic_stretching" },
     { "uuid": "coping_skill_13", "name": "Stretching", "imageFileUuid": "ic_stretching" },
     { "uuid": "coping_skill_11", "name": "Talk About It", "imageFileUuid": "ic_talk" },
+
+    { "uuid": "coping_skill_15", "name": "Parent Video" },
+
     { "uuid": "coping_skill_12", "name": "Talk to the Teacher", "imageFileUuid": "ic_talk_teacher" }
   ],
   "customizations":
@@ -56,6 +59,8 @@
   ],
   "emotionsCopingSkills":
   [
+    { "uuid": "student2_happy_video_parent", "ownerUuid": "student2", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_15" },
+
     { "uuid": "happy_share", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_6" },
     { "uuid": "happy_dance", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_4" },
     { "uuid": "happy_flower", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_1" },
@@ -149,6 +154,10 @@
     { "uuid": "coping_skill_14_part1", "ownerUuid": "coping_skill_14", "sequenceId": 1, "capabilityId": "coping_skill_wand", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_14_part2", "ownerUuid": "coping_skill_14", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_14_part3", "ownerUuid": "coping_skill_14", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
+
+    { "uuid": "coping_skill_15_part1", "ownerUuid": "coping_skill_15", "sequenceId": 1, "capabilityId": "coping_skill_video.parent", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_15_part2", "ownerUuid": "coping_skill_15", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_15_part3", "ownerUuid": "coping_skill_15", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
 
     { "uuid": "coping_skill_12_part1", "ownerUuid": "coping_skill_12", "sequenceId": 1, "capabilityId": "coping_skill_talk_to_the_teacher", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_12_part2", "ownerUuid": "coping_skill_12", "sequenceId": 2, "capabilityId": "finish", "capabilityParameters": "{}" }
