@@ -1,6 +1,5 @@
 package org.cmucreatelab.android.flutterprek;
 
-import android.arch.lifecycle.LiveData;
 import android.content.Intent;
 import android.util.Log;
 
@@ -25,6 +24,13 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.UseWordsActivity;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 
+import java.io.Serializable;
+import java.util.HashMap;
+
+import static org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.ParentVideoCopingSkillActivity.CLASS_3B_STUDENT2;
+import static org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.ParentVideoCopingSkillActivity.DEFAULT;
+import static org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.ParentVideoCopingSkillActivity.EXTRA_VIDEO_TYPE;
+
 public class ItineraryItemToIntentMapper {
 
     private final SessionTracker sessionTracker;
@@ -37,6 +43,7 @@ public class ItineraryItemToIntentMapper {
 
     public Intent createIntentFromItineraryItem(AbstractActivity activity, ItineraryItem itineraryItem) {
         Intent result;
+        HashMap<String, Serializable> extras = new HashMap<>();
         Class copingSkillClass;
         String capabilityId = itineraryItem.getCapabilityId();
 
@@ -75,6 +82,12 @@ public class ItineraryItemToIntentMapper {
                 break;
             case "coping_skill_video.parent":
                 copingSkillClass = ParentVideoCopingSkillActivity.class;
+                String ownerUuid = itineraryItem.getOwnerUuid();
+                if (ownerUuid.equals("coping_skill_15")) {
+                    extras.put(EXTRA_VIDEO_TYPE, CLASS_3B_STUDENT2);
+                } else {
+                    extras.put(EXTRA_VIDEO_TYPE, DEFAULT);
+                }
                 break;
             case "coping_skill_squeeze":
                 copingSkillClass = SqueezeCopingSkillActivity.class;
@@ -104,6 +117,9 @@ public class ItineraryItemToIntentMapper {
         }
 
         result = new Intent(activity, copingSkillClass);
+        for (String key: extras.keySet()) {
+            result.putExtra(key, extras.get(key));
+        }
         return result;
     }
 
