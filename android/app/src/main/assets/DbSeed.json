@@ -126,8 +126,7 @@
     { "uuid": "coping_skill_5_part3", "ownerUuid": "coping_skill_5", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
 
     { "uuid": "coping_skill_6_part1", "ownerUuid": "coping_skill_6", "sequenceId": 1, "capabilityId": "coping_skill_static.share", "capabilityParameters": "{}" },
-    { "uuid": "coping_skill_6_part2", "ownerUuid": "coping_skill_6", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
-    { "uuid": "coping_skill_6_part3", "ownerUuid": "coping_skill_6", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_6_part2", "ownerUuid": "coping_skill_6", "sequenceId": 2, "capabilityId": "finish", "capabilityParameters": "{}" },
 
     { "uuid": "coping_skill_7_part1", "ownerUuid": "coping_skill_7", "sequenceId": 1, "capabilityId": "coping_skill_video.yoga_happy", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_7_part2", "ownerUuid": "coping_skill_7", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
