@@ -32,6 +32,14 @@ public class LoginActivity extends TeacherSectionActivityWithHeader {
                 onClickButtonLogin();
             }
         });
+
+        // see github issue #93: "make it easier to navigate away from the admin screen"
+        findViewById(R.id.appHeader).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
