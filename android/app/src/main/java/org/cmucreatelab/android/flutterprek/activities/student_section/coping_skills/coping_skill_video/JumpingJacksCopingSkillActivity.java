@@ -13,7 +13,7 @@ public class JumpingJacksCopingSkillActivity extends VideoCopingSkillActivity {
         super.onCreate(savedInstanceState);
 
         TextView textViewTitle = findViewById(R.id.textViewTitle);
-        textViewTitle.setText(R.string.empty);
+        textViewTitle.setText(R.string.coping_skill_jumping_jacks);
         textViewTitle.setTextColor(getResources().getColor(R.color.colorWhite));
     }
 
