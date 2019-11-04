@@ -28,6 +28,8 @@ public class BleSqueeze {
                     }
                     // remove any non-numerical characters in the message (leading a-z printed on some notifications)
                     param = param.replaceAll("[^0-9]","");
+                    // remove first character in string (firmware prepends 0-9 on packet to avoid sending identical BLE messages)
+                    param = param.substring(1);
                     notificationCallback.onReceivedData(param);
                 }
             }
