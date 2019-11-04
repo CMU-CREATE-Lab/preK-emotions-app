@@ -24,6 +24,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     private final FlowerCopingSkillActivity activity;
     private final FlowerBreathTracker breathTracker;
     private final BleFlowerScanner bleFlowerScanner;
+    private final FlowerWriteTimer flowerWriteTimer;
     private boolean isPressingButton = false;
     private BleFlower bleFlower;
     // TODO make this save more than one
@@ -76,14 +77,17 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     private void changeState(State newState) {
         currentState = newState;
         if (newState == State.WAIT_FOR_BUTTON) {
+            flowerWriteTimer.stopTimer();
             activity.displayHoldFlowerInstructions();
             breathTracker.resetTracker();
             // clear this flag (in case button was held down before entering this state)
             isPressingButton = false;
         } else if (newState == State.BREATHING) {
+            flowerWriteTimer.startTimer();
             activity.displayBreatheIn();
             breathTracker.startTracker();
         } else if (newState == State.FINISHED) {
+            flowerWriteTimer.stopTimer();
             breathTracker.resetTracker();
             activity.displayOverlay();
         }
@@ -94,6 +98,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
         this.activity = activity;
         this.breathTracker = new FlowerBreathTracker(activity, this);
         this.bleFlowerScanner = new BleFlowerScanner(activity, this, this);
+        this.flowerWriteTimer = new FlowerWriteTimer(this);
 
         // debug window
         TextView textView = activity.findViewById(R.id.textViewDebug);
@@ -191,10 +196,18 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
 
     public void pauseState() {
         bleFlowerScanner.stopScan();
+        // NOTE: we do not call changeState() method since it plays the audio prompt while in the background.
+        //changeState(State.WAIT_FOR_BUTTON);
         currentState = State.WAIT_FOR_BUTTON;
+        flowerWriteTimer.stopTimer();
         breathTracker.resetTracker();
         // clear this flag (in case button was held down before entering this state)
         isPressingButton = false;
+    }
+
+
+    public BleFlower getBleFlower() {
+        return bleFlower;
     }
 
 }
