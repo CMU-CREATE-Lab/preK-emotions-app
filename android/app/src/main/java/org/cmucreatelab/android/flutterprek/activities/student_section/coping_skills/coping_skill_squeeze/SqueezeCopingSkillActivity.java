@@ -13,9 +13,13 @@ import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
 
 public class SqueezeCopingSkillActivity extends AbstractCopingSkillActivity {
+
     private boolean activityIsPaused = false;
     private SqueezeStateHandler squeezeStateHandler;
     private SqueezeCopingSkillProcess squeezeCopingSkillProcess;
+
+    // Value of true indicates that we are using new squeeze that only sends a "1" when squeeze is active and "0" otherwise.
+    public static final boolean squeezeDetectionIsBinary = true;
 
 
     @Override
@@ -33,6 +37,12 @@ public class SqueezeCopingSkillActivity extends AbstractCopingSkillActivity {
                 finish();
             }
         });
+
+        // do not show the gradient when we are using binary squeeze detection
+        if (squeezeDetectionIsBinary) {
+            findViewById(R.id.gradient).setVisibility(View.INVISIBLE);
+            findViewById(R.id.gradient_pointer).setVisibility(View.INVISIBLE);
+        }
 
         squeezeStateHandler = new SqueezeStateHandler(this);
         runOnUiThread(new Runnable() {

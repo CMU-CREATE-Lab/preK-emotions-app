@@ -35,13 +35,19 @@ public class Constants {
                 .setRxConfigUUID(UUID.fromString("00002902-0000-1000-8000-00805f9b34fb"))
                 .build();
 
+//        SQUEEZE_UART_SETTINGS = new UARTSettings.Builder()
+//                // first on main screen
+//                .setUARTServiceUUID(UUID.fromString("BEA5760D-503D-4920-B000-101E7306B000"))
+//                // last on main screen
+//                .setRxCharacteristicUUID(UUID.fromString("0000FFE1-0000-1000-8000-00805F9B34FD"))
+//                .setTxCharacteristicUUID(UUID.fromString("0000FFE1-0000-1000-8000-00805F9B34FD"))
+//                // page with the value
+//                .setRxConfigUUID(UUID.fromString("00002902-0000-1000-8000-00805f9b34fb"))
+//                .build();
         SQUEEZE_UART_SETTINGS = new UARTSettings.Builder()
-                // first on main screen
-                .setUARTServiceUUID(UUID.fromString("BEA5760D-503D-4920-B000-101E7306B000"))
-                // last on main screen
-                .setRxCharacteristicUUID(UUID.fromString("0000FFE1-0000-1000-8000-00805F9B34FD"))
-                .setTxCharacteristicUUID(UUID.fromString("0000FFE1-0000-1000-8000-00805F9B34FD"))
-                // page with the value
+                .setUARTServiceUUID(UUID.fromString("6E400001-B5A3-F393-E0A9-E50E24DCCA9E"))
+                .setRxCharacteristicUUID(UUID.fromString("6E400003-B5A3-F393-E0A9-E50E24DCCA9E"))
+                .setTxCharacteristicUUID(UUID.fromString("6E400002-B5A3-F393-E0A9-E50E24DCCA9E"))
                 .setRxConfigUUID(UUID.fromString("00002902-0000-1000-8000-00805f9b34fb"))
                 .build();
 

@@ -150,48 +150,83 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
             foundRestState = true;
         } else {
             recalculateRestState(currentSqueezeValue);
-            if (currentSqueezeValue >= restStateValue + squeezeThreshold) {
-                SqueezeCopingSkillProcess.resetTimers();
-                if (currentState == State.STOPPED) {
-                    changeState(State.SQUEEZING);
+            if (activity.squeezeDetectionIsBinary) {
+                // NOTE: new squeeze uses buttons so it is "1" when pressed (and 0 otherwise).
+                if (currentSqueezeValue > 0) {
+                    SqueezeCopingSkillProcess.resetTimers();
+                    if (currentState == State.STOPPED) {
+                        changeState(State.SQUEEZING);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (animator.isPaused()) {
+                                    animator.resume();
+                                } else {
+                                    animator.start();
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    if (currentState != State.ACTIVITY_END) {
+                        changeState(State.STOPPED);
+                    }
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (animator.isPaused()) {
-                                animator.resume();
-                            } else {
-                                animator.start();
+                            if (currentState != State.ACTIVITY_END) {
+                                animator.pause();
+                                activity.findViewById(R.id.balloon).setRotation(0);
                             }
+                            activity.findViewById(R.id.gradient_pointer).setTranslationY(0);
                         }
                     });
                 }
-
-                // 1040 is a relatively random chosen "max" value observed from the pressure sensor
-                float relativePressureAmount = ((currentSqueezeValue - restStateValue) / (1040f - restStateValue));
-                // change pressure gauge
-                int gradientImageHeight = activity.findViewById(R.id.gradient).getHeight();
-                final float pressureGaugeIndicatorTranslation = Math.min(gradientImageHeight, relativePressureAmount * gradientImageHeight);
-
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        activity.findViewById(R.id.gradient_pointer).setTranslationY(pressureGaugeIndicatorTranslation * -1.0f);
-                    }
-                });
             } else {
-                if (currentState != State.ACTIVITY_END) {
-                    changeState(State.STOPPED);
-                }
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (currentState != State.ACTIVITY_END) {
-                            animator.pause();
-                            activity.findViewById(R.id.balloon).setRotation(0);
-                        }
-                        activity.findViewById(R.id.gradient_pointer).setTranslationY(0);
+                // TODO delete old squeeze detection code below
+                if (currentSqueezeValue >= restStateValue + squeezeThreshold) {
+                    SqueezeCopingSkillProcess.resetTimers();
+                    if (currentState == State.STOPPED) {
+                        changeState(State.SQUEEZING);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (animator.isPaused()) {
+                                    animator.resume();
+                                } else {
+                                    animator.start();
+                                }
+                            }
+                        });
                     }
-                });
+
+                    // 1040 is a relatively random chosen "max" value observed from the pressure sensor
+                    float relativePressureAmount = ((currentSqueezeValue - restStateValue) / (1040f - restStateValue));
+                    // change pressure gauge
+                    int gradientImageHeight = activity.findViewById(R.id.gradient).getHeight();
+                    final float pressureGaugeIndicatorTranslation = Math.min(gradientImageHeight, relativePressureAmount * gradientImageHeight);
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            activity.findViewById(R.id.gradient_pointer).setTranslationY(pressureGaugeIndicatorTranslation * -1.0f);
+                        }
+                    });
+                } else {
+                    if (currentState != State.ACTIVITY_END) {
+                        changeState(State.STOPPED);
+                    }
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (currentState != State.ACTIVITY_END) {
+                                animator.pause();
+                                activity.findViewById(R.id.balloon).setRotation(0);
+                            }
+                            activity.findViewById(R.id.gradient_pointer).setTranslationY(0);
+                        }
+                    });
+                }
             }
 
         }
