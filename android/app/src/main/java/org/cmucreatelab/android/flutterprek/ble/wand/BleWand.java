@@ -49,6 +49,7 @@ public class BleWand {
         });
     }
 
+
     public boolean isConnected() {
         return uartConnection.isConnected();
     }
@@ -69,7 +70,8 @@ public class BleWand {
         this.uartConnection.disconnect();
     }
 
-    public void writeData(byte[] bytes){
+
+    public void writeData(byte[] bytes) {
         if(bytes != null) {
             boolean wrote = this.uartConnection.writeBytes(bytes);
             if (!wrote) {

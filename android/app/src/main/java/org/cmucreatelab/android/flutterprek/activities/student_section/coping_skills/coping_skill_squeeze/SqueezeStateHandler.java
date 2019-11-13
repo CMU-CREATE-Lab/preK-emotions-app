@@ -18,6 +18,7 @@ import org.cmucreatelab.android.flutterprek.ble.squeeze.BleSqueezeScanner;
 import java.util.Random;
 
 public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UARTConnection.ConnectionListener, BleSqueezeScanner.DiscoveryListener {
+
     enum State {
         DISCOVERED,
         STOPPED,
@@ -26,19 +27,19 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     }
 
     private static final boolean SHOW_DEBUG_WINDOW = Constants.SQUEEZE_SHOW_DEBUG_WINDOW;
+    private static State currentState = State.STOPPED;
+    private static final int numBackgroundImages = 20;
+    private static final int squeezeThreshold = 5;
+    private static final long defaultAnimSpeed = 65000L;
 
     private final SqueezeCopingSkillActivity activity;
     private final BleSqueezeScanner bleSqueezeScanner;
     private BleSqueeze bleSqueeze;
     private String lastNotification = "";
-    private static State currentState = State.STOPPED;
-    private static final int numBackgroundImages = 20;
     private final ValueAnimator animator = ValueAnimator.ofFloat(0.0f, (float)numBackgroundImages);
-    private static final int squeezeThreshold = 5;
     private boolean foundRestState = false;
     private int restStateValue;
     private int lastSqueezeVal;
-    private static final long defaultAnimSpeed = 65000L;
     private String balloonAnimateDirection = "left";
     private boolean changedBalloonAnimateDirection = false;
 
@@ -274,7 +275,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
                     } else if (balloonRotation == 10) {
                         balloonAnimateDirection = "left";
                         changedBalloonAnimateDirection = false;
-                    } else if (!changedBalloonAnimateDirection){
+                    } else if (!changedBalloonAnimateDirection) {
                         int secondRandom = new Random().nextInt(15);
                         if (secondRandom == 1) {
                             if (balloonAnimateDirection.equals("right")) {
@@ -334,7 +335,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
 
 
     public void initializeState() {
-        activity.setScreen();
+        activity.displayTextTitle();
         changeState(State.STOPPED);
     }
 

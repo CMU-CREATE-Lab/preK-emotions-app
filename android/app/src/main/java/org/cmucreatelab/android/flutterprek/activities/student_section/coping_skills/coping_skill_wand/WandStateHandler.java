@@ -12,6 +12,7 @@ import org.cmucreatelab.android.flutterprek.ble.wand.BleWand;
 import org.cmucreatelab.android.flutterprek.ble.wand.BleWandScanner;
 
 public class WandStateHandler implements BleWand.NotificationCallback, UARTConnection.ConnectionListener, BleWandScanner.DiscoveryListener {
+
     enum State {
         STOPPED,
         FAST,
@@ -41,6 +42,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     private boolean log = false;
 
     private String slow_color = "0,255,0";
+
 
     private void updateDebugWindow() {
         if (SHOW_DEBUG_WINDOW) {
@@ -120,6 +122,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         }
     }
 
+
     @Override
     public void onReceivedData(String button, String x, String y, String z) {
         if (activity.isPaused()) {
@@ -159,6 +162,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         }
     }
 
+
     public void update() {
         long tempTime = System.currentTimeMillis();
 
@@ -194,7 +198,8 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
     }
 
-    public void logData(){
+
+    public void logData() {
         // If the log flag is set, take the string and parse the info
         if (log) {
             curVals = new int[] {Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])};
@@ -209,6 +214,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             log = false;
         }
     }
+
 
     @Override
     public void onConnected() {
@@ -251,7 +257,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
 
     public void initializeState() {
-        activity.setScreen();
+        activity.displayTextTitle();
         changeState(WandStateHandler.State.STOPPED);
     }
 

@@ -49,7 +49,7 @@ public class ClassroomWithCustomizationsIndexAdapter extends AbstractListAdapter
             result = convertView;
         }
         final ClassroomWithCustomizations classroomWithCustomizations = classrooms.get(position);
-        TextView textView = (TextView)result.findViewById(R.id.text1);
+        TextView textView = result.findViewById(R.id.text1);
         textView.setText(classroomWithCustomizations.classroom.getName());
 
         if (onClickListener) {

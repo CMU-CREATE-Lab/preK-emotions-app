@@ -64,7 +64,7 @@ public class StudentIndexAdapterWithSessionCount extends AbstractListAdapter<Stu
             result = convertView;
         }
         final Student student = students.get(position);
-        TextView textView = (TextView)result.findViewById(R.id.text1);
+        TextView textView = result.findViewById(R.id.text1);
         textView.setText(student.getName());
         if (student.getPictureFileUuid() != null) {
             AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(student.getPictureFileUuid()).observe(activity, new Observer<DbFile>() {

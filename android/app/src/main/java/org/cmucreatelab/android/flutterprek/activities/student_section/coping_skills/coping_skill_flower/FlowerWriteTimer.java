@@ -8,18 +8,17 @@ import org.cmucreatelab.android.flutterprek.ble.flower.BleFlower;
 
 public class FlowerWriteTimer implements BackgroundTimer.TimeExpireListener {
 
+    private static final long TIME_TO_WAIT_IN_MILLISECONDS = 1000;
+    // NOTE: firmware does not care what this message is as something is sent.
+    private static final byte[] MESSAGE_TO_SEND = new byte[] { 0x01 };
+
     private final BackgroundTimer timer;
     private final FlowerStateHandler flowerStateHandler;
-    private boolean stateSwitchToA = false;
-
-    private static final long MILLISECONDS_TO_WAIT = 1000;
-    // NOTE: firmware does not care what the message is as long as you are sending something.
-    private static final byte[] MESSAGE_TO_SEND = new byte[] { 0x01 };
 
 
     public FlowerWriteTimer(FlowerStateHandler flowerStateHandler) {
         this.flowerStateHandler = flowerStateHandler;
-        this.timer = new BackgroundTimer(MILLISECONDS_TO_WAIT, this);
+        this.timer = new BackgroundTimer(TIME_TO_WAIT_IN_MILLISECONDS, this);
     }
 
 

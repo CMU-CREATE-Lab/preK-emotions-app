@@ -14,7 +14,6 @@ import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 public class TalkAboutItActivity extends AbstractCopingSkillActivity implements UseWordsFragment.ActivityCallback {
 
     private StudentSectionTimeoutOverlay timeoutOverlay;
-
     private RecordFragment recordFragment;
     private MoveOnFragment moveOnFragment;
 

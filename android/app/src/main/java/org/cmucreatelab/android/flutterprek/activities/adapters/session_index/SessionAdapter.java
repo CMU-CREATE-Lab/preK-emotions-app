@@ -49,8 +49,6 @@ public class SessionAdapter extends RecyclerView.Adapter<ItemSessionRecyclerView
     public ItemSessionRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item_session, parent, false);
-        // debug view
-        //View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item_session_debug, parent, false);
         ItemSessionRecyclerViewHolder vh = new ItemSessionRecyclerViewHolder(activity, v);
         return vh;
     }

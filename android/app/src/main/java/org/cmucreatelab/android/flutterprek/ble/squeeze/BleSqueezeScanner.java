@@ -19,6 +19,10 @@ import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnecti
 
 public class BleSqueezeScanner implements UARTConnection.ConnectionListener {
 
+    public interface DiscoveryListener {
+        void onDiscovered(BleSqueeze bleSqueeze);
+    }
+
     private static final int REQUEST_ENABLE_BT = 1;
 
     private final BluetoothAdapter bluetoothAdapter;
@@ -50,10 +54,6 @@ public class BleSqueezeScanner implements UARTConnection.ConnectionListener {
             super.onScanResult(callbackType, result);
         }
     };
-
-    public interface DiscoveryListener {
-        void onDiscovered(BleSqueeze bleSqueeze);
-    }
 
 
     private void startScan() {

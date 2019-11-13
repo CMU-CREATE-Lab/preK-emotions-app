@@ -13,6 +13,7 @@ public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActiv
 
     private static final long DEFAULT_DISPLAY_OVERLAY_AFTER_MILLISECONDS = 30000;
     private static final long DEFAULT_DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
+
     private StaticCopingSkillTimeoutOverlay staticCopingSkillTimeoutOverlay;
 
 

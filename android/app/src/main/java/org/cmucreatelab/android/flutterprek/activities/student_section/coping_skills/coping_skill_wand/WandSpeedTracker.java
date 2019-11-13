@@ -27,73 +27,6 @@ public class WandSpeedTracker {
     private double lowerThresh = 50.0;
     private double max_mag = 0.0;
 
-    public WandSpeedTracker(WandCopingSkillActivity activity, int window) {
-        this.activity = activity;
-        this.window = window;
-        vals1 = new double[window];
-        vals2 = new double[window];
-        vals3 = new double[window];
-        time = new long[window];
-        time = new long[window];
-        Constants.fileStart++;
-        fileNumber = Constants.fileStart;
-    }
-
-    public void updateMaxMag(int[] vals){
-        double v0 = (double) vals[0];
-        double v1 = (double) vals[1];
-        double v2 = (double) vals[2];
-        double mag = Math.sqrt(v0*v0 + v1*v1 + v2*v2);
-
-        if (mag > max_mag) {
-            max_mag = mag;
-        }
-    }
-
-    public int getSpeed() {
-        int speed = -1;
-
-        //TODO is the zero a good cutoff
-        if(max_mag <= upperThresh && max_mag >= lowerThresh) {
-            // Moving slowly
-            speed = 1;
-        } else if (max_mag > upperThresh) {
-            // Moving fast
-            speed = 2;
-        } else {
-            speed = 0;
-        }
-
-        Log.e(Constants.LOG_TAG, "Max count was: "+max_mag);
-        //int temp = sgn;
-        double temp = max_mag;
-        writeRangeToFile(temp);
-        max_mag = 0.0;
-
-        return speed;
-    }
-
-    public void writeValsToArray(int[] vals, long curTime) {
-        double v0 = (double) vals[0];
-        double v1 = (double) vals[1];
-        double v2 = (double) vals[2];
-        double mag = Math.sqrt(v0*v0 + v1*v1 + v2*v2);
-        vals1[index] = v0;
-        vals2[index] = v1;
-        vals3[index] = v2;
-        time[index] = curTime;
-        index++;
-        if (index >= window) {
-            index = 0;
-            String fileName = "testVals" + fileNumber + ".txt";
-            ArrayList arrays = new ArrayList();
-            arrays.add(vals1);
-            arrays.add(vals2);
-            arrays.add(vals3);
-            arrays.add(time);
-            writeArraysToFile(fileName, arrays);
-        }
-    }
 
     private void writeArraysToFile (String fileName, ArrayList lists) {
         String state = Environment.getExternalStorageState();
@@ -136,6 +69,7 @@ public class WandSpeedTracker {
         }
     }
 
+
     private void writeRangeToFile (double range) {
         String state = Environment.getExternalStorageState();
         if (!Environment.MEDIA_MOUNTED.equals(state)) {
@@ -172,4 +106,77 @@ public class WandSpeedTracker {
             }
         }
     }
+
+
+    public WandSpeedTracker(WandCopingSkillActivity activity, int window) {
+        this.activity = activity;
+        this.window = window;
+        vals1 = new double[window];
+        vals2 = new double[window];
+        vals3 = new double[window];
+        time = new long[window];
+        time = new long[window];
+        Constants.fileStart++;
+        fileNumber = Constants.fileStart;
+    }
+
+
+    public void updateMaxMag(int[] vals) {
+        double v0 = (double) vals[0];
+        double v1 = (double) vals[1];
+        double v2 = (double) vals[2];
+        double mag = Math.sqrt(v0*v0 + v1*v1 + v2*v2);
+
+        if (mag > max_mag) {
+            max_mag = mag;
+        }
+    }
+
+
+    public int getSpeed() {
+        int speed = -1;
+
+        //TODO is the zero a good cutoff
+        if(max_mag <= upperThresh && max_mag >= lowerThresh) {
+            // Moving slowly
+            speed = 1;
+        } else if (max_mag > upperThresh) {
+            // Moving fast
+            speed = 2;
+        } else {
+            speed = 0;
+        }
+
+        Log.e(Constants.LOG_TAG, "Max count was: "+max_mag);
+        //int temp = sgn;
+        double temp = max_mag;
+        writeRangeToFile(temp);
+        max_mag = 0.0;
+
+        return speed;
+    }
+
+
+    public void writeValsToArray(int[] vals, long curTime) {
+        double v0 = (double) vals[0];
+        double v1 = (double) vals[1];
+        double v2 = (double) vals[2];
+        double mag = Math.sqrt(v0*v0 + v1*v1 + v2*v2);
+        vals1[index] = v0;
+        vals2[index] = v1;
+        vals3[index] = v2;
+        time[index] = curTime;
+        index++;
+        if (index >= window) {
+            index = 0;
+            String fileName = "testVals" + fileNumber + ".txt";
+            ArrayList arrays = new ArrayList();
+            arrays.add(vals1);
+            arrays.add(vals2);
+            arrays.add(vals3);
+            arrays.add(time);
+            writeArraysToFile(fileName, arrays);
+        }
+    }
+
 }

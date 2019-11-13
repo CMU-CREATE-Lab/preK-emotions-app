@@ -22,20 +22,19 @@ public class RecordFragment extends TalkAboutItFragment {
     private static final long ANIMATION_OFFSET_IN_MILLISECONDS = 12000;
 
     private AudioRecorder audioRecorder;
+    private boolean activityIsCancelled = false;
+    private boolean layoutAnimationIsReady = false;
+    private boolean recordButtonPressed = false;
+    private boolean startedRecording = false;
+    private View viewForCircleAnimation;
+    private View layoutCircles, layoutRecordButton;
+
     private final BackgroundTimer timerToStopRecording = new BackgroundTimer(MAXIMUM_RECORD_LENGTH_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
         @Override
         public void timerExpired() {
             stopRecordingAndMoveOn();
         }
     });
-
-    private boolean activityIsCancelled = false;
-    private boolean layoutAnimationIsReady = false;
-    private boolean recordButtonPressed = false;
-    private boolean startedRecording = false;
-
-    private View viewForCircleAnimation;
-    private View layoutCircles, layoutRecordButton;
 
 
     private void stopRecording() {

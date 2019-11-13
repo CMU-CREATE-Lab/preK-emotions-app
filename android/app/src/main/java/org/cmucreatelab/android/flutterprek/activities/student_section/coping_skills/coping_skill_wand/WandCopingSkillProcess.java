@@ -1,9 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand;
 
 import android.graphics.Point;
-import android.media.AudioFormat;
-import android.support.constraint.Guideline;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.animation.Animation;
@@ -13,11 +10,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
-import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
-
-import java.io.File;
 
 public class WandCopingSkillProcess {
 
@@ -27,18 +20,20 @@ public class WandCopingSkillProcess {
     private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
     private boolean overlayIsDisplayed = false;
     private final WandCopingSkillActivity wandCopingSkillActivity;
+    private float handWidth;
 
-    float handWidth;
 
     private void releaseTimers() {
         timerToDisplayOverlay.stopTimer();
         timerToExitFromOverlay.stopTimer();
     }
 
+
     private void finishActivity() {
         releaseTimers();
         wandCopingSkillActivity.finish();
     }
+
 
     private void displayOverlay() {
         timerToDisplayOverlay.stopTimer();
@@ -50,6 +45,7 @@ public class WandCopingSkillProcess {
         timerToExitFromOverlay.startTimer();
     }
 
+
     private void hideOverlay() {
         releaseTimers();
         overlayIsDisplayed = false;
@@ -57,13 +53,16 @@ public class WandCopingSkillProcess {
         timerToDisplayOverlay.startTimer();
     }
 
+
     private void onTimerToDisplayOverlayExpired() {
         displayOverlay();
     }
 
+
     private void onTimerToExitFromOverlayExpired() {
         finishActivity();
     }
+
 
     public WandCopingSkillProcess(final WandCopingSkillActivity wandCopingSkillActivity) {
         this.wandCopingSkillActivity = wandCopingSkillActivity;
@@ -87,7 +86,7 @@ public class WandCopingSkillProcess {
             @Override
             public void onClick(View v) {
                 // TODO Fix this so it starts the activity over again
-                wandCopingSkillActivity.setScreen();
+                wandCopingSkillActivity.displayTextTitle();
                 wandCopingSkillActivity.playAudio(wandCopingSkillActivity.getAudioFileForCopingSkillTitle());
                 playSong();
                 hideOverlay();
@@ -104,8 +103,8 @@ public class WandCopingSkillProcess {
         hideOverlay();
     }
 
-    public void onPauseActivity() {
 
+    public void onPauseActivity() {
         releaseTimers();
     }
 
@@ -118,12 +117,14 @@ public class WandCopingSkillProcess {
         }
     }
 
-    public void test(){
+
+    public void test() {
         final ImageView wandHand = wandCopingSkillActivity.findViewById(R.id.imageViewWandHand);
         handWidth = wandHand.getWidth();
     }
 
-    public void startWandMoving(){
+
+    public void startWandMoving() {
         // TODO clean up
         Display display = wandCopingSkillActivity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -161,13 +162,15 @@ public class WandCopingSkillProcess {
         wandView.clearAnimation();
     }
 
-    public void playSong(){
+
+    public void playSong() {
         // Play the song
         wandCopingSkillActivity.playMusic();
         //AudioPlayer.getInstance(wandCopingSkillActivity.getApplicationContext()).playAudio();
         // Start a timer
         timerToDisplayOverlay.startTimer();
     }
+
 
     public void stopSong() {
         wandCopingSkillActivity.stopMusic();

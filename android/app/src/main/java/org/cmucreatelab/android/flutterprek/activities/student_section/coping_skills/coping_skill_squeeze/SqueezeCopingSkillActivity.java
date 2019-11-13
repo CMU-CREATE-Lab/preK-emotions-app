@@ -14,12 +14,12 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 
 public class SqueezeCopingSkillActivity extends AbstractCopingSkillActivity {
 
+    // Value of true indicates that we are using new squeeze that only sends a "1" when squeeze is active and "0" otherwise.
+    public static final boolean squeezeDetectionIsBinary = true;
+
     private boolean activityIsPaused = false;
     private SqueezeStateHandler squeezeStateHandler;
     private SqueezeCopingSkillProcess squeezeCopingSkillProcess;
-
-    // Value of true indicates that we are using new squeeze that only sends a "1" when squeeze is active and "0" otherwise.
-    public static final boolean squeezeDetectionIsBinary = true;
 
 
     @Override
@@ -27,9 +27,7 @@ public class SqueezeCopingSkillActivity extends AbstractCopingSkillActivity {
         super.onCreate(savedInstanceState);
 
         squeezeCopingSkillProcess = new SqueezeCopingSkillProcess(this);
-
-        setScreen();
-        squeezeCopingSkillProcess.startSqueezing();
+        displayTextTitle();
 
         findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +73,14 @@ public class SqueezeCopingSkillActivity extends AbstractCopingSkillActivity {
     }
 
 
+    // TODO is this necessary if pauseState() is called in onPause()?
+    @Override
+    public void finish() {
+        squeezeStateHandler.pauseState();
+        super.finish();
+    }
+
+
     @Override
     public int getResourceIdForActivityLayout() {
         return R.layout.activity_squeeze_coping_skill;
@@ -112,21 +118,16 @@ public class SqueezeCopingSkillActivity extends AbstractCopingSkillActivity {
     }
 
 
-    public boolean isPaused() {
-        return activityIsPaused;
-    }
-
-
-    public void setScreen() {
+    // TODO refactor as a toggle method (display/hide)
+    public void displayTextTitle() {
         TextView textView = findViewById(R.id.textViewTitle);
         textView.setText(getTextTitleResource());
         textView.setTextColor(getResources().getColor(getColorResourceForTitle()));
     }
 
 
-    public void finish(){
-        squeezeStateHandler.pauseState();
-        super.finish();
+    public boolean isPaused() {
+        return activityIsPaused;
     }
 
 }

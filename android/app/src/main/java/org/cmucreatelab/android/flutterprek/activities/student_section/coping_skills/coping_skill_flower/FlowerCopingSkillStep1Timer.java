@@ -4,15 +4,16 @@ import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 
 public class FlowerCopingSkillStep1Timer implements BackgroundTimer.TimeExpireListener {
 
+    private static final long TIME_TO_WAIT_IN_MILLISECONDS = 1200;
+
     private final BackgroundTimer timer;
     private FlowerCopingSkillProcess flowerCopingSkillProcess;
     private boolean stateSwitchToA = false;
-    private static final long MILLISECONDS_TO_WAIT = 1200;
 
 
     public FlowerCopingSkillStep1Timer(FlowerCopingSkillProcess flowerCopingSkillProcess) {
         this.flowerCopingSkillProcess = flowerCopingSkillProcess;
-        this.timer = new BackgroundTimer(MILLISECONDS_TO_WAIT, this);
+        this.timer = new BackgroundTimer(TIME_TO_WAIT_IN_MILLISECONDS, this);
     }
 
 
@@ -33,7 +34,7 @@ public class FlowerCopingSkillStep1Timer implements BackgroundTimer.TimeExpireLi
         } else {
             flowerCopingSkillProcess.goToStep(FlowerCopingSkillProcess.StepNumber.STEP_1B_HOLD_FLOWER_HAND);
         }
-        stateSwitchToA=!stateSwitchToA;
+        stateSwitchToA = !stateSwitchToA;
     }
 
 }

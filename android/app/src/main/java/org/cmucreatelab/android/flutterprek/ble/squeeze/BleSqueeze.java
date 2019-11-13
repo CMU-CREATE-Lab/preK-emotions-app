@@ -10,7 +10,12 @@ import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnecti
 
 public class BleSqueeze {
 
+    public interface NotificationCallback {
+        void onReceivedData(@NonNull String arg1);
+    }
+
     private UARTConnection uartConnection;
+
     public BleSqueeze.NotificationCallback notificationCallback = null;
 
 
@@ -57,18 +62,14 @@ public class BleSqueeze {
         this.uartConnection.disconnect();
     }
 
-    public void writeData(byte[] bytes){
+
+    public void writeData(byte[] bytes) {
         if(bytes != null) {
             boolean wrote = this.uartConnection.writeBytes(bytes);
             if (!wrote) {
                 Log.w(Constants.LOG_TAG, "Value: " + bytes[0] + " was not written");
             }
         }
-    }
-
-
-    public interface NotificationCallback {
-        void onReceivedData(@NonNull String arg1);
     }
 
 }

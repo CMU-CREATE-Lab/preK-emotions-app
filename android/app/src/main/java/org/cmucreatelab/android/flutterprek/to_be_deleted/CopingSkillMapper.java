@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills;
+package org.cmucreatelab.android.flutterprek.to_be_deleted;
 
 import android.app.Activity;
 import android.content.Intent;

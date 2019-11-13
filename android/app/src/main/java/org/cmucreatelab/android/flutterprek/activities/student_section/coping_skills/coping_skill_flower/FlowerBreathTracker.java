@@ -17,12 +17,8 @@ public class FlowerBreathTracker {
 
     private final FlowerCopingSkillActivity activity;
     private final Listener listener;
-
     private final Handler handler = new Handler();
-    private Runnable currentCallback;
-    private int numberOfCycles = 0;
-    private int currentCycleCounter = 0;
-    private Runnable breatheInCallback = new Runnable() {
+    private final Runnable breatheInCallback = new Runnable() {
         @Override
         public void run() {
             currentCycleCounter++;
@@ -36,7 +32,7 @@ public class FlowerBreathTracker {
             }
         }
     };
-    private Runnable breatheOutCallback = new Runnable() {
+    private final Runnable breatheOutCallback = new Runnable() {
         @Override
         public void run() {
             currentCycleCounter++;
@@ -56,6 +52,10 @@ public class FlowerBreathTracker {
             }
         }
     };
+
+    private Runnable currentCallback;
+    private int numberOfCycles = 0;
+    private int currentCycleCounter = 0;
 
 
     private void displayFlowerFromCycleCounter(int counter, boolean highlighting) {

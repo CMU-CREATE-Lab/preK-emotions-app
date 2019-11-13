@@ -18,6 +18,7 @@ public class FlowerCopingSkillProcess {
         STEP_3_BLOW,
         STEP_4_OVERLAY
     }
+
     private static @IdRes int[] ALL_VIEWS = {
             R.id.overlayYesNo,
             R.id.imageViewCloud1,
@@ -63,7 +64,6 @@ public class FlowerCopingSkillProcess {
         final @IdRes int[] viewsToDisplay;
         final @StringRes int stringResourceForTitle;
 
-        // TODO actions
         if (stepNumber == StepNumber.STEP_1A_HOLD_FLOWER_LADYBUG) {
             viewsToDisplay = new int[] {
                     R.id.imageViewFlowerLadyBug,

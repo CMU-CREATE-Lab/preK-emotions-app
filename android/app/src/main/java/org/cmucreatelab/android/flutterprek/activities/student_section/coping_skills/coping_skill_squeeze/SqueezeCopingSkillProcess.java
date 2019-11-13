@@ -7,9 +7,13 @@ import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.R;
 
 public class SqueezeCopingSkillProcess {
+
     private static final long SQUEEZE_IDLE_DURATION_MILLISECONDS = 25000;
     private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 15000;
+
+    // TODO make these non-static?
     private static BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
+
     private boolean overlayIsDisplayed = false;
     private final SqueezeCopingSkillActivity squeezeCopingSkillActivity;
 
@@ -111,16 +115,6 @@ public class SqueezeCopingSkillProcess {
         } else {
             timerToDisplayOverlay.startTimer();
         }
-    }
-
-
-    public void startSqueezing(){
-        // do something
-    }
-
-
-    public void stopSqueezing () {
-        timerToDisplayOverlay.stopTimer();
     }
 
 }

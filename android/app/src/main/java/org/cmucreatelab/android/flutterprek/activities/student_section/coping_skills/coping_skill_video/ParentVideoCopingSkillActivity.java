@@ -7,7 +7,6 @@ import org.cmucreatelab.android.flutterprek.R;
 public class ParentVideoCopingSkillActivity extends VideoCopingSkillActivity {
 
     public static final String EXTRA_VIDEO_TYPE = "video_type";
-
     public static final String CLASS_3B_STUDENT2 = "class_3b_student2";
     public static final String DEFAULT = "default";
 

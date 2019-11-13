@@ -26,6 +26,8 @@ import java.util.List;
 
 public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
 
+    private static final int REQUEST_ENABLE_BT = 1;
+
     private DebugCorner debugCorner;
 
     private final ClassroomWithCustomizationsIndexAdapter.ClickListener listener = new ClassroomWithCustomizationsIndexAdapter.ClickListener() {
@@ -41,8 +43,6 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
             startActivity(chooseStudentActivity);
         }
     };
-
-    private static final int REQUEST_ENABLE_BT = 1;
 
 
     private void checkAndRequestBle() {

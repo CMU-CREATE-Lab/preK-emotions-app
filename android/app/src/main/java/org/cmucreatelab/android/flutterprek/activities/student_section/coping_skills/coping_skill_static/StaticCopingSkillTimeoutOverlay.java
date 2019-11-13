@@ -8,15 +8,16 @@ import org.cmucreatelab.android.flutterprek.R;
 public class StaticCopingSkillTimeoutOverlay {
 
     private static final String AUDIO_FILE_PROMPT_MORE_TIME = "etc/audio_prompts/audio_more_time.wav";
-    private final StaticCopingSkillActivity activity;
-    private final BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
-    private final OverlayOptionListener listener;
-    private boolean overlayIsDisplayed = false;
 
     public interface OverlayOptionListener {
         void onClickNo();
         void onClickYes();
     }
+
+    private final StaticCopingSkillActivity activity;
+    private final BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
+    private final OverlayOptionListener listener;
+    private boolean overlayIsDisplayed = false;
 
 
     private void releaseTimers() {

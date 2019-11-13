@@ -19,6 +19,10 @@ import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnecti
 
 public class BleWandScanner implements UARTConnection.ConnectionListener {
 
+    public interface DiscoveryListener {
+        void onDiscovered(BleWand bleWand);
+    }
+
     private static final int REQUEST_ENABLE_BT = 1;
 
     private final BluetoothAdapter bluetoothAdapter;
@@ -29,7 +33,6 @@ public class BleWandScanner implements UARTConnection.ConnectionListener {
     private boolean isScanning = false;
     private boolean isWandDiscovered;
     private boolean isWandConnected;
-
 
 
     private final ScanCallback scanCallback = new ScanCallback() {
@@ -50,10 +53,6 @@ public class BleWandScanner implements UARTConnection.ConnectionListener {
             super.onScanResult(callbackType, result);
         }
     };
-
-    public interface DiscoveryListener {
-        void onDiscovered(BleWand bleWand);
-    }
 
 
     private void startScan() {

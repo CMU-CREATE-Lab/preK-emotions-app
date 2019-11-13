@@ -62,7 +62,7 @@ public class CopingSkillIndexAdapter extends AbstractListAdapter<CopingSkill> {
             result = convertView;
         }
         final CopingSkill copingSkill = copingSkills.get(position);
-        TextView textView = (TextView)result.findViewById(R.id.text1);
+        TextView textView = result.findViewById(R.id.text1);
         textView.setText(copingSkill.getName());
 
         if (copingSkill.getImageFileUuid() != null) {

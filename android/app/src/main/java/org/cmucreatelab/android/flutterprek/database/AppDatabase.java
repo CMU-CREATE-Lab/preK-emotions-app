@@ -83,7 +83,7 @@ public abstract class AppDatabase extends RoomDatabase {
         }
 
         @Override
-        public void onOpen (@NonNull SupportSQLiteDatabase db){
+        public void onOpen (@NonNull SupportSQLiteDatabase db) {
             Log.i(Constants.LOG_TAG, "RoomDatabase.Callback.onOpen");
             super.onOpen(db);
         }

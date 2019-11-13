@@ -27,20 +27,14 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     private final FlowerWriteTimer flowerWriteTimer;
     private boolean isPressingButton = false;
     private BleFlower bleFlower;
-    // TODO make this save more than one
-    private String lastNotification = "";
-//    // TODO this will track progress within a state
-//    private final Handler handler = new Handler();
-//    private Runnable currentCallback;
-    private State currentState = State.WAIT_FOR_BUTTON;
 
 
-    private void updateDebugWindow() {
+    private void updateDebugWindow(String message) {
         if (SHOW_DEBUG_WINDOW) {
             String display;
             if (bleFlowerScanner.isFlowerDiscovered()) {
                 display = bleFlower.getDeviceName();
-                display = display+"\n"+lastNotification;
+                display = display + "\n" + ((message == null) ? "" : message);
             } else {
                 display = bleFlowerScanner.isScanning() ? "Looking for Flower..." : "Inactive";
             }
@@ -69,13 +63,10 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     private void updateFlower(BleFlower bleFlower) {
         this.bleFlower = bleFlower;
         this.bleFlower.notificationCallback = this;
-//        // TODO simulates receiving a notification (HW flower broken for me at the moment, sadface)
-//        onReceivedData("1","","");
     }
 
 
     private void changeState(State newState) {
-        currentState = newState;
         if (newState == State.WAIT_FOR_BUTTON) {
             flowerWriteTimer.stopTimer();
             activity.displayHoldFlowerInstructions();
@@ -129,23 +120,9 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
             changeState(State.BREATHING);
         }
 
-//        // only perform actions on a changed state
-//        if (isPressingButton != newValue) {
-//            isPressingButton = newValue;
-//            if (currentState != State.FINISHED) {
-//                if (isPressingButton) {
-//                    changeState(State.BREATHING);
-//                } else {
-//                    changeState(State.WAIT_FOR_BUTTON);
-//                }
-//            }
-//        }
-
         if (SHOW_DEBUG_WINDOW) {
             String reformedData = arg1+","+arg2+","+arg3;
-            // TODO add reformedData to queue
-            lastNotification = reformedData;
-            updateDebugWindow();
+            updateDebugWindow(reformedData);
         }
     }
 
@@ -168,7 +145,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     @Override
     public void onDiscovered(BleFlower bleFlower) {
         updateFlower(bleFlower);
-        updateDebugWindow();
+        updateDebugWindow("");
     }
 
 
@@ -185,7 +162,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
         }
 
         updateConnectionErrorView();
-        updateDebugWindow();
+        updateDebugWindow("");
     }
 
 
@@ -198,7 +175,6 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
         bleFlowerScanner.stopScan();
         // NOTE: we do not call changeState() method since it plays the audio prompt while in the background.
         //changeState(State.WAIT_FOR_BUTTON);
-        currentState = State.WAIT_FOR_BUTTON;
         flowerWriteTimer.stopTimer();
         breathTracker.resetTracker();
         // clear this flag (in case button was held down before entering this state)
