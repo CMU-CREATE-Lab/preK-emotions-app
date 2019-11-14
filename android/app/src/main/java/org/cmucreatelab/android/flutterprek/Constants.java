@@ -75,7 +75,9 @@ public class Constants {
             STATION_MOON = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF19","FLOWER-E167F","MNSQ6","WAND-A8D12",null),
             STATION_TREE = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF32","FLOWER-595A4","MNSQ3","WAND-E2A59",null),
             STATION_SUN_WITH_TURTLE = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF1E + \uD83D\uDC22","FLOWER-AC43D", SQUEEZE_1_TURTLE,"WAND-7426D",null),
-            STATION_MOON_WITH_FISH = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF19 + \uD83D\uDC20","FLOWER-E167F", SQUEEZE_2_FISH,"WAND-A8D12",null);
+            STATION_MOON_WITH_FISH = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF19 + \uD83D\uDC20","FLOWER-E167F", SQUEEZE_2_FISH,"WAND-A8D12",null),
+            STATION_HEART_WITH_TURTLE = new DeviceConnectionHandler.HardcodedValues("\uD83D\uDC96 + \uD83D\uDC22","FLOWER-E5F6C", SQUEEZE_3_TURTLE,"WAND-8A224",null),
+            STATION_STAR_WITH_FISH = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF1F + \uD83D\uDC20","FLOWER-E5E22", SQUEEZE_4_FISH,"WAND-E1A98",null);
 
     /**
      * Set this to use hardcoded values for the MindfulNest BLE devices.
