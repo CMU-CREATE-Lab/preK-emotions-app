@@ -44,6 +44,7 @@ public class DeviceConnectionHandler {
         return deviceName.startsWith("FL");
     }
 
+    // TODO new prefix "SQWZ"
     private boolean validateSqueezeOnPrefix(@NonNull String deviceName) {
         return deviceName.startsWith("MNSQ");
     }
