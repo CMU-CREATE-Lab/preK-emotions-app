@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class UARTConnection extends BluetoothGattCallback {
     // TODO delete this and use Constants.LOG_TAG
-    private static final String TAG = Constants.LOG_TAG;
+    private static final String TAG = Constants.BLE_LOG_TAG;
     private static final int MAX_RETRIES = 100;
     private static final int CONNECTION_TIMEOUT_IN_SECS = 15;
 
@@ -181,6 +181,7 @@ public class UARTConnection extends BluetoothGattCallback {
         startLatch.countDown();
         try {
             if (!doneLatch.await(CONNECTION_TIMEOUT_IN_SECS, TimeUnit.SECONDS)) {
+                Log.e(TAG, "latch time expired");
                 return false;
             }
         } catch (InterruptedException e) {
@@ -189,13 +190,17 @@ public class UARTConnection extends BluetoothGattCallback {
         }
 
         // Enable RX notification
-        if (!btGatt.setCharacteristicNotification(rx, true)) {
+        if (btGatt.setCharacteristicNotification(rx, true)) {
+            Log.d(TAG, "establishUARTConnection:setCharacteristicNotification success");
+        } else {
             Log.e(TAG, "Unable to set characteristic notification");
             return false;
         }
         BluetoothGattDescriptor descriptor = rx.getDescriptor(rxConfigUUID);
         descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-        if (!btGatt.writeDescriptor(descriptor)) {
+        if (btGatt.writeDescriptor(descriptor)) {
+            Log.d(TAG, "establishUARTConnection:writeDescriptor success");
+        } else {
             Log.e(TAG, "Unable to set descriptor");
             return false;
         }
@@ -258,6 +263,7 @@ public class UARTConnection extends BluetoothGattCallback {
 
     @Override
     public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+        Log.d(TAG, "UARTConnection.onCharacteristicRead");
         if (status == 0) {
             rxChars.remove(rxChars.get(rxChars.size() - 1));
 

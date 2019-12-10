@@ -8,6 +8,7 @@ import java.util.UUID;
 public class Constants {
 
     public static final String LOG_TAG = "flutterprek";
+    public static final String BLE_LOG_TAG = "ble_flutterprek";
 
     /** This file is defined in the assets/ directory. */
     public static final String DATABASE_SEED = "DbSeed.json";
