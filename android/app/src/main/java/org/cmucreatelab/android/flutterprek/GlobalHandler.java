@@ -99,13 +99,17 @@ public class GlobalHandler {
         boolean result = false;
         if (currentSessionIsActive()) {
             result = sessionTracker.endSession();
+
+            // only go back to student screen when session is active
+            Intent intent = SessionTracker.getIntentForEndSession(currentActivity);
+            currentActivity.startActivity(intent);
         } else {
             Log.w(Constants.LOG_TAG, "called endCurrentSession but no current session active");
         }
 
-        // go back to student screen (regardless of value of result)
-        Intent intent = SessionTracker.getIntentForEndSession(currentActivity);
-        currentActivity.startActivity(intent);
+//        // go back to student screen (regardless of value of result)
+//        Intent intent = SessionTracker.getIntentForEndSession(currentActivity);
+//        currentActivity.startActivity(intent);
 
         return result;
     }
