@@ -1,9 +1,11 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
@@ -15,7 +17,7 @@ public class StudentSectionTimeoutOverlay {
     private static final String AUDIO_FILE_PROMPT_MORE_TIME = "etc/audio_prompts/audio_more_time.wav";
 
     private AbstractActivity activity;
-    private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
+    private final BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
     private boolean overlayIsDisplayed = false;
 
 
@@ -48,7 +50,9 @@ public class StudentSectionTimeoutOverlay {
 
 
     private void onTimerToExitFromOverlayExpired() {
-        finishSession();
+        Log.i(Constants.LOG_TAG, "onTimerToExitFromOverlayExpired");
+        // TODO figure out later why this isn't releasing properly; compile to avoid crashes for now
+        //finishSession();
     }
 
 
