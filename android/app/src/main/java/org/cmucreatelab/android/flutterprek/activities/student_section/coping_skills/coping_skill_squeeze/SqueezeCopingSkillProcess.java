@@ -11,9 +11,7 @@ public class SqueezeCopingSkillProcess {
     private static final long SQUEEZE_IDLE_DURATION_MILLISECONDS = 25000;
     private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 15000;
 
-    // TODO make these non-static?
-    private static BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
-
+    private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
     private boolean overlayIsDisplayed = false;
     private final SqueezeCopingSkillActivity squeezeCopingSkillActivity;
 
@@ -27,7 +25,7 @@ public class SqueezeCopingSkillProcess {
     private void displayOverlay() {
         overlayIsDisplayed = true;
         squeezeCopingSkillActivity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
-        if (SqueezeStateHandler.getCurrentState() != SqueezeStateHandler.State.ACTIVITY_END) {
+        if (squeezeCopingSkillActivity.getCurrentState() != SqueezeStateHandler.State.ACTIVITY_END) {
             ((TextView) squeezeCopingSkillActivity.findViewById(R.id.textViewOverlayTitle)).setText(R.string.overlay_placeholder);
         }
         timerToDisplayOverlay.stopTimer();
@@ -72,7 +70,7 @@ public class SqueezeCopingSkillProcess {
         squeezeCopingSkillActivity.findViewById(R.id.overlayYesNo).findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SqueezeStateHandler.getCurrentState() == SqueezeStateHandler.State.ACTIVITY_END) {
+                if (squeezeCopingSkillActivity.getCurrentState() == SqueezeStateHandler.State.ACTIVITY_END) {
                     squeezeCopingSkillActivity.recreate();
                 } else {
                     hideOverlay();
@@ -90,7 +88,7 @@ public class SqueezeCopingSkillProcess {
     }
 
 
-    public static void resetTimers() {
+    public void resetTimers() {
         releaseTimers();
         timerToDisplayOverlay.startTimer();
     }
@@ -101,7 +99,7 @@ public class SqueezeCopingSkillProcess {
     }
 
 
-    public static void releaseTimers() {
+    public void releaseTimers() {
         timerToDisplayOverlay.stopTimer();
         timerToExitFromOverlay.stopTimer();
     }

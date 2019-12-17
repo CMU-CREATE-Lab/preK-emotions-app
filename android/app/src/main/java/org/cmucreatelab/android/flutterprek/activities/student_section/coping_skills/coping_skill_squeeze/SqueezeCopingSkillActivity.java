@@ -130,4 +130,19 @@ public class SqueezeCopingSkillActivity extends AbstractCopingSkillActivity {
         return activityIsPaused;
     }
 
+
+    public void releaseTimers() {
+        squeezeCopingSkillProcess.releaseTimers();
+    }
+
+
+    public void resetTimers() {
+        squeezeCopingSkillProcess.resetTimers();
+    }
+
+
+    public SqueezeStateHandler.State getCurrentState() {
+        return squeezeStateHandler.getCurrentState();
+    }
+
 }

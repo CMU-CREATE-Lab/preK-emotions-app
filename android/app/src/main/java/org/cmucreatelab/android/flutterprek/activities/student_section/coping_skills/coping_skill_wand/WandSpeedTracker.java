@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 public class WandSpeedTracker {
 
+    private static int fileStart = 0;
+
     private WandCopingSkillActivity activity;
     private double[] vals1;
     private double[] vals2;
@@ -116,8 +118,8 @@ public class WandSpeedTracker {
         vals3 = new double[window];
         time = new long[window];
         time = new long[window];
-        Constants.fileStart++;
-        fileNumber = Constants.fileStart;
+        fileStart++;
+        fileNumber = fileStart;
     }
 
 

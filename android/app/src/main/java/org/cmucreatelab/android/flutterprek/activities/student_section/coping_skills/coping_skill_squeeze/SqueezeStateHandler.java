@@ -27,7 +27,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     }
 
     private static final boolean SHOW_DEBUG_WINDOW = Constants.SQUEEZE_SHOW_DEBUG_WINDOW;
-    private static State currentState = State.STOPPED;
+    private State currentState = State.STOPPED;
     private static final int numBackgroundImages = 20;
     private static final int squeezeThreshold = 5;
     private static final long defaultAnimSpeed = 65000L;
@@ -98,7 +98,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     private void handleActivityEndState() {
         changeState(State.ACTIVITY_END);
         animator.end();
-        SqueezeCopingSkillProcess.releaseTimers();
+        activity.releaseTimers();
         activity.findViewById(R.id.gradient).setVisibility(View.GONE);
         activity.findViewById(R.id.gradient_pointer).setVisibility(View.GONE);
         activity.findViewById(R.id.balloon).setVisibility(View.GONE);
@@ -108,7 +108,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     }
 
 
-    public static State getCurrentState() {
+    public State getCurrentState() {
         return currentState;
     }
 
@@ -154,7 +154,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
             if (activity.squeezeDetectionIsBinary) {
                 // NOTE: new squeeze uses buttons so it is "1" when pressed (and 0 otherwise).
                 if (currentSqueezeValue > 0) {
-                    SqueezeCopingSkillProcess.resetTimers();
+                    activity.resetTimers();
                     if (currentState == State.STOPPED) {
                         changeState(State.SQUEEZING);
                         activity.runOnUiThread(new Runnable() {
@@ -186,7 +186,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
             } else {
                 // TODO delete old squeeze detection code below
                 if (currentSqueezeValue >= restStateValue + squeezeThreshold) {
-                    SqueezeCopingSkillProcess.resetTimers();
+                    activity.resetTimers();
                     if (currentState == State.STOPPED) {
                         changeState(State.SQUEEZING);
                         activity.runOnUiThread(new Runnable() {
