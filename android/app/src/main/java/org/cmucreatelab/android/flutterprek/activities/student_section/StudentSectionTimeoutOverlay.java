@@ -51,8 +51,7 @@ public class StudentSectionTimeoutOverlay {
 
     private void onTimerToExitFromOverlayExpired() {
         Log.i(Constants.LOG_TAG, "onTimerToExitFromOverlayExpired");
-        // TODO figure out later why this isn't releasing properly; compile to avoid crashes for now
-        //finishSession();
+        finishSession();
     }
 
 
@@ -62,14 +61,12 @@ public class StudentSectionTimeoutOverlay {
         timerToDisplayOverlay = new BackgroundTimer(DISPLAY_OVERLAY_AFTER_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
             @Override
             public void timerExpired() {
-                timerToDisplayOverlay.stopTimer();
                 onTimerToDisplayOverlayExpired();
             }
         });
         timerToExitFromOverlay = new BackgroundTimer(DISMISS_OVERLAY_AFTER_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
             @Override
             public void timerExpired() {
-                timerToExitFromOverlay.stopTimer();
                 onTimerToExitFromOverlayExpired();
             }
         });

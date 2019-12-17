@@ -4,7 +4,7 @@ import android.os.Handler;
 
 /**
  *
- * A periodic timer that calls a {@link TimeExpireListener} after the defined number of milliseconds elapses.
+ * A single-use timer that calls a {@link TimeExpireListener} after the defined number of milliseconds elapses.
  *
  */
 public class BackgroundTimer {
@@ -21,8 +21,8 @@ public class BackgroundTimer {
         this.runnable = new Runnable() {
             @Override
             public void run() {
+                stopTimer();
                 listener.timerExpired();
-                handler.postDelayed(runnable, BackgroundTimer.this.millisecondsToWait);
             }
         };
     }

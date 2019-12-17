@@ -59,14 +59,12 @@ public class SqueezeCopingSkillProcess {
         timerToDisplayOverlay = new BackgroundTimer(SQUEEZE_IDLE_DURATION_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
             @Override
             public void timerExpired() {
-                timerToDisplayOverlay.stopTimer();
                 onTimerToDisplayOverlayExpired();
             }
         });
         timerToExitFromOverlay = new BackgroundTimer(DISMISS_OVERLAY_AFTER_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
             @Override
             public void timerExpired() {
-                timerToExitFromOverlay.stopTimer();
                 onTimerToExitFromOverlayExpired();
             }
         });

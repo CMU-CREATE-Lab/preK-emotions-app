@@ -70,14 +70,12 @@ public class WandCopingSkillProcess {
         timerToDisplayOverlay = new BackgroundTimer(SONG_DURATION, new BackgroundTimer.TimeExpireListener() {
             @Override
             public void timerExpired() {
-                timerToDisplayOverlay.stopTimer();
                 onTimerToDisplayOverlayExpired();
             }
         });
         timerToExitFromOverlay = new BackgroundTimer(DISMISS_OVERLAY_AFTER_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
             @Override
             public void timerExpired() {
-                timerToExitFromOverlay.stopTimer();
                 onTimerToExitFromOverlayExpired();
             }
         });
