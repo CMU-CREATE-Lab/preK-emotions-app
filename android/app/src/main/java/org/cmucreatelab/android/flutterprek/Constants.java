@@ -19,7 +19,7 @@ public class Constants {
     public static final boolean WAND_SHOW_DEBUG_WINDOW = false;
 
     /** Determines what type of activity will run for the "choose emotion" step of a student's session. Setting to false will use the legacy interface (displays emotions only). */
-    public static final boolean CHOOSE_EMOTION_WITH_TALK_ABOUT_IT_OPTION = true;
+    public static final boolean CHOOSE_EMOTION_WITH_TALK_ABOUT_IT_OPTION = false;
 
     public static final UARTSettings FLOWER_UART_SETTINGS;
     public static final UARTSettings SQUEEZE_UART_SETTINGS;
