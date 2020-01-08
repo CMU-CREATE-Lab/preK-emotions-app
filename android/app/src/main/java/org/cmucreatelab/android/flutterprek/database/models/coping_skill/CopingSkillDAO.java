@@ -36,24 +36,24 @@ public interface CopingSkillDAO {
 
     @Query("SELECT coping_skills.* from coping_skills " +
             "INNER JOIN emotions_coping_skills ON (emotions_coping_skills.coping_skill_uuid = coping_skills.uuid) " +
-            "WHERE emotions_coping_skills.emotion_uuid = :emotionUuid AND emotions_coping_skills.owner_uuid IS NULL ORDER BY name ASC")
+            "WHERE emotions_coping_skills.emotion_uuid = :emotionUuid AND emotions_coping_skills.owner_uuid IS NULL ORDER BY emotions_coping_skills.sequence_id ASC, name ASC")
     LiveData<List<CopingSkill>> getCopingSkillsForEmotion(String emotionUuid);
 
     @Query("SELECT coping_skills.* from coping_skills " +
             "INNER JOIN emotions_coping_skills ON (emotions_coping_skills.coping_skill_uuid = coping_skills.uuid) " +
             "LEFT JOIN customizations ON (customizations.owner_uuid = coping_skills.uuid AND customizations.`key` = 'showAfterFirst') " +
-            "WHERE emotions_coping_skills.emotion_uuid = :emotionUuid AND emotions_coping_skills.owner_uuid IS NULL AND customizations.`key` IS NULL ORDER BY name ASC")
+            "WHERE emotions_coping_skills.emotion_uuid = :emotionUuid AND emotions_coping_skills.owner_uuid IS NULL AND customizations.`key` IS NULL ORDER BY emotions_coping_skills.sequence_id ASC, name ASC")
     LiveData<List<CopingSkill>> getCopingSkillsForEmotionOnFirst(String emotionUuid);
 
     @Query("SELECT coping_skills.* from coping_skills " +
             "INNER JOIN emotions_coping_skills ON (emotions_coping_skills.coping_skill_uuid = coping_skills.uuid) " +
-            "WHERE emotions_coping_skills.emotion_uuid = :emotionUuid AND (emotions_coping_skills.owner_uuid IS NULL OR emotions_coping_skills.owner_uuid = :ownerUuid) ORDER BY name ASC")
+            "WHERE emotions_coping_skills.emotion_uuid = :emotionUuid AND (emotions_coping_skills.owner_uuid IS NULL OR emotions_coping_skills.owner_uuid = :ownerUuid) ORDER BY emotions_coping_skills.sequence_id ASC, name ASC")
     LiveData<List<CopingSkill>> getCopingSkillsForEmotion(String ownerUuid, String emotionUuid);
 
     @Query("SELECT coping_skills.* from coping_skills " +
             "INNER JOIN emotions_coping_skills ON (emotions_coping_skills.coping_skill_uuid = coping_skills.uuid) " +
             "LEFT JOIN customizations ON (customizations.owner_uuid = coping_skills.uuid AND customizations.`key` = 'showAfterFirst') " +
-            "WHERE emotions_coping_skills.emotion_uuid = :emotionUuid AND (emotions_coping_skills.owner_uuid IS NULL OR emotions_coping_skills.owner_uuid = :ownerUuid) AND customizations.`key` IS NULL ORDER BY name ASC")
+            "WHERE emotions_coping_skills.emotion_uuid = :emotionUuid AND (emotions_coping_skills.owner_uuid IS NULL OR emotions_coping_skills.owner_uuid = :ownerUuid) AND customizations.`key` IS NULL ORDER BY emotions_coping_skills.sequence_id ASC, name ASC")
     LiveData<List<CopingSkill>> getCopingSkillsForEmotionOnFirst(String ownerUuid, String emotionUuid);
 
 }

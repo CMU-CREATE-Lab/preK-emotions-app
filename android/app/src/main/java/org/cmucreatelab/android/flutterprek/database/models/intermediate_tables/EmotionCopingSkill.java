@@ -3,6 +3,7 @@ package org.cmucreatelab.android.flutterprek.database.models.intermediate_tables
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
@@ -49,11 +50,22 @@ public class EmotionCopingSkill {
     @ColumnInfo(name="coping_skill_uuid")
     private String copingSkillUuid;
 
+    @NonNull
+    @ColumnInfo(name="sequence_id")
+    private int sequenceId;
 
+
+    @Ignore
     public EmotionCopingSkill(@NonNull String uuid, @NonNull String emotionUuid, @NonNull String copingSkillUuid) {
+        this(uuid, emotionUuid, copingSkillUuid, 1);
+    }
+
+
+    public EmotionCopingSkill(@NonNull String uuid, @NonNull String emotionUuid, @NonNull String copingSkillUuid, @NonNull int sequenceId) {
         this.uuid = uuid;
         this.emotionUuid = emotionUuid;
         this.copingSkillUuid = copingSkillUuid;
+        this.sequenceId = sequenceId;
     }
 
 
@@ -81,6 +93,11 @@ public class EmotionCopingSkill {
     }
 
 
+    public int getSequenceId() {
+        return sequenceId;
+    }
+
+
     public void setOwnerUuid(@Nullable String ownerUuid) {
         this.ownerUuid = ownerUuid;
     }
@@ -93,6 +110,11 @@ public class EmotionCopingSkill {
 
     public void setCopingSkillUuid(@NonNull String copingSkillUuid) {
         this.copingSkillUuid = copingSkillUuid;
+    }
+
+
+    public void setSequenceId(int sequenceId) {
+        this.sequenceId = sequenceId;
     }
 
 }

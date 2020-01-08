@@ -68,7 +68,7 @@ import java.util.UUID;
         ItineraryItem.class,
         SessionCopingSkill.class,
         Session.class
-}, version = 5)
+}, version = 6)
 @TypeConverters({DateConverter.class, JSONObjectConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -276,6 +276,26 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 
+
+    /**
+     * Migrate from:
+     * version 5
+     * to
+     * version 6 - Add columns for: {@link EmotionCopingSkill}, {@link Student}
+     */
+    @VisibleForTesting
+    static final Migration MIGRATION_5_6 = new Migration(5, 6) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            // add sequence_id to students table
+            database.execSQL(
+                    "ALTER TABLE students ADD COLUMN sequence_id INTEGER NOT NULL DEFAULT 1");
+            // add sequence_id to emotions_coping_skills table
+            database.execSQL(
+                    "ALTER TABLE emotions_coping_skills ADD COLUMN sequence_id INTEGER NOT NULL DEFAULT 1");
+        }
+    };
+
     // Singleton Pattern
 
     private static AppDatabase instance;
@@ -289,7 +309,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (instance == null) {
                     appContext = context.getApplicationContext();
                     instance = Room.databaseBuilder(appContext, AppDatabase.class, dbName)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
                             .addCallback(callback)
                             .build();
                 }

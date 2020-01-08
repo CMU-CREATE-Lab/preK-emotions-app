@@ -45,6 +45,10 @@ public class Student implements Serializable {
     @ColumnInfo(name="picture_file_uuid")
     private String pictureFileUuid;
 
+    @NonNull
+    @ColumnInfo(name="sequence_id")
+    private int sequenceId;
+
 
     @Ignore
     public Student(@NonNull String name, @NonNull String classroomUuid) {
@@ -52,10 +56,17 @@ public class Student implements Serializable {
     }
 
 
+    @Ignore
     public Student(String uuid, @NonNull String name, @NonNull String classroomUuid) {
+        this(uuid, name, classroomUuid, 1);
+    }
+
+
+    public Student(String uuid, @NonNull String name, @NonNull String classroomUuid, @NonNull int sequenceId) {
         this.uuid = uuid;
         this.name = name;
         this.classroomUuid = classroomUuid;
+        this.sequenceId = sequenceId;
     }
 
 
@@ -87,6 +98,11 @@ public class Student implements Serializable {
     }
 
 
+    public int getSequenceId() {
+        return sequenceId;
+    }
+
+
     public void setName(@NonNull String name) {
         this.name = name;
     }
@@ -104,6 +120,11 @@ public class Student implements Serializable {
 
     public void setPictureFileUuid(@Nullable String pictureFileUuid) {
         this.pictureFileUuid = pictureFileUuid;
+    }
+
+
+    public void setSequenceId(int sequenceId) {
+        this.sequenceId = sequenceId;
     }
 
 }

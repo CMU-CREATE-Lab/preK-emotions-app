@@ -22,6 +22,7 @@ import static org.cmucreatelab.android.flutterprek.database.AppDatabase.MIGRATIO
 import static org.cmucreatelab.android.flutterprek.database.AppDatabase.MIGRATION_2_3;
 import static org.cmucreatelab.android.flutterprek.database.AppDatabase.MIGRATION_3_4;
 import static org.cmucreatelab.android.flutterprek.database.AppDatabase.MIGRATION_4_5;
+import static org.cmucreatelab.android.flutterprek.database.AppDatabase.MIGRATION_5_6;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -146,7 +147,7 @@ public class MigrationTest {
     private AppDatabase getMigratedRoomDatabase() {
         AppDatabase database = Room.databaseBuilder(InstrumentationRegistry.getTargetContext(),
                 AppDatabase.class, TEST_DB_NAME)
-                .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4,MIGRATION_4_5)
+                .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4,MIGRATION_4_5,MIGRATION_5_6)
                 .build();
         // close the database and release any stream resources when the test finishes
         migrationTestHelper.closeWhenFinished(database);
