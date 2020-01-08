@@ -80,7 +80,7 @@ public class FinishedExerciseActivity extends PostCopingSkillActivity {
             @Override
             public void onClick(View v) {
                 GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().onSelectedFinishedExerciseEmotion("unchanged");
-                goToNextPostCopingSkillActivity();
+                startActivity(GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().getNextIntent(FinishedExerciseActivity.this));
             }
         });
         findViewById(R.id.viewFeelingOk).setOnClickListener(new View.OnClickListener() {

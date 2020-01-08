@@ -256,8 +256,11 @@ public class SessionTracker {
                 }
             }
         }
-        // defaut to "rejoin friends"
-        return new Intent(currentActivity, RejoinFriendsActivity.class);
+//        // defaut to "rejoin friends"
+//        return new Intent(currentActivity, RejoinFriendsActivity.class);
+        // default to ending the session
+        endSession();
+        return SessionTracker.getIntentForEndSession(currentActivity);
     }
 
 
