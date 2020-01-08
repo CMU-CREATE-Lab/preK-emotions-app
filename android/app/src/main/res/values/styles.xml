@@ -47,13 +47,13 @@
         <item name="android:layout_marginBottom">40sp</item>
         <item name="android:layout_marginEnd">100dp</item>
         <item name="android:layout_marginStart">100dp</item>
-        <item name="android:layout_marginTop">40sp</item>
+        <item name="android:layout_marginTop">105sp</item>
     </style>
     <style name="StudentSectionLayoutNoText">
         <item name="android:layout_marginBottom">40sp</item>
         <item name="android:layout_marginEnd">55sp</item>
         <item name="android:layout_marginStart">55sp</item>
-        <item name="android:layout_marginTop">40sp</item>
+        <item name="android:layout_marginTop">105sp</item>
     </style>
     <style name="StudentSectionText">
         <item name="android:layout_marginBottom">40sp</item>

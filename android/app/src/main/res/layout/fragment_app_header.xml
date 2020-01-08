@@ -29,9 +29,9 @@
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/imageStudent"
+        style="@style/AppHeaderImages"
         android:layout_width="36sp"
         android:layout_height="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/ic_mindfulnest_header_student_section"
         app:layout_constraintEnd_toStartOf="@+id/imageInfo"
         app:layout_constraintTop_toTopOf="parent"

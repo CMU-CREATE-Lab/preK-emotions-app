@@ -52,6 +52,7 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
         });
 
         updateImageStudent(StudentSectionActivityWithHeader.this);
+        findViewById(R.id.imageInfo).setVisibility( isInfoIconVisible() ? View.VISIBLE : View.GONE );
     }
 
 
@@ -69,11 +70,28 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
             AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(imageID).observe(activity, new Observer<DbFile>() {
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
+                    ImageView imageStudent = findViewById(R.id.imageStudent);
                     // TODO check if file type is asset
-                    Util.setImageViewWithAsset(appContext, (ImageView) findViewById(R.id.imageStudent), dbFile.getFilePath());
+                    Util.setImageViewWithAsset(appContext, imageStudent, dbFile.getFilePath());
+
+                    // make header/thumbnail larger
+                    android.view.ViewGroup.LayoutParams params = imageStudent.getLayoutParams();
+                    params.height = 72;
+                    params.width = 72;
+                    imageStudent.setLayoutParams(params);
+
+                    View appHeader = findViewById(R.id.appHeader);
+                    params = appHeader.getLayoutParams();
+                    params.height = 130;
+                    appHeader.setLayoutParams(params);
                 }
             });
         }
+    }
+
+
+    public boolean isInfoIconVisible() {
+        return false;
     }
 
 }

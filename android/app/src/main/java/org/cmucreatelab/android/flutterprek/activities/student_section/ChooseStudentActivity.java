@@ -89,4 +89,10 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
         ((ImageView)findViewById(R.id.imageStudent)).setBackgroundResource(R.drawable.ic_mindfulnest_header_student_section);
     }
 
+
+    @Override
+    public boolean isInfoIconVisible() {
+        return true;
+    }
+
 }
