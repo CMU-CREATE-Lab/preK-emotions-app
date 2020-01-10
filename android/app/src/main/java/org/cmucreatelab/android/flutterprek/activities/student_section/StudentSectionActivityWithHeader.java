@@ -71,6 +71,7 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
                     ImageView imageStudent = findViewById(R.id.imageStudent);
+                    imageStudent.setBackground(null);
                     // TODO check if file type is asset
                     Util.setImageViewWithAsset(appContext, imageStudent, dbFile.getFilePath());
 

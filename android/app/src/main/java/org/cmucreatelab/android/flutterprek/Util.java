@@ -18,7 +18,6 @@ public class Util {
             InputStream assetInStream = appContext.getAssets().open(assetPath);
             Bitmap bitmap = BitmapFactory.decodeStream(assetInStream);
 
-            imageView.setBackground(null);
             imageView.setImageBitmap(bitmap);
         } catch (Exception e) {
             Log.e(LOG_TAG, "failed to set ImageView with asset="+assetPath);
