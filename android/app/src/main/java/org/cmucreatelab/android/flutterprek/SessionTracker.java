@@ -76,7 +76,7 @@ public class SessionTracker {
     }
 
 
-    public static Intent getIntentForEndSession(AbstractActivity currentActivity) {
+    public static Intent getIntentForEndSession(Context currentActivity) {
         Intent intent = new Intent(currentActivity, ChooseStudentActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return intent;

@@ -95,7 +95,7 @@ public class GlobalHandler {
      * @param currentActivity the current activity (this is called to start a new activity).
      * @return true if the session was successfully ended (and was not already ended), false otherwise.
      */
-    public boolean endCurrentSession(AbstractActivity currentActivity) {
+    public boolean endCurrentSession(Context currentActivity) {
         boolean result = false;
         if (currentSessionIsActive()) {
             result = sessionTracker.endSession();
@@ -110,6 +110,22 @@ public class GlobalHandler {
 //        // go back to student screen (regardless of value of result)
 //        Intent intent = SessionTracker.getIntentForEndSession(currentActivity);
 //        currentActivity.startActivity(intent);
+
+        return result;
+    }
+
+    public boolean endCurrentSessionOnEnterForeground() {
+        boolean result = false;
+        if (currentSessionIsActive()) {
+            result = sessionTracker.endSession();
+
+            // only go back to student screen when session is active
+            Intent intent = SessionTracker.getIntentForEndSession(appContext);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            appContext.startActivity(intent);
+        } else {
+            Log.w(Constants.LOG_TAG, "called endCurrentSession but no current session active");
+        }
 
         return result;
     }
