@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -102,6 +103,7 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
     private void playAudioFile() {
         if (audioFile != null) {
             final AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+            audioPlayer.stop();
             getLiveDataFromQuery(audioFile).observe(this, new Observer<DbFile>() {
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
@@ -120,6 +122,13 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
 
         parseIntent(getIntent());
         customizeDisplayForEmotion();
+
+        findViewById(R.id.imagePlayAudioView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playAudioFile();
+            }
+        });
 
         GlobalHandler globalHandler = GlobalHandler.getInstance(this);
         if (!globalHandler.currentSessionIsActive()) {

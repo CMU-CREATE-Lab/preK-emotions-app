@@ -28,11 +28,11 @@
 
             <TextView
                 android:id="@+id/textTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 style="@style/StudentSectionText"
                 android:text="@string/choose_coping_skill_placeholder"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imagePlayAudioView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:paddingRight="10dp" />
@@ -41,14 +41,15 @@
                 android:id="@+id/imagePlayAudioView"
                 android:layout_width="36sp"
                 android:layout_height="36sp"
-                app:layout_constraintLeft_toRightOf="@id/textTitle"
+                app:layout_constraintStart_toEndOf="@id/textTitle"
                 app:layout_constraintTop_toTopOf="@id/textTitle"
                 app:layout_constraintBottom_toBottomOf="@id/textTitle"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/icon_play_sound_blue" />
 
             <GridView
                 android:id="@+id/copingSkillsGridView"
-                android:layout_marginTop="60sp"
+                android:layout_marginTop="40sp"
                 style="@style/StudentSectionGridView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -44,7 +44,7 @@
 
 
     <style name="StudentSectionLayoutWithText">
-        <item name="android:layout_marginBottom">40sp</item>
+        <item name="android:layout_marginBottom">10dp</item>
         <item name="android:layout_marginEnd">100dp</item>
         <item name="android:layout_marginStart">100dp</item>
         <item name="android:layout_marginTop">105sp</item>
