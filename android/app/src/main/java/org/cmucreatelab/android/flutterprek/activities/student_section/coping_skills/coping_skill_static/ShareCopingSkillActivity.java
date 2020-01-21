@@ -7,7 +7,7 @@ public class ShareCopingSkillActivity extends StaticCopingSkillActivity {
 
     @Override
     public String getAudioFileForCopingSkillTitle() {
-        return "etc/audio_prompts/audio_share.wav";
+        return "etc/audio_prompts/audio_invite_a_friend.wav";
     }
 
 

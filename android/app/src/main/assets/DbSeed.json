@@ -21,7 +21,7 @@
 
     { "uuid": "coping_skill_15", "name": "Parent Video" },
 
-    { "uuid": "coping_skill_6", "name": "Share", "imageFileUuid": "ic_share" },
+    { "uuid": "coping_skill_6", "name": "Invite a Friend", "imageFileUuid": "ic_share" },
     { "uuid": "coping_skill_10", "name": "Squeeze", "imageFileUuid": "ic_balloon_squeeze" },
     { "uuid": "coping_skill_2", "name": "Static Coping Skill", "imageFileUuid": "ic_yoga" },
     { "uuid": "coping_skill_7", "name": "Rock and Twist", "imageFileUuid": "ic_stretch2_rock_and_twist" },
