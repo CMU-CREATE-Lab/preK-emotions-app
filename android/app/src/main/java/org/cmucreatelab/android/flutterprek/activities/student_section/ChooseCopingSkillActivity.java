@@ -38,6 +38,10 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
         @Override
         public void onClick(CopingSkill copingSkill, List<ItineraryItem> itineraryItems) {
             Log.d(Constants.LOG_TAG, "onClick coping skill = " + copingSkill.getName());
+            if (!activityShouldHandleOnClickEvents()) {
+                Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+                return;
+            }
             GlobalHandler globalHandler = GlobalHandler.getInstance(getApplicationContext());
             globalHandler.getSessionTracker().onSelectedCopingSkill(ChooseCopingSkillActivity.this, copingSkill, itineraryItems);
 
@@ -126,6 +130,10 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
         findViewById(R.id.imagePlayAudioView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!activityShouldHandleOnClickEvents()) {
+                    Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+                    return;
+                }
                 playAudioFile();
             }
         });

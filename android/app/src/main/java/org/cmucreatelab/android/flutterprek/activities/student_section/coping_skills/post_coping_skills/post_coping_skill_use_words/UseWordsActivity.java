@@ -55,12 +55,20 @@ public class UseWordsActivity extends PostCopingSkillActivity {
         findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!activityShouldHandleOnClickEvents()) {
+                    Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+                    return;
+                }
                 goToNextPostCopingSkillActivity();
             }
         });
         findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!activityShouldHandleOnClickEvents()) {
+                    Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+                    return;
+                }
                 goToUseWordsActivity();
             }
         });

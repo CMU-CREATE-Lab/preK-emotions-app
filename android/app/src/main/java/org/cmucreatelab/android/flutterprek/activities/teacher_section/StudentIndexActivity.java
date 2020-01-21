@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapterWithSessionCount;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.session_index.SessionIndexActivity;
@@ -39,6 +40,10 @@ public class StudentIndexActivity extends TeacherSectionActivityWithHeader imple
             @Override
             public void onClick(View v) {
                 Log.i("activity", "fabNewStudent.onClick");
+                if (!activityShouldHandleOnClickEvents()) {
+                    Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+                    return;
+                }
             }
         });
         fabNewClassroom.hide();
@@ -54,6 +59,10 @@ public class StudentIndexActivity extends TeacherSectionActivityWithHeader imple
     @Override
     public void onClick(Student student) {
         Log.i("activity", "clicked student " + student.getName());
+        if (!activityShouldHandleOnClickEvents()) {
+            Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+            return;
+        }
         Intent intent = new Intent(this, SessionIndexActivity.class);
         intent.putExtra(SessionIndexActivity.STUDENT_KEY, student);
         startActivity(intent);

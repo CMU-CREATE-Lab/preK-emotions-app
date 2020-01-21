@@ -56,6 +56,10 @@ public class HeartBeatingActivity extends PostCopingSkillActivity {
         heartSlow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!activityShouldHandleOnClickEvents()) {
+                    Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+                    return;
+                }
                 GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().onSelectedHeartBeat("slow");
                 goToNextPostCopingSkillActivity();
             }
@@ -63,6 +67,10 @@ public class HeartBeatingActivity extends PostCopingSkillActivity {
         heartFast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!activityShouldHandleOnClickEvents()) {
+                    Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+                    return;
+                }
                 GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().onSelectedHeartBeat("fast");
                 goToNextPostCopingSkillActivity();
             }

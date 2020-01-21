@@ -15,6 +15,31 @@ import org.cmucreatelab.android.flutterprek.Constants;
  */
 public abstract class AbstractActivity extends AppCompatActivity {
 
+    private final DelayedOnClickHandler delayedOnClickHandler = new DelayedOnClickHandler(this);
+
+
+    /**
+     * An activity by default will delay setting onclick listeners for its views.
+     *
+     * @return false if onclick listeners should be immediately set when the activity resumes.
+     */
+    public boolean activityUsesDelayedOnClickHandler() {
+        return true;
+    }
+
+
+    /**
+     * Determines if views in the activity should respond to onclick events. This depends on the state of the DelayedOnClickHandler.
+     *
+     * @return true if onclick events should be handled, false otherwise.
+     */
+    public final boolean activityShouldHandleOnClickEvents() {
+        if (activityUsesDelayedOnClickHandler()) {
+            return delayedOnClickHandler.delayIsFinished();
+        }
+        return true;
+    }
+
 
     /**
      * Hide navigation buttons to make the activity take up the entire screen.
@@ -28,6 +53,10 @@ public abstract class AbstractActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         decorView.setSystemUiVisibility(uiOptions);
+
+        if (activityUsesDelayedOnClickHandler()) {
+            delayedOnClickHandler.onResumeActivity();
+        }
     }
 
 
@@ -42,7 +71,12 @@ public abstract class AbstractActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         Log.i(Constants.LOG_TAG, "onPause");
+
         AudioPlayer.getInstance(getApplicationContext()).stop();
+        if (activityUsesDelayedOnClickHandler()) {
+            delayedOnClickHandler.onPauseActivity();
+        }
+
         super.onPause();
     }
 

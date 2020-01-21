@@ -57,6 +57,10 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
 
 
     public void onClickImageStudent() {
+        if (!activityShouldHandleOnClickEvents()) {
+            Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+            return;
+        }
         // go back to students page
         GlobalHandler.getInstance(getApplicationContext()).endCurrentSession(this);
     }

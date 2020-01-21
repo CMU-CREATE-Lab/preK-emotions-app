@@ -47,4 +47,10 @@ public abstract class AbstractCopingSkillActivity extends AbstractActivity {
         startActivity(postCopingActivity);
     }
 
+
+    @Override
+    public boolean activityUsesDelayedOnClickHandler() {
+        return false;
+    }
+
 }

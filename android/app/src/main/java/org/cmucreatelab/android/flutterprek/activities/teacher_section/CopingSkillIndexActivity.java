@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
@@ -36,6 +37,10 @@ public class CopingSkillIndexActivity extends TeacherSectionActivityWithHeaderAn
             @Override
             public void onClick(View v) {
                 Log.i("activity", "fabNewCopingSkill.onClick");
+                if (!activityShouldHandleOnClickEvents()) {
+                    Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+                    return;
+                }
             }
         });
     }

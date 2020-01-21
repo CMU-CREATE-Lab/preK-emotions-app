@@ -38,6 +38,10 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
         @Override
         public void onClick(Emotion emotion, List<ItineraryItem> itineraryItems) {
             Log.d(Constants.LOG_TAG, "onClick emotion = " + emotion.getName());
+            if (!activityShouldHandleOnClickEvents()) {
+                Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+                return;
+            }
             GlobalHandler globalHandler = GlobalHandler.getInstance(getApplicationContext());
 
             // track selection with GlobalHandler
@@ -136,6 +140,10 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
         findViewById(R.id.imagePlayAudioView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!activityShouldHandleOnClickEvents()) {
+                    Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+                    return;
+                }
                 playAudioHowAreYouFeeling();
             }
         });

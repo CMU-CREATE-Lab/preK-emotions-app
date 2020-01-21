@@ -79,6 +79,10 @@ public class FinishedExerciseActivity extends PostCopingSkillActivity {
         findViewById(R.id.viewFeelingUnchanged).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!activityShouldHandleOnClickEvents()) {
+                    Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+                    return;
+                }
                 GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().onSelectedFinishedExerciseEmotion("unchanged");
                 startActivity(GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().getNextIntent(FinishedExerciseActivity.this));
             }
@@ -86,6 +90,10 @@ public class FinishedExerciseActivity extends PostCopingSkillActivity {
         findViewById(R.id.viewFeelingOk).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!activityShouldHandleOnClickEvents()) {
+                    Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+                    return;
+                }
                 GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().onSelectedFinishedExerciseEmotion("ok");
                 goToNextPostCopingSkillActivity();
             }
@@ -93,6 +101,10 @@ public class FinishedExerciseActivity extends PostCopingSkillActivity {
         findViewById(R.id.viewFeelingHappy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!activityShouldHandleOnClickEvents()) {
+                    Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+                    return;
+                }
                 GlobalHandler.getInstance(getApplicationContext()).getSessionTracker().onSelectedFinishedExerciseEmotion("happy");
                 goToNextPostCopingSkillActivity();
             }

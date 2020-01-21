@@ -2,8 +2,10 @@ package org.cmucreatelab.android.flutterprek.activities.teacher_section;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.fragments.AppHeaderFragment;
@@ -30,6 +32,10 @@ public abstract class TeacherSectionActivityWithHeader extends AbstractActivity 
 
 
     public void onClickImageStudent() {
+        if (!activityShouldHandleOnClickEvents()) {
+            Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+            return;
+        }
         // bring to student section by default
         Intent intent = new Intent(this, ChooseStudentActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -98,4 +98,10 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
         return true;
     }
 
+
+    @Override
+    public boolean activityUsesDelayedOnClickHandler() {
+        return false;
+    }
+
 }

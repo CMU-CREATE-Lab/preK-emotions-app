@@ -2,10 +2,12 @@ package org.cmucreatelab.android.flutterprek.activities.teacher_section;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.session_index.SessionIndexActivity;
 
@@ -51,11 +53,19 @@ public class LoginActivity extends TeacherSectionActivityWithHeader {
 
     @Override
     public void onClickImageStudent() {
+        if (!activityShouldHandleOnClickEvents()) {
+            Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+            return;
+        }
         finish();
     }
 
 
     public void onClickButtonLogin() {
+        if (!activityShouldHandleOnClickEvents()) {
+            Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
+            return;
+        }
         if (checkPassword()) {
             findViewById(R.id.textViewErrorPrompt).setVisibility(View.INVISIBLE);
             // clear the text field
