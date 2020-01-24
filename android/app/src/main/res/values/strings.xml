@@ -12,7 +12,8 @@
     <string name="talk_about_it">Talk About It</string>
     <string name="choose_coping_skill_placeholder">Placeholder text for Coping Skill</string>
     <string name="choose_classroom_prompt">Choose Class</string>
-    <string name="heart_beating_prompt">Place your hand on your heart. How fast is your heart beating?</string>
+    <string name="heart_beating_prompt1">Place your hand on your heart.</string>
+    <string name="heart_beating_prompt2">How fast is your heart beating?</string>
     <string name="heart_beating_slow">Beating Slow</string>
     <string name="heart_beating_fast">Beating Fast</string>
     <string name="finished_exercise_prompt">How are you feeling now that you have finished the exercise?</string>

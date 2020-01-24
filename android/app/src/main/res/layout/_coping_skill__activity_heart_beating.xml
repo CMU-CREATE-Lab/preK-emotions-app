@@ -16,88 +16,27 @@
             android:layout_width="match_parent"
             android:layout_height="65sp" />
 
-        <android.support.constraint.ConstraintLayout
+
+        <fragment
+            android:id="@+id/placeHandOnHeartFragment"
+            android:name="org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.fragments.PlaceHandOnHeartFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            style="@style/StudentSectionLayoutWithText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/appHeader" />
 
-            <TextView
-                android:id="@+id/textTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/StudentSectionText"
-                android:text="@string/heart_beating_prompt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textTitle">
-
-                <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/viewBeatingSlow"
-                    style="@style/NonGridViewItem">
-
-                    <ImageView
-                        android:id="@+id/imageViewBeatingSlow"
-                        android:src="@drawable/heart"
-                        android:padding="20sp"
-                        style="@style/GridViewItemThumbnail.FitCenter"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/text1"
-                        android:text="@string/heart_beating_slow"
-                        style="@style/GridViewItemLowerTitle"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                </android.support.constraint.ConstraintLayout>
-
-                <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/viewBeatingFast"
-                    style="@style/NonGridViewItem">
-
-                    <ImageView
-                        android:id="@+id/imageViewBeatingFast"
-                        android:src="@drawable/heart"
-                        android:padding="20sp"
-                        style="@style/GridViewItemThumbnail.FitCenter"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/text2"
-                        android:text="@string/heart_beating_fast"
-                        style="@style/GridViewItemLowerTitle"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                </android.support.constraint.ConstraintLayout>
-
-            </LinearLayout>
-
-        </android.support.constraint.ConstraintLayout>
+        <fragment
+            android:id="@+id/howFastIsHeartBeatingFragment"
+            android:name="org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.fragments.HowFastIsHeartBeatingFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appHeader" />
 
     </android.support.constraint.ConstraintLayout>
 
