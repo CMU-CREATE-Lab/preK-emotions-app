@@ -16,6 +16,7 @@ import org.cmucreatelab.android.flutterprek.Constants;
 public abstract class AbstractActivity extends AppCompatActivity {
 
     private final DelayedOnClickHandler delayedOnClickHandler = new DelayedOnClickHandler(this);
+    private boolean audioPlaybackPaused = false;
 
 
     /**
@@ -41,12 +42,25 @@ public abstract class AbstractActivity extends AppCompatActivity {
     }
 
 
+    public synchronized void setAudioPlaybackPaused(boolean value) {
+        audioPlaybackPaused = value;
+    }
+
+
+    public boolean isAudioPlaybackPaused() {
+        return audioPlaybackPaused;
+    }
+
+
     /**
      * Hide navigation buttons to make the activity take up the entire screen.
      */
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i(Constants.LOG_TAG, "AbstractActivity.onResume");
+        AudioPlayer.getInstance(getApplicationContext()).stop();
+        setAudioPlaybackPaused(false);
 
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -70,7 +84,8 @@ public abstract class AbstractActivity extends AppCompatActivity {
     /** Makes sure the audio player is stopped before the app goes in the background. */
     @Override
     protected void onPause() {
-        Log.i(Constants.LOG_TAG, "onPause");
+        Log.i(Constants.LOG_TAG, "AbstractActivity.onPause");
+        setAudioPlaybackPaused(true);
 
         AudioPlayer.getInstance(getApplicationContext()).stop();
         if (activityUsesDelayedOnClickHandler()) {
@@ -93,9 +108,13 @@ public abstract class AbstractActivity extends AppCompatActivity {
      * @param listener Callback for when the added audio finishes playing
      */
     public void playAudio(String filepath, MediaPlayer.OnCompletionListener listener) {
+        AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+        audioPlayer.stop();
+        if (isAudioPlaybackPaused()) {
+            Log.w(Constants.LOG_TAG, "playAudio called from activity but audioPlaybackPaused is true; not playing audio.");
+            return;
+        }
         if (filepath != null) {
-            AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
-            audioPlayer.stop();
             audioPlayer.addAudioFromAssets(filepath, listener);
             audioPlayer.playAudio();
         } else {

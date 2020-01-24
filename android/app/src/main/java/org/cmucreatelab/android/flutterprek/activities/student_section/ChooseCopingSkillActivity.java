@@ -112,6 +112,10 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
                     // TODO check type?
+                    if (isAudioPlaybackPaused()) {
+                        Log.w(Constants.LOG_TAG, "onChanged trying to add/play audio from activity but audioPlaybackPaused is true; not adding/playing audio.");
+                        return;
+                    }
                     audioPlayer.addAudioFromAssets(dbFile.getFilePath());
                     audioPlayer.playAudio();
                 }

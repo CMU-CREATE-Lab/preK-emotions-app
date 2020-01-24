@@ -1,7 +1,9 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills;
 
 import android.media.MediaPlayer;
+import android.util.Log;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.activities.student_section.StudentSectionActivityWithTimeout;
 
 public abstract class PostCopingSkillActivity extends StudentSectionActivityWithTimeout implements MediaPlayer.OnCompletionListener {
@@ -10,6 +12,7 @@ public abstract class PostCopingSkillActivity extends StudentSectionActivityWith
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i(Constants.LOG_TAG, "PostCopingSkillActivity.onResume");
         playAudio(getAudioFileForPostCopingSkillTitle(), this);
     }
 

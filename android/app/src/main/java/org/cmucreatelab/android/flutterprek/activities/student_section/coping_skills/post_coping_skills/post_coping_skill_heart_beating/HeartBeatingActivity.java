@@ -11,7 +11,6 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.fragments.HeartBeatingFragment;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.fragments.HowFastIsHeartBeatingFragment;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.fragments.PlaceHandOnHeartFragment;
-import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 
 import static org.cmucreatelab.android.flutterprek.SessionTracker.ITINERARY_INDEX;
 
@@ -48,6 +47,7 @@ public class HeartBeatingActivity extends PostCopingSkillActivity implements Hea
         this.howFastIsHeartBeatingFragment = (HowFastIsHeartBeatingFragment) (getSupportFragmentManager().findFragmentById(R.id.howFastIsHeartBeatingFragment));
     }
 
+
     @Override
     public void setFragment(HeartBeatingFragment.FragmentState fragmentState) {
         String audioToPlay;
@@ -60,7 +60,6 @@ public class HeartBeatingActivity extends PostCopingSkillActivity implements Hea
             howFastIsHeartBeatingFragment.displayFragment(true, this);
             audioToPlay = "etc/audio_prompts/audio_how_fast_is_heart_beating.wav";
         }
-        AudioPlayer.getInstance(getApplicationContext()).stop();
         playAudio(audioToPlay);
         restartOverlayTimers();
     }
@@ -72,6 +71,7 @@ public class HeartBeatingActivity extends PostCopingSkillActivity implements Hea
         startActivity(intent);
         finish();
     }
+
 
     @Override
     protected void onResume() {
