@@ -30,7 +30,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     private State currentState = State.STOPPED;
     private static final int numBackgroundImages = 20;
     private static final int squeezeThreshold = 5;
-    private static final long defaultAnimSpeed = 65000L;
+    private static final long defaultAnimSpeed = 55000L;
 
     private final SqueezeCopingSkillActivity activity;
     private final BleSqueezeScanner bleSqueezeScanner;
