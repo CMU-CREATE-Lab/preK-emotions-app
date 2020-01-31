@@ -30,16 +30,16 @@ public interface StudentDAO {
     @Delete
     void delete(Student student);
 
-    @Query("SELECT * FROM students ORDER BY name ASC")
+    @Query("SELECT * FROM students ORDER BY sequence_id ASC, name ASC")
     LiveData<List<Student>> getAllStudents();
 
     @Query("SELECT * FROM students WHERE classroom_uuid = :classroomUuid ORDER BY sequence_id ASC, name ASC")
     LiveData<List<Student>> getAllStudentsFromClassroom(String classroomUuid);
 
-    @Query("SELECT * FROM students ORDER BY name ASC")
+    @Query("SELECT * FROM students ORDER BY sequence_id ASC, name ASC")
     LiveData<List<StudentWithCustomizations>> getAllStudentsWithCustomizations();
 
-    @Query("SELECT * FROM students WHERE classroom_uuid = :classroomUuid ORDER BY name ASC")
+     @Query("SELECT * FROM students WHERE classroom_uuid = :classroomUuid ORDER BY sequence_id ASC, name ASC")
     LiveData<List<StudentWithCustomizations>> getAllStudentsWithCustomizationsFromClassroom(String classroomUuid);
 
     @Query("SELECT * FROM students WHERE uuid = :studentUuid LIMIT 1")
