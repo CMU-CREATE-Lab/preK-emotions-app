@@ -1,10 +1,16 @@
-package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static;
+package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_cuddle;
 
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.StaticCopingSkillActivity;
 
 public class CuddleCopingSkillActivity extends StaticCopingSkillActivity {
 
     private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 90000;
+
+    @Override
+    public int getResourceIdForActivityLayout() {
+        return R.layout.activity_cuddle_coping_skill;
+    }
 
 
     @Override

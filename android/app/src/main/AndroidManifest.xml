@@ -71,7 +71,7 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".activities.student_section.coping_skills.coping_skill_static.CuddleCopingSkillActivity"
+            android:name=".activities.student_section.coping_skills.coping_skill_cuddle.CuddleCopingSkillActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
