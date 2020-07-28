@@ -4,6 +4,9 @@ import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
 import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -12,8 +15,6 @@ import org.cmucreatelab.android.flutterprek.R;
 public class FlowerStandaloneCopingSkillProcess {
 
     enum StepNumber {
-        STEP_1A_HOLD_FLOWER_LADYBUG,
-        STEP_1B_HOLD_FLOWER_HAND,
         STEP_2_SMELL,
         STEP_3_BLOW,
         STEP_4_OVERLAY
@@ -27,9 +28,6 @@ public class FlowerStandaloneCopingSkillProcess {
             R.id.imageViewSilhouette,
             R.id.imageViewBreatheIn,
             R.id.imageViewBreatheOut,
-            R.id.imageViewFlowerHand,
-            R.id.imageViewFlowerLadyBug,
-            R.id.imageViewFlowerLadyBugArrow,
             R.id.imageViewFlowerStem,
             R.id.imageViewFlowerMiddle,
             R.id.imageViewFlowerPetal1,
@@ -55,6 +53,25 @@ public class FlowerStandaloneCopingSkillProcess {
     }
 
 
+    private void animateFlower(boolean breatheIn) {
+        // breatheIn rotates forward, backward otherwise
+        int fromDegrees = 0;
+        int toDegrees = breatheIn ? 20 : -20;
+        // breatheIn pivots from bottom-center of the layout, bottom-right otherwise
+        float pivotXValue = breatheIn ? 0.5f : 1.0f;
+        float pivotYValue = 1.0f;
+        // pivot layout relative to self
+        int pivotType = Animation.RELATIVE_TO_SELF;
+
+        RotateAnimation rotateAnimation = new RotateAnimation(fromDegrees, toDegrees, pivotType, pivotXValue, pivotType, pivotYValue);
+        // animate for 1.3 seconds, then repeat animation in reverse
+        rotateAnimation.setDuration(1300);
+        rotateAnimation.setRepeatCount(1);
+        rotateAnimation.setRepeatMode(Animation.REVERSE);
+        flowerCopingSkillActivity.findViewById(R.id.constraintLayoutFlower).startAnimation(rotateAnimation);
+    }
+
+
     public FlowerStandaloneCopingSkillProcess(FlowerStandaloneCopingSkillActivity flowerCopingSkillActivity) {
         this.flowerCopingSkillActivity = flowerCopingSkillActivity;
     }
@@ -64,32 +81,7 @@ public class FlowerStandaloneCopingSkillProcess {
         final @IdRes int[] viewsToDisplay;
         final @StringRes int stringResourceForTitle;
 
-        if (stepNumber == StepNumber.STEP_1A_HOLD_FLOWER_LADYBUG) {
-            viewsToDisplay = new int[] {
-                    R.id.imageViewFlowerLadyBug,
-                    R.id.imageViewFlowerLadyBugArrow,
-                    R.id.imageViewFlowerStem,
-                    R.id.imageViewFlowerMiddle,
-                    R.id.imageViewFlowerPetal1,
-                    R.id.imageViewFlowerPetal2,
-                    R.id.imageViewFlowerPetal3,
-                    R.id.imageViewFlowerPetal4,
-                    R.id.imageViewFlowerPetal5
-            };
-            stringResourceForTitle = R.string.coping_skill_flower_step_1_hold;
-        } else if (stepNumber == StepNumber.STEP_1B_HOLD_FLOWER_HAND) {
-            viewsToDisplay = new int[] {
-                    R.id.imageViewFlowerHand,
-                    R.id.imageViewFlowerStem,
-                    R.id.imageViewFlowerMiddle,
-                    R.id.imageViewFlowerPetal1,
-                    R.id.imageViewFlowerPetal2,
-                    R.id.imageViewFlowerPetal3,
-                    R.id.imageViewFlowerPetal4,
-                    R.id.imageViewFlowerPetal5
-            };
-            stringResourceForTitle = R.string.coping_skill_flower_step_1_hold;
-        } else if (stepNumber == StepNumber.STEP_2_SMELL) {
+        if (stepNumber == StepNumber.STEP_2_SMELL) {
             viewsToDisplay = new int[] {
                     R.id.imageViewSilhouette,
                     R.id.imageViewBreatheIn,
@@ -102,6 +94,7 @@ public class FlowerStandaloneCopingSkillProcess {
                     R.id.imageViewFlowerPetal5
             };
             stringResourceForTitle = R.string.coping_skill_flower_step_2_smell;
+            animateFlower(true);
         } else if (stepNumber == StepNumber.STEP_3_BLOW) {
             viewsToDisplay = new int[] {
                     R.id.imageViewSilhouette,
@@ -115,6 +108,7 @@ public class FlowerStandaloneCopingSkillProcess {
                     R.id.imageViewFlowerPetal5
             };
             stringResourceForTitle = R.string.coping_skill_flower_step_3_blow;
+            animateFlower(false);
         } else if (stepNumber == StepNumber.STEP_4_OVERLAY) {
             viewsToDisplay = new int[] {
                     R.id.imageViewSilhouette,

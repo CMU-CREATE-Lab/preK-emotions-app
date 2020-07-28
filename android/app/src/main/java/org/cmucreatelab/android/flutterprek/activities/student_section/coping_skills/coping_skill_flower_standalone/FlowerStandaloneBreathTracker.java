@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.widget.ImageView;
 
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower.FlowerCopingSkillActivity;
 
 public class FlowerStandaloneBreathTracker {
 
