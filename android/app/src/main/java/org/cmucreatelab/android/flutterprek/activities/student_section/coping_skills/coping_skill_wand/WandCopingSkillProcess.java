@@ -6,8 +6,11 @@ import android.support.constraint.Guideline;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -137,7 +140,7 @@ public class WandCopingSkillProcess {
         float xDist = ((float)width)*((float)0.7) - handWidth;
         ImageView wandView = wandCopingSkillActivity.findViewById(R.id.imageViewWandHand);
 
-        AnimationSet wandMov = new AnimationSet(true);
+        AnimationSet wandMov = new AnimationSet(false);
         int repCount = (int)(SONG_DURATION/TEMPO);
 
         RotateAnimation rot = new RotateAnimation(45, 0,

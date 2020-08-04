@@ -21,7 +21,11 @@ public class BackgroundTimer {
         this.runnable = new Runnable() {
             @Override
             public void run() {
-                listener.timerExpired();
+                try {
+                    listener.timerExpired();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 handler.postDelayed(runnable, BackgroundTimer.this.millisecondsToWait);
             }
         };
@@ -43,7 +47,7 @@ public class BackgroundTimer {
 
 
     public interface TimeExpireListener {
-        void timerExpired();
+        void timerExpired() throws InterruptedException;
     }
 
 }
