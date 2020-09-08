@@ -24,6 +24,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import java.util.Random;
+
 public class CuddleCopingSkillAnimation {
 
     private BackgroundTimer timerToDisplayHearts;
@@ -31,52 +33,111 @@ public class CuddleCopingSkillAnimation {
     private CuddleCopingSkillActivity cuddleCopingSkillActivity;
     private static final long HEART_DELAY = 1000;
     private static final long TEMPO = 500;
-    private static final long FADE_DURATION = 1000;
+    private static final long FADE_DURATION = 500;
+    private static final long TRANS_DURATION = 1000;
     private Display display;
     private ImageView heartImageView;
     private ImageView sheepImageView;
     private Animation fadeIn;
     private boolean timer_trigger = false;
     private GestureDetector gdt;
+    private int right;
+    private float xPos;
 
-    public void startAnimation() throws InterruptedException {
-        Log.e("Animation", "Starting animation");
+    public void animateHeart() {
+        Random rnd = new Random();
+        right = rnd.nextInt(2);
 
         // Set the position of the heart on screen
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        int height = size.y;
-        float xPos = (float) (0.29 * (float) width);
-        float yPos = (float) (0.447 * (float) height);
+        final int height = size.y;
+        if (right == 0) {
+            xPos = (float) (0.29 * (float) width);
+        } else {
+            xPos = (float) (0.599 * (float) width);
+        }
+        final float yPos = (float) (0.447 * (float) height);
 
         heartImageView.setX(xPos);
         heartImageView.setY(yPos);
 
         heartImageView.setVisibility(View.VISIBLE);
 
-        // Rotate and move up the screen
-        AnimationSet heartMov = new AnimationSet(true);
+        AnimationSet heartAnimation = new AnimationSet(true);
+        fadeIn = AnimationUtils.loadAnimation(cuddleCopingSkillActivity.getApplicationContext(), R.anim.heart_fade_in);
+        heartAnimation.addAnimation(fadeIn);
 
-        RotateAnimation rot = new RotateAnimation(0, 15,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                1.0f);
-        rot.setDuration(TEMPO);
-        rot.setRepeatCount(0);
-        //heartMov.addAnimation(rot);
+        Animation translate = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, -1.0f
+        );
+        translate.setDuration(TRANS_DURATION);
+        heartAnimation.addAnimation(translate);
 
-        TranslateAnimation animation = new TranslateAnimation(0.0f, 10, 0.0f, 0.0f);
-        animation.setDuration(TEMPO);
-        animation.setRepeatCount(0);
-        //heartMov.addAnimation(animation);
-        //heartImageView.startAnimation(heartMov);
+        Animation fadeOut = AnimationUtils.loadAnimation(cuddleCopingSkillActivity.getApplicationContext(),R.anim.heart_fade_out);
+        heartAnimation.addAnimation(fadeOut);
+
+        heartImageView.startAnimation(heartAnimation);
+
+        new CountDownTimer(FADE_DURATION+TRANS_DURATION, 500) {
+
+            public void onTick(long millisUntilFinished) {
+            }
+
+            public void onFinish() {
+                Log.e("Timer", "Done moving");
+                //yPos = (float) (0.447 * (float) height) - 200;
+                heartImageView.setX(xPos);
+                heartImageView.setY(yPos-200);
+                new CountDownTimer(FADE_DURATION, 500) {
+
+                    public void onTick(long millisUntilFinished) {
+                    }
+
+                    public void onFinish() {
+                        Log.e("Timer", "Done fading");
+                        heartImageView.setVisibility(View.INVISIBLE);
+                    }
+                }.start();
+            }
+        }.start();
+    }
+
+    public void startAnimation() throws InterruptedException {
+        Log.e("Animation", "Starting animation");
+
+        // Set side of the screen
+        Random rnd = new Random();
+        right = rnd.nextInt(2);
+
+        // Set the position of the heart on screen
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        if (right == 0) {
+            xPos = (float) (0.29 * (float) width);
+        } else {
+            xPos = (float) (0.599 * (float) width);
+        }
+        float yPos = (float) (0.447 * (float) height);
+        heartImageView.setX(xPos);
+        heartImageView.setY(yPos);
+
+        // Set the size of the heart
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) heartImageView.getLayoutParams();
+        params.width = rnd.nextInt(100) + 100;
+        heartImageView.setLayoutParams(params);
+
+        // Set the view to be visible
+        heartImageView.setVisibility(View.VISIBLE);
 
         fadeIn = AnimationUtils.loadAnimation(cuddleCopingSkillActivity.getApplicationContext(), R.anim.heart_fade_in);
         heartImageView.startAnimation(fadeIn);
 
-        //wait(1000);
-
-        new CountDownTimer(1000, 1000) {
+        new CountDownTimer(FADE_DURATION, 1000) {
 
             public void onTick(long millisUntilFinished) {
             }
@@ -94,25 +155,30 @@ public class CuddleCopingSkillAnimation {
 
         AnimationSet heartMov = new AnimationSet(true);
 
-        RotateAnimation rot = new RotateAnimation(0, 15,
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) heartImageView.getLayoutParams();
+        float xPivot = params.width/2;
+        float yPivot = params.height/2;
+        RotateAnimation rot = new RotateAnimation(0, -15,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                1.0f);
+                0.5f);
         rot.setDuration(TEMPO);
         rot.setRepeatCount(0);
         //heartMov.addAnimation(rot);
 
-        /*
+
         TranslateAnimation animation = new TranslateAnimation(0.0f, 0, 0.0f, -200f);
-        animation.setDuration(TEMPO);
+        animation.setDuration(TRANS_DURATION);
         animation.setRepeatCount(0);
         heartMov.addAnimation(animation);
+        heartMov.setStartOffset(0);
         heartImageView.startAnimation(heartMov);
-        */
+        /*
         ObjectAnimator animation = ObjectAnimator.ofFloat(heartImageView, "translationY", -200f);
         animation.setDuration(1000);
         animation.start();
 
-        new CountDownTimer(500, 500) {
+         */
+        new CountDownTimer(TRANS_DURATION, 500) {
 
             public void onTick(long millisUntilFinished) {
             }
@@ -132,14 +198,13 @@ public class CuddleCopingSkillAnimation {
         display.getSize(size);
         int width = size.x;
         int height = size.y;
-        float xPos = (float) (0.29 * (float) width);
         float yPos = (float) (0.447 * (float) height) - 200;
         heartImageView.setX(xPos);
         heartImageView.setY(yPos);
 
         Animation fadeOut = AnimationUtils.loadAnimation(cuddleCopingSkillActivity.getApplicationContext(),R.anim.heart_fade_out);
         heartImageView.startAnimation(fadeOut);
-        new CountDownTimer(1000, 1000) {
+        new CountDownTimer(FADE_DURATION, 1000) {
 
             public void onTick(long millisUntilFinished) {
             }

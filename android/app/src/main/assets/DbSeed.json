@@ -27,7 +27,8 @@
     { "uuid": "coping_skill_9", "name": "Stretching", "imageFileUuid": "ic_stretching" },
     { "uuid": "coping_skill_13", "name": "Stretching", "imageFileUuid": "ic_stretching" },
     { "uuid": "coping_skill_11", "name": "Talk About It", "imageFileUuid": "ic_talk" },
-    { "uuid": "coping_skill_12", "name": "Talk to the Teacher", "imageFileUuid": "ic_talk_teacher" }
+    { "uuid": "coping_skill_12", "name": "Talk to the Teacher", "imageFileUuid": "ic_talk_teacher" },
+    { "uuid": "coping_skill_15", "name": "Wand Standalone", "imageFileUuid": "ic_conducting"}
   ],
   "customizations":
   [
@@ -64,6 +65,7 @@
     { "uuid": "happy_wand", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_14" },
     { "uuid": "happy_talk", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_11" },
     { "uuid": "happy_talk_teacher", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_12" },
+    { "uuid": "happy_wand_standalone", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_15" },
     { "uuid": "sad_flower", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "sad_cuddle", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_3" },
     { "uuid": "sad_yoga", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_8" },
@@ -76,6 +78,7 @@
     { "uuid": "mad_squeeze", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_10" },
     { "uuid": "mad_talk", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_11" },
     { "uuid": "mad_talk_teacher", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_12" },
+    { "uuid": "mad_wand_standalone", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_15"},
     { "uuid": "scared_flower", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_1" },
     { "uuid": "scared_cuddle", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_3" },
     { "uuid": "scared_yoga", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_13" },
@@ -148,6 +151,10 @@
     { "uuid": "coping_skill_14_part1", "ownerUuid": "coping_skill_14", "sequenceId": 1, "capabilityId": "coping_skill_wand", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_14_part2", "ownerUuid": "coping_skill_14", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_14_part3", "ownerUuid": "coping_skill_14", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
+
+    { "uuid": "coping_skill_15_part1", "ownerUuid": "coping_skill_15", "sequenceId": 1, "capabilityId": "coping_skill_wand_standalone", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_15_part2", "ownerUuid": "coping_skill_15", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_15_part3", "ownerUuid": "coping_skill_15", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
 
     { "uuid": "coping_skill_12_part1", "ownerUuid": "coping_skill_12", "sequenceId": 1, "capabilityId": "coping_skill_talk_to_the_teacher", "capabilityParameters": "{}" },
     { "uuid": "coping_skill_12_part2", "ownerUuid": "coping_skill_12", "sequenceId": 2, "capabilityId": "finish", "capabilityParameters": "{}" }

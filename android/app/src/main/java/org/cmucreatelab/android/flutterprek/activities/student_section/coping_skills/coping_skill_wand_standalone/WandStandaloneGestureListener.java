@@ -1,18 +1,17 @@
-package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_cuddle;
+package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand_standalone;
 
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.widget.Toast;
 
-public class GestureListener extends GestureDetector.SimpleOnGestureListener
-{
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand.WandCopingSkillActivity;
+
+public class WandStandaloneGestureListener extends GestureDetector.SimpleOnGestureListener {
 
     private static final int MIN_SWIPPING_DISTANCE = 50;
     private static final int MAX_SWIPPING_DISTANCE = 250;
     private static final int THRESHOLD_VELOCITY = 1000;
-    private CuddleCopingSkillActivity cuddleCopingSkillActivity;
-    private  CuddleCopingSkillAnimation cuddleCopingSkillAnimation;
+    private WandStandaloneActivity wandStandaloneActivity;
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
@@ -32,18 +31,14 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener
         if (distance > MIN_SWIPPING_DISTANCE && distance < MAX_SWIPPING_DISTANCE && Math.abs(velocity) < THRESHOLD_VELOCITY)
         {
             //cuddleCopingSkillAnimation.animateHeart();
-            try {
-                cuddleCopingSkillAnimation.startAnimation();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
             return false;
         }
         return false;
     }
 
-    public GestureListener(final CuddleCopingSkillActivity cuddleCopingSkillActivity, final CuddleCopingSkillAnimation cuddleCopingSkillAnimation) {
-        this.cuddleCopingSkillActivity = cuddleCopingSkillActivity;
-        this.cuddleCopingSkillAnimation = cuddleCopingSkillAnimation;
+    public WandStandaloneGestureListener(final WandStandaloneActivity wandStandaloneActivity) {
+        this.wandStandaloneActivity = wandStandaloneActivity;
     }
+
 }
