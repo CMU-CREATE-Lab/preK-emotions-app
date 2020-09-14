@@ -69,6 +69,18 @@ public class Constants {
     public static final String MOON_SQUEEZE = "SQWZ-D91E9";
     public static final String MOON_WAND = "WAND-1F216";
 
+    public static final String HEART_FLOWER = "FLOWER-ED7AE";
+    public static final String HEART_SQUEEZE = "SQWZ-4EA63";
+    public static final String HEART_WAND = "WAND-A01B9";
+
+    public static final String SMILEY_FLOWER = "FLOWER-22B26";
+    public static final String SMILEY_SQUEEZE = "SQWZ-D20C5";
+    public static final String SMILEY_WAND = "WAND-333FA";
+
+    public static final String TREE_FLOWER = "FLOWER-6A57F";
+    public static final String TREE_SQUEEZE = "SQWZ-B8FE2";
+    public static final String TREE_WAND = "WAND-57BBB";
+
     public static final DeviceConnectionHandler.HardcodedValues
             STATION_HEART = new DeviceConnectionHandler.HardcodedValues("\uD83D\uDC96","FLOWER-E5F6C","MNSQ1","WAND-8A224",null),
             STATION_STAR = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF1F","FLOWER-E5E22","MNSQ2","WAND-E1A98",null),
@@ -82,7 +94,11 @@ public class Constants {
             STATION_STAR_WITH_FISH = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF1F + \uD83D\uDC20","FLOWER-E5E22", SQUEEZE_4_FISH,"WAND-E1A98",null),
             STATION_TREE_WITH_TURTLE = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF32 + \uD83D\uDC22","FLOWER-595A4",SQUEEZE_5_TURTLE,"WAND-E2A59",null),
             STATION_SMILEY_WITH_FISH = new DeviceConnectionHandler.HardcodedValues("🙂 + \uD83D\uDC20","FLOWER-4D605", SQUEEZE_6_FISH,"WAND-7C185",null),
-            STATION_MOON__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF19 + \uD83D\uDC20",MOON_FLOWER, MOON_SQUEEZE,MOON_WAND,null),
+
+            STATION_MOON__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF19 2020", MOON_FLOWER, MOON_SQUEEZE, MOON_WAND,null),
+            STATION_HEART__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("\uD83D\uDC96 2020", HEART_FLOWER, HEART_FLOWER, HEART_FLOWER,null),
+            STATION_SMILEY__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("🙂 2020", SMILEY_FLOWER, SMILEY_FLOWER, SMILEY_FLOWER,null),
+            STATION_TREE__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF32 2020", TREE_FLOWER, TREE_FLOWER, TREE_FLOWER,null),
             // avoids need to update semi-colon placement; do not actually use this
             NULL_STATION = null;
 
