@@ -65,6 +65,10 @@ public class Constants {
     public static final String SQUEEZE_5_TURTLE = "SQWZ-18770";
     public static final String SQUEEZE_6_FISH = "SQWZ-3E567";
 
+    public static final String MOON_FLOWER = "FLOWER-7F257";
+    public static final String MOON_SQUEEZE = "SQWZ-D91E9";
+    public static final String MOON_WAND = "WAND-1F216";
+
     public static final DeviceConnectionHandler.HardcodedValues
             STATION_HEART = new DeviceConnectionHandler.HardcodedValues("\uD83D\uDC96","FLOWER-E5F6C","MNSQ1","WAND-8A224",null),
             STATION_STAR = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF1F","FLOWER-E5E22","MNSQ2","WAND-E1A98",null),
@@ -75,13 +79,18 @@ public class Constants {
             STATION_SUN_WITH_TURTLE = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF1E + \uD83D\uDC22","FLOWER-AC43D", SQUEEZE_1_TURTLE,"WAND-7426D",null),
             STATION_MOON_WITH_FISH = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF19 + \uD83D\uDC20","FLOWER-E167F", SQUEEZE_2_FISH,"WAND-A8D12",null),
             STATION_HEART_WITH_TURTLE = new DeviceConnectionHandler.HardcodedValues("\uD83D\uDC96 + \uD83D\uDC22","FLOWER-E5F6C", SQUEEZE_3_TURTLE,"WAND-8A224",null),
-            STATION_STAR_WITH_FISH = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF1F + \uD83D\uDC20","FLOWER-E5E22", SQUEEZE_4_FISH,"WAND-E1A98",null);
+            STATION_STAR_WITH_FISH = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF1F + \uD83D\uDC20","FLOWER-E5E22", SQUEEZE_4_FISH,"WAND-E1A98",null),
+            STATION_TREE_WITH_TURTLE = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF32 + \uD83D\uDC22","FLOWER-595A4",SQUEEZE_5_TURTLE,"WAND-E2A59",null),
+            STATION_SMILEY_WITH_FISH = new DeviceConnectionHandler.HardcodedValues("🙂 + \uD83D\uDC20","FLOWER-4D605", SQUEEZE_6_FISH,"WAND-7C185",null),
+            STATION_MOON__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF19 + \uD83D\uDC20",MOON_FLOWER, MOON_SQUEEZE,MOON_WAND,null),
+            // avoids need to update semi-colon placement; do not actually use this
+            NULL_STATION = null;
 
     /**
      * Set this to use hardcoded values for the MindfulNest BLE devices.
      * This is helpful when there are multiple stations in the same room.
      * Otherwise set to null.
      */
-    public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = STATION_HEART;
+    public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = STATION_MOON__FALL_2020;
 
 }

@@ -68,17 +68,14 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
 
     private void changeState(State newState) {
         if (newState == State.WAIT_FOR_BUTTON) {
-            flowerWriteTimer.stopTimer();
             activity.displayHoldFlowerInstructions();
             breathTracker.resetTracker();
             // clear this flag (in case button was held down before entering this state)
             isPressingButton = false;
         } else if (newState == State.BREATHING) {
-            flowerWriteTimer.startTimer();
             activity.displayBreatheIn();
             breathTracker.startTracker();
         } else if (newState == State.FINISHED) {
-            flowerWriteTimer.stopTimer();
             breathTracker.resetTracker();
             activity.displayOverlay();
         }
@@ -130,6 +127,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     @Override
     public void onConnected() {
         Log.d(Constants.LOG_TAG, "FlowerStateHandler: onConnected");
+        flowerWriteTimer.startTimer();
         updateConnectionErrorView();
     }
 

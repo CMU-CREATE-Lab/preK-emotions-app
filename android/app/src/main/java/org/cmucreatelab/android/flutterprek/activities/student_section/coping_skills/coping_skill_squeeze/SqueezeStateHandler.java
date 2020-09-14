@@ -34,6 +34,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
 
     private final SqueezeCopingSkillActivity activity;
     private final BleSqueezeScanner bleSqueezeScanner;
+    private final SqueezeWriteTimer squeezeWriteTimer;
     private BleSqueeze bleSqueeze;
     private String lastNotification = "";
     private final ValueAnimator animator = ValueAnimator.ofFloat(0.0f, (float)numBackgroundImages);
@@ -116,6 +117,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     public SqueezeStateHandler(SqueezeCopingSkillActivity activity) {
         this.activity = activity;
         this.bleSqueezeScanner = new BleSqueezeScanner(activity, this, this);
+        this.squeezeWriteTimer = new SqueezeWriteTimer(this);
 
         // debug window
         TextView textView = activity.findViewById(R.id.textViewDebug);
@@ -296,6 +298,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     @Override
     public void onConnected() {
         Log.d(Constants.LOG_TAG, "SqueezeStateHandler: onConnected");
+        squeezeWriteTimer.startTimer();
         updateConnectionErrorView();
         updateDebugWindow();
     }
@@ -343,6 +346,11 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     public void pauseState() {
         bleSqueezeScanner.stopScan();
         changeState(State.STOPPED);
+    }
+
+
+    public BleSqueeze getBleSqueeze() {
+        return bleSqueeze;
     }
 
 }

@@ -24,6 +24,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     private final WandCopingSkillActivity activity;
     private final BleWandScanner bleWandScanner;
     private final WandSpeedTracker wandSpeedTracker;
+    private final WandWriteTimer wandWriteTimer;
     private BleWand bleWand;
     private String lastNotification = "";
     private int[] curVals = null;
@@ -111,6 +112,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         this.activity = activity;
         this.bleWandScanner = new BleWandScanner(activity, this, this);
         this.wandSpeedTracker = new WandSpeedTracker(activity, window);
+        this.wandWriteTimer = new WandWriteTimer(this);
 
         // debug window
         TextView textView = activity.findViewById(R.id.textViewDebug);
@@ -219,6 +221,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     @Override
     public void onConnected() {
         Log.d(Constants.LOG_TAG, "WandStateHandler: onConnected");
+        wandWriteTimer.startTimer();
         updateConnectionErrorView();
         updateDebugWindow();
     }
@@ -266,6 +269,11 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         bleWandScanner.stopScan();
         //currentState = WandStateHandler.State.STOPPED;
         changeState(WandStateHandler.State.STOPPED);
+    }
+
+
+    public BleWand getBleWand() {
+        return bleWand;
     }
 
 }
