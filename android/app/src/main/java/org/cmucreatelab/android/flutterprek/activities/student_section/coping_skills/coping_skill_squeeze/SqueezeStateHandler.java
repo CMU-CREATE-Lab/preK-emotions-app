@@ -66,11 +66,16 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
 
 
     private void updateConnectionErrorView() {
+        updateConnectionErrorView( bleSqueeze == null || !bleSqueeze.isConnected());
+    }
+
+
+    private void updateConnectionErrorView(final boolean isVisible) {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 // TODO Change this and set error views
-                activity.findViewById(R.id.squeezeConnectionError).setVisibility( bleSqueezeScanner.isSqueezeConnected() ? View.GONE : View.VISIBLE);
+                activity.findViewById(R.id.squeezeConnectionError).setVisibility( isVisible ? View.VISIBLE : View.GONE);
             }
         });
     }
@@ -299,7 +304,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     public void onConnected() {
         Log.d(Constants.LOG_TAG, "SqueezeStateHandler: onConnected");
         squeezeWriteTimer.startTimer();
-        updateConnectionErrorView();
+        updateConnectionErrorView(false);
         updateDebugWindow();
     }
 
@@ -307,7 +312,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     @Override
     public void onDisconnected() {
         Log.d(Constants.LOG_TAG, "SqueezeStateHandler: onDisconnected");
-        updateConnectionErrorView();
+        updateConnectionErrorView(true);
         lookForSqueeze();
     }
 

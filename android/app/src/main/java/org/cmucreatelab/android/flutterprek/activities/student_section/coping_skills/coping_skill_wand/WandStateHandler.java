@@ -68,10 +68,15 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
 
     private void updateConnectionErrorView() {
+        updateConnectionErrorView( bleWand == null || !bleWand.isConnected());
+    }
+
+
+    private void updateConnectionErrorView(final boolean isVisible) {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                activity.findViewById(R.id.wandConnectionError).setVisibility( bleWandScanner.isWandConnected() ? View.GONE : View.VISIBLE);
+                activity.findViewById(R.id.wandConnectionError).setVisibility( isVisible ? View.VISIBLE : View.GONE);
             }
         });
     }
@@ -100,7 +105,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             rgb = "255,0,0";
             activity.setVolumeLow();
         }
-        if(bleWand != null) {
+        if (bleWand != null) {
             color = rgb.getBytes();
             bleWand.writeData(color);
             bleWand.writeData(new byte[] {0x0D});
@@ -222,7 +227,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     public void onConnected() {
         Log.d(Constants.LOG_TAG, "WandStateHandler: onConnected");
         wandWriteTimer.startTimer();
-        updateConnectionErrorView();
+        updateConnectionErrorView(false);
         updateDebugWindow();
     }
 
@@ -230,7 +235,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     @Override
     public void onDisconnected() {
         Log.d(Constants.LOG_TAG, "WandStateHandler: onDisconnected");
-        updateConnectionErrorView();
+        updateConnectionErrorView(true);
         lookForWand();
     }
 

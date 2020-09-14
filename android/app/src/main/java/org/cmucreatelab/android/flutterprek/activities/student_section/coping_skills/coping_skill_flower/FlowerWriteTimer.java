@@ -10,7 +10,7 @@ public class FlowerWriteTimer implements BackgroundTimer.TimeExpireListener {
 
     private static final long TIME_TO_WAIT_IN_MILLISECONDS = 1000;
     // NOTE: firmware does not care what this message is as something is sent.
-    private static final byte[] MESSAGE_TO_SEND = new byte[] { 0x01 };
+    private static final byte[] MESSAGE_TO_SEND = new byte[] { 0x01, 0x0D };
 
     private final BackgroundTimer timer;
     private final FlowerStateHandler flowerStateHandler;

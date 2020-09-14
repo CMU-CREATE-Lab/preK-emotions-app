@@ -51,10 +51,14 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
 
 
     private void updateConnectionErrorView() {
+        updateConnectionErrorView(bleFlower == null || !bleFlower.isConnected());
+    }
+
+    private void updateConnectionErrorView(final boolean isVisible) {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                activity.findViewById(R.id.buttonConnectionError).setVisibility( bleFlowerScanner.isFlowerConnected() ? View.GONE : View.VISIBLE);
+                activity.findViewById(R.id.buttonConnectionError).setVisibility(isVisible ? View.VISIBLE : View.GONE);
             }
         });
     }
@@ -128,14 +132,15 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
     public void onConnected() {
         Log.d(Constants.LOG_TAG, "FlowerStateHandler: onConnected");
         flowerWriteTimer.startTimer();
-        updateConnectionErrorView();
+        updateConnectionErrorView(false);
     }
 
 
     @Override
     public void onDisconnected() {
         Log.d(Constants.LOG_TAG, "FlowerStateHandler: onDisconnected");
-        updateConnectionErrorView();
+        // override (because we know it disconnected)
+        updateConnectionErrorView(true);
         lookForFlower();
     }
 
@@ -173,7 +178,6 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
         bleFlowerScanner.stopScan();
         // NOTE: we do not call changeState() method since it plays the audio prompt while in the background.
         //changeState(State.WAIT_FOR_BUTTON);
-        flowerWriteTimer.stopTimer();
         breathTracker.resetTracker();
         // clear this flag (in case button was held down before entering this state)
         isPressingButton = false;
