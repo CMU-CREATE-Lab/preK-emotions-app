@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_cuddle_with_squeeze.SqueezeCuddleCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower.FlowerCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower_standalone.FlowerStandaloneCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_cuddle.CuddleCopingSkillActivity;
@@ -117,6 +118,9 @@ public class ItineraryItemToIntentMapper {
                 break;
             case "coping_skill_flower_standalone":
                 copingSkillClass = FlowerStandaloneCopingSkillActivity.class;
+                break;
+            case "coping_skill_cuddle_squeeze":
+                copingSkillClass = SqueezeCuddleCopingSkillActivity.class;
                 break;
             default:
                 Log.v(Constants.LOG_TAG, "createIntentFromCopingSkill: None (default)");
