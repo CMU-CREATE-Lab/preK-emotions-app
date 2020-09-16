@@ -36,7 +36,8 @@
     <string name="coping_skill_flower_step_3_blow">Blow on the flower</string>
     <string name="coping_skill_flower_overlay">Would you like to do flower breathing again?</string>
     <string name="coping_skill_static_placeholder">Static Coping Skill Text will go here</string>
-    <string name="coping_skill_cuddle">Give a toy a hug. Hold it until you are ready to rejoin your friends.</string>
+    <string name="coping_skill_cuddle_no_manipulative">Pet the sheep to make the hearts appear.</string>
+    <string name="coping_skill_cuddle_no_manipulative_overlay">Would you like to keep petting the sheep?</string>
     <string name="coping_skill_dance">Make up a dance to show how you feel.</string>
     <string name="coping_skill_static_squeeze">Squeeze the squeezer until you feel in control.</string>
     <string name="coping_skill_squeeze">Squeeze the squeezer until you feel in control.</string>
