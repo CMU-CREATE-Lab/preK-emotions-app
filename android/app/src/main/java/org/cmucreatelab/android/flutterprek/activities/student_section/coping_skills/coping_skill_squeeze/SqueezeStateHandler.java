@@ -75,7 +75,7 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
             @Override
             public void run() {
                 // TODO Change this and set error views
-                activity.findViewById(R.id.squeezeConnectionError).setVisibility( isVisible ? View.VISIBLE : View.GONE);
+                activity.findViewById(R.id.buttonConnectionError).setVisibility( isVisible ? View.VISIBLE : View.GONE);
             }
         });
     }

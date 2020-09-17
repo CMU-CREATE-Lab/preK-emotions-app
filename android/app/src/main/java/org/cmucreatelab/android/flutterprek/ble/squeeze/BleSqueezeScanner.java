@@ -68,7 +68,7 @@ public class BleSqueezeScanner implements UARTConnection.ConnectionListener {
     }
 
 
-    public BleSqueezeScanner(SqueezeCopingSkillActivity activity, @NonNull BleSqueezeScanner.DiscoveryListener discoveryListener, @NonNull UARTConnection.ConnectionListener connectionListener) {
+    public BleSqueezeScanner(AbstractActivity activity, @NonNull BleSqueezeScanner.DiscoveryListener discoveryListener, @NonNull UARTConnection.ConnectionListener connectionListener) {
         this.activity = activity;
         this.discoveryListener = discoveryListener;
         this.connectionListener = connectionListener;

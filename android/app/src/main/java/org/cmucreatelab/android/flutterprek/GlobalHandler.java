@@ -53,10 +53,6 @@ public class GlobalHandler {
 
     // public methods
 
-    public boolean isSqueezeConnected() {
-        return (bleSqueeze != null && bleSqueeze.isConnected());
-    }
-
     /**
      * Start a new session for a student.
      *
@@ -140,6 +136,10 @@ public class GlobalHandler {
 
     public boolean isWandConnected() {
         return (bleWand != null && bleWand.isConnected());
+    }
+
+    public boolean isSqueezeConnected() {
+        return (bleSqueeze != null && bleSqueeze.isConnected());
     }
 
 
