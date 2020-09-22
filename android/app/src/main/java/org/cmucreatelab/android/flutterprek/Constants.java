@@ -96,9 +96,9 @@ public class Constants {
             STATION_SMILEY_WITH_FISH = new DeviceConnectionHandler.HardcodedValues("🙂 + \uD83D\uDC20","FLOWER-4D605", SQUEEZE_6_FISH,"WAND-7C185",null),
 
             STATION_MOON__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF19 2020", MOON_FLOWER, MOON_SQUEEZE, MOON_WAND,null),
-            STATION_HEART__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("\uD83D\uDC96 2020", HEART_FLOWER, HEART_FLOWER, HEART_FLOWER,null),
-            STATION_SMILEY__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("🙂 2020", SMILEY_FLOWER, SMILEY_FLOWER, SMILEY_FLOWER,null),
-            STATION_TREE__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF32 2020", TREE_FLOWER, TREE_FLOWER, TREE_FLOWER,null),
+            STATION_HEART__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("\uD83D\uDC96 2020", HEART_FLOWER, HEART_SQUEEZE, HEART_WAND,null),
+            STATION_SMILEY__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("🙂 2020", SMILEY_FLOWER, SMILEY_SQUEEZE, SMILEY_WAND,null),
+            STATION_TREE__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF32 2020", TREE_FLOWER, TREE_SQUEEZE, TREE_WAND,null),
             // avoids need to update semi-colon placement; do not actually use this
             NULL_STATION = null;
 
