@@ -22,11 +22,11 @@ public class BleFlower {
                 Log.d(Constants.LOG_TAG, "newData='" + new String(newData).trim() + "'");
                 if (notificationCallback != null) {
                     String[] params = new String(newData).trim().split(",");
-                    if (params.length < 3) {
-                        Log.e(Constants.LOG_TAG, "parsed less than three params from notification='"+new String(newData).trim()+"'; unable to call NotificationCallback.");
+                    if (params.length < 4) {
+                        Log.e(Constants.LOG_TAG, "parsed less than four params from notification='"+new String(newData).trim()+"'; unable to call NotificationCallback.");
                         return;
                     }
-                    notificationCallback.onReceivedData(params[0], params[1], params[2]);
+                    notificationCallback.onReceivedData(params[0], params[1], params[2], params[3]);
                 }
             }
         });
@@ -64,7 +64,7 @@ public class BleFlower {
 
 
     public interface NotificationCallback {
-        void onReceivedData(@NonNull String arg1, @NonNull String arg2, @NonNull String arg3);
+        void onReceivedData(@NonNull String arg1, @NonNull String arg2, @NonNull String arg3, @NonNull String arg4);
     }
 
 }

@@ -107,13 +107,13 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
 
 
     @Override
-    public void onReceivedData(String arg1, String arg2, String arg3) {
+    public void onReceivedData(String arg1, String arg2, String arg3, String arg4) {
         if (activity.isPaused()) {
             Log.v(Constants.LOG_TAG, "onReceivedData ignored while activity is paused.");
             return;
         }
 
-        boolean newValue = arg1.equals("1");
+        boolean newValue = arg2.equals("1");
 
         // only listen for when the button is first pressed
         if (!isPressingButton && newValue) {
@@ -122,7 +122,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
         }
 
         if (SHOW_DEBUG_WINDOW) {
-            String reformedData = arg1+","+arg2+","+arg3;
+            String reformedData = arg1+","+arg2+","+arg3+","+arg4;
             updateDebugWindow(reformedData);
         }
     }
