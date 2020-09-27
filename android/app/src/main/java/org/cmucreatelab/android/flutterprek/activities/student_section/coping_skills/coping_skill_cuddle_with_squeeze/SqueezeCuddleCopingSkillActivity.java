@@ -3,29 +3,56 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 import android.os.Bundle;
 import android.view.View;
 
+import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.StaticCopingSkillTimeoutOverlay;
 
 public class SqueezeCuddleCopingSkillActivity extends AbstractCopingSkillActivity {
 
-    private static final long DEFAULT_DISPLAY_OVERLAY_AFTER_MILLISECONDS = 32000;
+    private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 30000;
+    private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
+
+    private static final long HEART_ANIMATION_MILLISECONDS = 2000;
 
     private boolean activityIsPaused = false;
+    private boolean overlayIsDisplayed = false;
+    private boolean heartAnimationIsReady = true;
     private SqueezeCuddleStateHandler squeezeCuddleStateHandler;
     private SqueezeCuddleCopingSkillAnimation squeezeCuddleCopingSkillAnimation;
 
-    private final StaticCopingSkillTimeoutOverlay.OverlayOptionListener listener = new StaticCopingSkillTimeoutOverlay.OverlayOptionListener() {
+    private final BackgroundTimer timerToDisplayOverlay = new BackgroundTimer(DISPLAY_OVERLAY_AFTER_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
         @Override
-        public void onClickNo() {
-            // does nothing
+        public void timerExpired() {
+            displayOverlay(true);
         }
+    });
 
+    private final BackgroundTimer timerToExitFromOverlay = new BackgroundTimer(DISMISS_OVERLAY_AFTER_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
         @Override
-        public void onClickYes() {
-            // does nothing
+        public void timerExpired() {
+            releaseOverlayTimers();
+            finish();
         }
-    };
+    });
+
+    private final BackgroundTimer timerToWaitForNextHeartAnimation = new BackgroundTimer(HEART_ANIMATION_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
+        @Override
+        public void timerExpired() {
+            heartAnimationIsReady = true;
+        }
+    });
+
+
+    private void playAudioInstructions() {
+        // TODO replace audio file
+        playAudio("etc/audio_prompts/audio_flower_button_stem.wav");
+    }
+
+
+    private void playAudioOverlay() {
+        // TODO replace audio file
+        playAudio("etc/audio_prompts/audio_flower_again.wav");
+    }
 
 
     public boolean isPaused() {
@@ -33,27 +60,53 @@ public class SqueezeCuddleCopingSkillActivity extends AbstractCopingSkillActivit
     }
 
 
+    public void initializeSqueezeCuddleActivity() {
+        releaseOverlayTimers();
+        displayOverlay(false);
+        squeezeCuddleStateHandler.lookForSqueeze();
+        timerToDisplayOverlay.startTimer();
+        playAudioInstructions();
+    }
+
+
     public void doSqueeze() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                squeezeCuddleCopingSkillAnimation.animateHeart();
-            }
-        });
+        if (heartAnimationIsReady) {
+            heartAnimationIsReady = false;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        squeezeCuddleCopingSkillAnimation.startAnimation();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    timerToWaitForNextHeartAnimation.startTimer();
+                }
+            });
+        }
     }
 
 
     public void displayOverlay(final boolean toDisplay) {
+        this.overlayIsDisplayed = toDisplay;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (toDisplay) {
                     findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
+                    timerToExitFromOverlay.startTimer();
+                    playAudioOverlay();
                 } else {
                     findViewById(R.id.overlayYesNo).setVisibility(View.GONE);
                 }
             }
         });
+    }
+
+
+    public void releaseOverlayTimers() {
+        timerToDisplayOverlay.stopTimer();
+        timerToExitFromOverlay.stopTimer();
     }
 
 
@@ -66,7 +119,7 @@ public class SqueezeCuddleCopingSkillActivity extends AbstractCopingSkillActivit
         findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO initialize state again
+                initializeSqueezeCuddleActivity();
             }
         });
         findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
@@ -75,28 +128,32 @@ public class SqueezeCuddleCopingSkillActivity extends AbstractCopingSkillActivit
                 finish();
             }
         });
-        displayOverlay(false);
     }
 
 
     @Override
     protected void onPause() {
         activityIsPaused = true;
+        releaseOverlayTimers();
         super.onPause();
-    }
-
-
-    @Override
-    public int getResourceIdForActivityLayout() {
-        return R.layout.activity_squeeze_cuddle_coping_skill;
     }
 
 
     @Override
     protected void onResume() {
         activityIsPaused = false;
-        squeezeCuddleStateHandler.lookForSqueeze();
+        if (overlayIsDisplayed) {
+            timerToExitFromOverlay.startTimer();
+        } else {
+            initializeSqueezeCuddleActivity();
+        }
         super.onResume();
+    }
+
+
+    @Override
+    public int getResourceIdForActivityLayout() {
+        return R.layout.activity_squeeze_cuddle_coping_skill;
     }
 
 }
