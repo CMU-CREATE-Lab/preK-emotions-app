@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.StaticCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.StaticCopingSkillTimeoutOverlay;
 
 public class CuddleCopingSkillActivity extends StaticCopingSkillActivity {
 
@@ -28,7 +29,7 @@ public class CuddleCopingSkillActivity extends StaticCopingSkillActivity {
 
     @Override
     public String getAudioFileForCopingSkillTitle() {
-        return "etc/audio_prompts/audio_cuddle.wav";
+        return "etc/audio_prompts/audio_sheep_standalone_1a_prompt.wav";
     }
 
 
@@ -47,6 +48,12 @@ public class CuddleCopingSkillActivity extends StaticCopingSkillActivity {
     @Override
     public long getMillisecondsToDisplayOverlay() {
         return DISPLAY_OVERLAY_AFTER_MILLISECONDS;
+    }
+
+
+    @Override
+    public CuddleCopingSkillTimeoutOverlay createTimeoutOverlay() {
+        return new CuddleCopingSkillTimeoutOverlay(this);
     }
 
 }

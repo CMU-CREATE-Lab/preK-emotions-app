@@ -35,7 +35,7 @@ public class StaticCopingSkillTimeoutOverlay {
     private void displayOverlay() {
         timerToDisplayOverlay.stopTimer();
         overlayIsDisplayed = true;
-        activity.playAudio(AUDIO_FILE_PROMPT_MORE_TIME);
+        activity.playAudio(getAudioFileForOverlayPrompt());
         activity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
         timerToExitFromOverlay.startTimer();
     }
@@ -117,6 +117,11 @@ public class StaticCopingSkillTimeoutOverlay {
         } else {
             timerToDisplayOverlay.startTimer();
         }
+    }
+
+
+    public String getAudioFileForOverlayPrompt() {
+        return AUDIO_FILE_PROMPT_MORE_TIME;
     }
 
 }

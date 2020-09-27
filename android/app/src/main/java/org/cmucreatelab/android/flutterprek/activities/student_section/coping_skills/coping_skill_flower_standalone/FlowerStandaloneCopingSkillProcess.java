@@ -15,6 +15,7 @@ import org.cmucreatelab.android.flutterprek.R;
 public class FlowerStandaloneCopingSkillProcess {
 
     enum StepNumber {
+        STEP_1_HOLD,
         STEP_2_SMELL,
         STEP_3_BLOW,
         STEP_4_OVERLAY
@@ -22,6 +23,7 @@ public class FlowerStandaloneCopingSkillProcess {
 
     private static @IdRes int[] ALL_VIEWS = {
             R.id.overlayYesNo,
+            R.id.imageViewFlowerHand,
             R.id.imageViewCloud1,
             R.id.imageViewCloud2,
             R.id.imageViewCloud3,
@@ -81,7 +83,19 @@ public class FlowerStandaloneCopingSkillProcess {
         final @IdRes int[] viewsToDisplay;
         final @StringRes int stringResourceForTitle;
 
-        if (stepNumber == StepNumber.STEP_2_SMELL) {
+        if (stepNumber == StepNumber.STEP_1_HOLD) {
+            viewsToDisplay = new int[] {
+                    R.id.imageViewFlowerHand,
+                    R.id.imageViewFlowerStem,
+                    R.id.imageViewFlowerMiddle,
+                    R.id.imageViewFlowerPetal1,
+                    R.id.imageViewFlowerPetal2,
+                    R.id.imageViewFlowerPetal3,
+                    R.id.imageViewFlowerPetal4,
+                    R.id.imageViewFlowerPetal5
+            };
+            stringResourceForTitle = R.string.coping_skill_flower_standalone_step_1;
+        } else if (stepNumber == StepNumber.STEP_2_SMELL) {
             viewsToDisplay = new int[] {
                     R.id.imageViewSilhouette,
                     R.id.imageViewBreatheIn,

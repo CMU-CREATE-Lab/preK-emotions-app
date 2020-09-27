@@ -35,6 +35,7 @@
     <string name="coping_skill_flower_step_2_smell">Smell the flower</string>
     <string name="coping_skill_flower_step_3_blow">Blow on the flower</string>
     <string name="coping_skill_flower_overlay">Would you like to do flower breathing again?</string>
+    <string name="coping_skill_flower_standalone_step_1">Hold the flower</string>
     <string name="coping_skill_static_placeholder">Static Coping Skill Text will go here</string>
     <string name="coping_skill_cuddle_no_manipulative">Pet the sheep to make the hearts appear.</string>
     <string name="coping_skill_cuddle_no_manipulative_overlay">Would you like to keep petting the sheep?</string>
@@ -45,6 +46,8 @@
     <string name="coping_skill_wand">Slowly wave the wand to make the music play.</string>
     <string name="coping_skill_share">Invite a friend to play with you!</string>
     <string name="coping_skill_teacher">Talk to your teacher about how you are feeling.</string>
+    <string name="coping_skill_sheep_hug">Give the sheep a hug to make the hearts appear.</string>
+    <string name="coping_skill_sheep_overlay">Would you like to keep hugging the sheep?</string>
     <string name="overlay_placeholder">Do you need more time?</string>
     <string name="teacher_login_prompt">Re-enter password to access teacher settings.</string>
     <string name="teacher_login_button">Submit</string>

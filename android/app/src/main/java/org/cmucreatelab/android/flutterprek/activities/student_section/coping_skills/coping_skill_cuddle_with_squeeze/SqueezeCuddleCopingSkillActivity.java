@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.R;
@@ -44,14 +45,12 @@ public class SqueezeCuddleCopingSkillActivity extends AbstractCopingSkillActivit
 
 
     private void playAudioInstructions() {
-        // TODO replace audio file
-        playAudio("etc/audio_prompts/audio_flower_button_stem.wav");
+        playAudio("etc/audio_prompts/audio_sheep_hug.wav");
     }
 
 
     private void playAudioOverlay() {
-        // TODO replace audio file
-        playAudio("etc/audio_prompts/audio_flower_again.wav");
+        playAudio("etc/audio_prompts/audio_sheep_overlay.wav");
     }
 
 
@@ -116,6 +115,7 @@ public class SqueezeCuddleCopingSkillActivity extends AbstractCopingSkillActivit
         squeezeCuddleStateHandler = new SqueezeCuddleStateHandler(this);
         squeezeCuddleCopingSkillAnimation = new SqueezeCuddleCopingSkillAnimation(this);
 
+        ((TextView)findViewById(R.id.textViewOverlayTitle)).setText(R.string.coping_skill_sheep_overlay);
         findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

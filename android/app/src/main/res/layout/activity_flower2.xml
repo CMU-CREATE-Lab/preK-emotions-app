@@ -58,6 +58,18 @@
 
 
     <ImageView
+        android:id="@+id/imageViewFlowerHand"
+        android:layout_width="223dp"
+        android:layout_height="135dp"
+        android:scaleType="fitXY"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="127dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
+        app:srcCompat="@drawable/flower_hand_holding" />
+
+
+    <ImageView
         android:id="@+id/imageViewBreatheIn"
         android:layout_width="97dp"
         android:layout_height="83dp"

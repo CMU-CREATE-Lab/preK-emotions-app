@@ -16,7 +16,7 @@ public class FlowerStandaloneCopingSkillActivity extends AbstractCopingSkillActi
 
 
     private void playAudioInstructions() {
-        playAudio("etc/audio_prompts/audio_flower_button_stem.wav");
+        playAudio("etc/audio_prompts/audio_flower_hold.wav");
     }
 
 
@@ -78,6 +78,12 @@ public class FlowerStandaloneCopingSkillActivity extends AbstractCopingSkillActi
     @Override
     public int getResourceIdForActivityLayout() {
         return R.layout.activity_flower2;
+    }
+
+
+    public void displayHoldFlowerInstructions() {
+        flowerCopingSkillProcess.goToStep(FlowerStandaloneCopingSkillProcess.StepNumber.STEP_1_HOLD);
+        playAudioInstructions();
     }
 
 
