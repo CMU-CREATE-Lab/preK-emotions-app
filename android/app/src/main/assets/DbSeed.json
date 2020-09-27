@@ -66,7 +66,6 @@
   [
     { "uuid": "happy_flower", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_1", "sequenceId": 1 },
     { "uuid": "happy_squeeze", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_10", "sequenceId": 2 },
-    { "uuid": "happy_cuddle", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_3", "sequenceId": 3 },
     { "uuid": "happy_cuddle_squeeze", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_18", "sequenceId": 3 },
     { "uuid": "happy_wand", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 },
     { "uuid": "happy_stretch1", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_8", "sequenceId": 5 },
