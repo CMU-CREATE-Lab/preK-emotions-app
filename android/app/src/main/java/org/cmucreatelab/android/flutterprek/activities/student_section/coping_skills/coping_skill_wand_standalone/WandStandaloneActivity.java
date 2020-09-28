@@ -73,7 +73,7 @@ public class WandStandaloneActivity extends AbstractCopingSkillActivity {
     }
 
     public String getAudioFileForCopingSkillTitle() {
-        return "etc/audio_prompts/audio_wand_slowly.wav";
+        return "etc/audio_prompts/audio_wand_standalone_1a_prompt.wav";
     }
 
     public String getAudioFileForMusic() {
@@ -121,7 +121,7 @@ public class WandStandaloneActivity extends AbstractCopingSkillActivity {
     /** Get the string resource for the text that appears on the coping skill. */
     @StringRes
     public int getTextTitleResource() {
-        return R.string.coping_skill_wand;
+        return R.string.coping_skill_wand_standalone;
     }
 
     public boolean isPaused() {

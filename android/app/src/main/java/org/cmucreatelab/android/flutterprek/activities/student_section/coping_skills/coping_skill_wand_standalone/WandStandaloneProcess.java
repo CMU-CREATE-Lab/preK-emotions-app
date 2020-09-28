@@ -42,9 +42,10 @@ public class WandStandaloneProcess {
     private void displayOverlay() {
         timerToDisplayOverlay.stopTimer();
         overlayIsDisplayed = true;
+        ((TextView)wandStandaloneActivity.findViewById(R.id.textViewOverlayTitle)).setText(R.string.coping_skill_wand_standalone_overlay);
         wandStandaloneActivity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
         stopSong();
-        wandStandaloneActivity.playAudio("etc/audio_prompts/audio_more_time.wav");
+        wandStandaloneActivity.playAudio("etc/audio_prompts/audio_wand_standalone_1b_overlay.wav");
         timerToExitFromOverlay.startTimer();
     }
 
