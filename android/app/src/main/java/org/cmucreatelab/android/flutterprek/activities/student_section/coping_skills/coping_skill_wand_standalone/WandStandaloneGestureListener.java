@@ -3,7 +3,9 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.widget.TextView;
 
+import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand.WandCopingSkillActivity;
 
 public class WandStandaloneGestureListener extends GestureDetector.SimpleOnGestureListener {
@@ -12,6 +14,7 @@ public class WandStandaloneGestureListener extends GestureDetector.SimpleOnGestu
     private static final int MAX_SWIPPING_DISTANCE = 250;
     private static final int THRESHOLD_VELOCITY = 1000;
     private WandStandaloneActivity wandStandaloneActivity;
+    private TextView debugScreen;
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
@@ -26,6 +29,7 @@ public class WandStandaloneGestureListener extends GestureDetector.SimpleOnGestu
         Log.e("Swipe ", "Distance : " + distance);
         Log.e("Swipe ", "VelocityX: " + velocityX);
         Log.e("Swipe ", "VelocityY: " + velocityY);
+        debugScreen.setText("Velocity X: " + Float.toString(velocityX) + "\nVelocity Y: " + Float.toString(velocityY));
         double velocity = Math.sqrt(velocityX*velocityX + velocityY*velocityY);
         Log.e("Swipe ", "Velocity: " + velocity);
         if (distance > MIN_SWIPPING_DISTANCE && distance < MAX_SWIPPING_DISTANCE && Math.abs(velocity) < THRESHOLD_VELOCITY)
@@ -39,6 +43,7 @@ public class WandStandaloneGestureListener extends GestureDetector.SimpleOnGestu
 
     public WandStandaloneGestureListener(final WandStandaloneActivity wandStandaloneActivity) {
         this.wandStandaloneActivity = wandStandaloneActivity;
+        debugScreen = this.wandStandaloneActivity.findViewById(R.id.textViewDebug);
     }
 
 }
