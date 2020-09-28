@@ -1,47 +1,35 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand_standalone;
 
-import android.Manifest;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand.WandStateHandler;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 
 public class WandStandaloneActivity extends AbstractCopingSkillActivity {
 
     private boolean activityIsPaused = false;
-    private WandStateHandler wandStateHandler;
     private WandStandaloneProcess wandStandaloneProcess;
     private boolean volumeLow = false;
     private int lastVolume = 0;
-    private int delay = 250;
-    private Thread t;
-    private Thread t_log;
     private static volatile boolean running;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.v("Wand Standalone", "Started");
         super.onCreate(savedInstanceState);
 
-        Log.v("Wand Standalone", "Created");
-
-        //AudioPlayer.getInstance(getApplicationContext()).stop();
-        //AudioPlayer.getInstance(getApplicationContext()).addAudioFromAssets(getAudioFileForCopingSkillTitle());
-        //AudioPlayer.getInstance(getApplicationContext()).playAudio();
+        // Play instructions and song
+        AudioPlayer.getInstance(getApplicationContext()).stop();
+        AudioPlayer.getInstance(getApplicationContext()).addAudioFromAssets(getAudioFileForCopingSkillTitle());
+        AudioPlayer.getInstance(getApplicationContext()).playAudio();
 
         setScreen();
 
@@ -52,34 +40,25 @@ public class WandStandaloneActivity extends AbstractCopingSkillActivity {
             }
         });
 
-       // ActivityCompat.requestPermissions(this,
-         //       new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-
-        //running = true;
-
         wandStandaloneProcess = new WandStandaloneProcess(this);
     }
-
 
     @Override
     protected void onPause() {
         activityIsPaused = true;
         Log.d(Constants.LOG_TAG,"Stopping Scan...");
-        wandStateHandler.pauseState();
         wandStandaloneProcess.onPauseActivity();
         super.onPause();
     }
-
 
     @Override
     protected void onResume() {
         super.onResume();
         activityIsPaused = false;
         playAudio(getAudioFileForCopingSkillTitle());
-        //wandCopingSkillProcess.playSong();
-        //wandCopingSkillProcess.onResumeActivity();
+        wandStandaloneProcess.playSong();
+        wandStandaloneProcess.onResumeActivity();
     }
-
 
     @Override
     public int getResourceIdForActivityLayout() {
@@ -111,15 +90,15 @@ public class WandStandaloneActivity extends AbstractCopingSkillActivity {
     }
 
     public void setVolumeLow() {
-        AudioManager audioManager =
-                (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-
         if(!volumeLow) {
+            AudioManager audioManager =
+                    (AudioManager)getSystemService(Context.AUDIO_SERVICE);
             lastVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
             volumeLow = true;
             int setVol = Math.max(1, lastVolume / 6);
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, setVol, AudioManager.FLAG_PLAY_SOUND);
         }
+        volumeLow = true;
     }
 
     public void setVolumeHigh() {
@@ -158,16 +137,11 @@ public class WandStandaloneActivity extends AbstractCopingSkillActivity {
 
     public void finish(){
         super.finish();
-
-        wandStateHandler.pauseState();
-        // TODO set volume to original
         if(volumeLow) {
             AudioManager audioManager =
                     (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_PLAY_SOUND);
         }
-
         running = false;
     }
-
 }

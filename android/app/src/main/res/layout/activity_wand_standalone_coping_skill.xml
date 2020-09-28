@@ -20,7 +20,7 @@
         android:padding="16dp"
         android:text="Wand Standalone Coping Skill"
         android:textColor="#fff"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
