@@ -1,38 +1,21 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand_standalone;
 
-import android.annotation.SuppressLint;
 import android.graphics.Point;
 import android.graphics.PointF;
-import android.media.MediaScannerConnection;
-import android.os.Environment;
 import android.support.v4.view.VelocityTrackerCompat;
-import android.util.Log;
 import android.view.Display;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
-import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_cuddle.GestureListener;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class WandStandaloneProcess {
 
-    private static final long SONG_DURATION = 30000; //170000
-    private static final long TEMPO = 1300;
+    private static final long SONG_DURATION = 30000;
     private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
     private static final int SPEED_THRESHOLD = 600;
     private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
@@ -45,7 +28,6 @@ public class WandStandaloneProcess {
     private int window = 10;
     private int curVel = 0;
 
-    float handWidth;
 
     private void releaseTimers() {
         timerToDisplayOverlay.stopTimer();
@@ -82,15 +64,22 @@ public class WandStandaloneProcess {
     }
 
     private void checkWandPosition() {
-        float yMin = 76 + wandStandaloneActivity.findViewById(R.id.textViewTitle).getHeight();
-        yMin = 0;
+        int yMin = 0;
+
+        // get wand size
         int wandX = wandView.getWidth();
         int wandY = wandView.getHeight();
+
+        // Get screen size
         Display display = wandStandaloneActivity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
+
+        // Find max x, y position
         int yMax = size.y - wandY;
         float xMax = size.x - wandX;
+
+        // Set wand position to the limits if it's past the limits
         if (wandView.getX() < 0) {
             wandView.setX(0);
         } else if (wandView.getX() > xMax ) {
@@ -113,7 +102,9 @@ public class WandStandaloneProcess {
 
     private void speedHandler(float xVelocity, float yVelocity) {
         debugView.setText("X velocity: " + Float.toString(xVelocity) + "\nY velocity: " + Float.toString(yVelocity));
+
         xVelocity = Math.abs(xVelocity);
+
         // add velocity to a rolling window
         if (curVel >= velocities.length) {
             curVel = 0;
@@ -130,18 +121,19 @@ public class WandStandaloneProcess {
         }
         else if (avgVel > SPEED_THRESHOLD) {
             wandStandaloneActivity.setVolumeLow();
-            debugView.setText("X velocity: " + Float.toString(xVelocity) + "\nY velocity: " + Float.toString(yVelocity) + "\nLOW");
         }
     }
 
     public WandStandaloneProcess(final WandStandaloneActivity wandStandaloneActivity) {
         this.wandStandaloneActivity = wandStandaloneActivity;
 
+        // Initialize the rolling window for velocities
         velocities = new float[window];
         for (int i = 0; i < velocities.length; i++) {
             velocities[i] = 0;
         }
 
+        // Initialize timers
         timerToDisplayOverlay = new BackgroundTimer(SONG_DURATION, new BackgroundTimer.TimeExpireListener() {
             @Override
             public void timerExpired() {
@@ -157,6 +149,7 @@ public class WandStandaloneProcess {
             }
         });
 
+        // Overlay
         wandStandaloneActivity.findViewById(R.id.overlayYesNo).findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,13 +168,16 @@ public class WandStandaloneProcess {
 
         hideOverlay();
 
+        // Initialize the image views
         wandView = wandStandaloneActivity.findViewById(R.id.imageViewWandHand);
         debugView = wandStandaloneActivity.findViewById(R.id.textViewDebug);
+        debugView.setVisibility(View.INVISIBLE);
 
+        //Set wand motion
         wandView.setOnTouchListener(new View.OnTouchListener()
         {
             PointF DownPT = new PointF(); // Record Mouse Position When Pressed Down
-            PointF StartPT = new PointF(); // Record Start Position of 'img'
+            PointF StartPT = new PointF(); // Record Start Position of wand
 
             @Override
             public boolean onTouch(View v, MotionEvent event)
@@ -191,33 +187,38 @@ public class WandStandaloneProcess {
                 switch (event.getAction())
                 {
                     case MotionEvent.ACTION_MOVE :
+                        // Set the position to follow the touch event
                         wandView.setX((int) (StartPT.x + event.getX() - DownPT.x));
                         wandView.setY((int) (StartPT.y + event.getY() - DownPT.y));
                         checkWandPosition();
+                        // set the new start position
                         StartPT.set(wandView.getX(), wandView.getY());
 
                         // Velocity tracking
                         mVelocityTracker.addMovement(event);
                         mVelocityTracker.computeCurrentVelocity(1000);
-
                         float xVelocity = VelocityTrackerCompat.getXVelocity(mVelocityTracker, pointerId);
                         float yVelocity = VelocityTrackerCompat.getYVelocity(mVelocityTracker, pointerId);
                         speedHandler(xVelocity, yVelocity);
                         break;
                     case MotionEvent.ACTION_DOWN :
+                        // Set new touch point and start point
                         DownPT.set( event.getX(), event.getY() );
                         StartPT.set(wandView.getX(), wandView.getY() );
+
+                        // Initialize the velocity tracker
                         if (mVelocityTracker == null) {
                             mVelocityTracker = VelocityTracker.obtain();
                         } else {
                             mVelocityTracker.clear();
                         }
                         mVelocityTracker.addMovement(event);
+
                         break;
                     case MotionEvent.ACTION_UP :
                         break;
                     case MotionEvent.ACTION_CANCEL:
-                        // Return a VelocityTracker object back to be re-used by others.
+                        // Return a VelocityTracker object back to be re-used
                         mVelocityTracker.recycle();
                         break;
                     default :

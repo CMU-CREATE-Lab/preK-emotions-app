@@ -1,27 +1,22 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand_standalone;
 
-import android.Manifest;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand.WandStateHandler;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 
 public class WandStandaloneActivity extends AbstractCopingSkillActivity {
 
     private boolean activityIsPaused = false;
-    //private WandStateHandler wandStateHandler;
     private WandStandaloneProcess wandStandaloneProcess;
     private boolean volumeLow = false;
     private int lastVolume = 0;
@@ -31,6 +26,7 @@ public class WandStandaloneActivity extends AbstractCopingSkillActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Play instructions and song
         AudioPlayer.getInstance(getApplicationContext()).stop();
         AudioPlayer.getInstance(getApplicationContext()).addAudioFromAssets(getAudioFileForCopingSkillTitle());
         AudioPlayer.getInstance(getApplicationContext()).playAudio();

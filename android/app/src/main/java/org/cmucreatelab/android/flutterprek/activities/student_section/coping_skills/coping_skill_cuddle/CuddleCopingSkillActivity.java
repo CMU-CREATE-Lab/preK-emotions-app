@@ -2,7 +2,6 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 
 import android.os.Bundle;
 import android.widget.TextView;
-
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.StaticCopingSkillActivity;
 
