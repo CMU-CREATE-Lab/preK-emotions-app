@@ -1,7 +1,5 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand_standalone;
 
-import android.content.Context;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -14,12 +12,11 @@ import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 
+
 public class WandStandaloneActivity extends AbstractCopingSkillActivity {
 
     private boolean activityIsPaused = false;
     private WandStandaloneProcess wandStandaloneProcess;
-    private boolean volumeLow = false;
-    private int lastVolume = 0;
     private static volatile boolean running;
 
     @Override
@@ -89,28 +86,6 @@ public class WandStandaloneActivity extends AbstractCopingSkillActivity {
         AudioPlayer.getInstance(getApplicationContext()).stop();
     }
 
-    public void setVolumeLow() {
-        if(!volumeLow) {
-            AudioManager audioManager =
-                    (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-            lastVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            volumeLow = true;
-            int setVol = Math.max(1, lastVolume / 6);
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, setVol, AudioManager.FLAG_PLAY_SOUND);
-        }
-        volumeLow = true;
-    }
-
-    public void setVolumeHigh() {
-        if(volumeLow) {
-            AudioManager audioManager =
-                    (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_PLAY_SOUND);
-        }
-
-        volumeLow = false;
-    }
-
     /** Get the background resource for the coping skill. */
     @DrawableRes
     public int getResourceForBackground() {
@@ -137,11 +112,6 @@ public class WandStandaloneActivity extends AbstractCopingSkillActivity {
 
     public void finish(){
         super.finish();
-        if(volumeLow) {
-            AudioManager audioManager =
-                    (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_PLAY_SOUND);
-        }
         running = false;
     }
 }

@@ -23,6 +23,7 @@ public class WandCopingSkillProcess {
     private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
     private boolean overlayIsDisplayed = false;
     private final WandCopingSkillActivity wandCopingSkillActivity;
+    private WandCopingSkillAudioHandler wandCopingSkillAudioHandler;
     private float handWidth;
 
 
@@ -34,6 +35,7 @@ public class WandCopingSkillProcess {
 
     private void finishActivity() {
         releaseTimers();
+        wandCopingSkillAudioHandler.resetAudio();
         wandCopingSkillActivity.finish();
     }
 
@@ -44,6 +46,7 @@ public class WandCopingSkillProcess {
         wandCopingSkillActivity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
         stopWandMoving();
         stopSong();
+        wandCopingSkillAudioHandler.resetAudio();
         wandCopingSkillActivity.playAudio("etc/audio_prompts/audio_more_time.wav");
         timerToExitFromOverlay.startTimer();
     }
@@ -69,6 +72,7 @@ public class WandCopingSkillProcess {
 
     public WandCopingSkillProcess(final WandCopingSkillActivity wandCopingSkillActivity) {
         this.wandCopingSkillActivity = wandCopingSkillActivity;
+        wandCopingSkillAudioHandler = new WandCopingSkillAudioHandler(this.wandCopingSkillActivity, this);
 
         timerToDisplayOverlay = new BackgroundTimer(SONG_DURATION, new BackgroundTimer.TimeExpireListener() {
             @Override

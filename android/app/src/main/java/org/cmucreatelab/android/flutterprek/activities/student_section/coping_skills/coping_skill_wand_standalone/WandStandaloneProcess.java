@@ -21,6 +21,7 @@ public class WandStandaloneProcess {
     private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
     private boolean overlayIsDisplayed = false;
     private final WandStandaloneActivity wandStandaloneActivity;
+    public WandStandaloneAudioHandler wandStandaloneAudioHandler;
     private ImageView wandView;
     private VelocityTracker mVelocityTracker = null;
     private TextView debugView;
@@ -36,6 +37,7 @@ public class WandStandaloneProcess {
 
     private void finishActivity() {
         releaseTimers();
+        wandStandaloneAudioHandler.resetAudio();
         wandStandaloneActivity.finish();
     }
 
@@ -45,6 +47,7 @@ public class WandStandaloneProcess {
         ((TextView)wandStandaloneActivity.findViewById(R.id.textViewOverlayTitle)).setText(R.string.coping_skill_wand_standalone_overlay);
         wandStandaloneActivity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
         stopSong();
+        wandStandaloneAudioHandler.resetAudio();
         wandStandaloneActivity.playAudio("etc/audio_prompts/audio_wand_standalone_1b_overlay.wav");
         timerToExitFromOverlay.startTimer();
     }
@@ -102,31 +105,35 @@ public class WandStandaloneProcess {
     }
 
     private void speedHandler(float xVelocity, float yVelocity) {
-        debugView.setText("X velocity: " + Float.toString(xVelocity) + "\nY velocity: " + Float.toString(yVelocity));
+        if (!overlayIsDisplayed) {
+            debugView.setText("X velocity: " + Float.toString(xVelocity) + "\nY velocity: " + Float.toString(yVelocity));
 
-        xVelocity = Math.abs(xVelocity);
+            xVelocity = Math.abs(xVelocity);
 
-        // add velocity to a rolling window
-        if (curVel >= velocities.length) {
-            curVel = 0;
-        }
-        velocities[curVel] = xVelocity;
-        curVel++;
+            // add velocity to a rolling window
+            if (curVel >= velocities.length) {
+                curVel = 0;
+            }
+            velocities[curVel] = xVelocity;
+            curVel++;
 
-        //Get average over 10 motions
-        float avgVel = average(velocities);
+            //Get average over 10 motions
+            float avgVel = average(velocities);
 
-        //Check speed
-        if (avgVel <= SPEED_THRESHOLD) {
-            wandStandaloneActivity.setVolumeHigh();
-        }
-        else if (avgVel > SPEED_THRESHOLD) {
-            wandStandaloneActivity.setVolumeLow();
+            //Check speed
+            boolean fast = false;
+            if (avgVel <= SPEED_THRESHOLD) {
+                fast = false;
+            } else if (avgVel > SPEED_THRESHOLD) {
+                fast = true;
+            }
+            wandStandaloneAudioHandler.setAudio(fast);
         }
     }
 
     public WandStandaloneProcess(final WandStandaloneActivity wandStandaloneActivity) {
         this.wandStandaloneActivity = wandStandaloneActivity;
+        wandStandaloneAudioHandler = new WandStandaloneAudioHandler(this.wandStandaloneActivity, this);
 
         // Initialize the rolling window for velocities
         velocities = new float[window];
@@ -233,7 +240,6 @@ public class WandStandaloneProcess {
     public void onPauseActivity() {
         releaseTimers();
     }
-
 
     public void onResumeActivity() {
         if (overlayIsDisplayed) {

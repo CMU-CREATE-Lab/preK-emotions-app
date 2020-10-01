@@ -97,12 +97,13 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             rgb = "255,255,255";
         } else if (currentState == WandStateHandler.State.SLOW) {
             // Turn lights rainbow colors matching the tempo of the music
-            // TODO send color change command?
             rgb = slow_color;
+            // TODO replace with call to audio handler
             activity.setVolumeHigh();
         } else if (currentState == WandStateHandler.State.FAST) {
             // Turn light red
             rgb = "255,0,0";
+            // TODO replace with call to audio handler
             activity.setVolumeLow();
         }
         if (bleWand != null) {
