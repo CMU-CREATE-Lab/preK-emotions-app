@@ -7,7 +7,7 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener
 {
 
     private static final int MIN_SWIPPING_DISTANCE = 50;
-    private static final int MAX_SWIPPING_DISTANCE = 250;
+    //private static final int MAX_SWIPPING_DISTANCE = 250;
     private static final int THRESHOLD_VELOCITY = 1000;
     private CuddleCopingSkillActivity cuddleCopingSkillActivity;
     private  CuddleCopingSkillAnimation cuddleCopingSkillAnimation;
@@ -22,7 +22,7 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener
         double velocity = Math.sqrt(velocityX*velocityX + velocityY*velocityY);
 
         // Check distance/velocity isn't too short/fast
-        if (distance > MIN_SWIPPING_DISTANCE && distance < MAX_SWIPPING_DISTANCE && Math.abs(velocity) < THRESHOLD_VELOCITY)
+        if (distance > MIN_SWIPPING_DISTANCE /*&& distance < MAX_SWIPPING_DISTANCE*/ && Math.abs(velocity) < THRESHOLD_VELOCITY)
         {
             cuddleCopingSkillAnimation.startAnimation();
             return false;

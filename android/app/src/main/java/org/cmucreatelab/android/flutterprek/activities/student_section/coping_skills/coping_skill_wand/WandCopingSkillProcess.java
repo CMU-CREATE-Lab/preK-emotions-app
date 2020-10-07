@@ -70,9 +70,9 @@ public class WandCopingSkillProcess {
     }
 
 
-    public WandCopingSkillProcess(final WandCopingSkillActivity wandCopingSkillActivity) {
+    public WandCopingSkillProcess(final WandCopingSkillActivity wandCopingSkillActivity, WandCopingSkillAudioHandler wandCopingSkillAudioHandler) {
         this.wandCopingSkillActivity = wandCopingSkillActivity;
-        wandCopingSkillAudioHandler = new WandCopingSkillAudioHandler(this.wandCopingSkillActivity, this);
+        this.wandCopingSkillAudioHandler = wandCopingSkillAudioHandler;
 
         timerToDisplayOverlay = new BackgroundTimer(SONG_DURATION, new BackgroundTimer.TimeExpireListener() {
             @Override

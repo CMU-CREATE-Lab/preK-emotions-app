@@ -23,13 +23,11 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     private boolean activityIsPaused = false;
     private WandStateHandler wandStateHandler;
     private WandCopingSkillProcess wandCopingSkillProcess;
-    private boolean volumeLow = false;
-    private int lastVolume = 0;
+    private WandCopingSkillAudioHandler wandCopingSkillAudioHandler;
     private int delay = 250;
     private Thread t;
     private Thread t_log;
     private static volatile boolean running;
-
 
 
     @Override
@@ -40,7 +38,8 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         AudioPlayer.getInstance(getApplicationContext()).addAudioFromAssets(getAudioFileForCopingSkillTitle());
         AudioPlayer.getInstance(getApplicationContext()).playAudio();
 
-        wandCopingSkillProcess = new WandCopingSkillProcess(this);
+        wandCopingSkillAudioHandler = new WandCopingSkillAudioHandler(this);
+        wandCopingSkillProcess = new WandCopingSkillProcess(this, wandCopingSkillAudioHandler);
 
         displayTextTitle();
         wandCopingSkillProcess.startWandMoving();
@@ -52,7 +51,8 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
             }
         });
 
-        wandStateHandler = new WandStateHandler(this);
+
+        wandStateHandler = new WandStateHandler(this, wandCopingSkillAudioHandler);
 
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
@@ -129,19 +129,11 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     }
 
 
-    // TODO consider using onPause instead
     @Override
     public void finish() {
         super.finish();
 
         wandStateHandler.pauseState();
-        // TODO set volume to original
-        if(volumeLow) {
-            AudioManager audioManager =
-                    (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_PLAY_SOUND);
-        }
-
         t.interrupt();
         t_log.interrupt();
         running = false;
@@ -182,30 +174,6 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     }
 
 
-    public void setVolumeLow() {
-        AudioManager audioManager =
-                (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-
-        if(!volumeLow) {
-            lastVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            volumeLow = true;
-            int setVol = Math.max(1, lastVolume / 6);
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, setVol, AudioManager.FLAG_PLAY_SOUND);
-        }
-    }
-
-
-    public void setVolumeHigh() {
-        if(volumeLow) {
-            AudioManager audioManager =
-                    (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_PLAY_SOUND);
-        }
-
-        volumeLow = false;
-    }
-
-
     /** Get the background resource for the coping skill. */
     @DrawableRes
     public int getResourceForBackground() {
@@ -225,12 +193,10 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     }
 
 
-    // TODO refactor as a toggle method (display/hide)
     public void displayTextTitle() {
         findViewById(R.id.activityBackground).setBackgroundResource(getResourceForBackground());
         TextView textView = findViewById(R.id.textViewTitle);
         textView.setText(getTextTitleResource());
         textView.setTextColor(getResources().getColor(getColorResourceForTitle()));
     }
-
 }

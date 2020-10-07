@@ -24,6 +24,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     private final WandCopingSkillActivity activity;
     private final BleWandScanner bleWandScanner;
     private final WandSpeedTracker wandSpeedTracker;
+    private final WandCopingSkillAudioHandler wandCopingSkillAudioHandler;
     private final WandWriteTimer wandWriteTimer;
     private BleWand bleWand;
     private String lastNotification = "";
@@ -99,12 +100,14 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             // Turn lights rainbow colors matching the tempo of the music
             rgb = slow_color;
             // TODO replace with call to audio handler
-            activity.setVolumeHigh();
+            wandCopingSkillAudioHandler.setAudio(false);
+            //activity.setVolumeHigh();
         } else if (currentState == WandStateHandler.State.FAST) {
             // Turn light red
             rgb = "255,0,0";
             // TODO replace with call to audio handler
-            activity.setVolumeLow();
+            wandCopingSkillAudioHandler.setAudio(true);
+            //activity.setVolumeLow();
         }
         if (bleWand != null) {
             color = rgb.getBytes();
@@ -114,11 +117,12 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     }
 
 
-    public WandStateHandler(WandCopingSkillActivity activity) {
+    public WandStateHandler(WandCopingSkillActivity activity, WandCopingSkillAudioHandler wandCopingSkillAudioHandler) {
         this.activity = activity;
         this.bleWandScanner = new BleWandScanner(activity, this, this);
         this.wandSpeedTracker = new WandSpeedTracker(activity, window);
         this.wandWriteTimer = new WandWriteTimer(this);
+        this.wandCopingSkillAudioHandler = wandCopingSkillAudioHandler;
 
         // debug window
         TextView textView = activity.findViewById(R.id.textViewDebug);

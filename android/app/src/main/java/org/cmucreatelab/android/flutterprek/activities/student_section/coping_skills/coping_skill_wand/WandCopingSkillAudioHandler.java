@@ -6,15 +6,12 @@ import android.os.CountDownTimer;
 import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.Constants;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand_standalone.WandStandaloneActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand_standalone.WandStandaloneProcess;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 
 import java.util.Random;
 
 public class WandCopingSkillAudioHandler {
     private WandCopingSkillActivity wandCopingSkillActivity;
-    private  WandCopingSkillProcess wandCopingSkillProcess;
     private AudioPlayer audioPlayer;
     private AudioManager audioManager;
     private boolean settingAudio = false;
@@ -28,9 +25,8 @@ public class WandCopingSkillAudioHandler {
     private long slowAudioDuration = 2000;
 
 
-    public WandCopingSkillAudioHandler (WandCopingSkillActivity wandCopingSkillActivity, WandCopingSkillProcess wandCopingSkillProcess) {
+    public WandCopingSkillAudioHandler (WandCopingSkillActivity wandCopingSkillActivity) {
         this.wandCopingSkillActivity = wandCopingSkillActivity;
-        this.wandCopingSkillProcess = wandCopingSkillProcess;
         audioPlayer = AudioPlayer.getInstance(wandCopingSkillActivity.getApplicationContext());
         audioManager = (AudioManager)wandCopingSkillActivity.getSystemService(Context.AUDIO_SERVICE);
         lastVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
@@ -84,7 +80,7 @@ public class WandCopingSkillAudioHandler {
     private void setVolumeLow() {
         if (!volumeLow && !playingSlowAudio) {
             lastVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            int setVol = Math.max(1, lastVolume / 6);
+            int setVol = Math.max(1, lastVolume / 10);
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, setVol, AudioManager.FLAG_PLAY_SOUND);
             volumeLow = true;
         }
@@ -131,6 +127,7 @@ public class WandCopingSkillAudioHandler {
                 playingSlowAudio = false;
             }
         }.start();
-        wandCopingSkillProcess.playSong();
+        wandCopingSkillActivity.playMusic();
+        //wandCopingSkillProcess.playSong();
     }
 }

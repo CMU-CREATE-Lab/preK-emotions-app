@@ -41,6 +41,16 @@
             app:srcCompat="@drawable/cuddle_heart" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/sheepLayout"
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="359dp"
+        android:layout_marginTop="300dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
     <ImageView
         android:id="@+id/sheep"
         android:layout_width="wrap_content"

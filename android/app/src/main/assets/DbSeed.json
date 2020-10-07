@@ -30,9 +30,9 @@
     { "uuid": "coping_skill_13", "name": "Spread and Curl", "imageFileUuid": "ic_stretch3_spread_and_curl" },
     { "uuid": "coping_skill_11", "name": "Talk About It", "imageFileUuid": "ic_talk" },
     { "uuid": "coping_skill_12", "name": "Talk to the Teacher", "imageFileUuid": "ic_talk_teacher" },
-    { "uuid": "coping_skill_14", "name": "Wand", "imageFileUuid": "ic_conducting" },
+    { "uuid": "coping_skill_14", "name": "Conduct", "imageFileUuid": "ic_conducting" },
     { "uuid": "coping_skill_16", "name": "Flower Breathing Standalone", "imageFileUuid": "ic_flower_breathing" },
-    { "uuid": "coping_skill_17", "name": "Wand Standalone", "imageFileUuid": "ic_conducting" },
+    { "uuid": "coping_skill_17", "name": "Conduct Standalone", "imageFileUuid": "ic_conducting" },
     { "uuid": "coping_skill_18", "name": "Cuddle", "imageFileUuid": "ic_cuddle_alternative" }
   ],
   "customizations":

@@ -25,6 +25,7 @@ public class CuddleCopingSkillAnimation {
     private Display display;
     private ImageView heartImageView;
     private ImageView sheepImageView;
+    private LinearLayout sheepLayout;
     private Animation fadeIn;
     private GestureDetector gdt;
     private int right;
@@ -166,11 +167,13 @@ public class CuddleCopingSkillAnimation {
         sheepImageView.setY(yPos);
 
         sheepImageView.setVisibility(View.VISIBLE);
+
+        sheepLayout = cuddleCopingSkillActivity.findViewById(R.id.sheepLayout);
     }
 
     private void initTouch(){
         gdt = new GestureDetector(new GestureListener(cuddleCopingSkillActivity, this));
-        sheepImageView.setOnTouchListener(new View.OnTouchListener()
+        sheepLayout.setOnTouchListener(new View.OnTouchListener()
         {
             @Override
             public boolean onTouch(final View view, final MotionEvent event) {

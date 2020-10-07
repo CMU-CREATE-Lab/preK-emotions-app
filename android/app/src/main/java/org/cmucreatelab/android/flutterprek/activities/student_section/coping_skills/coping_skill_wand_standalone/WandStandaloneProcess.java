@@ -17,7 +17,7 @@ public class WandStandaloneProcess {
 
     private static final long SONG_DURATION = 30000;
     private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
-    private static final int SPEED_THRESHOLD = 600;
+    private static final int SPEED_THRESHOLD = 400;
     private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
     private boolean overlayIsDisplayed = false;
     private final WandStandaloneActivity wandStandaloneActivity;
