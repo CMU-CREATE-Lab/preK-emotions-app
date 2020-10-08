@@ -6,34 +6,30 @@
   ],
   "students":
   [
-    { "uuid": "student1", "name": "Alice", "classroomUuid": "classroom1", "notes": "stuck in wonderland", "pictureFileUuid": "image_student1", "sequenceId": 1  },
-    { "uuid": "student2", "name": "Charles", "classroomUuid": "classroom1", "pictureFileUuid": "image_student2", "sequenceId": 1  },
-    { "uuid": "student6", "name": "Frank", "classroomUuid": "classroom2", "sequenceId": 1 },
-    { "uuid": "student7", "name": "Garth Marenghi", "classroomUuid": "classroom2", "sequenceId": 1 },
-    { "uuid": "student3", "name": "Silent Bob", "classroomUuid": "classroom1", "sequenceId": 1 }
+    { "uuid": "student1", "name": "Alice", "classroomUuid": "classroom1", "pictureFileUuid": "image_student1", "sequenceId": 0 },
+    { "uuid": "student2", "name": "Bob", "classroomUuid": "classroom1", "pictureFileUuid": "image_student2", "sequenceId": 0 },
+    { "uuid": "student3", "name": "Miss Emily", "classroomUuid": "classroom1", "pictureFileUuid": "image_student3", "sequenceId": 0 }
   ],
   "copingSkills":
   [
+    { "uuid": "coping_skill_14", "name": "Conduct", "imageFileUuid": "ic_conducting" },
+    { "uuid": "coping_skill_17", "name": "Conduct Standalone", "imageFileUuid": "ic_conducting" },
+    { "uuid": "coping_skill_18", "name": "Cuddle", "imageFileUuid": "ic_cuddle_alternative" },
     { "uuid": "coping_skill_3", "name": "Cuddle Standalone", "imageFileUuid": "ic_cuddle_alternative" },
     { "uuid": "coping_skill_4", "name": "Dance", "imageFileUuid": "ic_dance" },
     { "uuid": "coping_skill_1", "name": "Flower Breathing", "imageFileUuid": "ic_flower_breathing" },
-    { "uuid": "coping_skill_5", "name": "Jumping Jacks", "imageFileUuid": "ic_jumping_jacks" },
-
-    { "uuid": "coping_skill_15", "name": "Parent Video" },
-
+    { "uuid": "coping_skill_16", "name": "Flower Breathing Standalone", "imageFileUuid": "ic_flower_breathing" },
     { "uuid": "coping_skill_6", "name": "Invite a Friend", "imageFileUuid": "ic_share" },
+    { "uuid": "coping_skill_5", "name": "Jumping Jacks", "imageFileUuid": "ic_jumping_jacks" },
+    { "uuid": "coping_skill_15", "name": "Parent Video" },
+    { "uuid": "coping_skill_7", "name": "Rock and Twist", "imageFileUuid": "ic_stretch2_rock_and_twist" },
+    { "uuid": "coping_skill_13", "name": "Spread and Curl", "imageFileUuid": "ic_stretch3_spread_and_curl" },
     { "uuid": "coping_skill_10", "name": "Squeeze", "imageFileUuid": "ic_balloon_squeeze" },
     { "uuid": "coping_skill_2", "name": "Static Coping Skill", "imageFileUuid": "ic_yoga" },
-    { "uuid": "coping_skill_7", "name": "Rock and Twist", "imageFileUuid": "ic_stretch2_rock_and_twist" },
-    { "uuid": "coping_skill_8", "name": "Wave and Hug", "imageFileUuid": "ic_stretch1_wave_and_hug" },
     { "uuid": "coping_skill_9", "name": "Swing and Bend", "imageFileUuid": "ic_stretch4_swing_and_bend" },
-    { "uuid": "coping_skill_13", "name": "Spread and Curl", "imageFileUuid": "ic_stretch3_spread_and_curl" },
     { "uuid": "coping_skill_11", "name": "Talk About It", "imageFileUuid": "ic_talk" },
     { "uuid": "coping_skill_12", "name": "Talk to the Teacher", "imageFileUuid": "ic_talk_teacher" },
-    { "uuid": "coping_skill_14", "name": "Conduct", "imageFileUuid": "ic_conducting" },
-    { "uuid": "coping_skill_16", "name": "Flower Breathing Standalone", "imageFileUuid": "ic_flower_breathing" },
-    { "uuid": "coping_skill_17", "name": "Conduct Standalone", "imageFileUuid": "ic_conducting" },
-    { "uuid": "coping_skill_18", "name": "Cuddle", "imageFileUuid": "ic_cuddle_alternative" }
+    { "uuid": "coping_skill_8", "name": "Wave and Hug", "imageFileUuid": "ic_stretch1_wave_and_hug" }
   ],
   "customizations":
   [
@@ -238,6 +234,7 @@
   [
     { "uuid": "image_student1", "fileType": "asset_image", "filePath": "etc/images/katie.png" },
     { "uuid": "image_student2", "fileType": "asset_image", "filePath": "etc/images/xman1.png" },
+    { "uuid": "image_student3", "fileType": "asset_image", "filePath": "etc/images/emily.png" },
     { "uuid": "audio_message_happy_2", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_happy_2.wav" },
     { "uuid": "audio_something_else", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else.wav" },
     { "uuid": "audio_message_mad_1", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_mad_1.wav" },
