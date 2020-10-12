@@ -1,19 +1,24 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand_standalone;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 
+import java.io.IOException;
 import java.util.Random;
 
 public class WandStandaloneAudioHandler {
     private WandStandaloneActivity wandStandaloneActivity;
     private WandStandaloneProcess wandStandaloneProcess;
-    private AudioPlayer audioPlayer;
+    private MediaPlayer audioPlayer;
     private AudioManager audioManager;
     private boolean settingAudio = false;
     private boolean volumeLow = false;
@@ -24,30 +29,40 @@ public class WandStandaloneAudioHandler {
     private int fastCount = 0;
     private  double fastThreshold = 0.9;
     private long slowAudioDuration = 2000;
+    private long titleAduioDuration = 7000;
+    private boolean music_playing = false;
+    public boolean title_playing = false;
+    private  AssetFileDescriptor music;
 
 
     public WandStandaloneAudioHandler (WandStandaloneActivity wandStandaloneActivity, WandStandaloneProcess wandStandaloneProcess) {
         this.wandStandaloneActivity = wandStandaloneActivity;
         this.wandStandaloneProcess = wandStandaloneProcess;
-        audioPlayer = AudioPlayer.getInstance(wandStandaloneActivity.getApplicationContext());
-        audioManager = (AudioManager)wandStandaloneActivity.getSystemService(Context.AUDIO_SERVICE);
-        lastVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        try {
+            initMediaPlayer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setAudio(boolean fast) {
         if (!settingAudio) {
             settingAudio = true;
 
+            if (title_playing) {
+                settingAudio = false;
+                return;
+            }
 
             if (!playingSlowAudio) {
                 // Count the times called
                 audioHandlerCount++;
-                Log.e(Constants.LOG_TAG, "Count: " + audioHandlerCount);
+                //Log.e(Constants.LOG_TAG, "Count: " + audioHandlerCount);
 
                 // Count the fast times
                 if (fast) {
                     fastCount++;
-                    Log.e(Constants.LOG_TAG, "Fast Count: " + fastCount);
+                    //Log.e(Constants.LOG_TAG, "Fast Count: " + fastCount);
                 }
             }
 
@@ -65,6 +80,10 @@ public class WandStandaloneAudioHandler {
                     setVolumeLow();
                 } else {
                     setVolumeHigh();
+                    if (!music_playing) {
+                        audioPlayer.start();
+                        music_playing = true;
+                    }
                 }
             }
 
@@ -77,6 +96,19 @@ public class WandStandaloneAudioHandler {
         if (volumeLow) {
             setVolumeHigh();
         }
+    }
+
+    public void pauseAudio() {
+        if (music_playing) {
+            audioPlayer.pause();
+            music_playing = false;
+        }
+    }
+
+    public void stopAudio() {
+        audioPlayer.pause();
+        music_playing = false;
+        audioPlayer.seekTo(0);
     }
 
     private void setVolumeLow() {
@@ -106,29 +138,64 @@ public class WandStandaloneAudioHandler {
                 break;
             case 1:
                 wandAudio = "etc/audio_prompts/audio_wand_slow_down.wav";
-                slowAudioDuration = 1000;
+                slowAudioDuration = 1800;
                 break;
             case 2:
                 wandAudio = "etc/audio_prompts/audio_wand_move_slowly.wav";
-                slowAudioDuration = 2000;
+                slowAudioDuration = 2300;
                 break;
             default:
                 wandAudio = "etc/audio_prompts/audio_wand_try_slower.wav";
-                slowAudioDuration = 2000;
+                slowAudioDuration = 2300;
                 break;
         }
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_PLAY_SOUND);
         volumeLow = false;
-        audioPlayer.stop();
-        wandStandaloneActivity.playAudio(wandAudio);
+        audioPlayer.pause();
         playingSlowAudio = true;
+        wandStandaloneActivity.playAudio(wandAudio);
         new CountDownTimer(slowAudioDuration, 100) {
             public void onTick(long millisUntilFinished) {
             }
             public void onFinish() {
                 playingSlowAudio = false;
+                audioPlayer.start();
             }
         }.start();
-        wandStandaloneProcess.playSong();
+    }
+
+    private void initMediaPlayer() throws IOException {
+        audioPlayer = new MediaPlayer();
+        Log.e(Constants.LOG_TAG, "New Media player created");
+        audioPlayer.setAudioAttributes(
+                new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .build()
+        );
+        Log.e(Constants.LOG_TAG, "Media player set");
+        music = wandStandaloneActivity.getAssets().openFd(wandStandaloneActivity.getAudioFileForMusic());
+        audioPlayer.setDataSource(music.getFileDescriptor(), music.getStartOffset(), music.getLength());
+        Log.e(Constants.LOG_TAG, "New Media player source");
+        audioPlayer.prepare();
+        Log.e(Constants.LOG_TAG, "New Media player prepared");
+        audioManager = (AudioManager)wandStandaloneActivity.getSystemService(Context.AUDIO_SERVICE);
+        lastVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+    }
+
+    public void playedTitle () {
+        if (!title_playing) {
+            title_playing = true;
+            new CountDownTimer(titleAduioDuration, 500) {
+                @Override
+                public void onTick(long l) {
+                }
+
+                @Override
+                public void onFinish() {
+                    title_playing = false;
+                }
+            }.start();
+        }
     }
 }

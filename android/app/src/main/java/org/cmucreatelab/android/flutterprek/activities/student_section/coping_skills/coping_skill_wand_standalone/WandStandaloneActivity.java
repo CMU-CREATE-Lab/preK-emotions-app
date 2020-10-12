@@ -23,11 +23,6 @@ public class WandStandaloneActivity extends AbstractCopingSkillActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Play instructions and song
-        AudioPlayer.getInstance(getApplicationContext()).stop();
-        AudioPlayer.getInstance(getApplicationContext()).addAudioFromAssets(getAudioFileForCopingSkillTitle());
-        AudioPlayer.getInstance(getApplicationContext()).playAudio();
-
         setScreen();
 
         findViewById(R.id.imageViewNo).setOnClickListener(new View.OnClickListener() {
@@ -38,6 +33,12 @@ public class WandStandaloneActivity extends AbstractCopingSkillActivity {
         });
 
         wandStandaloneProcess = new WandStandaloneProcess(this);
+
+        // Play instructions and song
+        AudioPlayer.getInstance(getApplicationContext()).stop();
+        AudioPlayer.getInstance(getApplicationContext()).addAudioFromAssets(getAudioFileForCopingSkillTitle());
+        wandStandaloneProcess.playedTitle();
+        AudioPlayer.getInstance(getApplicationContext()).playAudio();
     }
 
     @Override
@@ -53,7 +54,7 @@ public class WandStandaloneActivity extends AbstractCopingSkillActivity {
         super.onResume();
         activityIsPaused = false;
         playAudio(getAudioFileForCopingSkillTitle());
-        wandStandaloneProcess.playSong();
+        wandStandaloneProcess.playedTitle();
         wandStandaloneProcess.onResumeActivity();
     }
 
@@ -77,15 +78,6 @@ public class WandStandaloneActivity extends AbstractCopingSkillActivity {
         return "etc/music/WandMusic.wav";
     }
 
-    public void playMusic(){
-        AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
-        audioPlayer.addAudioFromAssets(getAudioFileForMusic());
-    }
-
-    public void stopMusic () {
-        AudioPlayer.getInstance(getApplicationContext()).stop();
-    }
-
     /** Get the background resource for the coping skill. */
     @DrawableRes
     public int getResourceForBackground() {
@@ -97,10 +89,6 @@ public class WandStandaloneActivity extends AbstractCopingSkillActivity {
     @StringRes
     public int getTextTitleResource() {
         return R.string.coping_skill_wand_standalone;
-    }
-
-    public boolean isPaused() {
-        return activityIsPaused;
     }
 
     public void setScreen() {

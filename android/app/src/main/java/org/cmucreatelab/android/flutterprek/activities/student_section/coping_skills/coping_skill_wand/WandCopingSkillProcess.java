@@ -45,7 +45,7 @@ public class WandCopingSkillProcess {
         overlayIsDisplayed = true;
         wandCopingSkillActivity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
         stopWandMoving();
-        stopSong();
+        wandCopingSkillAudioHandler.stopAudio();
         wandCopingSkillAudioHandler.resetAudio();
         wandCopingSkillActivity.playAudio("etc/audio_prompts/audio_more_time.wav");
         timerToExitFromOverlay.startTimer();
@@ -70,7 +70,7 @@ public class WandCopingSkillProcess {
     }
 
 
-    public WandCopingSkillProcess(final WandCopingSkillActivity wandCopingSkillActivity, WandCopingSkillAudioHandler wandCopingSkillAudioHandler) {
+    public WandCopingSkillProcess(final WandCopingSkillActivity wandCopingSkillActivity, final WandCopingSkillAudioHandler wandCopingSkillAudioHandler) {
         this.wandCopingSkillActivity = wandCopingSkillActivity;
         this.wandCopingSkillAudioHandler = wandCopingSkillAudioHandler;
 
@@ -93,7 +93,7 @@ public class WandCopingSkillProcess {
                 // TODO Fix this so it starts the activity over again
                 wandCopingSkillActivity.displayTextTitle();
                 wandCopingSkillActivity.playAudio(wandCopingSkillActivity.getAudioFileForCopingSkillTitle());
-                playSong();
+                wandCopingSkillAudioHandler.playedTitle();
                 hideOverlay();
                 startWandMoving();
             }

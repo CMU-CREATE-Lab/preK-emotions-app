@@ -123,7 +123,7 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         activityIsPaused = false;
         wandStateHandler.initializeState();
         playAudio(getAudioFileForCopingSkillTitle());
-        wandCopingSkillProcess.playSong();
+        wandCopingSkillAudioHandler.playedTitle();
         wandStateHandler.lookForWand();
         wandCopingSkillProcess.onResumeActivity();
     }
@@ -134,6 +134,7 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         super.finish();
 
         wandStateHandler.pauseState();
+        wandCopingSkillAudioHandler.stopAudio();
         t.interrupt();
         t_log.interrupt();
         running = false;

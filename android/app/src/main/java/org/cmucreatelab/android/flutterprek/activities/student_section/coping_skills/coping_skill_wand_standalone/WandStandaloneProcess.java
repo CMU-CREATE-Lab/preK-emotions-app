@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.os.CountDownTimer;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -37,6 +38,7 @@ public class WandStandaloneProcess {
 
     private void finishActivity() {
         releaseTimers();
+        wandStandaloneAudioHandler.stopAudio();
         wandStandaloneAudioHandler.resetAudio();
         wandStandaloneActivity.finish();
     }
@@ -46,7 +48,7 @@ public class WandStandaloneProcess {
         overlayIsDisplayed = true;
         ((TextView)wandStandaloneActivity.findViewById(R.id.textViewOverlayTitle)).setText(R.string.coping_skill_wand_standalone_overlay);
         wandStandaloneActivity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
-        stopSong();
+        wandStandaloneAudioHandler.stopAudio();
         wandStandaloneAudioHandler.resetAudio();
         wandStandaloneActivity.playAudio("etc/audio_prompts/audio_wand_standalone_1b_overlay.wav");
         timerToExitFromOverlay.startTimer();
@@ -163,7 +165,8 @@ public class WandStandaloneProcess {
             public void onClick(View v) {
                 wandStandaloneActivity.setScreen();
                 wandStandaloneActivity.playAudio(wandStandaloneActivity.getAudioFileForCopingSkillTitle());
-                playSong();
+                playedTitle();
+                //playSong();
                 hideOverlay();
             }
         });
@@ -224,6 +227,7 @@ public class WandStandaloneProcess {
 
                         break;
                     case MotionEvent.ACTION_UP :
+                        wandStandaloneAudioHandler.pauseAudio();
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         // Return a VelocityTracker object back to be re-used
@@ -249,16 +253,8 @@ public class WandStandaloneProcess {
         }
     }
 
-    public void playSong(){
-        // Play the song
-        wandStandaloneActivity.playMusic();
-        // Start a timer
-        timerToDisplayOverlay.startTimer();
-    }
-
-    public void stopSong() {
-        wandStandaloneActivity.stopMusic();
-        timerToDisplayOverlay.stopTimer();
+    public void playedTitle() {
+        wandStandaloneAudioHandler.playedTitle();
     }
 
 }

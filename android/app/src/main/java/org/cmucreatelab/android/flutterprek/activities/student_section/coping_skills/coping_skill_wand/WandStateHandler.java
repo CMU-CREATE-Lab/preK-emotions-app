@@ -96,6 +96,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         if (currentState == WandStateHandler.State.STOPPED) {
             // Turn on the white light
             rgb = "255,255,255";
+            wandCopingSkillAudioHandler.pauseAudio();
         } else if (currentState == WandStateHandler.State.SLOW) {
             // Turn lights rainbow colors matching the tempo of the music
             rgb = slow_color;
