@@ -10,7 +10,7 @@ public class FlowerStandaloneStateHandler implements FlowerStandaloneBreathTrack
         FINISHED
     }
 
-    private static final long STEP_1_WAIT_IN_MILLISECONDS = 5000;
+    private static final long STEP_1_WAIT_IN_MILLISECONDS = 1000;
 
     private final FlowerStandaloneCopingSkillActivity activity;
     private final FlowerStandaloneBreathTracker breathTracker;

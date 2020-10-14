@@ -82,8 +82,9 @@ public class FlowerStandaloneCopingSkillActivity extends AbstractCopingSkillActi
 
 
     public void displayHoldFlowerInstructions() {
+        // NOTE: do not display "Hold the flower" instructions
         flowerCopingSkillProcess.goToStep(FlowerStandaloneCopingSkillProcess.StepNumber.STEP_1_HOLD);
-        playAudioInstructions();
+        //playAudioInstructions();
     }
 
 

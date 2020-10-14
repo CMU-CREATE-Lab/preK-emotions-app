@@ -83,9 +83,22 @@ public class FlowerStandaloneCopingSkillProcess {
         final @IdRes int[] viewsToDisplay;
         final @StringRes int stringResourceForTitle;
 
+        // NOTE: do not display "Hold the flower" instructions
+//        if (stepNumber == StepNumber.STEP_1_HOLD) {
+//            viewsToDisplay = new int[] {
+//                    R.id.imageViewFlowerHand,
+//                    R.id.imageViewFlowerStem,
+//                    R.id.imageViewFlowerMiddle,
+//                    R.id.imageViewFlowerPetal1,
+//                    R.id.imageViewFlowerPetal2,
+//                    R.id.imageViewFlowerPetal3,
+//                    R.id.imageViewFlowerPetal4,
+//                    R.id.imageViewFlowerPetal5
+//            };
+//            stringResourceForTitle = R.string.coping_skill_flower_standalone_step_1;
         if (stepNumber == StepNumber.STEP_1_HOLD) {
             viewsToDisplay = new int[] {
-                    R.id.imageViewFlowerHand,
+                    R.id.imageViewSilhouette,
                     R.id.imageViewFlowerStem,
                     R.id.imageViewFlowerMiddle,
                     R.id.imageViewFlowerPetal1,
@@ -94,7 +107,7 @@ public class FlowerStandaloneCopingSkillProcess {
                     R.id.imageViewFlowerPetal4,
                     R.id.imageViewFlowerPetal5
             };
-            stringResourceForTitle = R.string.coping_skill_flower_standalone_step_1;
+            stringResourceForTitle = R.string.empty;
         } else if (stepNumber == StepNumber.STEP_2_SMELL) {
             viewsToDisplay = new int[] {
                     R.id.imageViewSilhouette,
