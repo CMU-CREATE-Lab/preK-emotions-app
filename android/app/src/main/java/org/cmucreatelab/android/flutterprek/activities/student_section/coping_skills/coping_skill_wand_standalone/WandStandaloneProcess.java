@@ -19,6 +19,7 @@ public class WandStandaloneProcess {
     private static final long SONG_DURATION = 30000;
     private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
     private static final int SPEED_THRESHOLD = 400;
+    private static final int MIN_SPEED = 20;
     private BackgroundTimer timerToDisplayOverlay, timerToExitFromOverlay;
     private boolean overlayIsDisplayed = false;
     private final WandStandaloneActivity wandStandaloneActivity;
@@ -39,7 +40,6 @@ public class WandStandaloneProcess {
     private void finishActivity() {
         releaseTimers();
         wandStandaloneAudioHandler.stopAudio();
-        wandStandaloneAudioHandler.resetAudio();
         wandStandaloneActivity.finish();
     }
 
@@ -49,7 +49,6 @@ public class WandStandaloneProcess {
         ((TextView)wandStandaloneActivity.findViewById(R.id.textViewOverlayTitle)).setText(R.string.coping_skill_wand_standalone_overlay);
         wandStandaloneActivity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
         wandStandaloneAudioHandler.stopAudio();
-        wandStandaloneAudioHandler.resetAudio();
         wandStandaloneActivity.playAudio("etc/audio_prompts/audio_wand_standalone_1b_overlay.wav");
         timerToExitFromOverlay.startTimer();
     }
@@ -124,10 +123,12 @@ public class WandStandaloneProcess {
 
             //Check speed
             boolean fast = false;
-            if (avgVel <= SPEED_THRESHOLD) {
+            if (avgVel <= SPEED_THRESHOLD && avgVel >= MIN_SPEED) {
                 fast = false;
             } else if (avgVel > SPEED_THRESHOLD) {
                 fast = true;
+            } else {
+                wandStandaloneAudioHandler.pauseAudio();
             }
             wandStandaloneAudioHandler.setAudio(fast);
         }
@@ -135,7 +136,7 @@ public class WandStandaloneProcess {
 
     public WandStandaloneProcess(final WandStandaloneActivity wandStandaloneActivity) {
         this.wandStandaloneActivity = wandStandaloneActivity;
-        wandStandaloneAudioHandler = new WandStandaloneAudioHandler(this.wandStandaloneActivity, this);
+        wandStandaloneAudioHandler = new WandStandaloneAudioHandler(this.wandStandaloneActivity);
 
         // Initialize the rolling window for velocities
         velocities = new float[window];
@@ -164,8 +165,8 @@ public class WandStandaloneProcess {
             @Override
             public void onClick(View v) {
                 wandStandaloneActivity.setScreen();
-                wandStandaloneActivity.playAudio(wandStandaloneActivity.getAudioFileForCopingSkillTitle());
-                playedTitle();
+                //wandStandaloneActivity.playAudio(wandStandaloneActivity.getAudioFileForCopingSkillTitle());
+                //playedTitle();
                 //playSong();
                 hideOverlay();
             }
@@ -182,7 +183,7 @@ public class WandStandaloneProcess {
         // Initialize the image views
         wandView = wandStandaloneActivity.findViewById(R.id.imageViewWandHand);
         debugView = wandStandaloneActivity.findViewById(R.id.textViewDebug);
-        debugView.setVisibility(View.INVISIBLE);
+        debugView.setVisibility(View.VISIBLE);
 
         //Set wand motion
         wandView.setOnTouchListener(new View.OnTouchListener()

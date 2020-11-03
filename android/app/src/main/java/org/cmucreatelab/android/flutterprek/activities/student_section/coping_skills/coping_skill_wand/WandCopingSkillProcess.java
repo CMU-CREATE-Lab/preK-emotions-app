@@ -3,11 +3,8 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 import android.graphics.Point;
 import android.view.Display;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -35,7 +32,6 @@ public class WandCopingSkillProcess {
 
     private void finishActivity() {
         releaseTimers();
-        wandCopingSkillAudioHandler.resetAudio();
         wandCopingSkillActivity.finish();
     }
 
@@ -46,7 +42,7 @@ public class WandCopingSkillProcess {
         wandCopingSkillActivity.findViewById(R.id.overlayYesNo).setVisibility(View.VISIBLE);
         stopWandMoving();
         wandCopingSkillAudioHandler.stopAudio();
-        wandCopingSkillAudioHandler.resetAudio();
+        wandCopingSkillAudioHandler.more_time_playing = true;
         wandCopingSkillActivity.playAudio("etc/audio_prompts/audio_more_time.wav");
         timerToExitFromOverlay.startTimer();
     }
@@ -57,6 +53,7 @@ public class WandCopingSkillProcess {
         overlayIsDisplayed = false;
         wandCopingSkillActivity.findViewById(R.id.overlayYesNo).setVisibility(View.GONE);
         timerToDisplayOverlay.startTimer();
+        wandCopingSkillAudioHandler.more_time_playing = false;
     }
 
 
@@ -92,8 +89,8 @@ public class WandCopingSkillProcess {
             public void onClick(View v) {
                 // TODO Fix this so it starts the activity over again
                 wandCopingSkillActivity.displayTextTitle();
-                wandCopingSkillActivity.playAudio(wandCopingSkillActivity.getAudioFileForCopingSkillTitle());
-                wandCopingSkillAudioHandler.playedTitle();
+                //wandCopingSkillActivity.playAudio(wandCopingSkillActivity.getAudioFileForCopingSkillTitle());
+                //wandCopingSkillAudioHandler.playedTitle();
                 hideOverlay();
                 startWandMoving();
             }
@@ -166,20 +163,4 @@ public class WandCopingSkillProcess {
         ImageView wandView = wandCopingSkillActivity.findViewById(R.id.imageViewWandHand);
         wandView.clearAnimation();
     }
-
-
-    public void playSong() {
-        // Play the song
-        wandCopingSkillActivity.playMusic();
-        //AudioPlayer.getInstance(wandCopingSkillActivity.getApplicationContext()).playAudio();
-        // Start a timer
-        timerToDisplayOverlay.startTimer();
-    }
-
-
-    public void stopSong() {
-        wandCopingSkillActivity.stopMusic();
-        timerToDisplayOverlay.stopTimer();
-    }
-
 }

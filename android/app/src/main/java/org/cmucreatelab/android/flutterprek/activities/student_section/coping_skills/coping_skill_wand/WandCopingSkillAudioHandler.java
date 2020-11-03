@@ -1,15 +1,10 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand;
 
-import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioAttributes;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.util.Log;
-
-import org.cmucreatelab.android.flutterprek.Constants;
-import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 
 import java.io.IOException;
 import java.util.Random;
@@ -17,19 +12,18 @@ import java.util.Random;
 public class WandCopingSkillAudioHandler {
     private WandCopingSkillActivity wandCopingSkillActivity;
     private MediaPlayer audioPlayer;
-    private AudioManager audioManager;
     private boolean settingAudio = false;
-    private boolean volumeLow = false;
     private boolean playingSlowAudio = false;
-    private int lastVolume = 0;
     private int audioHandlerCount = 0;
-    private int audioHandlerMaxCount = 300;  //Time between playing audio to slow down
+    private int audioHandlerMaxCount = 200;  //Time between playing audio to slow down
     private int fastCount = 0;
-    private  double fastThreshold = 0.9;
+    private  double fastThreshold = 0.8;
     private long slowAudioDuration = 2000;
     private long titleAduioDuration = 4000;
     private boolean music_playing = false;
+    private boolean music_paused = false;
     public boolean title_playing = false;
+    public boolean more_time_playing = false;
     private AssetFileDescriptor music;
 
 
@@ -46,7 +40,7 @@ public class WandCopingSkillAudioHandler {
         if (!settingAudio) {
             settingAudio = true;
 
-            if (title_playing) {
+            if (title_playing || more_time_playing) {
                 settingAudio = false;
                 return;
             }
@@ -61,37 +55,31 @@ public class WandCopingSkillAudioHandler {
                     fastCount++;
                     //Log.e(Constants.LOG_TAG, "Fast Count: " + fastCount);
                 }
-            }
 
-            // Check the amount of fast data points
-            if (audioHandlerCount >= audioHandlerMaxCount) {
-                if (fastCount >= (int)(fastThreshold*audioHandlerMaxCount)) {
-                    playSlowAudio();
-                }
-                // Reset counts
-                audioHandlerCount = 0;
-                fastCount = 0;
-            } else {
-                // Set audio based on speed
-                if (fast) {
-                    setVolumeLow();
+
+                // Check the amount of fast data points
+                if (audioHandlerCount >= audioHandlerMaxCount) {
+                    if (fastCount >= (int) (fastThreshold * audioHandlerMaxCount)) {
+                        playSlowAudio();
+                    }
+                    // Reset counts
+                    audioHandlerCount = 0;
+                    fastCount = 0;
                 } else {
-                    setVolumeHigh();
-                    if (!music_playing) {
-                        audioPlayer.start();
-                        music_playing = true;
+                    // Set audio based on speed
+                    if (fast) {
+                        pauseAudio();
+                    } else {
+                        if (!music_playing) {
+                            audioPlayer.start();
+                            music_playing = true;
+                        }
                     }
                 }
             }
 
             // release mutex
             settingAudio = false;
-        }
-    }
-
-    public void resetAudio() {
-        if (volumeLow) {
-            setVolumeHigh();
         }
     }
 
@@ -106,22 +94,6 @@ public class WandCopingSkillAudioHandler {
         audioPlayer.pause();
         music_playing = false;
         audioPlayer.seekTo(0);
-    }
-
-    private void setVolumeLow() {
-        if (!volumeLow && !playingSlowAudio) {
-            lastVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            int setVol = Math.max(1, lastVolume / 6);
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, setVol, AudioManager.FLAG_PLAY_SOUND);
-            volumeLow = true;
-        }
-    }
-
-    private void setVolumeHigh() {
-        if(volumeLow) {
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_PLAY_SOUND);
-            volumeLow = false;
-        }
     }
 
     private void playSlowAudio() {
@@ -146,9 +118,10 @@ public class WandCopingSkillAudioHandler {
                 slowAudioDuration = 2300;
                 break;
         }
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_PLAY_SOUND);
-        volumeLow = false;
-        audioPlayer.pause();
+        if (music_playing) {
+            pauseAudio();
+            music_paused = true;
+        }
         playingSlowAudio = true;
         wandCopingSkillActivity.playAudio(wandAudio);
         new CountDownTimer(slowAudioDuration, 100) {
@@ -156,28 +129,25 @@ public class WandCopingSkillAudioHandler {
             }
             public void onFinish() {
                 playingSlowAudio = false;
-                audioPlayer.start();
+                if (music_paused) {
+                    audioPlayer.start();
+                    music_playing = true;
+                }
             }
         }.start();
     }
 
     private void initMediaPlayer() throws IOException {
         audioPlayer = new MediaPlayer();
-        Log.e(Constants.LOG_TAG, "New Media player created");
         audioPlayer.setAudioAttributes(
                 new AudioAttributes.Builder()
                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                         .setUsage(AudioAttributes.USAGE_MEDIA)
                         .build()
         );
-        Log.e(Constants.LOG_TAG, "Media player set");
         music = wandCopingSkillActivity.getAssets().openFd(wandCopingSkillActivity.getAudioFileForMusic());
         audioPlayer.setDataSource(music.getFileDescriptor(), music.getStartOffset(), music.getLength());
-        Log.e(Constants.LOG_TAG, "New Media player source");
         audioPlayer.prepare();
-        Log.e(Constants.LOG_TAG, "New Media player prepared");
-        audioManager = (AudioManager)wandCopingSkillActivity.getSystemService(Context.AUDIO_SERVICE);
-        lastVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
     }
 
     public void playedTitle () {
