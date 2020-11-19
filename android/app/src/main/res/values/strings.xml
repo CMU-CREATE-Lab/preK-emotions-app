@@ -44,6 +44,7 @@
     <string name="coping_skill_squeeze">Squeeze the squeezer until you feel in control.</string>
     <string name="coping_skill_jumping_jacks">Let\'s do some jumping jacks!</string>
     <string name="coping_skill_wand">Slowly wave the wand to make the music play.</string>
+    <string name="coping_skill_wand_overlay">Would you like to keep conducting the music?</string>
     <string name="coping_skill_wand_standalone">Touch the wand. Slowly move the wand back and forth to make the music play.</string>
     <string name="coping_skill_wand_standalone_overlay">Would you like to keep moving with the music?</string>
     <string name="coping_skill_share">Invite a friend to play with you!</string>

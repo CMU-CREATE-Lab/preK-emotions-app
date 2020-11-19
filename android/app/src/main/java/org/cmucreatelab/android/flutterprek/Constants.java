@@ -78,7 +78,7 @@ public class Constants {
      * This is helpful when there are multiple stations in the same room.
      * Otherwise set to null.
      */
-    public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = STATION_MOON__FALL_2020;
+    public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = STATION_STANDALONE__FALL_2020;
 
 
     /** This file is defined in the assets/ directory. */

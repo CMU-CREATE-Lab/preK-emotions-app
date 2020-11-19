@@ -52,8 +52,10 @@
     { "name": "Sad", "uuid": "emotion2", "imageFileUuid": "ic_sad" },
     { "name": "Mad", "uuid": "emotion3", "imageFileUuid": "ic_mad" },
     { "name": "Scared", "uuid": "emotion5", "imageFileUuid": "ic_scared" },
-    { "name": "Worried", "uuid": "emotion4", "imageFileUuid": "ic_worried", "ownerUuid": "classroom2" }
-  ],
+    { "name": "Worried", "uuid": "emotion4", "imageFileUuid": "ic_worried", "ownerUuid": "classroom2" },
+    { "name": "Excited", "uuid": "emotion6", "imageFileUuid": "ic_excited"}
+      ],
+
   "sessions":
   [
     { "uuid": "session1", "studentUuid": "student1", "startedAt": 1540923974 }

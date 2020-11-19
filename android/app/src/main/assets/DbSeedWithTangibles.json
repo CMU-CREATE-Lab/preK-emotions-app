@@ -29,7 +29,8 @@
     { "name": "Happy", "uuid": "emotion1", "imageFileUuid": "ic_happy" },
     { "name": "Sad", "uuid": "emotion2", "imageFileUuid": "ic_sad" },
     { "name": "Mad", "uuid": "emotion3", "imageFileUuid": "ic_mad" },
-    { "name": "Scared", "uuid": "emotion5", "imageFileUuid": "ic_scared" }
+    { "name": "Scared", "uuid": "emotion5", "imageFileUuid": "ic_scared" },
+    { "name": "Excited", "uuid": "emotion6", "imageFileUuid": "ic_excited"}
   ],
   "sessions":
   [
@@ -51,7 +52,11 @@
 
     { "uuid": "scared_flower", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_1", "sequenceId": 1 },
     { "uuid": "scared_cuddle_squeeze", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_18", "sequenceId": 3 },
-    { "uuid": "scared_wand", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 }
+    { "uuid": "scared_wand", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 },
+
+    { "uuid": "excited_flower", "emotionUuid": "emotion6", "copingSkillUuid": "coping_skill_1", "sequenceId": 1 },
+    { "uuid": "excited_cuddle_squeeze", "emotionUuid": "emotion6", "copingSkillUuid": "coping_skill_18", "sequenceId": 3 },
+    { "uuid": "excited_wand", "emotionUuid": "emotion6", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 }
   ],
   "itineraryItems":
   [
@@ -66,6 +71,9 @@
     },
     { "uuid": "scared_settings", "ownerUuid": "emotion5", "sequenceId": 1, "capabilityId": "display_emotion",
       "capabilityParameters": "{\"message\":\"We all feel scared sometimes. Try one of these things when you feel scared.\",\"background-color\":\"#5790b9\",\"audio\":\"audio_message_scared_1\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less scared?\",\"somethingElseAudio\":\"audio_something_else_scared\",\"checkInMessage\":\"We all feel scared sometimes. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_scared\"}"
+    },
+    { "uuid": "excited_settings", "ownerUuid": "emotion6", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\":\"It can be fun to feel excited. Try one of these things when you feel excited.\",\"background-color\":\"#ffd71e\",\"audio\":\"audio_message_excited\",\"somethingElseMessage\":\"Would you like to try something else?\",\"somethingElseAudio\":\"audio_something_else\",\"checkInMessage\":\"It's nice to feel excited. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_happy\"}"
     },
 
 
@@ -98,6 +106,8 @@
     { "uuid": "audio_something_else_sad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else_sad.wav" },
     { "uuid": "audio_message_scared_1", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_scared_1.wav" },
     { "uuid": "audio_something_else_scared", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else_scared.wav" },
+    { "uuid": "audio_message_excited", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_excited_2.wav" },
+    { "uuid":  "audio_something_else_excited", "fileType":  "asset_audio", "filePath": "etc/audio_prompts/audio_something_else_excited.wav" },
     { "uuid": "audio_message_check_in_happy", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_happy.wav" },
     { "uuid": "audio_message_check_in_mad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_mad.wav" },
     { "uuid": "audio_message_check_in_sad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_sad.wav" },
@@ -107,6 +117,7 @@
     { "uuid": "ic_mad", "fileType": "asset_image", "filePath": "emotions/ic_mad.png" },
     { "uuid": "ic_scared", "fileType": "asset_image", "filePath": "emotions/ic_scared.png" },
     { "uuid": "ic_worried", "fileType": "asset_image", "filePath": "emotions/ic_worried.png" },
+    { "uuid": "ic_excited", "fileType": "asset_image", "filePath": "emotions/ic_excited.png" },
     { "uuid": "ic_flower_breathing", "fileType": "asset_image", "filePath": "coping_skills/ic_flower_breathing.png" },
     { "uuid": "ic_yoga", "fileType": "asset_image", "filePath": "coping_skills/ic_yoga.png" },
     { "uuid": "ic_stretch1_wave_and_hug", "fileType": "asset_image", "filePath": "coping_skills/ic_stretch1_wave_and_hug.png" },

@@ -42,6 +42,10 @@ public class FinishedExerciseActivity extends PostCopingSkillActivity {
         } else if (emotionUuid.equals("emotion5")) {
             imageResource = R.drawable.ic_scared;
             title = "Scared";
+        } else if (emotionUuid.equals("emotion6")) {
+            // excited
+            imageResource = R.drawable.ic_excited;
+            title = "Excited";
         } else {
             // hide by default (happy)
             findViewById(R.id.viewFeelingUnchanged).setVisibility(View.GONE);

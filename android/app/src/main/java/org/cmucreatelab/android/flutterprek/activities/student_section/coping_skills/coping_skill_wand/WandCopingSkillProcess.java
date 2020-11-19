@@ -11,6 +11,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.R;
@@ -48,6 +49,9 @@ public class WandCopingSkillProcess {
         wandCopingSkillAudioHandler.stopAudio();
         wandCopingSkillAudioHandler.resetAudio();
         wandCopingSkillActivity.playAudio("etc/audio_prompts/audio_more_time.wav");
+        //wandCopingSkillAudioHandler.more_time_playing = true;
+        ((TextView)wandCopingSkillActivity.findViewById(R.id.textViewOverlayTitle)).setText(R.string.coping_skill_wand_overlay);
+        wandCopingSkillActivity.playAudio("etc/audio_prompts/audio_wand_overlay.wav");
         timerToExitFromOverlay.startTimer();
     }
 
