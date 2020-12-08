@@ -52,6 +52,7 @@ public class WandCopingSkillProcess {
         //wandCopingSkillAudioHandler.more_time_playing = true;
         ((TextView)wandCopingSkillActivity.findViewById(R.id.textViewOverlayTitle)).setText(R.string.coping_skill_wand_overlay);
         wandCopingSkillActivity.playAudio("etc/audio_prompts/audio_wand_overlay.wav");
+        wandCopingSkillAudioHandler.title_playing = true;
         timerToExitFromOverlay.startTimer();
     }
 
@@ -96,8 +97,7 @@ public class WandCopingSkillProcess {
             public void onClick(View v) {
                 // TODO Fix this so it starts the activity over again
                 wandCopingSkillActivity.displayTextTitle();
-                wandCopingSkillActivity.playAudio(wandCopingSkillActivity.getAudioFileForCopingSkillTitle());
-                wandCopingSkillAudioHandler.playedTitle();
+                wandCopingSkillAudioHandler.title_playing = false;
                 hideOverlay();
                 startWandMoving();
             }

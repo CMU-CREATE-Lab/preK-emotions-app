@@ -1,0 +1,176 @@
+{
+  "classrooms":
+  [
+    { "uuid": "classroom1", "name": "My Classroom" }
+  ],
+  "students":
+  [
+    { "uuid": "student1", "name": "Alejandro", "classroomUuid": "classroom1", "pictureFileUuid": "image_student1", "sequenceId": 0 },
+    { "uuid": "student2", "name": "Carly", "classroomUuid": "classroom1", "pictureFileUuid": "image_student2", "sequenceId": 0 },
+    { "uuid": "student3", "name": "Cassidy", "classroomUuid": "classroom1", "pictureFileUuid": "image_student3", "sequenceId": 0 },
+    { "uuid": "student4", "name": "Cordelia", "classroomUuid": "classroom1", "pictureFileUuid": "image_student4", "sequenceId": 0 },
+    { "uuid": "student5", "name": "Dorian", "classroomUuid": "classroom1", "pictureFileUuid": "image_student5", "sequenceId": 0 },
+    { "uuid": "student6", "name": "Ember Claire", "classroomUuid": "classroom1", "pictureFileUuid": "image_student6", "sequenceId": 0 },
+    { "uuid": "student7", "name": "Felix", "classroomUuid": "classroom1", "pictureFileUuid": "image_student7", "sequenceId": 0 },
+    { "uuid": "student8", "name": "Fiona", "classroomUuid": "classroom1", "pictureFileUuid": "image_student8", "sequenceId": 0 },
+    { "uuid": "student9", "name": "Isys", "classroomUuid": "classroom1", "pictureFileUuid": "image_student9", "sequenceId": 0 },
+    { "uuid": "student10", "name": "Josephine", "classroomUuid": "classroom1", "pictureFileUuid": "image_student10", "sequenceId": 0 },
+    { "uuid": "student11", "name": "Joseph", "classroomUuid": "classroom1", "pictureFileUuid": "image_student11", "sequenceId": 0 },
+    { "uuid": "student12", "name": "Julian", "classroomUuid": "classroom1", "pictureFileUuid": "image_student12", "sequenceId": 0 },
+    { "uuid": "student13", "name": "Maggie", "classroomUuid": "classroom1", "pictureFileUuid": "image_student13", "sequenceId": 0 },
+    { "uuid": "student14", "name": "Naomi", "classroomUuid": "classroom1", "pictureFileUuid": "image_student14", "sequenceId": 0 },
+    { "uuid": "student15", "name": "Omari", "classroomUuid": "classroom1", "pictureFileUuid": "image_student15", "sequenceId": 0 },
+    { "uuid": "student16", "name": "Sienna", "classroomUuid": "classroom1", "pictureFileUuid": "image_student16", "sequenceId": 0 },
+    { "uuid": "student17", "name": "Simon", "classroomUuid": "classroom1", "pictureFileUuid": "image_student17", "sequenceId": 0 },
+    { "uuid": "student18", "name": "Skylar", "classroomUuid": "classroom1", "pictureFileUuid": "image_student18", "sequenceId": 0 },
+    { "uuid": "student19", "name": "Tyree", "classroomUuid": "classroom1", "pictureFileUuid": "image_student19", "sequenceId": 0 },
+    { "uuid": "student20", "name": "Ms. Kiana", "classroomUuid": "classroom1", "pictureFileUuid": "image_teacher1", "sequenceId": 1 },
+    { "uuid": "student21", "name": "Ms Marissa", "classroomUuid": "classroom1", "pictureFileUuid": "image_teacher2", "sequenceId": 1 },
+    { "uuid": "student22", "name": "Ms Susan", "classroomUuid": "classroom1", "pictureFileUuid": "image_teacher3", "sequenceId": 1 }
+  ],
+  "copingSkills":
+  [
+    { "uuid": "coping_skill_14", "name": "Conduct", "imageFileUuid": "ic_conducting" },
+    { "uuid": "coping_skill_18", "name": "Cuddle", "imageFileUuid": "ic_cuddle_alternative" },
+    { "uuid": "coping_skill_1", "name": "Flower Breathing", "imageFileUuid": "ic_flower_breathing" }
+  ],
+  "customizations":
+  [
+    { "uuid": "customization_classroom1", "key": "sessionMode", "value": "normal", "ownerUuid": "classroom1" },
+    { "uuid": "customization_student3", "key": "disableAudio", "value": "", "ownerUuid": "student3" },
+
+    { "uuid": "custom_happybg_alice", "basedOnUuid": "emotion1", "key": "background-color", "value": "#7580ff", "ownerUuid": "student1" },
+    { "uuid": "custom_happybg_classroom1", "basedOnUuid": "emotion1", "key": "background-color", "value": "#ff0000", "ownerUuid": "classroom1" },
+    { "uuid": "custom_happybg_default", "basedOnUuid": "emotion1", "key": "background-color", "value": "#00ff00" }
+  ],
+  "emotions":
+  [
+    { "name": "Happy", "uuid": "emotion1", "imageFileUuid": "ic_happy" },
+    { "name": "Sad", "uuid": "emotion2", "imageFileUuid": "ic_sad" },
+    { "name": "Mad", "uuid": "emotion3", "imageFileUuid": "ic_mad" },
+    { "name": "Scared", "uuid": "emotion5", "imageFileUuid": "ic_scared" },
+    { "name": "Excited", "uuid": "emotion6", "imageFileUuid": "ic_excited"}
+  ],
+  "sessions":
+  [
+    { "uuid": "session1", "studentUuid": "student1", "startedAt": 1540923974 }
+  ],
+  "emotionsCopingSkills":
+  [
+    { "uuid": "happy_flower", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_1", "sequenceId": 1 },
+    { "uuid": "happy_cuddle_squeeze", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_18", "sequenceId": 3 },
+    { "uuid": "happy_wand", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 },
+
+    { "uuid": "sad_flower", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_1", "sequenceId": 1 },
+    { "uuid": "sad_cuddle_squeeze", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_18", "sequenceId": 3 },
+    { "uuid": "sad_wand", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 },
+
+    { "uuid": "mad_flower", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_1", "sequenceId": 1 },
+    { "uuid": "mad_cuddle_squeeze", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_18", "sequenceId": 3 },
+    { "uuid": "mad_wand", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 },
+
+    { "uuid": "scared_flower", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_1", "sequenceId": 1 },
+    { "uuid": "scared_cuddle_squeeze", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_18", "sequenceId": 3 },
+    { "uuid": "scared_wand", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 },
+
+    { "uuid": "excited_flower", "emotionUuid": "emotion6", "copingSkillUuid": "coping_skill_1", "sequenceId": 1 },
+    { "uuid": "excited_cuddle_squeeze", "emotionUuid": "emotion6", "copingSkillUuid": "coping_skill_18", "sequenceId": 3 },
+    { "uuid": "excited_wand", "emotionUuid": "emotion6", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 }
+  ],
+  "itineraryItems":
+  [
+    { "uuid": "happy_settings", "ownerUuid": "emotion1", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\":\"It's nice to feel happy. Try one of these things when you feel happy.\",\"background-color\":\"#f3bb41\",\"audio\":\"audio_message_happy_2\",\"somethingElseMessage\":\"Would you like to try something else?\",\"somethingElseAudio\":\"audio_something_else\",\"checkInMessage\":\"It's nice to feel happy. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_happy\"}"
+    },
+    { "uuid": "mad_settings", "ownerUuid": "emotion3", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\":\"Everyone feels mad sometimes. Try one of these things when you feel mad.\",\"background-color\":\"#dc6d69\",\"audio\":\"audio_message_mad_1\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less mad?\",\"somethingElseAudio\":\"audio_something_else_mad\",\"checkInMessage\":\"Everyone feels mad sometimes. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_mad\"}"
+    },
+    { "uuid": "sad_settings", "ownerUuid": "emotion2", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\":\"It's ok to feel sad sometimes. Try one of these things when you feel sad.\",\"background-color\":\"#75adae\",\"audio\":\"audio_message_sad_2\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less sad?\",\"somethingElseAudio\":\"audio_something_else_sad\",\"checkInMessage\":\"It's ok to feel sad sometimes. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_sad\"}"
+    },
+    { "uuid": "scared_settings", "ownerUuid": "emotion5", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\":\"We all feel scared sometimes. Try one of these things when you feel scared.\",\"background-color\":\"#5790b9\",\"audio\":\"audio_message_scared_1\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less scared?\",\"somethingElseAudio\":\"audio_something_else_scared\",\"checkInMessage\":\"We all feel scared sometimes. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_scared\"}"
+    },
+    { "uuid": "excited_settings", "ownerUuid": "emotion6", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\":\"It can be fun to feel excited. Try one of these things when you feel excited.\",\"background-color\":\"#ffd71e\",\"audio\":\"audio_message_excited\",\"somethingElseMessage\":\"Would you like to try something else?\",\"somethingElseAudio\":\"audio_something_else\",\"checkInMessage\":\"It's nice to feel excited. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_happy\"}"
+    },
+
+
+    { "uuid": "coping_skill_1_part1", "ownerUuid": "coping_skill_1", "sequenceId": 1, "capabilityId": "coping_skill_flower", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_1_part2", "ownerUuid": "coping_skill_1", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_1_part3", "ownerUuid": "coping_skill_1", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
+
+    { "uuid": "coping_skill_14_part1", "ownerUuid": "coping_skill_14", "sequenceId": 1, "capabilityId": "coping_skill_wand", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_14_part2", "ownerUuid": "coping_skill_14", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_14_part3", "ownerUuid": "coping_skill_14", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
+
+    { "uuid": "coping_skill_18_part1", "ownerUuid": "coping_skill_18", "sequenceId": 1, "capabilityId": "coping_skill_cuddle_squeeze", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_18_part2", "ownerUuid": "coping_skill_18", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_18_part3", "ownerUuid": "coping_skill_18", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" }
+  ],
+  "sessionsCopingSkills":
+  [
+    { "uuid": "thinkaboutit_step1", "sessionUuid": "session1", "copingSkillUuid": "coping_skill_1", "startedAt": 1540923981 }
+  ],
+  "dbFiles":
+  [
+    { "uuid": "image_student1", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student1.jpg" },
+    { "uuid": "image_student2", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student2.jpg" },
+    { "uuid": "image_student3", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student3.jpg" },
+    { "uuid": "image_student4", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student4.jpg" },
+    { "uuid": "image_student5", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student5.jpg" },
+    { "uuid": "image_student6", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student6.jpg" },
+    { "uuid": "image_student7", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student7.jpg" },
+    { "uuid": "image_student8", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student8.jpg" },
+    { "uuid": "image_student9", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student9.jpg" },
+    { "uuid": "image_student10", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student10.jpg" },
+    { "uuid": "image_student11", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student11.jpg" },
+    { "uuid": "image_student12", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student12.jpg" },
+    { "uuid": "image_student13", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student13.jpg" },
+    { "uuid": "image_student14", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student14.jpg" },
+    { "uuid": "image_student15", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student15.jpg" },
+    { "uuid": "image_student16", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student16.jpg" },
+    { "uuid": "image_student17", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student17.jpg" },
+    { "uuid": "image_student18", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student18.jpg" },
+    { "uuid": "image_student19", "fileType": "asset_image", "filePath": "etc/images/pilot4b/student19.jpg" },
+    { "uuid": "image_teacher1", "fileType": "asset_image", "filePath": "etc/images/pilot4b/teacher1.jpg" },
+    { "uuid": "image_teacher2", "fileType": "asset_image", "filePath": "etc/images/pilot4b/teacher2.jpg" },
+    { "uuid": "image_teacher3", "fileType": "asset_image", "filePath": "etc/images/pilot4b/teacher3.jpg" },
+    { "uuid": "audio_message_happy_2", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_happy_2.wav" },
+    { "uuid": "audio_something_else", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else.wav" },
+    { "uuid": "audio_message_mad_1", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_mad_1.wav" },
+    { "uuid": "audio_something_else_mad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else_mad.wav" },
+    { "uuid": "audio_message_sad_2", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_sad_2.wav" },
+    { "uuid": "audio_something_else_sad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else_sad.wav" },
+    { "uuid": "audio_message_scared_1", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_scared_1.wav" },
+    { "uuid": "audio_something_else_scared", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else_scared.wav" },
+    { "uuid": "audio_message_excited", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_excited_2.wav" },
+    { "uuid":  "audio_something_else_excited", "fileType":  "asset_audio", "filePath": "etc/audio_prompts/audio_something_else_excited.wav" },
+    { "uuid": "audio_message_check_in_happy", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_happy.wav" },
+    { "uuid": "audio_message_check_in_mad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_mad.wav" },
+    { "uuid": "audio_message_check_in_sad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_sad.wav" },
+    { "uuid": "audio_message_check_in_scared", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_scared.wav" },
+    { "uuid": "ic_happy", "fileType": "asset_image", "filePath": "emotions/ic_happy.png" },
+    { "uuid": "ic_sad", "fileType": "asset_image", "filePath": "emotions/ic_sad.png" },
+    { "uuid": "ic_mad", "fileType": "asset_image", "filePath": "emotions/ic_mad.png" },
+    { "uuid": "ic_scared", "fileType": "asset_image", "filePath": "emotions/ic_scared.png" },
+    { "uuid": "ic_worried", "fileType": "asset_image", "filePath": "emotions/ic_worried.png" },
+    { "uuid": "ic_excited", "fileType": "asset_image", "filePath": "emotions/ic_excited.png" },
+    { "uuid": "ic_flower_breathing", "fileType": "asset_image", "filePath": "coping_skills/ic_flower_breathing.png" },
+    { "uuid": "ic_yoga", "fileType": "asset_image", "filePath": "coping_skills/ic_yoga.png" },
+    { "uuid": "ic_stretch1_wave_and_hug", "fileType": "asset_image", "filePath": "coping_skills/ic_stretch1_wave_and_hug.png" },
+    { "uuid": "ic_stretch2_rock_and_twist", "fileType": "asset_image", "filePath": "coping_skills/ic_stretch2_rock_and_twist.png" },
+    { "uuid": "ic_stretch3_spread_and_curl", "fileType": "asset_image", "filePath": "coping_skills/ic_stretch3_spread_and_curl.png" },
+    { "uuid": "ic_stretch4_swing_and_bend", "fileType": "asset_image", "filePath": "coping_skills/ic_stretch4_swing_and_bend.png" },
+    { "uuid": "ic_stretching", "fileType": "asset_image", "filePath": "coping_skills/ic_stretching.png" },
+    { "uuid": "ic_cuddle", "fileType": "asset_image", "filePath": "coping_skills/ic_cuddle.png" },
+    { "uuid": "ic_cuddle_alternative", "fileType": "asset_image", "filePath": "coping_skills/ic_cuddle_alternative.png" },
+    { "uuid": "ic_dance", "fileType": "asset_image", "filePath": "coping_skills/ic_dance.png" },
+    { "uuid": "ic_jumping_jacks", "fileType": "asset_image", "filePath": "coping_skills/ic_jumping_jacks.png" },
+    { "uuid": "ic_share", "fileType": "asset_image", "filePath": "coping_skills/ic_share.png" },
+    { "uuid": "ic_balloon_squeeze", "fileType": "asset_image", "filePath": "coping_skills/ic_balloon_squeeze.png" },
+    { "uuid": "ic_conducting", "fileType": "asset_image", "filePath": "coping_skills/ic_conducting.png" },
+    { "uuid": "ic_talk", "fileType": "asset_image", "filePath": "coping_skills/ic_talk.png" },
+    { "uuid": "ic_talk_teacher", "fileType": "asset_image", "filePath": "coping_skills/ic_talk_teacher.png" }
+  ]
+}

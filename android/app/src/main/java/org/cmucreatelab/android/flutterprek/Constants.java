@@ -85,9 +85,9 @@ public class Constants {
     public static final String DATABASE_SEED;
     static {
         if (HARDCODED_VALUES == STATION_STANDALONE__FALL_2020) {
-            DATABASE_SEED = "DbSeedNoTangibles.json";
+            DATABASE_SEED = "DbSeedNoTangiblesPD1.json";
         } else {
-            DATABASE_SEED = "DbSeedWithTangibles.json";
+            DATABASE_SEED = "DbSeedWithTangiblesPD2.json";
         }
     }
 

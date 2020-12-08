@@ -77,9 +77,8 @@ public class WandStandaloneAudioHandler {
             } else {
                 // Set audio based on speed
                 if (fast) {
-                    setVolumeLow();
+                    pauseAudio();
                 } else {
-                    setVolumeHigh();
                     if (!music_playing) {
                         audioPlayer.start();
                         music_playing = true;
