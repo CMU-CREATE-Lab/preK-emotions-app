@@ -23,7 +23,7 @@ public class WandCopingSkillAudioHandler {
     private boolean playingSlowAudio = false;
     private int lastVolume = 0;
     private int audioHandlerCount = 0;
-    private int audioHandlerMaxCount = 300;  //Time between playing audio to slow down
+    private int audioHandlerMaxCount = 4;  //This * 280 ms = time between playing slow audio
     private int fastCount = 0;
     private  double fastThreshold = 0.9;
     private long slowAudioDuration = 2000;
@@ -59,7 +59,7 @@ public class WandCopingSkillAudioHandler {
                 // Count the fast times
                 if (fast) {
                     fastCount++;
-                    //Log.e(Constants.LOG_TAG, "Fast Count: " + fastCount);
+                    Log.e(Constants.LOG_TAG, "Fast Count: " + fastCount);
                 }
             }
 
@@ -75,11 +75,12 @@ public class WandCopingSkillAudioHandler {
                 // Set audio based on speed
                 if (fast) {
                     pauseAudio();
+                    music_playing = false;
                 } else {
-                    if (!music_playing) {
+                    //if (!music_playing) {
                         audioPlayer.start();
                         music_playing = true;
-                    }
+                    //}
                 }
             }
 
@@ -134,7 +135,7 @@ public class WandCopingSkillAudioHandler {
                 break;
             case 1:
                 wandAudio = "etc/audio_prompts/audio_wand_slow_down.wav";
-                slowAudioDuration = 1800;
+                slowAudioDuration = 1900;
                 break;
             case 2:
                 wandAudio = "etc/audio_prompts/audio_wand_move_slowly.wav";
@@ -145,9 +146,9 @@ public class WandCopingSkillAudioHandler {
                 slowAudioDuration = 2300;
                 break;
         }
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, lastVolume, AudioManager.FLAG_PLAY_SOUND);
         volumeLow = false;
         audioPlayer.pause();
+        music_playing = false;
         playingSlowAudio = true;
         wandCopingSkillActivity.playAudio(wandAudio);
         new CountDownTimer(slowAudioDuration, 100) {
@@ -155,7 +156,7 @@ public class WandCopingSkillAudioHandler {
             }
             public void onFinish() {
                 playingSlowAudio = false;
-                audioPlayer.start();
+                //audioPlayer.start();
             }
         }.start();
     }
