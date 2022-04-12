@@ -1,15 +1,16 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section;
 
 import android.arch.lifecycle.Observer;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.adapters.ActiveClassroomIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.adapters.ClassroomIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -17,7 +18,7 @@ import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 import java.util.List;
 
-public class ClassroomIndexActivity extends TeacherSectionActivityWithHeaderAndDrawer {
+public class ActiveClassroomIndexActivity extends TeacherSectionActivityWithHeaderAndDrawer {
 
 
     @Override
@@ -28,7 +29,7 @@ public class ClassroomIndexActivity extends TeacherSectionActivityWithHeaderAndD
             @Override
             public void onChanged(@Nullable List<Classroom> classrooms) {
                 GridView classroomsGridView = findViewById(R.id.classroomsGridView);
-                classroomsGridView.setAdapter(new ClassroomIndexAdapter(classrooms));
+                classroomsGridView.setAdapter(new ActiveClassroomIndexAdapter(classrooms));
             }
         });
 
@@ -48,13 +49,13 @@ public class ClassroomIndexActivity extends TeacherSectionActivityWithHeaderAndD
 
     @Override
     public DrawerTeacherMainFragment.Section getSectionForDrawer() {
-        return DrawerTeacherMainFragment.Section.CLASSES;
+        return DrawerTeacherMainFragment.Section.ACTIVE_CLASS;
     }
 
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout._teacher_section__activity_classrooms_index;
+        return R.layout._teacher_section__activity_active_classrooms_index;
     }
 
 }

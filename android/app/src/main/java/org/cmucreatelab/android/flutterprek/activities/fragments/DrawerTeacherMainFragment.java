@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.ActiveClassroomIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.ClassroomIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSkillIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.EmotionIndexActivity;
@@ -64,16 +65,15 @@ public class DrawerTeacherMainFragment extends AbstractFragment {
         view.findViewById(R.id.constraintRow1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent classroomsIndexActivity = new Intent(getContext(), ClassroomIndexActivity.class);
-                startActivity(classroomsIndexActivity);
+                Intent activeClassroomsIndexActivity = new Intent(getContext(), ActiveClassroomIndexActivity.class);
+                startActivity(activeClassroomsIndexActivity);
             }
         });
         view.findViewById(R.id.constraintRow2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Student index does not actually use the "Main" drawer
-                Intent studentsIndexActivity = new Intent(getContext(), StudentIndexActivity.class);
-                startActivity(studentsIndexActivity);
+                Intent classroomsIndexActivity = new Intent(getContext(), ClassroomIndexActivity.class);
+                startActivity(classroomsIndexActivity);
             }
         });
         view.findViewById(R.id.constraintRow3).setOnClickListener(new View.OnClickListener() {
