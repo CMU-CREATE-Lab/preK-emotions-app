@@ -11,10 +11,9 @@ import android.widget.TextView;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.ActiveClassroomIndexActivity;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.ClassroomIndexActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSkillIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.EmotionIndexActivity;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.StudentIndexActivity;
 
 /**
  * Fragment for the Drawer on the left-hand side of the screen in the teacher section of the app.

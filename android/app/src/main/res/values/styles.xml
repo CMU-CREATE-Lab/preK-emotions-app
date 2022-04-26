@@ -79,6 +79,26 @@
         <item name="android:stretchMode">columnWidth</item>
         <item name="android:verticalSpacing">25sp</item>
     </style>
+    <style name="TeacherSectionGridViewForListClasses">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">40sp</item>
+        <item name="android:horizontalSpacing">20dp</item>
+        <item name="android:numColumns">1</item>
+        <item name="android:stretchMode">columnWidth</item>
+        <item name="android:verticalSpacing">25sp</item>
+    </style>
+    <style name="TeacherSectionGridViewForListStudentsInClass">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:columnWidth">165sp</item>
+        <item name="android:layout_margin">22sp</item>
+        <item name="android:numColumns">4</item>
+        <item name="android:stretchMode">spacingWidthUniform</item>
+        <item name="android:verticalSpacing">25sp</item>
+    </style>
     <style name="StudentSectionGridView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
@@ -94,6 +114,12 @@
     <!-- Grid View Items -->
     <style name="GridViewItem">
         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">143sp</item>
+        <item name="android:elevation">5sp</item>
+        <item name="android:background">@drawable/card</item>
+    </style>
+    <style name="GridViewItemTeacherClassroom">
+        <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">143sp</item>
         <item name="android:elevation">5sp</item>
         <item name="android:background">@drawable/card</item>

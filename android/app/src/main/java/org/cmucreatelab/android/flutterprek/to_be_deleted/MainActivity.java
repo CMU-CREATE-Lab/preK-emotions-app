@@ -19,7 +19,7 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCla
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.ClassroomIndexActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSkillIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.EmotionIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.StudentIndexActivity;

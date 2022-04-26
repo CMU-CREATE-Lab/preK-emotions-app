@@ -1,6 +1,7 @@
-package org.cmucreatelab.android.flutterprek.activities.teacher_section;
+package org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms;
 
 import android.arch.lifecycle.Observer;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
@@ -12,12 +13,15 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.ClassroomIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
+import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseClassroomActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.TeacherSectionActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 import java.util.List;
 
-public class ClassroomIndexActivity extends TeacherSectionActivityWithHeaderAndDrawer {
+public class ClassroomIndexActivity extends TeacherSectionActivityWithHeaderAndDrawer implements ClassroomIndexAdapter.ClickListener {
 
 
     @Override
@@ -28,7 +32,7 @@ public class ClassroomIndexActivity extends TeacherSectionActivityWithHeaderAndD
             @Override
             public void onChanged(@Nullable List<Classroom> classrooms) {
                 GridView classroomsGridView = findViewById(R.id.classroomsGridView);
-                classroomsGridView.setAdapter(new ClassroomIndexAdapter(classrooms));
+                classroomsGridView.setAdapter(new ClassroomIndexAdapter(ClassroomIndexActivity.this, classrooms, ClassroomIndexActivity.this));
             }
         });
 
@@ -55,6 +59,17 @@ public class ClassroomIndexActivity extends TeacherSectionActivityWithHeaderAndD
     @Override
     public int getResourceIdForActivityLayout() {
         return R.layout._teacher_section__activity_classrooms_index;
+    }
+
+
+    @Override
+    public void onClick(Classroom classroom) {
+        Log.i(Constants.LOG_TAG, String.format("onClick classroom name=%s with uuid=%s", classroom.getName(), classroom.getUuid()));
+
+        // send to next activity
+        Intent classroomShowActivity = new Intent(ClassroomIndexActivity.this, ClassroomShowActivity.class);
+        classroomShowActivity.putExtra(ClassroomShowActivity.EXTRA_CLASSROOM_UUID, classroom.getUuid());
+        startActivity(classroomShowActivity);
     }
 
 }

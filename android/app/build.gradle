@@ -10,11 +10,11 @@ def getLatestGitHash = { ->
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "org.cmucreatelab.android.flutterprek"
-        minSdkVersion 23
-        targetSdkVersion 29
+        minSdkVersion 22
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -61,9 +61,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.google.code.gson:gson:2.8.5'
+    //noinspection GradleCompatible,GradleCompatible
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.mikhaellopez:circularimageview:3.2.0'
 
