@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/headerFragment"
+    style="@style/AppHeader"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/textViewBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to CLASS_NAME"
+        android:textSize="14dp"
+        android:textColor="#1c8773"
+        android:clickable="true"
+        android:layout_marginStart="30dp"
+        app:layout_constraintTop_toTopOf="@id/headerFragment"
+        app:layout_constraintBottom_toBottomOf="@id/headerFragment"
+        app:layout_constraintStart_toStartOf="@id/headerFragment" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Student"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="#4a4a4a"
+        app:layout_constraintTop_toTopOf="@id/headerFragment"
+        app:layout_constraintBottom_toBottomOf="@id/headerFragment"
+        app:layout_constraintStart_toEndOf="@id/textViewBack"
+        app:layout_constraintEnd_toStartOf="@id/buttonSave"
+        />
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:layout_marginEnd="30dp"
+        android:text="Save"
+        android:textColor="#ffffff"
+        android:backgroundTint="#5bddc5"
+        app:layout_constraintTop_toTopOf="@id/headerFragment"
+        app:layout_constraintBottom_toBottomOf="@id/headerFragment"
+        app:layout_constraintEnd_toEndOf="@id/headerFragment"
+        />
+
+</android.support.constraint.ConstraintLayout>

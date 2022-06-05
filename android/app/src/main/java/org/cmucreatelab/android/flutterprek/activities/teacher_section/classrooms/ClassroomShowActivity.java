@@ -19,6 +19,7 @@ import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMa
 import org.cmucreatelab.android.flutterprek.activities.student_section.StudentSectionActivityWithHeader;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.LoginActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.TeacherSectionActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
@@ -34,6 +35,10 @@ public class ClassroomShowActivity extends TeacherSectionActivityWithHeaderAndDr
         public void onClick(StudentWithCustomizations studentWithCustomizations) {
             final Student student = studentWithCustomizations.student;
             Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
+
+            // TODO pass Student object, String classroom name
+            Intent studentEditActivity = new Intent(ClassroomShowActivity.this, StudentEditActivity.class);
+            startActivity(studentEditActivity);
 
             // TODO actions
 //            // track selection with GlobalHandler
