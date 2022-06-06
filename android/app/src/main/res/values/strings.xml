@@ -56,5 +56,8 @@
     <string name="teacher_login_error">Incorrect password.</string>
     <string name="coping_skill_squeeze_overlay">Would you like to do the squeezing activity again?</string>
     <string name="teacher_student_edit_photo"><u>Re-take Photo</u></string>
+    <string name="label_student_name">Student Name</string>
+    <string name="label_student_notes">Notes</string>
+    <string name="label_student_photo">Student Photo</string>
     <string name="empty"></string>
 </resources>

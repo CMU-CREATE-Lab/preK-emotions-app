@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.activities.teacher_section.students
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
@@ -17,6 +18,9 @@ public class StudentEditActivity extends AbstractActivity {
         super.onCreate(savedInstanceState);
         this.headerFragment = (StudentEditFragment) (getSupportFragmentManager().findFragmentById(R.id.headerFragment));
         this.headerFragment.setHeaderTransparency(true);
+
+        // avoid EditText focus when activity starts: https://stackoverflow.com/questions/4149415/onscreen-keyboard-opens-automatically-when-activity-starts
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         // demo click listener on textview
         headerFragment.textViewBack.setOnClickListener(new View.OnClickListener() {
