@@ -69,6 +69,7 @@ public class ClassroomIndexActivity extends TeacherSectionActivityWithHeaderAndD
         // send to next activity
         Intent classroomShowActivity = new Intent(ClassroomIndexActivity.this, ClassroomShowActivity.class);
         classroomShowActivity.putExtra(ClassroomShowActivity.EXTRA_CLASSROOM_UUID, classroom.getUuid());
+        classroomShowActivity.putExtra(ClassroomShowActivity.EXTRA_CLASSROOM_NAME, classroom.getName());
         startActivity(classroomShowActivity);
     }
 

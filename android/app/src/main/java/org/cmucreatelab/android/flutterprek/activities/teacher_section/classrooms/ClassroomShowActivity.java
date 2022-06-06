@@ -29,6 +29,9 @@ import java.util.List;
 public class ClassroomShowActivity extends TeacherSectionActivityWithHeaderAndDrawer {
 
     public static final String EXTRA_CLASSROOM_UUID = "classroom_uuid";
+    public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
+
+    private String classroomName;
 
     private final StudentWithCustomizationsIndexAdapter.ClickListener listener = new StudentWithCustomizationsIndexAdapter.ClickListener() {
         @Override
@@ -36,8 +39,9 @@ public class ClassroomShowActivity extends TeacherSectionActivityWithHeaderAndDr
             final Student student = studentWithCustomizations.student;
             Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
 
-            // TODO pass Student object, String classroom name
             Intent studentEditActivity = new Intent(ClassroomShowActivity.this, StudentEditActivity.class);
+            studentEditActivity.putExtra(StudentEditActivity.EXTRA_STUDENT, studentWithCustomizations.student);
+            studentEditActivity.putExtra(StudentEditActivity.EXTRA_CLASSROOM_NAME, classroomName);
             startActivity(studentEditActivity);
 
             // TODO actions
@@ -72,6 +76,7 @@ public class ClassroomShowActivity extends TeacherSectionActivityWithHeaderAndDr
 //        }
 
         String classroomUuid = getIntent().getStringExtra(EXTRA_CLASSROOM_UUID);
+        this.classroomName = getIntent().getStringExtra(EXTRA_CLASSROOM_NAME);
         LiveData<List<StudentWithCustomizations>> liveData;
         liveData = AppDatabase.getInstance(this).studentDAO().getAllStudentsWithCustomizationsFromClassroom(classroomUuid);
 
