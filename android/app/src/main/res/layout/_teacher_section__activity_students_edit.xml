@@ -81,6 +81,7 @@
 
                 <ImageButton
                     android:id="@+id/imageButtonStudentPhoto"
+                    android:scaleType="fitCenter"
                     app:layout_constraintTop_toBottomOf="@id/labelStudentPhoto"
                     app:layout_constraintBottom_toTopOf="@id/textButtonRetakePhoto"
                     android:layout_width="match_parent"
