@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -14,7 +15,9 @@ import org.cmucreatelab.android.flutterprek.R;
 
 public class StudentEditFragment extends AbstractFragment {
 
-    public TextView textViewBack, textViewTitle;
+    public TextView textViewBack;
+    public TextView textViewTitle;
+    public ImageView imageButtonBackArrow;
     public Button buttonSave;
 
 
@@ -24,6 +27,7 @@ public class StudentEditFragment extends AbstractFragment {
 
         this.textViewBack = view.findViewById(R.id.textViewBack);
         this.textViewTitle = view.findViewById(R.id.textViewTitle);
+        this.imageButtonBackArrow = view.findViewById(R.id.imageButtonBackArrow);
         this.buttonSave = view.findViewById(R.id.buttonSave);
 
 //        // TODO actions when icons clicked

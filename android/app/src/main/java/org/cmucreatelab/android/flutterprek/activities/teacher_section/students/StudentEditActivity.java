@@ -88,6 +88,13 @@ public class StudentEditActivity extends AbstractActivity {
                 finish();
             }
         });
+        headerFragment.imageButtonBackArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO method for handling return back (save vs. cancel)
+                finish();
+            }
+        });
         headerFragment.buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

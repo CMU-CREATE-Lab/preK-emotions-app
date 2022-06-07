@@ -7,6 +7,18 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
+    
+    <ImageView
+        android:id="@+id/imageButtonBackArrow"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:tint="#1c8773"
+        android:src="@mipmap/ic_arrow_back"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toTopOf="@id/textViewBack"
+        app:layout_constraintBottom_toBottomOf="@id/textViewBack"
+        app:layout_constraintEnd_toStartOf="@id/textViewBack"
+        />
 
     <TextView
         android:id="@+id/textViewBack"
