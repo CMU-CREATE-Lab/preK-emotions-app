@@ -35,6 +35,8 @@ public class StudentEditActivity extends AbstractActivity {
     private static final String headerTitleAddStudent = "Add Student";
     private static final String headerTitleEditStudent = "Edit Student";
 
+    private boolean isFinishedHandlingPicture = false;
+
     // models/objects
     private String classroomName;
     private Student student;
@@ -144,6 +146,7 @@ public class StudentEditActivity extends AbstractActivity {
 
 
     public void finishEditActivity(boolean isSaving) {
+        this.isFinishedHandlingPicture = true;
         if (isSaving) {
             String newName = editTextStudentName.getText().toString();
             String newNotes = editTextStudentNotes.getText().toString();
@@ -219,6 +222,16 @@ public class StudentEditActivity extends AbstractActivity {
                 startCameraActivityForResult();
             }
         });
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        // make sure to handle extra actions performed in finishEditActivity()
+        if (!isFinishedHandlingPicture && newStudentPicture != null) {
+            newStudentPicture.delete();
+        }
+        super.onDestroy();
     }
 
 
