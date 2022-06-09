@@ -67,6 +67,14 @@ public class StudentEditActivity extends AbstractActivity {
     }
 
 
+    private void startCameraActivityForResult() {
+        Intent cameraIntent = new Intent(StudentEditActivity.this, CameraActivity.class);
+        String filename = String.format("%s_%d", student.getUuid(), Util.getCurrentTimestamp());
+        cameraIntent.putExtra(CameraActivity.EXTRA_PICTURE_FILENAME, filename);
+        startActivityForResult(cameraIntent, CameraActivity.REQUEST_CODE);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,11 +120,7 @@ public class StudentEditActivity extends AbstractActivity {
             @Override
             public void onClick(View view) {
                 Log.d(Constants.LOG_TAG, "onClick imageButtonStudentPhoto");
-
-                Intent cameraIntent = new Intent(StudentEditActivity.this, CameraActivity.class);
-                String filename = String.format("%s_%d", student.getUuid(), Util.getCurrentTimestamp());
-                cameraIntent.putExtra(CameraActivity.EXTRA_PICTURE_FILENAME, filename);
-                startActivityForResult(cameraIntent, CameraActivity.REQUEST_CODE);
+                startCameraActivityForResult();
             }
         });
     }
@@ -133,6 +137,8 @@ public class StudentEditActivity extends AbstractActivity {
                     // TODO handle delete file if left unused (or overwrites)
                     this.newStudentPicture = (File) data.getExtras().getSerializable(CameraActivity.EXTRA_RESULT_PICTURE);
                     imageButtonStudentPhoto.setImageBitmap(BitmapFactory.decodeFile(newStudentPicture.getPath()));
+                } else if (resultCode == CameraActivity.RESULT_START_OVER) {
+                    startCameraActivityForResult();
                 }
                 break;
         }

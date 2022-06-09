@@ -49,6 +49,8 @@ public class CameraActivity extends AbstractActivity {
 
     public static final int REQUEST_CODE = 1021;
 
+    public static final int RESULT_START_OVER = 101;
+
     public static int cameraId;
 
     private Camera mCamera;
@@ -381,9 +383,8 @@ public class CameraActivity extends AbstractActivity {
 
 
     public void retakePhoto() {
-        Intent intent = getIntent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        setResult(RESULT_START_OVER);
+        finish();
     }
 
 
@@ -467,15 +468,9 @@ public class CameraActivity extends AbstractActivity {
 
     public void flipCamera() {
         if (!pictureTaken && !loadImage) {
-            Intent intent = getIntent();
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            if (cameraId == defaultCameraId) {
-                CameraActivity.cameraId = frontFacingCameraId;
-                startActivity(intent);
-            } else {
-                CameraActivity.cameraId = defaultCameraId;
-                startActivity(intent);
-            }
+            CameraActivity.cameraId = (cameraId == defaultCameraId) ? frontFacingCameraId : defaultCameraId;
+            setResult(RESULT_START_OVER);
+            finish();
         }
     }
 
