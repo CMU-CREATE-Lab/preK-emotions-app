@@ -2,15 +2,36 @@ package org.cmucreatelab.android.flutterprek.database.models.db_file;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+
+import java.util.UUID;
 
 /**
  * Created by tasota on 10/9/2018.
  */
 @Entity(tableName = "db_files", indices = @Index("file_type"))
 public class DbFile {
+
+    public enum FILE_TYPE {
+        ASSET_IMAGE,
+        ASSET_AUDIO,
+        FILEPATH
+    }
+
+    public static String getStringForFileType(FILE_TYPE type) {
+        switch(type) {
+            case ASSET_IMAGE:
+                return "asset_image";
+            case ASSET_AUDIO:
+                return "asset_audio";
+            case FILEPATH:
+            default:
+                return "filepath";
+        }
+    }
 
     @PrimaryKey
     @NonNull
@@ -23,6 +44,12 @@ public class DbFile {
     @NonNull
     @ColumnInfo(name="file_path")
     private String filePath;
+
+
+    @Ignore
+    public DbFile(@NonNull FILE_TYPE fileType, @NonNull String filePath) {
+        this(UUID.randomUUID().toString(), getStringForFileType(fileType), filePath);
+    }
 
 
     public DbFile(@NonNull String uuid, @NonNull String fileType, @NonNull String filePath) {

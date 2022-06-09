@@ -42,6 +42,7 @@ public class SaveFileHandler {
 //            mediaStorageDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_MUSIC), name);
 //        }
         // internal file storage
+        // TODO can't we just use "context.getFilesDir()"?
         mediaStorageDir = new File(context.getFilesDir(), name);
 
         if (! mediaStorageDir.exists()) {

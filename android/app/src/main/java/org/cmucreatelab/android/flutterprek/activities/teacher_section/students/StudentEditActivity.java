@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
@@ -42,6 +44,8 @@ public class StudentEditActivity extends AbstractActivity {
     private StudentEditFragment headerFragment;
     private ImageButton imageButtonStudentPhoto;
     private TextView textButtonRetakePhoto;
+    private EditText editTextStudentName;
+    private EditText editTextStudentNotes;
 
 
     private void populateViews() {
@@ -60,7 +64,11 @@ public class StudentEditActivity extends AbstractActivity {
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
                     // TODO check if file type is asset
-                    Util.setImageViewWithAsset(appContext, (ImageButton) findViewById(R.id.imageButtonStudentPhoto), dbFile.getFilePath());
+                    if (dbFile.getFileType().equals(DbFile.getStringForFileType(DbFile.FILE_TYPE.FILEPATH))) {
+                        imageButtonStudentPhoto.setImageBitmap(BitmapFactory.decodeFile(dbFile.getFilePath()));
+                    } else {
+                        Util.setImageViewWithAsset(appContext, (ImageButton) findViewById(R.id.imageButtonStudentPhoto), dbFile.getFilePath());
+                    }
                 }
             });
         } else {
@@ -69,11 +77,91 @@ public class StudentEditActivity extends AbstractActivity {
     }
 
 
+    private void updatePicture(File picture) {
+        if (newStudentPicture != null) {
+            picture.delete();
+        }
+        this.newStudentPicture = picture;
+        imageButtonStudentPhoto.setImageBitmap(BitmapFactory.decodeFile(newStudentPicture.getPath()));
+    }
+
+
     private void startCameraActivityForResult() {
         Intent cameraIntent = new Intent(StudentEditActivity.this, CameraActivity.class);
         String filename = String.format("%s_%d", student.getUuid(), Util.getCurrentTimestamp());
         cameraIntent.putExtra(CameraActivity.EXTRA_PICTURE_FILENAME, filename);
         startActivityForResult(cameraIntent, CameraActivity.REQUEST_CODE);
+    }
+
+
+    private void updateModel(final Student student) {
+        Log.d(Constants.LOG_TAG, "performing DB writes in updateModel()");
+
+        final AsyncTask<Void, Void, Boolean> asyncTaskUpdateStudentModel = new AsyncTask<Void, Void, Boolean>() {
+
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                AppDatabase.getInstance(getApplicationContext()).studentDAO().update(student);
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean modelSaved) {
+                if (!modelSaved) {
+                    Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG);
+                }
+                finish();
+            }
+        };
+
+        if (newStudentPicture != null) {
+            // insert DbFile first, then update student
+            new AsyncTask<Void, Void, DbFile>() {
+
+                @Override
+                protected DbFile doInBackground(Void... voids) {
+                    DbFile dbFile = new DbFile(DbFile.FILE_TYPE.FILEPATH, newStudentPicture.getPath());
+                    AppDatabase.getInstance(getApplicationContext()).dbFileDAO().insert(dbFile);
+                    return dbFile;
+                }
+
+                @Override
+                protected void onPostExecute(DbFile dbFile) {
+                    if (dbFile == null) {
+                        Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG);
+                        finish();
+                    } else {
+                        student.setPictureFileUuid(dbFile.getUuid());
+                        asyncTaskUpdateStudentModel.execute();
+                    }
+                }
+            }.execute();
+        } else {
+            // update student (no changes to image)
+            asyncTaskUpdateStudentModel.execute();
+        }
+    }
+
+
+    public void finishEditActivity(boolean isSaving) {
+        if (isSaving) {
+            String newName = editTextStudentName.getText().toString();
+            String newNotes = editTextStudentNotes.getText().toString();
+            if (!newName.equals(student.getName()) || !newNotes.equals(student.getNotes()) || newStudentPicture != null) {
+                student.setName(newName);
+                student.setNotes(newNotes);
+                // TODO delete old image? (requires another DB query so I'm guessing not, for now)
+                updateModel(student);
+            } else {
+                // nothing to update/save
+                finish();
+            }
+        } else {
+            if (newStudentPicture != null) {
+                newStudentPicture.delete();
+            }
+            finish();
+        }
     }
 
 
@@ -91,6 +179,8 @@ public class StudentEditActivity extends AbstractActivity {
         this.headerFragment.setHeaderTransparency(true);
         this.imageButtonStudentPhoto = findViewById(R.id.imageButtonStudentPhoto);
         this.textButtonRetakePhoto = findViewById(R.id.textButtonRetakePhoto);
+        this.editTextStudentName = findViewById(R.id.editTextStudentName);
+        this.editTextStudentNotes = findViewById(R.id.editTextStudentNotes);
 
         populateViews();
 
@@ -101,22 +191,19 @@ public class StudentEditActivity extends AbstractActivity {
         headerFragment.textViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO method for handling return back (save vs. cancel)
-                finish();
+                finishEditActivity(false);
             }
         });
         headerFragment.imageButtonBackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO method for handling return back (save vs. cancel)
-                finish();
+                finishEditActivity(false);
             }
         });
         headerFragment.buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO method for handling return back (save vs. cancel)
-                finish();
+                finishEditActivity(true);
             }
         });
         imageButtonStudentPhoto.setOnClickListener(new View.OnClickListener() {
@@ -143,9 +230,8 @@ public class StudentEditActivity extends AbstractActivity {
             case CameraActivity.REQUEST_CODE:
                 if (resultCode == Activity.RESULT_OK) {
                     Log.d(Constants.LOG_TAG, "got RESULT_OK from CameraActivity, updating picture");
-                    // TODO handle delete file if left unused (or overwrites)
-                    this.newStudentPicture = (File) data.getExtras().getSerializable(CameraActivity.EXTRA_RESULT_PICTURE);
-                    imageButtonStudentPhoto.setImageBitmap(BitmapFactory.decodeFile(newStudentPicture.getPath()));
+                    File picture = (File) data.getExtras().getSerializable(CameraActivity.EXTRA_RESULT_PICTURE);
+                    updatePicture(picture);
                 } else if (resultCode == CameraActivity.RESULT_START_OVER) {
                     startCameraActivityForResult();
                 }
