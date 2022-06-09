@@ -1,8 +1,10 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.students;
 
+import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -20,6 +22,8 @@ import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
+import java.io.File;
+
 public class StudentEditActivity extends AbstractActivity {
 
     public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
@@ -31,6 +35,7 @@ public class StudentEditActivity extends AbstractActivity {
     // models/objects
     private String classroomName;
     private Student student;
+    private File newStudentPicture;
 
     // views
     private StudentEditFragment headerFragment;
@@ -109,9 +114,28 @@ public class StudentEditActivity extends AbstractActivity {
                 Log.d(Constants.LOG_TAG, "onClick imageButtonStudentPhoto");
 
                 Intent cameraIntent = new Intent(StudentEditActivity.this, CameraActivity.class);
-                startActivity(cameraIntent);
+                String filename = String.format("%s_%d", student.getUuid(), Util.getCurrentTimestamp());
+                cameraIntent.putExtra(CameraActivity.EXTRA_PICTURE_FILENAME, filename);
+                startActivityForResult(cameraIntent, CameraActivity.REQUEST_CODE);
             }
         });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case CameraActivity.REQUEST_CODE:
+                if (resultCode == Activity.RESULT_OK) {
+                    Log.d(Constants.LOG_TAG, "got RESULT_OK from CameraActivity, updating picture");
+                    // TODO handle delete file if left unused (or overwrites)
+                    this.newStudentPicture = (File) data.getExtras().getSerializable(CameraActivity.EXTRA_RESULT_PICTURE);
+                    imageButtonStudentPhoto.setImageBitmap(BitmapFactory.decodeFile(newStudentPicture.getPath()));
+                }
+                break;
+        }
     }
 
 

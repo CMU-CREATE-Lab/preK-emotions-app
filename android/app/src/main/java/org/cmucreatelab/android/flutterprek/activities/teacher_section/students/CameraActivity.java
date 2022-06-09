@@ -43,23 +43,26 @@ public class CameraActivity extends AbstractActivity {
     private static final int defaultCameraId = 0;
     private static final int frontFacingCameraId = 1;
 
+    public static final String EXTRA_PICTURE_FILENAME = "picture_filename";
+
+    public static final String EXTRA_RESULT_PICTURE = "result_picture";
+
+    public static final int REQUEST_CODE = 1021;
+
     public static int cameraId;
 
-    private Activity mActivity;
-//    private GlobalHandler globalHandler;
     private Camera mCamera;
     private CameraPreview mPreview;
     private byte[] possiblePhoto;
     private boolean pictureTaken;
 
-//    @BindView(R.id.flip_camera) ImageView flipCameraImageView;
-//    @BindView(R.id.load_image) ImageView loadImageView;
     private ImageView flipCameraImageView;
     private ImageView loadImageView;
 
     private static final int REQUEST_LOAD_IMAGE = 1;
     private boolean loadImage;
     private Uri photoUri;
+    private String pictureFilename;
 
 
     private static Camera getCameraInstance() {
@@ -176,23 +179,14 @@ public class CameraActivity extends AbstractActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        @BindView(R.id.flip_camera) ImageView flipCameraImageView;
-//        @BindView(R.id.load_image) ImageView loadImageView;
-//
-//        this.globalHandler = GlobalHandler.getInstance(this.getApplicationContext());
-//
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//        if (!sharedPreferences.getBoolean(Constants.PreferencesKeys.loadingImage, true)) {
-//            findViewById(R.id.load_image).setVisibility(View.GONE);
-//        }
-
         this.flipCameraImageView = findViewById(R.id.flip_camera);
         this.loadImageView = findViewById(R.id.load_image);
         setOnClickListeners();
 
+        this.pictureFilename = getIntent().getStringExtra(EXTRA_PICTURE_FILENAME);
+
         loadImage = false;
         pictureTaken = false;
-        mActivity = this;
     }
 
 
@@ -387,17 +381,14 @@ public class CameraActivity extends AbstractActivity {
 
 
     public void retakePhoto() {
-        // TODO there's a better way to call this
-        finish();
-        Intent intent = new Intent(this, CameraActivity.class);
+        Intent intent = getIntent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
 
     public void acceptPhoto() {
-        // TODO create a real filename
-        String name = "testing";
-        File picture = SaveFileHandler.getOutputMediaFile(getApplicationContext(), SaveFileHandler.MEDIA_TYPE_IMAGE, name);
+        File picture = SaveFileHandler.getOutputMediaFile(getApplicationContext(), SaveFileHandler.MEDIA_TYPE_IMAGE, pictureFilename);
 
         if (picture == null) {
             Log.e(Constants.LOG_TAG, "Could not create the media file");
@@ -415,9 +406,6 @@ public class CameraActivity extends AbstractActivity {
             }
 
             fos.close();
-
-//            // We may not need to save the image to any directory if we do this.
-//            globalHandler.sessionHandler.setMessagePhoto(picture);
 
             // I have to do this for amazon devices because the kindle does not save exif data on its own...
             // I also cannot do this for the other devices too because as you can see, the cases for ROTATION_90
@@ -463,20 +451,10 @@ public class CameraActivity extends AbstractActivity {
                 exifInterface.saveAttributes();
             }
 
-//            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//            Intent intent;
-//            if (sharedPreferences.getBoolean(Constants.PreferencesKeys.drawingImages, true)) {
-//                intent = new Intent(this, DrawingImageActivity.class);
-//            } else {
-//                intent = new Intent(this, SessionActivity.class);
-//            }
-//
-//            startActivity(intent);
-//            finish();
-
-            // TODO pass image as result
+            Intent resultIntent = getIntent();
+            resultIntent.putExtra(EXTRA_RESULT_PICTURE, picture);
+            setResult(Activity.RESULT_OK, resultIntent);
             finish();
-
         }
         catch (FileNotFoundException e) {
             Log.e(Constants.LOG_TAG, "File not found: " + e.getMessage());
@@ -490,14 +468,13 @@ public class CameraActivity extends AbstractActivity {
     public void flipCamera() {
         if (!pictureTaken && !loadImage) {
             Intent intent = getIntent();
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             if (cameraId == defaultCameraId) {
                 CameraActivity.cameraId = frontFacingCameraId;
                 startActivity(intent);
-                finish();
             } else {
                 CameraActivity.cameraId = defaultCameraId;
                 startActivity(intent);
-                finish();
             }
         }
     }
