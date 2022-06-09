@@ -8,4 +8,7 @@
     <!-- GridViews -->
     <dimen name="grid_view_lower_padding">10sp</dimen>
     <dimen name="grid_view_lower_text_size">16sp</dimen>
+    <!-- Default screen margins (from MFM app) -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

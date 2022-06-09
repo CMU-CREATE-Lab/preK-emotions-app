@@ -23,10 +23,15 @@ public class SaveFileHandler {
 
 
     public static File getOutputMediaFile(Context context, int type, GlobalHandler globalHandler) {
+        String name = globalHandler.getSessionTracker().getSessionUuid();
+        return getOutputMediaFile(context, type, name);
+    }
+
+
+    public static File getOutputMediaFile(Context context, int type, String name) {
         File mediaStorageDir = new File("","");
         File mediaFile;
 
-        String name = globalHandler.getSessionTracker().getSessionUuid();
         if (name.contains(" ")) {
             name = name.replace(' ', '_');
         }

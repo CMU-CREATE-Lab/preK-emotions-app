@@ -2,6 +2,7 @@ package org.cmucreatelab.android.flutterprek.activities.teacher_section.students
 
 import android.arch.lifecycle.Observer;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -106,6 +107,9 @@ public class StudentEditActivity extends AbstractActivity {
             @Override
             public void onClick(View view) {
                 Log.d(Constants.LOG_TAG, "onClick imageButtonStudentPhoto");
+
+                Intent cameraIntent = new Intent(StudentEditActivity.this, CameraActivity.class);
+                startActivity(cameraIntent);
             }
         });
     }
