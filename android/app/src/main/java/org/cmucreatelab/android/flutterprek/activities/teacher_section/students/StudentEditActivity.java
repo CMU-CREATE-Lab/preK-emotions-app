@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
@@ -40,6 +41,7 @@ public class StudentEditActivity extends AbstractActivity {
     // views
     private StudentEditFragment headerFragment;
     private ImageButton imageButtonStudentPhoto;
+    private TextView textButtonRetakePhoto;
 
 
     private void populateViews() {
@@ -88,6 +90,7 @@ public class StudentEditActivity extends AbstractActivity {
         this.headerFragment = (StudentEditFragment) (getSupportFragmentManager().findFragmentById(R.id.headerFragment));
         this.headerFragment.setHeaderTransparency(true);
         this.imageButtonStudentPhoto = findViewById(R.id.imageButtonStudentPhoto);
+        this.textButtonRetakePhoto = findViewById(R.id.textButtonRetakePhoto);
 
         populateViews();
 
@@ -120,6 +123,12 @@ public class StudentEditActivity extends AbstractActivity {
             @Override
             public void onClick(View view) {
                 Log.d(Constants.LOG_TAG, "onClick imageButtonStudentPhoto");
+                startCameraActivityForResult();
+            }
+        });
+        textButtonRetakePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 startCameraActivityForResult();
             }
         });
