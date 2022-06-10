@@ -35,7 +35,7 @@ public class StudentEditActivity extends AbstractActivity {
     private static final String headerTitleAddStudent = "Add Student";
     private static final String headerTitleEditStudent = "Edit Student";
 
-    private boolean isFinishedHandlingPicture = false;
+    private boolean isHandlingPicture = false;
 
     // models/objects
     private String classroomName;
@@ -146,7 +146,10 @@ public class StudentEditActivity extends AbstractActivity {
 
 
     public void finishEditActivity(boolean isSaving) {
-        this.isFinishedHandlingPicture = true;
+        if (isHandlingPicture) {
+            return;
+        }
+        this.isHandlingPicture = true;
         if (isSaving) {
             String newName = editTextStudentName.getText().toString();
             String newNotes = editTextStudentNotes.getText().toString();
@@ -228,7 +231,7 @@ public class StudentEditActivity extends AbstractActivity {
     @Override
     protected void onDestroy() {
         // make sure to handle extra actions performed in finishEditActivity()
-        if (!isFinishedHandlingPicture && newStudentPicture != null) {
+        if (!isHandlingPicture && newStudentPicture != null) {
             newStudentPicture.delete();
         }
         super.onDestroy();
