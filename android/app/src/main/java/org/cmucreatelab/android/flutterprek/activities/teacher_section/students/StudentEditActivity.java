@@ -98,50 +98,15 @@ public class StudentEditActivity extends AbstractActivity {
 
     private void updateModel(final Student student) {
         Log.d(Constants.LOG_TAG, "performing DB writes in updateModel()");
-
-        final AsyncTask<Void, Void, Boolean> asyncTaskUpdateStudentModel = new AsyncTask<Void, Void, Boolean>() {
-
+        new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), student, newStudentPicture, new UpdateStudentModelAsyncTask.PostExecute() {
             @Override
-            protected Boolean doInBackground(Void... voids) {
-                AppDatabase.getInstance(getApplicationContext()).studentDAO().update(student);
-                return true;
-            }
-
-            @Override
-            protected void onPostExecute(Boolean modelSaved) {
+            public void onPostExecute(Boolean modelSaved) {
                 if (!modelSaved) {
-                    Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
                 }
                 finish();
             }
-        };
-
-        if (newStudentPicture != null) {
-            // insert DbFile first, then update student
-            new AsyncTask<Void, Void, DbFile>() {
-
-                @Override
-                protected DbFile doInBackground(Void... voids) {
-                    DbFile dbFile = new DbFile(DbFile.FILE_TYPE.FILEPATH, newStudentPicture.getPath());
-                    AppDatabase.getInstance(getApplicationContext()).dbFileDAO().insert(dbFile);
-                    return dbFile;
-                }
-
-                @Override
-                protected void onPostExecute(DbFile dbFile) {
-                    if (dbFile == null) {
-                        Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG);
-                        finish();
-                    } else {
-                        student.setPictureFileUuid(dbFile.getUuid());
-                        asyncTaskUpdateStudentModel.execute();
-                    }
-                }
-            }.execute();
-        } else {
-            // update student (no changes to image)
-            asyncTaskUpdateStudentModel.execute();
-        }
+        }).execute();
     }
 
 
