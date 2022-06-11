@@ -11,18 +11,25 @@ import java.io.File;
 public class UpdateStudentModelAsyncTask extends AsyncTask<Void, Void, Boolean> {
 
     private AppDatabase appDatabase;
+    private ACTION_TYPE actionType;
     private Student student;
     private File newStudentPicture;
     private PostExecute postExecute;
+
+    public enum ACTION_TYPE {
+        UPDATE,
+        INSERT
+    }
 
     public static abstract class PostExecute {
         public abstract void onPostExecute(Boolean modelSaved);
     }
 
 
-    public UpdateStudentModelAsyncTask(AppDatabase appDatabase, Student student, File newStudentPicture, PostExecute postExecute) {
+    public UpdateStudentModelAsyncTask(AppDatabase appDatabase, ACTION_TYPE actionType, Student student, File newStudentPicture, PostExecute postExecute) {
         super();
         this.appDatabase = appDatabase;
+        this.actionType = actionType;
         this.student = student;
         this.newStudentPicture = newStudentPicture;
         this.postExecute = postExecute;
@@ -40,8 +47,16 @@ public class UpdateStudentModelAsyncTask extends AsyncTask<Void, Void, Boolean> 
             }
             student.setPictureFileUuid(dbFile.getUuid());
         }
-        // update student
-        appDatabase.studentDAO().update(student);
+        switch (actionType) {
+            case INSERT:
+                appDatabase.studentDAO().insert(student);
+                break;
+            case UPDATE:
+            default:
+                // update student
+                appDatabase.studentDAO().update(student);
+                break;
+        }
         return true;
     }
 

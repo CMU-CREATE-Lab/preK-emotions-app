@@ -1,14 +1,39 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.students;
 
-import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
+import android.util.Log;
+import android.widget.Toast;
 
-public class StudentAddActivity extends AbstractActivity {
+import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
+
+import java.io.File;
+
+public class StudentAddActivity extends StudentUpdateModelAbstractActivity {
+
+    private static final String headerTitleAddStudent = "Add Student";
 
 
     @Override
-    public int getResourceIdForActivityLayout() {
-        return R.layout._teacher_section__activity_students_edit;
+    public String getHeaderTitle() {
+        return headerTitleAddStudent;
     }
+
+
+    @Override
+    public void updateModel(final Student student, final File newStudentPicture) {
+        Log.d(Constants.LOG_TAG, "performing DB writes in updateModel()");
+        new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ACTION_TYPE.INSERT, student, newStudentPicture, new UpdateStudentModelAsyncTask.PostExecute() {
+            @Override
+            public void onPostExecute(Boolean modelSaved) {
+                if (!modelSaved) {
+                    Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
+                }
+                finish();
+            }
+        }).execute();
+    }
+
+
 
 }

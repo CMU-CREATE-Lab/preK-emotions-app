@@ -33,6 +33,8 @@ public class ClassroomShowActivity extends TeacherSectionActivityWithHeaderAndDr
     public static final String EXTRA_CLASSROOM_UUID = "classroom_uuid";
     public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
 
+    private static final String templateNameForAddStudent = "";
+
     private String classroomUuid;
     private String classroomName;
 
@@ -89,6 +91,8 @@ public class ClassroomShowActivity extends TeacherSectionActivityWithHeaderAndDr
             @Override
             public void onClick(View view) {
                 Intent studentAddActivityIntent = new Intent(ClassroomShowActivity.this, StudentAddActivity.class);
+                studentAddActivityIntent.putExtra(StudentEditActivity.EXTRA_STUDENT, new Student(templateNameForAddStudent, classroomUuid));
+                studentAddActivityIntent.putExtra(StudentEditActivity.EXTRA_CLASSROOM_NAME, classroomName);
                 startActivity(studentAddActivityIntent);
             }
         });
