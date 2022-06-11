@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -76,8 +77,7 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
                 public void onChanged(@Nullable DbFile dbFile) {
                     ImageView imageStudent = findViewById(R.id.imageStudent);
                     imageStudent.setBackground(null);
-                    // TODO check if file type is asset
-                    Util.setImageViewWithAsset(appContext, imageStudent, dbFile.getFilePath());
+                    Util.setImageViewWithDbFile(appContext, imageStudent, dbFile);
 
                     // make header/thumbnail larger
                     android.view.ViewGroup.LayoutParams params = imageStudent.getLayoutParams();

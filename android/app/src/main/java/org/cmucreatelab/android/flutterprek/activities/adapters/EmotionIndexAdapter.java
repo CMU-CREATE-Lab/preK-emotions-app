@@ -92,8 +92,7 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
             AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(emotion.getImageFileUuid()).observe(activity, new Observer<DbFile>() {
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
-                    // TODO check if file type is asset
-                    Util.setImageViewWithAsset(appContext, (ImageView) result.findViewById(R.id.imageView), dbFile.getFilePath());
+                    Util.setImageViewWithDbFile(appContext,(ImageView) result.findViewById(R.id.imageView), dbFile);
                 }
             });
         } else {

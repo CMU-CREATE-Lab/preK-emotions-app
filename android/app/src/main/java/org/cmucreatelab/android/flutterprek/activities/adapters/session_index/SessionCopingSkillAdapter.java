@@ -35,8 +35,8 @@ public class SessionCopingSkillAdapter extends RecyclerView.Adapter<SessionCopin
             imageSessionCopingSkill.setImageResource(R.drawable.ic_placeholder);
         }
 
-        public synchronized void updateWithAsset(String asset) {
-            Util.setImageViewWithAsset(appContext, imageSessionCopingSkill, asset);
+        public synchronized void updateWithDbFile(DbFile dbFile) {
+            Util.setImageViewWithDbFile(appContext, imageSessionCopingSkill, dbFile);
         }
 
     }
@@ -72,9 +72,8 @@ public class SessionCopingSkillAdapter extends RecyclerView.Adapter<SessionCopin
                 appDatabase.dbFileDAO().getDbFile(copingSkill.getImageFileUuid()).observe(activity, new Observer<DbFile>() {
                     @Override
                     public void onChanged(@Nullable DbFile dbFile) {
-                        if (dbFile == null)return;
-                        // TODO check file type
-                        holder.updateWithAsset(dbFile.getFilePath());
+                        if (dbFile == null) return;
+                        holder.updateWithDbFile(dbFile);
                     }
                 });
             }

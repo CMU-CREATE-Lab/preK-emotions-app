@@ -70,7 +70,6 @@ public class SessionAdapter extends RecyclerView.Adapter<ItemSessionRecyclerView
                     AppDatabase.getInstance(activity.getApplicationContext()).dbFileDAO().getDbFile(student.getPictureFileUuid()).observe(activity, new Observer<DbFile>() {
                         @Override
                         public void onChanged(@Nullable DbFile dbFile) {
-                            // TODO check if file type is asset
                             item.studentDbFile = dbFile;
                             holder.updateWithItem(item);
                         }

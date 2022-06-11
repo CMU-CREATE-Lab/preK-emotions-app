@@ -70,8 +70,7 @@ public class StudentIndexAdapterWithSessionCount extends AbstractListAdapter<Stu
             AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(student.getPictureFileUuid()).observe(activity, new Observer<DbFile>() {
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
-                    // TODO check if file type is asset
-                    Util.setImageViewWithAsset(appContext, (ImageView) result.findViewById(R.id.imageView), dbFile.getFilePath());
+                    Util.setImageViewWithDbFile(appContext, (ImageView) result.findViewById(R.id.imageView), dbFile);
                 }
             });
         } else {

@@ -58,9 +58,9 @@ public class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
         if (item.studentDbFile == null) {
             imageStudent.setImageResource(R.drawable.ic_placeholder);
         } else {
-            Util.setImageViewWithAsset(appContext, imageStudent, item.studentDbFile.getFilePath());
+            Util.setImageViewWithDbFile(appContext, imageStudent, item.studentDbFile);
         }
-        if (item.emotionDbFile != null) Util.setImageViewWithAsset(appContext, imageEmotion, item.emotionDbFile.getFilePath());
+        if (item.emotionDbFile != null) Util.setImageViewWithDbFile(appContext, imageEmotion, item.emotionDbFile);
         if (item.sessionCopingSkillList != null) {
             textNumberOfCopingSkills.setText(String.valueOf(item.sessionCopingSkillList.size()));
             RecyclerView.Adapter adapter = new SessionCopingSkillAdapter(activity, item.sessionCopingSkillList);

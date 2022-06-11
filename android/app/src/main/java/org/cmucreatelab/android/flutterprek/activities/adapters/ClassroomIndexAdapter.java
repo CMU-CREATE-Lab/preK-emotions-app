@@ -55,8 +55,7 @@ public class ClassroomIndexAdapter extends AbstractListAdapter<Classroom> {
                         AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(student.student.getPictureFileUuid()).observe(activity, new Observer<DbFile>() {
                             @Override
                             public void onChanged(@Nullable DbFile dbFile) {
-                                // TODO check if file type is asset
-                                Util.setImageViewWithAsset(appContext, studentThumbView, dbFile.getFilePath());
+                                Util.setImageViewWithDbFile(appContext, studentThumbView, dbFile);
                             }
                         });
                     }

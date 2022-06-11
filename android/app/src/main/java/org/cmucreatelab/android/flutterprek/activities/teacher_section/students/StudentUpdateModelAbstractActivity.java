@@ -60,12 +60,7 @@ public abstract class StudentUpdateModelAbstractActivity extends AbstractActivit
             AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(student.getPictureFileUuid()).observe(this, new Observer<DbFile>() {
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
-                    // TODO check if file type is asset
-                    if (dbFile.getFileType().equals(DbFile.getStringForFileType(DbFile.FILE_TYPE.FILEPATH))) {
-                        imageButtonStudentPhoto.setImageBitmap(BitmapFactory.decodeFile(dbFile.getFilePath()));
-                    } else {
-                        Util.setImageViewWithAsset(appContext, (ImageButton) findViewById(R.id.imageButtonStudentPhoto), dbFile.getFilePath());
-                    }
+                    Util.setImageViewWithDbFile(appContext, (ImageButton) findViewById(R.id.imageButtonStudentPhoto), dbFile);
                 }
             });
         } else {
