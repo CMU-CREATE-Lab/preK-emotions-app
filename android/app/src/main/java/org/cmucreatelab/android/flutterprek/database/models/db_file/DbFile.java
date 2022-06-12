@@ -15,13 +15,13 @@ import java.util.UUID;
 @Entity(tableName = "db_files", indices = @Index("file_type"))
 public class DbFile {
 
-    public enum FILE_TYPE {
+    public enum DbFileType {
         ASSET_IMAGE,
         ASSET_AUDIO,
         FILEPATH
     }
 
-    public static String getStringForFileType(FILE_TYPE type) {
+    public static String getStringForFileType(DbFileType type) {
         switch(type) {
             case ASSET_IMAGE:
                 return "asset_image";
@@ -47,7 +47,7 @@ public class DbFile {
 
 
     @Ignore
-    public DbFile(@NonNull FILE_TYPE fileType, @NonNull String filePath) {
+    public DbFile(@NonNull DbFileType fileType, @NonNull String filePath) {
         this(UUID.randomUUID().toString(), getStringForFileType(fileType), filePath);
     }
 

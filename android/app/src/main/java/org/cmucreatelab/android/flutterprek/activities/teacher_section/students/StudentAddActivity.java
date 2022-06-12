@@ -9,7 +9,7 @@ import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.io.File;
 
-public class StudentAddActivity extends StudentUpdateModelAbstractActivity {
+public class StudentAddActivity extends StudentUpdateAbstractActivity {
 
     private static final String headerTitleAddStudent = "Add Student";
 
@@ -21,9 +21,15 @@ public class StudentAddActivity extends StudentUpdateModelAbstractActivity {
 
 
     @Override
+    public boolean isDisplayDeleteButton() {
+        return false;
+    }
+
+
+    @Override
     public void updateModel(final Student student, final File newStudentPicture) {
         Log.d(Constants.LOG_TAG, "performing DB writes in updateModel()");
-        new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ACTION_TYPE.INSERT, student, newStudentPicture, new UpdateStudentModelAsyncTask.PostExecute() {
+        new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ActionType.INSERT, student, newStudentPicture, new UpdateStudentModelAsyncTask.PostExecute() {
             @Override
             public void onPostExecute(Boolean modelSaved) {
                 if (!modelSaved) {

@@ -32,9 +32,9 @@ public class Util {
 
     public static void setImageViewWithDbFile(Context appContext, ImageView imageView, DbFile dbFile) {
         String fileType = dbFile.getFileType();
-        if (fileType.equals(DbFile.getStringForFileType(DbFile.FILE_TYPE.ASSET_IMAGE))) {
+        if (fileType.equals(DbFile.getStringForFileType(DbFile.DbFileType.ASSET_IMAGE))) {
             setImageViewWithAsset(appContext, imageView, dbFile.getFilePath());
-        } else if (fileType.equals(DbFile.getStringForFileType(DbFile.FILE_TYPE.FILEPATH))) {
+        } else if (fileType.equals(DbFile.getStringForFileType(DbFile.DbFileType.FILEPATH))) {
             imageView.setImageBitmap(BitmapFactory.decodeFile(dbFile.getFilePath()));
         } else {
             Log.e(LOG_TAG, String.format("failed to set ImageView: unknown filetype '%s'", fileType));

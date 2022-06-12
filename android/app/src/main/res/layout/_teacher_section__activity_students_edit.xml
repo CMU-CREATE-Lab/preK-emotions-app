@@ -13,7 +13,7 @@
 
         <fragment
             android:id="@+id/headerFragment"
-            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.StudentEditFragment"
+            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.ModelUpdateHeaderFragment"
             android:layout_width="match_parent"
             android:layout_height="65sp" />
 

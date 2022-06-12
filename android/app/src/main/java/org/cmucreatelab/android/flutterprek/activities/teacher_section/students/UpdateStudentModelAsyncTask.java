@@ -11,14 +11,15 @@ import java.io.File;
 public class UpdateStudentModelAsyncTask extends AsyncTask<Void, Void, Boolean> {
 
     private AppDatabase appDatabase;
-    private ACTION_TYPE actionType;
+    private ActionType actionType;
     private Student student;
     private File newStudentPicture;
     private PostExecute postExecute;
 
-    public enum ACTION_TYPE {
+    public enum ActionType {
         UPDATE,
-        INSERT
+        INSERT,
+        DELETE
     }
 
     public static abstract class PostExecute {
@@ -26,7 +27,7 @@ public class UpdateStudentModelAsyncTask extends AsyncTask<Void, Void, Boolean> 
     }
 
 
-    public UpdateStudentModelAsyncTask(AppDatabase appDatabase, ACTION_TYPE actionType, Student student, File newStudentPicture, PostExecute postExecute) {
+    public UpdateStudentModelAsyncTask(AppDatabase appDatabase, ActionType actionType, Student student, File newStudentPicture, PostExecute postExecute) {
         super();
         this.appDatabase = appDatabase;
         this.actionType = actionType;
@@ -40,7 +41,7 @@ public class UpdateStudentModelAsyncTask extends AsyncTask<Void, Void, Boolean> 
     protected Boolean doInBackground(Void... voids) {
         if (newStudentPicture != null) {
             // insert DbFile first, then update student
-            DbFile dbFile = new DbFile(DbFile.FILE_TYPE.FILEPATH, newStudentPicture.getPath());
+            DbFile dbFile = new DbFile(DbFile.DbFileType.FILEPATH, newStudentPicture.getPath());
             appDatabase.dbFileDAO().insert(dbFile);
             if (dbFile == null) {
                 return false;
@@ -50,6 +51,9 @@ public class UpdateStudentModelAsyncTask extends AsyncTask<Void, Void, Boolean> 
         switch (actionType) {
             case INSERT:
                 appDatabase.studentDAO().insert(student);
+                break;
+            case DELETE:
+                appDatabase.studentDAO().delete(student);
                 break;
             case UPDATE:
             default:

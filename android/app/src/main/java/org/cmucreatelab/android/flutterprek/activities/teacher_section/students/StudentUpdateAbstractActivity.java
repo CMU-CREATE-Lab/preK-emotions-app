@@ -1,8 +1,10 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.students;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,19 +15,26 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
-import org.cmucreatelab.android.flutterprek.activities.fragments.StudentEditFragment;
+import org.cmucreatelab.android.flutterprek.activities.fragments.ModelUpdateHeaderFragment;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.io.File;
 
-public abstract class StudentUpdateModelAbstractActivity extends AbstractActivity {
+public abstract class StudentUpdateAbstractActivity extends AbstractActivity {
+
+    public enum ModelAction {
+        UPDATE,
+        DELETE,
+        CANCEL
+    }
 
     public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
     public static final String EXTRA_STUDENT = "student";
@@ -38,7 +47,7 @@ public abstract class StudentUpdateModelAbstractActivity extends AbstractActivit
     private File newStudentPicture;
 
     // views
-    private StudentEditFragment headerFragment;
+    private ModelUpdateHeaderFragment headerFragment;
     private ImageButton imageButtonStudentPhoto;
     private TextView textButtonRetakePhoto;
     private EditText editTextStudentName;
@@ -79,35 +88,57 @@ public abstract class StudentUpdateModelAbstractActivity extends AbstractActivit
 
 
     private void startCameraActivityForResult() {
-        Intent cameraIntent = new Intent(StudentUpdateModelAbstractActivity.this, CameraActivity.class);
+        Intent cameraIntent = new Intent(StudentUpdateAbstractActivity.this, CameraActivity.class);
         String filename = String.format("%s_%d", student.getUuid(), Util.getCurrentTimestamp());
         cameraIntent.putExtra(CameraActivity.EXTRA_PICTURE_FILENAME, filename);
         startActivityForResult(cameraIntent, CameraActivity.REQUEST_CODE);
     }
 
 
-    public void finishEditActivity(boolean isSaving) {
+    public void finishEditActivity(ModelAction modelAction) {
         if (isHandlingPicture) {
             return;
         }
         this.isHandlingPicture = true;
-        if (isSaving) {
-            String newName = editTextStudentName.getText().toString();
-            String newNotes = editTextStudentNotes.getText().toString();
-            if (!newName.equals(student.getName()) || !newNotes.equals(student.getNotes()) || newStudentPicture != null) {
-                student.setName(newName);
-                student.setNotes(newNotes);
-                // TODO delete old image? (requires another DB query so I'm guessing not, for now)
-                updateModel(student, newStudentPicture);
-            } else {
-                // nothing to update/save
+
+        switch (modelAction) {
+            case UPDATE:
+                String newName = editTextStudentName.getText().toString();
+                String newNotes = editTextStudentNotes.getText().toString();
+                if (!newName.equals(student.getName()) || !newNotes.equals(student.getNotes()) || newStudentPicture != null) {
+                    student.setName(newName);
+                    student.setNotes(newNotes);
+                    // TODO delete old image? (requires another DB query so I'm guessing not, for now)
+                    updateModel(student, newStudentPicture);
+                } else {
+                    // nothing to update/save
+                    finish();
+                }
+                break;
+
+            case DELETE:
+                if (newStudentPicture != null) {
+                    newStudentPicture.delete();
+                }
+                Log.d(Constants.LOG_TAG, "performing DB delete");
+                new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ActionType.DELETE, student, newStudentPicture, new UpdateStudentModelAsyncTask.PostExecute() {
+                    @Override
+                    public void onPostExecute(Boolean modelSaved) {
+                        if (!modelSaved) {
+                            Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
+                        }
+                        finish();
+                    }
+                }).execute();
+                break;
+
+            case CANCEL:
+            default:
+                if (newStudentPicture != null) {
+                    newStudentPicture.delete();
+                }
                 finish();
-            }
-        } else {
-            if (newStudentPicture != null) {
-                newStudentPicture.delete();
-            }
-            finish();
+                break;
         }
     }
 
@@ -124,7 +155,7 @@ public abstract class StudentUpdateModelAbstractActivity extends AbstractActivit
         }
 
         // construct views
-        this.headerFragment = (StudentEditFragment) (getSupportFragmentManager().findFragmentById(R.id.headerFragment));
+        this.headerFragment = (ModelUpdateHeaderFragment) (getSupportFragmentManager().findFragmentById(R.id.headerFragment));
         this.headerFragment.setHeaderTransparency(true);
         this.imageButtonStudentPhoto = findViewById(R.id.imageButtonStudentPhoto);
         this.textButtonRetakePhoto = findViewById(R.id.textButtonRetakePhoto);
@@ -140,21 +171,41 @@ public abstract class StudentUpdateModelAbstractActivity extends AbstractActivit
         headerFragment.textViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finishEditActivity(false);
+                finishEditActivity(ModelAction.CANCEL);
             }
         });
         headerFragment.imageButtonBackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finishEditActivity(false);
+                finishEditActivity(ModelAction.CANCEL);
             }
         });
         headerFragment.buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finishEditActivity(true);
+                finishEditActivity(ModelAction.UPDATE);
             }
         });
+        if (isDisplayDeleteButton()) {
+            headerFragment.imageButtonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(StudentUpdateAbstractActivity.this);
+                    builder.setMessage(R.string.alert_message_delete_student);
+                    builder.setTitle(R.string.alert_title_delete_student);
+                    builder.setPositiveButton(R.string.alert_option_delete, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finishEditActivity(ModelAction.DELETE);
+                        }
+                    });
+                    builder.setNegativeButton(R.string.alert_option_cancel, null);
+                    builder.create().show();
+                }
+            });
+        } else {
+            headerFragment.imageButtonDelete.setVisibility(View.GONE);
+        }
         imageButtonStudentPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,5 +260,8 @@ public abstract class StudentUpdateModelAbstractActivity extends AbstractActivit
 
 
     public abstract String getHeaderTitle();
+
+
+    public abstract boolean isDisplayDeleteButton();
 
 }
