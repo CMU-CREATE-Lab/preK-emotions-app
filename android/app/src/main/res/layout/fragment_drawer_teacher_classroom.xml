@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerTeacherMain"
+    style="@style/DrawerTeacherSection"
+    android:layout_height="match_parent">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintTopTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/textViewBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back to classes"
+            android:textSize="14dp"
+            android:textColor="#1c8773"
+            android:clickable="true"
+            android:layout_marginStart="30dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageButtonBackArrow"
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            android:tint="#1c8773"
+            android:src="@mipmap/ic_arrow_back"
+            android:scaleType="fitCenter"
+            app:layout_constraintTop_toTopOf="@id/textViewBack"
+            app:layout_constraintBottom_toBottomOf="@id/textViewBack"
+            app:layout_constraintEnd_toStartOf="@id/textViewBack"
+            />
+
+        <TextView
+            android:id="@+id/textViewClassroomName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Class Name"
+            android:textStyle="bold"
+            android:textSize="30dp"
+            android:textColor="#4a4a4a"
+            android:layout_margin="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBack" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintRow1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/drawer_top_margin"
+        app:layout_constraintEnd_toEndOf="@id/constraintTopTitle"
+        app:layout_constraintStart_toStartOf="@id/constraintTopTitle"
+        app:layout_constraintTop_toBottomOf="@id/constraintTopTitle">
+
+        <View
+            android:id="@+id/highlightViewStats"
+            style="@style/DrawerTeacherSectionHighlighted"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewStats"
+            style="@style/DrawerTeacherSectionText"
+            android:text="@string/classroom_header_stats"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/highlightViewStats"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/highlightViewStats"
+            app:layout_constraintTop_toTopOf="@+id/highlightViewStats" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintRow2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/drawer_title_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintRow1">
+
+        <View
+            android:id="@+id/highlightViewStudents"
+            style="@style/DrawerTeacherSectionHighlighted"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewStudents"
+            style="@style/DrawerTeacherSectionText"
+            android:text="@string/mindfulnest_header_classes"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/highlightViewStudents"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/highlightViewStudents"
+            app:layout_constraintTop_toTopOf="@+id/highlightViewStudents" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintRow3"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/drawer_title_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintRow2">
+
+        <View
+            android:id="@+id/highlightViewCopingSkills"
+            style="@style/DrawerTeacherSectionHighlighted"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewCopingSkills"
+            style="@style/DrawerTeacherSectionText"
+            android:text="@string/mindfulnest_header_coping_skills"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/highlightViewCopingSkills"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/highlightViewCopingSkills"
+            app:layout_constraintTop_toTopOf="@+id/highlightViewCopingSkills" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintRow4"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/drawer_title_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintRow3">
+
+        <View
+            android:id="@+id/highlightViewEmotions"
+            style="@style/DrawerTeacherSectionHighlighted"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewEmotions"
+            style="@style/DrawerTeacherSectionText"
+            android:text="@string/mindfulnest_header_emotions"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/highlightViewEmotions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/highlightViewEmotions"
+            app:layout_constraintTop_toTopOf="@+id/highlightViewEmotions" />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

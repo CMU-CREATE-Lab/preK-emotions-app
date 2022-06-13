@@ -28,6 +28,10 @@
     <string name="mindfulnest_header_classes">Classes</string>
     <string name="mindfulnest_header_coping_skills">Coping Skills</string>
     <string name="mindfulnest_header_emotions">Emotions</string>
+    <string name="classroom_header_stats">Stats</string>
+    <string name="classroom_header_students">Students</string>
+    <string name="classroom_header_coping_skills">Coping Skills</string>
+    <string name="classroom_header_emotions">Emotions</string>
     <string name="classroom_grid_label_students">Students</string>
     <string name="classroom_grid_label_coping_skills">Coping Skills</string>
     <string name="coping_skill_flower_placeholder">Flower Text will go here</string>

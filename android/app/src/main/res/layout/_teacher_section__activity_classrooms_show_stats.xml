@@ -13,35 +13,38 @@
         <fragment
             android:id="@+id/appHeader"
             android:name="org.cmucreatelab.android.flutterprek.activities.fragments.AppHeaderFragment"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
             android:layout_height="65sp" />
 
         <fragment
-            android:id="@+id/drawerTeacherMain"
-            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment"
+            android:id="@+id/drawerTeacherClassroom"
+            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherClassroomFragment"
             android:layout_width="205sp"
             android:layout_height="0sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appHeader" />
 
-        <GridView
-            android:id="@+id/studentsGridView"
-            style="@style/TeacherSectionGridViewForListStudentsInClass"
+        <TextView
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:text="CLASSROOM STATS"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/drawerTeacherMain"
+            app:layout_constraintStart_toEndOf="@+id/drawerTeacherClassroom"
             app:layout_constraintTop_toBottomOf="@+id/appHeader" />
 
-    </android.support.constraint.ConstraintLayout>
+<!--        TODO content here-->
+<!--        <GridView-->
+<!--            android:id="@+id/studentsGridView"-->
+<!--            style="@style/TeacherSectionGridViewForListStudentsInClass"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/drawerTeacherClassroom"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/appHeader" />-->
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabNewStudent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/colorPrimary"
-        app:srcCompat="@drawable/ic_fab_add_24dp" />
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

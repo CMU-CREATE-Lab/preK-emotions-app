@@ -13,8 +13,6 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.ClassroomIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
-import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseClassroomActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.TeacherSectionActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
@@ -67,10 +65,9 @@ public class ClassroomIndexActivity extends TeacherSectionActivityWithHeaderAndD
         Log.i(Constants.LOG_TAG, String.format("onClick classroom name=%s with uuid=%s", classroom.getName(), classroom.getUuid()));
 
         // send to next activity
-        Intent classroomShowActivity = new Intent(ClassroomIndexActivity.this, ClassroomShowActivity.class);
-        classroomShowActivity.putExtra(ClassroomShowActivity.EXTRA_CLASSROOM_UUID, classroom.getUuid());
-        classroomShowActivity.putExtra(ClassroomShowActivity.EXTRA_CLASSROOM_NAME, classroom.getName());
-        startActivity(classroomShowActivity);
+        Intent classroomShowStatsActivity = new Intent(ClassroomIndexActivity.this, ClassroomShowStatsActivity.class);
+        classroomShowStatsActivity.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom);
+        startActivity(classroomShowStatsActivity);
     }
 
 }

@@ -5,21 +5,15 @@ import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
-import android.widget.ImageView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
-import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.DebugCorner;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentWithCustomizationsIndexAdapter;
-import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
-import org.cmucreatelab.android.flutterprek.activities.student_section.StudentSectionActivityWithHeader;
+import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherClassroomFragment;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.LoginActivity;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.TeacherSectionActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentAddActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -28,10 +22,7 @@ import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;
 
-public class ClassroomShowActivity extends TeacherSectionActivityWithHeaderAndDrawer {
-
-    public static final String EXTRA_CLASSROOM_UUID = "classroom_uuid";
-    public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
+public class ClassroomShowStudentsActivity extends ManageClassroomActivityWithHeaderAndDrawer {
 
     private static final String templateNameForAddStudent = "";
 
@@ -44,7 +35,7 @@ public class ClassroomShowActivity extends TeacherSectionActivityWithHeaderAndDr
             final Student student = studentWithCustomizations.student;
             Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
 
-            Intent studentEditActivity = new Intent(ClassroomShowActivity.this, StudentEditActivity.class);
+            Intent studentEditActivity = new Intent(ClassroomShowStudentsActivity.this, StudentEditActivity.class);
             studentEditActivity.putExtra(StudentEditActivity.EXTRA_STUDENT, studentWithCustomizations.student);
             studentEditActivity.putExtra(StudentEditActivity.EXTRA_CLASSROOM_NAME, classroomName);
             startActivity(studentEditActivity);
@@ -76,7 +67,7 @@ public class ClassroomShowActivity extends TeacherSectionActivityWithHeaderAndDr
             @Override
             public void onChanged(@Nullable List<StudentWithCustomizations> students) {
                 GridView studentsGridView = findViewById(R.id.studentsGridView);
-                studentsGridView.setAdapter(new StudentWithCustomizationsIndexAdapter(ClassroomShowActivity.this, students, listener));
+                studentsGridView.setAdapter(new StudentWithCustomizationsIndexAdapter(ClassroomShowStudentsActivity.this, students, listener));
             }
         });
     }
@@ -84,13 +75,13 @@ public class ClassroomShowActivity extends TeacherSectionActivityWithHeaderAndDr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.classroomUuid = getIntent().getStringExtra(EXTRA_CLASSROOM_UUID);
-        this.classroomName = getIntent().getStringExtra(EXTRA_CLASSROOM_NAME);
+        this.classroomUuid = getClassroom().getUuid();
+        this.classroomName = getClassroom().getName();
 
         findViewById(R.id.fabNewStudent).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent studentAddActivityIntent = new Intent(ClassroomShowActivity.this, StudentAddActivity.class);
+                Intent studentAddActivityIntent = new Intent(ClassroomShowStudentsActivity.this, StudentAddActivity.class);
                 studentAddActivityIntent.putExtra(StudentEditActivity.EXTRA_STUDENT, new Student(templateNameForAddStudent, classroomUuid));
                 studentAddActivityIntent.putExtra(StudentEditActivity.EXTRA_CLASSROOM_NAME, classroomName);
                 startActivity(studentAddActivityIntent);
@@ -101,7 +92,7 @@ public class ClassroomShowActivity extends TeacherSectionActivityWithHeaderAndDr
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout._teacher_section__activity_classrooms_show;
+        return R.layout._teacher_section__activity_classrooms_show_students;
     }
 
 
@@ -116,9 +107,8 @@ public class ClassroomShowActivity extends TeacherSectionActivityWithHeaderAndDr
 
 
     @Override
-    public DrawerTeacherMainFragment.Section getSectionForDrawer() {
-        // TODO create/implement sections for classroom show
-        return null;
+    public DrawerTeacherClassroomFragment.Section getSectionForDrawer() {
+        return DrawerTeacherClassroomFragment.Section.STUDENTS;
     }
 
 
