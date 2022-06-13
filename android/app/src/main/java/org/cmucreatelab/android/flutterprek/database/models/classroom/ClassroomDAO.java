@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import org.cmucreatelab.android.flutterprek.database.models.ClassroomWithCustomizations;
 
@@ -29,6 +30,9 @@ public interface ClassroomDAO {
 
     @Delete
     void delete(Classroom classroom);
+
+    @Update
+    void update(Classroom classroom);
 
     @Query("SELECT * from classrooms ORDER BY name ASC")
     LiveData<List<Classroom>> getAllClassrooms();

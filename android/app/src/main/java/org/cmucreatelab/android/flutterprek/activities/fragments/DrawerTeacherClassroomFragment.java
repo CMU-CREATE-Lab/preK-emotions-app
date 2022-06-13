@@ -1,11 +1,14 @@
 package org.cmucreatelab.android.flutterprek.activities.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -14,6 +17,9 @@ import org.cmucreatelab.android.flutterprek.activities.teacher_section.classroom
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomShowStudentsActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomShowStatsActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.UpdateClassroomModelAsyncTask;
+import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 /**
  * Fragment for the Drawer on the left-hand side of the screen in the teacher section of the app.
@@ -28,6 +34,68 @@ public class DrawerTeacherClassroomFragment extends AbstractFragment {
     }
 
     private TextView textViewClassroomName;
+
+
+    private void displayClassroomNameDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final View view = getLayoutInflater().inflate(R.layout.dialog_classroom_name, null);
+        builder.setView(view)
+                .setPositiveButton(R.string.alert_option_save, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        String classroomName = ((EditText) view.findViewById(R.id.editTextClassroomName)).getText().toString();
+                        Log.d(Constants.LOG_TAG, String.format("dialog_classroom_name onClick positive; name='%s'", classroomName));
+                        updateClassroom(classroomName);
+                    }
+                })
+                .setNegativeButton(R.string.alert_option_cancel, null)
+                .setTitle(R.string.alert_title_update_classroom)
+                .setMessage(R.string.alert_message_update_classroom);
+        builder.create().show();
+    }
+
+
+    private void displayClassroomDeleteDialog() {
+        final ManageClassroomActivityWithHeaderAndDrawer activity = (ManageClassroomActivityWithHeaderAndDrawer) getActivity();
+        final Classroom classroom = activity.getClassroom();
+
+        // TODO confirm by input classroom name?
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);
+        builder.setMessage(R.string.alert_message_delete_classroom);
+        builder.setTitle(R.string.alert_title_delete_classroom);
+        builder.setPositiveButton(R.string.alert_option_delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                new UpdateClassroomModelAsyncTask(AppDatabase.getInstance(activity.getApplicationContext()), UpdateClassroomModelAsyncTask.ActionType.DELETE, classroom, new UpdateClassroomModelAsyncTask.PostExecute() {
+                    @Override
+                    public void onPostExecute(Boolean modelSaved, Classroom classroom) {
+                        // deleting classroom triggers return to index
+                        startClassroomIndexActivity();
+                    }
+                }).execute();
+            }
+        });
+        builder.setNegativeButton(R.string.alert_option_cancel, null);
+        builder.create().show();
+    }
+
+
+    private void updateClassroom(String classroomName) {
+        ManageClassroomActivityWithHeaderAndDrawer activity = (ManageClassroomActivityWithHeaderAndDrawer) getActivity();
+        Classroom classroom = activity.getClassroom();
+        if (!classroomName.isEmpty() && !classroom.getName().equals(classroomName)) {
+            classroom.setName(classroomName);
+            new UpdateClassroomModelAsyncTask(AppDatabase.getInstance(activity.getApplicationContext()), UpdateClassroomModelAsyncTask.ActionType.UPDATE, classroom, new UpdateClassroomModelAsyncTask.PostExecute() {
+                @Override
+                public void onPostExecute(Boolean modelSaved, Classroom classroom) {
+                    // update views
+                    onResume();
+                }
+            }).execute();
+        } else {
+            Log.w(Constants.LOG_TAG, "Classroom model not updated when classroomName either empty or unchanged");
+        }
+    }
 
 
     private void setHighlighted(Section section, boolean isHighlighted) {
@@ -82,6 +150,25 @@ public class DrawerTeacherClassroomFragment extends AbstractFragment {
             @Override
             public void onClick(View view) {
                 startClassroomIndexActivity();
+            }
+        });
+
+        view.findViewById(R.id.imageButtonEdit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayClassroomNameDialog();
+            }
+        });
+        view.findViewById(R.id.textViewDelete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayClassroomDeleteDialog();
+            }
+        });
+        view.findViewById(R.id.imageButtonDelete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayClassroomDeleteDialog();
             }
         });
 

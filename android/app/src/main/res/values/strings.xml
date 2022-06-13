@@ -65,7 +65,15 @@
     <string name="label_student_photo">Student Photo</string>
     <string name="alert_title_delete_student">Delete Student</string>
     <string name="alert_message_delete_student">Are you sure you want to permanently delete this student?</string>
+    <string name="alert_title_delete_classroom">Delete Classroom</string>
+    <string name="alert_message_delete_classroom">WARNING: This action will also delete every student connected to this classroom. Are you sure you want to permanently delete this classroom?</string>
+    <string name="alert_title_new_classroom">New Classroom</string>
+    <string name="alert_message_new_classroom">Enter a name for this classroom.</string>
+    <string name="alert_title_update_classroom">Edit Classroom </string>
+    <string name="alert_message_update_classroom">Choose a new name for this classroom.</string>
     <string name="alert_option_delete">Delete</string>
     <string name="alert_option_cancel">Cancel</string>
+    <string name="alert_option_create">Create</string>
+    <string name="alert_option_save">Save</string>
     <string name="empty"></string>
 </resources>
