@@ -2,8 +2,6 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 
 
 import android.Manifest;
-import android.content.Context;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;

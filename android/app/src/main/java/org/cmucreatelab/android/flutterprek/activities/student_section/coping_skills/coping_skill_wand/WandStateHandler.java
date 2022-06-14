@@ -63,7 +63,6 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
                     textView.setText(displayOnUiThread);
                 }
             });
-
         }
     }
 
@@ -171,7 +170,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         if (SHOW_DEBUG_WINDOW) {
             String reformedData = button+", "+x+","+y+","+z;
             lastNotification = reformedData + "\n" + (curTime-prevTime) + "\n" + curTime + "\n" + dataCount;
-            updateDebugWindow();
+            //updateDebugWindow();
         }
     }
 

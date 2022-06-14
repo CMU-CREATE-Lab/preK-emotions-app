@@ -3,8 +3,10 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.R;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -26,7 +28,7 @@ public class WandSpeedTracker {
     int fileNumber;
 
     private double upperThresh = 200.0;
-    private double lowerThresh = 50.0;
+    private double lowerThresh = 15.0; // 50 too fast
     private double max_mag = 0.0;
 
 
@@ -139,6 +141,7 @@ public class WandSpeedTracker {
         int speed = -1;
 
         //TODO is the zero a good cutoff
+        ((TextView)activity.findViewById(R.id.textViewDebug)).setText("Velocity: " + max_mag);
         if(max_mag <= upperThresh && max_mag >= lowerThresh) {
             // Moving slowly
             speed = 1;

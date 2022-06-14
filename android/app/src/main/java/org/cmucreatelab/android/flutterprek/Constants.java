@@ -13,7 +13,7 @@ public class Constants {
     /** Determines if the flower activity should display the debug window (shows BLE name and last message received). */
     public static final boolean FLOWER_SHOW_DEBUG_WINDOW = false;
     public static final boolean SQUEEZE_SHOW_DEBUG_WINDOW = false;
-    public static final boolean WAND_SHOW_DEBUG_WINDOW = false;
+    public static final boolean WAND_SHOW_DEBUG_WINDOW = true;
 
     /** Determines what type of activity will run for the "choose emotion" step of a student's session. Setting to false will use the legacy interface (displays emotions only). */
     public static final boolean CHOOSE_EMOTION_WITH_TALK_ABOUT_IT_OPTION = false;
