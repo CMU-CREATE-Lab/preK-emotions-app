@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
@@ -59,23 +60,32 @@ public class DrawerTeacherClassroomFragment extends AbstractFragment {
         final ManageClassroomActivityWithHeaderAndDrawer activity = (ManageClassroomActivityWithHeaderAndDrawer) getActivity();
         final Classroom classroom = activity.getClassroom();
 
-        // TODO confirm by input classroom name?
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);
-        builder.setMessage(R.string.alert_message_delete_classroom);
-        builder.setTitle(R.string.alert_title_delete_classroom);
-        builder.setPositiveButton(R.string.alert_option_delete, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                new UpdateClassroomModelAsyncTask(AppDatabase.getInstance(activity.getApplicationContext()), UpdateClassroomModelAsyncTask.ActionType.DELETE, classroom, new UpdateClassroomModelAsyncTask.PostExecute() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final View view = getLayoutInflater().inflate(R.layout.dialog_classroom_name, null);
+        builder.setView(view)
+                .setTitle(R.string.alert_title_delete_classroom)
+                .setMessage(String.format(getString(R.string.alert_message_delete_classroom), classroom.getName()))
+                .setPositiveButton(R.string.alert_option_delete, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onPostExecute(Boolean modelSaved, Classroom classroom) {
-                        // deleting classroom triggers return to index
-                        startClassroomIndexActivity();
+                    public void onClick(DialogInterface dialog, int id) {
+                        String classroomName = ((EditText) view.findViewById(R.id.editTextClassroomName)).getText().toString();
+                        Log.d(Constants.LOG_TAG, String.format("dialog_classroom_name onClick positive; name='%s'", classroomName));
+
+                        // confirm deletion by checking input with class name
+                        if (classroom.getName().equals(classroomName)) {
+                            new UpdateClassroomModelAsyncTask(AppDatabase.getInstance(activity.getApplicationContext()), UpdateClassroomModelAsyncTask.ActionType.DELETE, classroom, new UpdateClassroomModelAsyncTask.PostExecute() {
+                                @Override
+                                public void onPostExecute(Boolean modelSaved, Classroom classroom) {
+                                    // deleting classroom triggers return to index
+                                    startClassroomIndexActivity();
+                                }
+                            }).execute();
+                        } else {
+                            Toast.makeText(getContext(), R.string.toast_delete_classroom_message, Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }).execute();
-            }
-        });
-        builder.setNegativeButton(R.string.alert_option_cancel, null);
+                })
+                .setNegativeButton(R.string.alert_option_cancel, null);
         builder.create().show();
     }
 
