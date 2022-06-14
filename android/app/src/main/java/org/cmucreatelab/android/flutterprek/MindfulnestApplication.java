@@ -50,8 +50,7 @@ public class MindfulnestApplication extends Application implements LifecycleObse
     public void onEnterForeground() {
         Log.v(Constants.LOG_TAG, "MindfulnestApplication.onEnterForeground");
         GlobalHandler globalHandler = GlobalHandler.getInstance(getApplicationContext());
-        //globalHandler.endCurrentSession(getApplicationContext());
-        globalHandler.endCurrentSessionOnEnterForeground();
+        globalHandler.onEnterForeground();
     }
 
 

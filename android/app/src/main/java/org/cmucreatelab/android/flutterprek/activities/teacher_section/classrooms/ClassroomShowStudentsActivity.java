@@ -13,7 +13,6 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherClassroomFragment;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.LoginActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentAddActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -39,20 +38,6 @@ public class ClassroomShowStudentsActivity extends ManageClassroomActivityWithHe
             studentEditActivity.putExtra(StudentEditActivity.EXTRA_STUDENT, studentWithCustomizations.student);
             studentEditActivity.putExtra(StudentEditActivity.EXTRA_CLASSROOM_NAME, classroomName);
             startActivity(studentEditActivity);
-
-            // TODO actions
-//            // track selection with GlobalHandler
-//            GlobalHandler globalHandler = GlobalHandler.getInstance(getApplicationContext());
-//            globalHandler.studentSectionNavigationHandler.studentUuid = student.getUuid();
-//            globalHandler.studentSectionNavigationHandler.imageUuid = student.getPictureFileUuid();
-//
-//            // start new session for student
-//            globalHandler.startNewSession(studentWithCustomizations);
-//
-//            // send to next activity
-//            //Intent chooseEmotionActivity = new Intent(ChooseStudentActivity.this, ChooseEmotionActivity.class);
-//            Intent chooseEmotionActivity = globalHandler.getSessionTracker().getNextIntent(ClassroomShowActivity.this);
-//            startActivity(chooseEmotionActivity);
         }
     };
 
@@ -97,30 +82,8 @@ public class ClassroomShowStudentsActivity extends ManageClassroomActivityWithHe
 
 
     @Override
-    public void onClickImageStudent() {
-        if (!activityShouldHandleOnClickEvents()) {
-            Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
-            return;
-        }
-        startActivity(new Intent(this, LoginActivity.class));
-    }
-
-
-    @Override
     public DrawerTeacherClassroomFragment.Section getSectionForDrawer() {
         return DrawerTeacherClassroomFragment.Section.STUDENTS;
     }
-
-
-//    @Override
-//    public void updateImageStudent(AppCompatActivity activity) {
-//        ((ImageView)findViewById(R.id.imageStudent)).setBackgroundResource(R.drawable.ic_mindfulnest_header_student_section);
-//    }
-//
-//
-//    @Override
-//    public boolean isInfoIconVisible() {
-//        return true;
-//    }
 
 }

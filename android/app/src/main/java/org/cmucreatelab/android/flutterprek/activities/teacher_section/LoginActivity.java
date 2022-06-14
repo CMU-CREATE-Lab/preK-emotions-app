@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomIndexActivity;
 
 public class LoginActivity extends TeacherSectionActivityWithHeader {
 
@@ -71,7 +72,7 @@ public class LoginActivity extends TeacherSectionActivityWithHeader {
             ((EditText)findViewById(R.id.editTextPassword)).setText("");
 
             // proceed to teacher section
-            startActivity(new Intent(this, ActiveClassroomIndexActivity.class));
+            startActivity(new Intent(this, ClassroomIndexActivity.class));
 
             // TODO find new use for this class?
             //startActivity(new Intent(this, StudentIndexActivity.class));
