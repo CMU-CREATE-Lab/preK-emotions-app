@@ -178,6 +178,7 @@ public class DrawerTeacherClassroomFragment extends AbstractFragment {
                 Intent classroomShowStatsActivity = new Intent(getContext(), ClassroomShowStatsActivity.class);
                 ManageClassroomActivityWithHeaderAndDrawer activity = (ManageClassroomActivityWithHeaderAndDrawer) getActivity();
                 classroomShowStatsActivity.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, activity.getClassroom());
+                classroomShowStatsActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(classroomShowStatsActivity);
             }
         });
@@ -187,6 +188,7 @@ public class DrawerTeacherClassroomFragment extends AbstractFragment {
                 Intent classroomShowStudentsActivity = new Intent(getContext(), ClassroomShowStudentsActivity.class);
                 ManageClassroomActivityWithHeaderAndDrawer activity = (ManageClassroomActivityWithHeaderAndDrawer) getActivity();
                 classroomShowStudentsActivity.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, activity.getClassroom());
+                classroomShowStudentsActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(classroomShowStudentsActivity);
             }
         });

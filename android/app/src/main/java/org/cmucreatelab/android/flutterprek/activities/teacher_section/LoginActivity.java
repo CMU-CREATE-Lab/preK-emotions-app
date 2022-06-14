@@ -9,7 +9,6 @@ import android.widget.EditText;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.session_index.SessionIndexActivity;
 
 public class LoginActivity extends TeacherSectionActivityWithHeader {
 
@@ -70,9 +69,13 @@ public class LoginActivity extends TeacherSectionActivityWithHeader {
             findViewById(R.id.textViewErrorPrompt).setVisibility(View.INVISIBLE);
             // clear the text field
             ((EditText)findViewById(R.id.editTextPassword)).setText("");
-//            // proceed to teacher section
-//            startActivity(new Intent(this, SessionIndexActivity.class));
-            startActivity(new Intent(this, StudentIndexActivity.class));
+
+            // proceed to teacher section
+            startActivity(new Intent(this, ActiveClassroomIndexActivity.class));
+
+            // TODO find new use for this class?
+            //startActivity(new Intent(this, StudentIndexActivity.class));
+
             finish();
         } else {
             findViewById(R.id.textViewErrorPrompt).setVisibility(View.VISIBLE);

@@ -65,6 +65,7 @@ public class DrawerTeacherMainFragment extends AbstractFragment {
             @Override
             public void onClick(View v) {
                 Intent activeClassroomsIndexActivity = new Intent(getContext(), ActiveClassroomIndexActivity.class);
+                activeClassroomsIndexActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(activeClassroomsIndexActivity);
             }
         });
@@ -72,6 +73,7 @@ public class DrawerTeacherMainFragment extends AbstractFragment {
             @Override
             public void onClick(View v) {
                 Intent classroomsIndexActivity = new Intent(getContext(), ClassroomIndexActivity.class);
+                classroomsIndexActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(classroomsIndexActivity);
             }
         });
@@ -79,6 +81,7 @@ public class DrawerTeacherMainFragment extends AbstractFragment {
             @Override
             public void onClick(View v) {
                 Intent copingSkillsIndexActivity = new Intent(getContext(), CopingSkillIndexActivity.class);
+                copingSkillsIndexActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(copingSkillsIndexActivity);
             }
         });
@@ -86,6 +89,7 @@ public class DrawerTeacherMainFragment extends AbstractFragment {
             @Override
             public void onClick(View v) {
                 Intent emotionsIndexActivity = new Intent(getContext(), EmotionIndexActivity.class);
+                emotionsIndexActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(emotionsIndexActivity);
             }
         });

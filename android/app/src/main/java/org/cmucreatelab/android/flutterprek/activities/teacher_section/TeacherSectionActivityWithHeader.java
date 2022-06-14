@@ -38,7 +38,8 @@ public abstract class TeacherSectionActivityWithHeader extends AbstractActivity 
         }
         // bring to student section by default
         Intent intent = new Intent(this, ChooseStudentActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        // clear the stack entirely and create new root: https://stackoverflow.com/questions/7075349/android-clear-activity-stack
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

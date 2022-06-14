@@ -114,7 +114,7 @@
         <TextView
             android:id="@+id/textViewStudents"
             style="@style/DrawerTeacherSectionText"
-            android:text="@string/mindfulnest_header_classes"
+            android:text="@string/classroom_header_students"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@+id/highlightViewStudents"
             app:layout_constraintEnd_toEndOf="parent"
