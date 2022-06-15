@@ -9,7 +9,7 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.fragments.AppHeaderFragment;
-import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseClassroomActivity;
 
 public abstract class TeacherSectionActivityWithHeader extends AbstractActivity {
 
@@ -37,7 +37,7 @@ public abstract class TeacherSectionActivityWithHeader extends AbstractActivity 
             return;
         }
         // bring to student section by default
-        Intent intent = new Intent(this, ChooseStudentActivity.class);
+        Intent intent = new Intent(this, ChooseClassroomActivity.class);
         // clear the stack entirely and create new root: https://stackoverflow.com/questions/7075349/android-clear-activity-stack
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
