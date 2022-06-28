@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
@@ -88,6 +89,8 @@ public abstract class StudentUpdateAbstractActivity extends AbstractActivity {
 
 
     private void startCameraActivityForResult() {
+        GlobalHandler.getInstance(getApplicationContext()).isRunningActivityForImageResult = true;
+
         Intent cameraIntent = new Intent(StudentUpdateAbstractActivity.this, CameraActivity.class);
         String filename = String.format("%s_%d", student.getUuid(), Util.getCurrentTimestamp());
         cameraIntent.putExtra(CameraActivity.EXTRA_PICTURE_FILENAME, filename);
@@ -238,6 +241,8 @@ public abstract class StudentUpdateAbstractActivity extends AbstractActivity {
 
         switch (requestCode) {
             case CameraActivity.REQUEST_CODE:
+                GlobalHandler.getInstance(getApplicationContext()).isRunningActivityForImageResult = false;
+
                 if (resultCode == Activity.RESULT_OK) {
                     Log.d(Constants.LOG_TAG, "got RESULT_OK from CameraActivity, updating picture");
                     File picture = (File) data.getExtras().getSerializable(CameraActivity.EXTRA_RESULT_PICTURE);

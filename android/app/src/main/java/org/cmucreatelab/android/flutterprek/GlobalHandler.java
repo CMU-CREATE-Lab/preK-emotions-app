@@ -29,7 +29,10 @@ public class GlobalHandler {
     public BleWand bleWand;
     public final StudentSectionNavigationHandler studentSectionNavigationHandler;
     public final DeviceConnectionHandler deviceConnectionHandler;
+
     private SessionTracker sessionTracker;
+
+    public boolean isTeacherMode = false, isRunningActivityForImageResult = false;
 
 
     private GlobalHandler(Context context) {
@@ -115,16 +118,22 @@ public class GlobalHandler {
     public boolean onEnterForeground() {
         boolean result = false;
 
-        // cleanly end current session, if active
-        if (currentSessionIsActive()) {
-            result = sessionTracker.endSession();
-        }
+        // no longer ends session when device sleeps (see #113)
+//        // cleanly end current session, if active
+//        if (currentSessionIsActive()) {
+//            result = sessionTracker.endSession();
+//        }
 
-        // always go back to launch screen when returning from the foreground
-        Intent intent = new Intent(appContext, ChooseClassroomActivity.class);
-        // clear the stack entirely and create new root: https://stackoverflow.com/questions/7075349/android-clear-activity-stack
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        appContext.startActivity(intent);
+        // check mode before returning to launch screen
+        if (isTeacherMode && !isRunningActivityForImageResult) {
+            // go back to launch screen when returning from the foreground
+            Intent intent = new Intent(appContext, ChooseClassroomActivity.class);
+            // clear the stack entirely and create new root: https://stackoverflow.com/questions/7075349/android-clear-activity-stack
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            appContext.startActivity(intent);
+
+            result = true;
+        }
 
         return result;
     }

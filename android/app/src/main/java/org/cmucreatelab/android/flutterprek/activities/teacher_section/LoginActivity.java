@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomIndexActivity;
 
@@ -42,6 +43,8 @@ public class LoginActivity extends TeacherSectionActivityWithHeader {
                 finish();
             }
         });
+
+        GlobalHandler.getInstance(getApplicationContext()).isTeacherMode = true;
     }
 
 
@@ -57,6 +60,7 @@ public class LoginActivity extends TeacherSectionActivityWithHeader {
             Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
             return;
         }
+        GlobalHandler.getInstance(getApplicationContext()).isTeacherMode = false;
         finish();
     }
 

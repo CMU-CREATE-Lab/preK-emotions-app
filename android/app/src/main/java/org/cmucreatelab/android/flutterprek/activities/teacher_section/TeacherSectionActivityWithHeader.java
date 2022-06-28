@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.fragments.AppHeaderFragment;
@@ -36,6 +37,9 @@ public abstract class TeacherSectionActivityWithHeader extends AbstractActivity 
             Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
             return;
         }
+
+        GlobalHandler.getInstance(getApplicationContext()).isTeacherMode = false;
+
         // bring to student section by default
         Intent intent = new Intent(this, ChooseClassroomActivity.class);
         // clear the stack entirely and create new root: https://stackoverflow.com/questions/7075349/android-clear-activity-stack
