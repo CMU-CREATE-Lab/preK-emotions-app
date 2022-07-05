@@ -11,6 +11,7 @@ import android.widget.TextView;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.ActiveClassroomIndexActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.settings.SettingsMainActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSkillIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.EmotionIndexActivity;
@@ -24,7 +25,8 @@ public class DrawerTeacherMainFragment extends AbstractFragment {
         ACTIVE_CLASS,
         CLASSES,
         COPING_SKILLS,
-        EMOTIONS
+        EMOTIONS,
+        SETTINGS
     }
 
 
@@ -47,6 +49,10 @@ public class DrawerTeacherMainFragment extends AbstractFragment {
             case EMOTIONS:
                 highlightView = getView().findViewById(R.id.highlightViewEmotions);
                 textView = getView().findViewById(R.id.textViewEmotions);
+                break;
+            case SETTINGS:
+                highlightView = getView().findViewById(R.id.highlightViewSettings);
+                textView = getView().findViewById(R.id.textViewSettings);
                 break;
             default:
                 Log.e(Constants.LOG_TAG, "could not recognize section=" + section.name());
@@ -91,6 +97,14 @@ public class DrawerTeacherMainFragment extends AbstractFragment {
                 Intent emotionsIndexActivity = new Intent(getContext(), EmotionIndexActivity.class);
                 emotionsIndexActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(emotionsIndexActivity);
+            }
+        });
+        view.findViewById(R.id.constraintRow5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent settingsActivity = new Intent(getContext(), SettingsMainActivity.class);
+                settingsActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(settingsActivity);
             }
         });
     }

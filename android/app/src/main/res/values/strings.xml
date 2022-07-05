@@ -28,6 +28,7 @@
     <string name="mindfulnest_header_classes">Classes</string>
     <string name="mindfulnest_header_coping_skills">Coping Skills</string>
     <string name="mindfulnest_header_emotions">Emotions</string>
+    <string name="mindfulnest_header_settings">Settings</string>
     <string name="classroom_header_stats">Stats</string>
     <string name="classroom_header_students">Students</string>
     <string name="classroom_header_coping_skills">Coping Skills</string>
@@ -76,5 +77,7 @@
     <string name="alert_option_cancel">Cancel</string>
     <string name="alert_option_create">Create</string>
     <string name="alert_option_save">Save</string>
+    <string name="teacher_section_settings_change_password"><u>Change Password</u></string>
+    <string name="teacher_section_settings_configure_pairing_mode"><u>Configure Pairing Mode</u></string>
     <string name="empty"></string>
 </resources>

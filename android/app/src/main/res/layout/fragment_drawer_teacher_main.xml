@@ -68,7 +68,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintRow3"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/drawer_title_margin"
@@ -98,7 +98,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintRow4"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/drawer_title_margin"
@@ -124,4 +124,34 @@
             app:layout_constraintTop_toTopOf="@+id/highlightViewEmotions" />
 
     </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintRow5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/drawer_title_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintRow4">
+
+        <View
+            android:id="@+id/highlightViewSettings"
+            style="@style/DrawerTeacherSectionHighlighted"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewSettings"
+            style="@style/DrawerTeacherSectionText"
+            android:text="@string/mindfulnest_header_settings"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/highlightViewSettings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/highlightViewSettings"
+            app:layout_constraintTop_toTopOf="@+id/highlightViewSettings" />
+
+    </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>
