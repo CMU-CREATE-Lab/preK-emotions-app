@@ -3,6 +3,7 @@ package org.cmucreatelab.android.flutterprek;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
@@ -53,6 +54,11 @@ public class GlobalHandler {
             classInstance = new GlobalHandler(context);
         }
         return classInstance;
+    }
+
+
+    public static synchronized SharedPreferences getSharedPreferences(Context context) {
+        return getInstance(context).appContext.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 
 

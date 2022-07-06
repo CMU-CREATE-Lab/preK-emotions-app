@@ -1,5 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.settings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -26,6 +27,13 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
     private BluetoothSettings flowerBleSettings, squeezeBleSettings, wandBleSettings;
 
 
+    // TODO demo helper function, delete later
+    private void temp() {
+        Intent settingsBleActivity = new Intent(getApplicationContext(), SettingsBleActivity.class);
+        startActivity(settingsBleActivity);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,26 +46,31 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
         flowerBleSettings.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Flower", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Flower", Toast.LENGTH_SHORT).show();
+                temp();
             }
         });
         squeezeBleSettings.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Squeeze", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Squeeze", Toast.LENGTH_SHORT).show();
+                temp();
             }
         });
         wandBleSettings.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Wand", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Wand", Toast.LENGTH_SHORT).show();
+                temp();
             }
         });
 
         findViewById(R.id.textButtonChangePassword).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Change Password", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Change Password", Toast.LENGTH_SHORT).show();
+                Intent settingsPasswordActivity = new Intent(getApplicationContext(), SettingsPasswordActivity.class);
+                startActivity(settingsPasswordActivity);
             }
         });
     }

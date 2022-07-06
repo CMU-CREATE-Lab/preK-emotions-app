@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorOffWhite" >
+
+        <fragment
+            android:id="@+id/appHeader"
+            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.AppHeaderFragment"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="65sp" />
+
+        <fragment
+            android:id="@+id/drawerTeacherMain"
+            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment"
+            android:layout_width="205sp"
+            android:layout_height="0sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appHeader" />
+
+
+        <ImageView
+            android:id="@+id/imageButtonBackArrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:tint="#1c8773"
+            android:src="@mipmap/ic_arrow_back"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toEndOf="@+id/drawerTeacherMain"
+            app:layout_constraintTop_toBottomOf="@+id/appHeader"
+            />
+
+        <TextView
+            android:id="@+id/textViewBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back to Settings"
+            android:textSize="14dp"
+            android:textColor="#1c8773"
+            android:clickable="true"
+            app:layout_constraintStart_toEndOf="@+id/imageButtonBackArrow"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonBackArrow" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/colorLightGray"
+            android:layout_margin="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/drawerTeacherMain"
+            app:layout_constraintTop_toBottomOf="@+id/imageButtonBackArrow" >
+
+            <TextView
+                android:id="@+id/textViewNewPasswordPrompt"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:lines="2"
+                android:gravity="center"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="16sp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/teacher_password_prompt" />
+
+            <EditText
+                android:id="@+id/editTextNewPassword"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_margin="20dp"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:background="@drawable/background_text_input" />
+
+            <Button
+                android:id="@+id/buttonSave"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_button"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:text="Save" />
+
+            <TextView
+                android:id="@+id/textViewErrorPrompt"
+                android:visibility="invisible"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:lines="1"
+                android:gravity="center"
+                android:textColor="@color/colorError"
+                android:textSize="16sp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/teacher_password_error" />
+
+            <!-- custom radio buttons: https://stackoverflow.com/questions/19163628/adding-custom-radio-buttons-in-android -->
+            <RadioGroup
+                android:background="@drawable/background_block_radio_group"
+                android:id="@+id/daily_weekly_button_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <RadioButton
+                    android:id="@+id/radio0"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/block_radio_selector"
+                    android:button="@android:color/transparent"
+                    android:checked="true"
+                    android:paddingStart="9dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="6dp"
+                    android:layout_margin="5dp"
+                    android:text="Automatic"
+                    android:textSize="16sp"
+                    android:textColor="@drawable/block_radio_text_selector" />
+                <RadioButton
+                    android:id="@+id/radio1"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/block_radio_selector"
+                    android:button="@android:color/transparent"
+                    android:paddingStart="9dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="6dp"
+                    android:layout_margin="5dp"
+                    android:text="Manual"
+                    android:textSize="16sp"
+                    android:textColor="@drawable/block_radio_text_selector" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -10,6 +10,8 @@ public class Constants {
     public static final String LOG_TAG = "flutterprek";
     public static final String BLE_LOG_TAG = "ble_flutterprek";
 
+    public static final String SHARED_PREFERENCES_NAME = "sharedpreferences_flutterprek";
+
     /** Determines if the flower activity should display the debug window (shows BLE name and last message received). */
     public static final boolean FLOWER_SHOW_DEBUG_WINDOW = false;
     public static final boolean SQUEEZE_SHOW_DEBUG_WINDOW = false;

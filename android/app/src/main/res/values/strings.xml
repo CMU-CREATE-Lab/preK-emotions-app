@@ -79,5 +79,7 @@
     <string name="alert_option_save">Save</string>
     <string name="teacher_section_settings_change_password"><u>Change Password</u></string>
     <string name="teacher_section_settings_configure_pairing_mode"><u>Configure Pairing Mode</u></string>
+    <string name="teacher_password_prompt">Please enter a new password and click save to confirm.</string>
+    <string name="teacher_password_error">Invalid password. Please choose another password.</string>
     <string name="empty"></string>
 </resources>
