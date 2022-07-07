@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
@@ -27,10 +26,18 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
     private BluetoothSettings flowerBleSettings, squeezeBleSettings, wandBleSettings;
 
 
-    // TODO demo helper function, delete later
-    private void temp() {
+    private void startSettingsBleActivity(SettingsBleActivity.DeviceType deviceType) {
         Intent settingsBleActivity = new Intent(getApplicationContext(), SettingsBleActivity.class);
+        settingsBleActivity.putExtra(SettingsBleActivity.EXTRA_DEVICE, new SettingsBleActivity.Device(deviceType));
         startActivity(settingsBleActivity);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // TODO update views for pairing modes on device types
     }
 
 
@@ -46,29 +53,25 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
         flowerBleSettings.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(), "Flower", Toast.LENGTH_SHORT).show();
-                temp();
+                startSettingsBleActivity(SettingsBleActivity.DeviceType.FLOWER);
             }
         });
         squeezeBleSettings.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(), "Squeeze", Toast.LENGTH_SHORT).show();
-                temp();
+                startSettingsBleActivity(SettingsBleActivity.DeviceType.SQUEEZE);
             }
         });
         wandBleSettings.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(), "Wand", Toast.LENGTH_SHORT).show();
-                temp();
+                startSettingsBleActivity(SettingsBleActivity.DeviceType.WAND);
             }
         });
 
         findViewById(R.id.textButtonChangePassword).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(), "Change Password", Toast.LENGTH_SHORT).show();
                 Intent settingsPasswordActivity = new Intent(getApplicationContext(), SettingsPasswordActivity.class);
                 startActivity(settingsPasswordActivity);
             }
