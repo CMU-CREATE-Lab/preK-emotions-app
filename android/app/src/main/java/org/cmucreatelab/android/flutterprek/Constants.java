@@ -12,6 +12,12 @@ public class Constants {
 
     public static final String SHARED_PREFERENCES_NAME = "sharedpreferences_flutterprek";
 
+    public static final String DEFAULT_TEACHER_PASSWORD = "admin";
+
+    public static final class PreferencesKeys {
+        public static final String teacherPassword = "teacher_password";
+    }
+
     /** Determines if the flower activity should display the debug window (shows BLE name and last message received). */
     public static final boolean FLOWER_SHOW_DEBUG_WINDOW = false;
     public static final boolean SQUEEZE_SHOW_DEBUG_WINDOW = false;

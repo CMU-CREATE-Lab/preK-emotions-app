@@ -16,9 +16,9 @@ public class LoginActivity extends TeacherSectionActivityWithHeader {
 
 
     private boolean checkPassword() {
-        String password = ((EditText)findViewById(R.id.editTextPassword)).getText().toString();
-        // TODO replace with password from SharedPreferences
-        return password.equals("admin");
+        String input = ((EditText)findViewById(R.id.editTextPassword)).getText().toString();
+        String password = GlobalHandler.getSharedPreferences(getApplicationContext()).getString(Constants.PreferencesKeys.teacherPassword, Constants.DEFAULT_TEACHER_PASSWORD);
+        return input.equals(password);
     }
 
 
