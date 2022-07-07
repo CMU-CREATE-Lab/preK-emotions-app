@@ -53,72 +53,38 @@
             app:layout_constraintTop_toTopOf="@+id/imageButtonBackArrow" />
 
         <LinearLayout
+            android:id="@+id/linearLayoutSettingsDescription"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center"
-            android:background="@color/colorLightGray"
             android:layout_margin="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/drawerTeacherMain"
             app:layout_constraintTop_toBottomOf="@+id/imageButtonBackArrow" >
 
             <TextView
-                android:id="@+id/textViewNewPasswordPrompt"
-                android:layout_width="350dp"
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:lines="2"
-                android:gravity="center"
-                android:textColor="@color/colorDarkGray"
-                android:textSize="16sp"
-                android:fontFamily="@font/source_sans_pro"
-                android:text="@string/teacher_password_prompt" />
-
-            <EditText
-                android:id="@+id/editTextNewPassword"
-                android:layout_width="350dp"
-                android:layout_height="50dp"
-                android:layout_margin="20dp"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:background="@drawable/background_text_input" />
-
-            <Button
-                android:id="@+id/buttonSave"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_button"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:text="Save" />
-
-            <TextView
-                android:id="@+id/textViewErrorPrompt"
-                android:visibility="invisible"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:lines="1"
-                android:gravity="center"
-                android:textColor="@color/colorError"
-                android:textSize="16sp"
-                android:fontFamily="@font/source_sans_pro"
-                android:text="@string/teacher_password_error" />
+                android:text="DeviceName Bluetooth Settings"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:textColor="#4a4a4a"
+                android:layout_marginBottom="20dp"
+                />
 
             <!-- custom radio buttons: https://stackoverflow.com/questions/19163628/adding-custom-radio-buttons-in-android -->
             <RadioGroup
+                android:id="@+id/blockRadioGroupPairingMode"
                 android:background="@drawable/background_block_radio_group"
-                android:id="@+id/daily_weekly_button_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                >
                 <RadioButton
                     android:id="@+id/radio0"
                     android:layout_width="wrap_content"
@@ -126,7 +92,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/block_radio_selector"
                     android:button="@android:color/transparent"
-                    android:checked="true"
                     android:paddingStart="9dp"
                     android:paddingTop="8dp"
                     android:paddingEnd="10dp"
@@ -142,6 +107,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/block_radio_selector"
                     android:button="@android:color/transparent"
+                    android:checked="true"
                     android:paddingStart="9dp"
                     android:paddingTop="8dp"
                     android:paddingEnd="10dp"
@@ -152,8 +118,74 @@
                     android:textColor="@drawable/block_radio_text_selector" />
             </RadioGroup>
 
+            <TextView
+                android:id="@+id/textViewHeaderDeviceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Device SSID: FLOWER-123X"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#4a4a4a"
+                />
+
+            <TextView
+                android:id="@+id/textViewPairingModePrompt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="16sp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/ble_settings_pairing_mode_manual_description" />
+
         </LinearLayout>
 
+
+        <TextView
+            android:id="@+id/textViewHeaderScannedDevices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available Bluetooth devices:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#4a4a4a"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="@id/linearLayoutSettingsDescription"
+            app:layout_constraintTop_toBottomOf="@id/linearLayoutSettingsDescription"
+            />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewScannedDevices"
+            android:background="@color/colorWhite"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/textViewHeaderScannedDevices"
+            app:layout_constraintStart_toStartOf="@id/linearLayoutSettingsDescription"
+            app:layout_constraintBottom_toTopOf="@id/textViewButtonEnterDeviceName"
+            app:layout_constraintEnd_toEndOf="@id/linearLayoutSettingsDescription"
+            />
+
+
+        <TextView
+            android:id="@+id/textViewButtonEnterDeviceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#5bddc5"
+            android:textSize="16dp"
+            android:text="@string/ble_settings_button_enter_device_name"
+            android:clickable="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintStart_toStartOf="@id/linearLayoutSettingsDescription"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
     </android.support.constraint.ConstraintLayout>
 
