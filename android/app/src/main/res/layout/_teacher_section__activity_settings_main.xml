@@ -90,44 +90,10 @@
                         style="@style/TeacherSectionSettingsText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pairing Mode:  Automatic" />
+                        android:text="@string/teacher_section_settings_pairing_mode_automatic" />
 
                     <TextView
                         android:id="@+id/textButtonBleSettingsFlower"
-                        android:layout_marginStart="20dp"
-                        style="@style/TeacherSectionSettingsTextButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/teacher_section_settings_configure_pairing_mode" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayoutSectionBleSettingsSqueeze"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="40dp"
-                    app:layout_constraintTop_toBottomOf="@id/linearLayoutSectionBleSettingsFlower"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:id="@+id/textViewHeaderBleSettingsSqueeze"
-                        style="@style/TeacherSectionSettingsTextHeader"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Squeeze Bluetooth Settings" />
-
-                    <TextView
-                        android:id="@+id/textViewBleSettingsSqueeze"
-                        android:layout_marginStart="20dp"
-                        style="@style/TeacherSectionSettingsText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Pairing Mode:  Automatic" />
-
-                    <TextView
-                        android:id="@+id/textButtonBleSettingsSqueeze"
                         android:layout_marginStart="20dp"
                         style="@style/TeacherSectionSettingsTextButton"
                         android:layout_width="match_parent"
@@ -141,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="40dp"
-                    app:layout_constraintTop_toBottomOf="@id/linearLayoutSectionBleSettingsSqueeze"
+                    app:layout_constraintTop_toBottomOf="@id/linearLayoutSectionBleSettingsFlower"
                     app:layout_constraintStart_toStartOf="parent"
                     android:orientation="vertical" >
 
@@ -158,10 +124,44 @@
                         style="@style/TeacherSectionSettingsText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pairing Mode:  Automatic" />
+                        android:text="@string/teacher_section_settings_pairing_mode_automatic" />
 
                     <TextView
                         android:id="@+id/textButtonBleSettingsWand"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsTextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/teacher_section_settings_configure_pairing_mode" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutSectionBleSettingsSqueeze"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="40dp"
+                    app:layout_constraintTop_toBottomOf="@id/linearLayoutSectionBleSettingsWand"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textViewHeaderBleSettingsSqueeze"
+                        style="@style/TeacherSectionSettingsTextHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Squeeze Bluetooth Settings" />
+
+                    <TextView
+                        android:id="@+id/textViewBleSettingsSqueeze"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/teacher_section_settings_pairing_mode_automatic" />
+
+                    <TextView
+                        android:id="@+id/textButtonBleSettingsSqueeze"
                         android:layout_marginStart="20dp"
                         style="@style/TeacherSectionSettingsTextButton"
                         android:layout_width="match_parent"

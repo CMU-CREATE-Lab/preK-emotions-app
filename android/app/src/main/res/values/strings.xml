@@ -77,12 +77,19 @@
     <string name="alert_option_cancel">Cancel</string>
     <string name="alert_option_create">Create</string>
     <string name="alert_option_save">Save</string>
+    <string name="alert_option_confirm">Confirm</string>
     <string name="teacher_section_settings_change_password"><u>Change Password</u></string>
     <string name="teacher_section_settings_configure_pairing_mode"><u>Configure Pairing Mode</u></string>
+    <string name="teacher_section_settings_pairing_mode_automatic">Pairing Mode:  Automatic</string>
+    <string name="teacher_section_settings_pairing_mode_manual">Pairing Mode:  Manual (%s)</string>
     <string name="teacher_password_prompt">Please enter a new password and click save to confirm.</string>
     <string name="teacher_password_error">Invalid password. Please choose another password.</string>
     <string name="ble_settings_pairing_mode_automatic_description">BLE pairing for this device type is in automatic mode, which means that the app will connect to the first device that is broadcasting.</string>
     <string name="ble_settings_pairing_mode_manual_description">BLE pairing for this device type is in manual mode, which means that the app will only connect to a device broadcasting with the matching SSID. Select a nearby device from the list below or manually enter a device SSID.</string>
     <string name="ble_settings_button_enter_device_name"><u>Enter a device name manually</u></string>
+    <string name="alert_title_ble_select">Confirm Device SSID</string>
+    <string name="alert_message_ble_select">Set default SSID to \'%s\'?</string>
+    <string name="alert_title_ble_manual">Manual Device SSID</string>
+    <string name="alert_message_ble_manual">Please enter an SSID and click to confirm.</string>
     <string name="empty"></string>
 </resources>
