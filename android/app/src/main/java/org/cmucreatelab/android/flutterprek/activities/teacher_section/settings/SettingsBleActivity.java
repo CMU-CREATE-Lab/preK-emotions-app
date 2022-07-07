@@ -1,5 +1,12 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.settings;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanResult;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +26,9 @@ import java.io.Serializable;
 public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDrawer {
 
     public static final String EXTRA_DEVICE = "device";
+
+    private static final int PERMISSION_REQUEST_COARSE_LOCATION = 456; //Arbitrary, but needs to be unique
+    private static final int REQUEST_ENABLE_BT = 1;
 
     public enum PairingMode {
         AUTOMATIC,
@@ -72,6 +82,17 @@ public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDraw
     private TextView textViewButtonEnterDeviceName;
 
     private Device device;
+    private BluetoothAdapter bluetoothAdapter;
+
+    private final ScanCallback scanCallback = new ScanCallback() {
+        @Override
+        public void onScanResult(int callbackType, ScanResult result) {
+            BluetoothDevice device = result.getDevice();
+            Log.d(Constants.LOG_TAG,"onLeScan result: " + device.getName());
+            // TODO scanListAdapter.addToList(device);
+            super.onScanResult(callbackType, result);
+        }
+    };
 
 
     private void setPairingMode(PairingMode pairingMode) {
@@ -83,11 +104,13 @@ public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDraw
                 promptResourceId = R.string.ble_settings_pairing_mode_manual_description;
                 visibility = View.VISIBLE;
                 // TODO textViewHeaderDeviceName set string "Device SSID: <name>"
+                prepareLeScanning(true);
                 break;
             case AUTOMATIC:
             default:
                 promptResourceId = R.string.ble_settings_pairing_mode_automatic_description;
                 visibility = View.INVISIBLE;
+                prepareLeScanning(false);
                 break;
         }
 
@@ -96,6 +119,43 @@ public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDraw
         textViewHeaderScannedDevices.setVisibility(visibility);
         recyclerViewScannedDevices.setVisibility(visibility);
         textViewButtonEnterDeviceName.setVisibility(visibility);
+    }
+
+
+    private synchronized void prepareLeScanning(boolean startScan) {
+        Log.d(Constants.LOG_TAG,"SettingsBleActivity.prepareLeScanning()");
+        // TODO not sure if this code is still relevant with current SDK and location permissions (scanning code was taken from owlet)
+        // Ensures Bluetooth is available on the device and it is enabled. If not,
+        // displays a dialog requesting user permission to enable Bluetooth.
+        if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        } else {
+//            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                Log.i(Constants.LOG_TAG, "Don't have permission to do bluetooth scan.");
+//
+//                new AlertDialog.Builder(this)
+//                        .setMessage("This app needs location permissions to scan for nearby Bluetooth devices.")
+//                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                            // The previous permission check should only be able to fail on M or higher
+//                            @RequiresApi(api = Build.VERSION_CODES.M)
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION);
+//                            }
+//                        })
+//                        .show();
+//            } else {
+//                runLeScan();
+//            }
+            if (startScan) {
+                Log.d(Constants.LOG_TAG,"SettingsBleActivity.prepareLeScanning START");
+                bluetoothAdapter.getBluetoothLeScanner().startScan(scanCallback);
+            } else {
+                Log.d(Constants.LOG_TAG,"SettingsBleActivity.prepareLeScanning STOP");
+                bluetoothAdapter.getBluetoothLeScanner().stopScan(scanCallback);
+            }
+        }
     }
 
 
@@ -111,10 +171,21 @@ public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDraw
 
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        prepareLeScanning(false);
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         this.device = (Device) getIntent().getSerializableExtra(EXTRA_DEVICE);
+
+        // Initializes Bluetooth adapter.
+        final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        this.bluetoothAdapter = bluetoothManager.getAdapter();
 
         this.textViewTitle = findViewById(R.id.textViewTitle);
         this.blockRadioGroupPairingMode = findViewById(R.id.blockRadioGroupPairingMode);
