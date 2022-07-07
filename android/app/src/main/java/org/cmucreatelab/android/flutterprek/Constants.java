@@ -14,13 +14,14 @@ public class Constants {
 
     public static final String DEFAULT_TEACHER_PASSWORD = "admin";
 
+    // *PairingModeManual == false implies Automatic Pairing Mode
     public static final class PreferencesKeys {
         public static final String teacherPassword = "teacher_password";
-        public static final String flowerPairingMode = "flower_pairing_mode";
+        public static final String flowerPairingModeManual = "flower_pairing_mode_manual";
         public static final String flowerSsid = "flower_ssid";
-        public static final String wandPairingMode = "wand_pairing_mode";
+        public static final String wandPairingModeManual = "wand_pairing_mode_manual";
         public static final String wandSsid = "wand_ssid";
-        public static final String squeezePairingMode = "squeeze_pairing_mode";
+        public static final String squeezePairingModeManual = "squeeze_pairing_mode_manual";
         public static final String squeezeSsid = "squeeze_ssid";
     }
 

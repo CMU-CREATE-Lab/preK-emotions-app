@@ -8,10 +8,10 @@ import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -20,10 +20,12 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.TeacherSectionActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.ble.scan.ScanViewAdapter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDrawer {
+public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDrawer implements ScanViewAdapter.OnListInteractionListener {
 
     public static final String EXTRA_DEVICE = "device";
 
@@ -83,13 +85,14 @@ public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDraw
 
     private Device device;
     private BluetoothAdapter bluetoothAdapter;
+    private ScanViewAdapter scanViewAdapter;
 
     private final ScanCallback scanCallback = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             BluetoothDevice device = result.getDevice();
             Log.d(Constants.LOG_TAG,"onLeScan result: " + device.getName());
-            // TODO scanListAdapter.addToList(device);
+            scanViewAdapter.addToList(device);
             super.onScanResult(callbackType, result);
         }
     };
@@ -124,6 +127,8 @@ public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDraw
 
     private synchronized void prepareLeScanning(boolean startScan) {
         Log.d(Constants.LOG_TAG,"SettingsBleActivity.prepareLeScanning()");
+        scanViewAdapter.clearList();
+
         // TODO not sure if this code is still relevant with current SDK and location permissions (scanning code was taken from owlet)
         // Ensures Bluetooth is available on the device and it is enabled. If not,
         // displays a dialog requesting user permission to enable Bluetooth.
@@ -197,8 +202,9 @@ public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDraw
         this.recyclerViewScannedDevices = findViewById(R.id.recyclerViewScannedDevices);
         this.textViewButtonEnterDeviceName = findViewById(R.id.textViewButtonEnterDeviceName);
 
-        // hide the keyboard when the activity starts (selects input box by default)
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        this.scanViewAdapter = new ScanViewAdapter(new ArrayList<BluetoothDevice>(), this);
+        recyclerViewScannedDevices.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerViewScannedDevices.setAdapter(scanViewAdapter);
 
         findViewById(R.id.imageButtonBackArrow).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,9 +228,6 @@ public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDraw
         blockRadioGroupPairingMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                //Log.i(Constants.LOG_TAG, String.format("radio group onCheckedChanged: i=%d", i));
-                //Log.i(Constants.LOG_TAG, String.format("radio group onCheckedChanged: blockRadioButtonAutomatic.getId()=%d / blockRadioButtonManual.getId()=%d", blockRadioButtonAutomatic.getId(), blockRadioButtonManual.getId()));
-
                 // TODO update SharedPreferences
                 if (i == blockRadioButtonAutomatic.getId()) {
                     setPairingMode(PairingMode.AUTOMATIC);
@@ -245,6 +248,14 @@ public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDraw
     @Override
     public int getResourceIdForActivityLayout() {
         return R.layout._teacher_section__activity_settings_ble_device_with_drawer;
+    }
+
+
+    @Override
+    public void onItemSelected(BluetoothDevice item) {
+        // TODO actions for select device name
+        String deviceName = item.getName();
+        Log.d(Constants.LOG_TAG, "onItemSelected: " + deviceName);
     }
 
 }

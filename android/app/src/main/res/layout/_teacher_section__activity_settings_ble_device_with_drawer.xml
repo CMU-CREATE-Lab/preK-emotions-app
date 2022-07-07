@@ -159,6 +159,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewScannedDevices"
+            tools:listitem="@layout/fragment_scan_item"
             android:background="@color/colorWhite"
             android:layout_width="0dp"
             android:layout_height="0dp"
