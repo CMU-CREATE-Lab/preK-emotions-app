@@ -1,0 +1,127 @@
+{
+  "classrooms":
+  [
+    { "uuid": "classroom1", "name": "My Classroom" }
+  ],
+  "students":
+  [
+    { "uuid": "student1", "name": "Sample Student", "classroomUuid": "classroom1", "sequenceId": 0 }
+  ],
+  "copingSkills":
+  [
+    { "uuid": "coping_skill_14", "name": "Conduct", "imageFileUuid": "ic_conducting" },
+    { "uuid": "coping_skill_18", "name": "Cuddle", "imageFileUuid": "ic_cuddle_alternative" },
+    { "uuid": "coping_skill_1", "name": "Flower Breathing", "imageFileUuid": "ic_flower_breathing" },
+    { "uuid": "coping_skill_5", "name": "Jumping Jacks", "imageFileUuid": "ic_jumping_jacks" }
+  ],
+  "customizations": [],
+  "emotions":
+  [
+    { "name": "Happy", "uuid": "emotion1", "imageFileUuid": "ic_happy" },
+    { "name": "Sad", "uuid": "emotion2", "imageFileUuid": "ic_sad" },
+    { "name": "Mad", "uuid": "emotion3", "imageFileUuid": "ic_mad" },
+    { "name": "Scared", "uuid": "emotion5", "imageFileUuid": "ic_scared" },
+    { "name": "Excited", "uuid": "emotion6", "imageFileUuid": "ic_excited" }
+  ],
+  "sessions": [],
+  "emotionsCopingSkills":
+  [
+    { "uuid": "happy_flower", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_1", "sequenceId": 1 },
+    { "uuid": "happy_cuddle_squeeze", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_18", "sequenceId": 3 },
+    { "uuid": "happy_wand", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 },
+    { "uuid": "happy_jumping_jacks", "emotionUuid": "emotion1", "copingSkillUuid": "coping_skill_5", "sequenceId": 10 },
+
+    { "uuid": "sad_flower", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_1", "sequenceId": 1 },
+    { "uuid": "sad_cuddle_squeeze", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_18", "sequenceId": 3 },
+    { "uuid": "sad_wand", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 },
+    { "uuid": "sad_jumping_jacks", "emotionUuid": "emotion2", "copingSkillUuid": "coping_skill_5", "sequenceId": 10 },
+
+    { "uuid": "mad_flower", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_1", "sequenceId": 1 },
+    { "uuid": "mad_cuddle_squeeze", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_18", "sequenceId": 3 },
+    { "uuid": "mad_wand", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 },
+    { "uuid": "mad_jumping_jacks", "emotionUuid": "emotion3", "copingSkillUuid": "coping_skill_5", "sequenceId": 10 },
+
+    { "uuid": "scared_flower", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_1", "sequenceId": 1 },
+    { "uuid": "scared_cuddle_squeeze", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_18", "sequenceId": 3 },
+    { "uuid": "scared_wand", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 },
+    { "uuid": "scared_jumping_jacks", "emotionUuid": "emotion5", "copingSkillUuid": "coping_skill_5", "sequenceId": 10 },
+
+    { "uuid": "excited_flower", "emotionUuid": "emotion6", "copingSkillUuid": "coping_skill_1", "sequenceId": 1 },
+    { "uuid": "excited_cuddle_squeeze", "emotionUuid": "emotion6", "copingSkillUuid": "coping_skill_18", "sequenceId": 3 },
+    { "uuid": "excited_wand", "emotionUuid": "emotion6", "copingSkillUuid": "coping_skill_14", "sequenceId": 4 },
+    { "uuid": "excited_jumping_jacks", "emotionUuid": "emotion6", "copingSkillUuid": "coping_skill_5", "sequenceId": 10 }
+  ],
+  "itineraryItems":
+  [
+    { "uuid": "happy_settings", "ownerUuid": "emotion1", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\":\"It's nice to feel happy. Try one of these things when you feel happy.\",\"background-color\":\"#f3bb41\",\"audio\":\"audio_message_happy_2\",\"somethingElseMessage\":\"Would you like to try something else?\",\"somethingElseAudio\":\"audio_something_else\",\"checkInMessage\":\"It's nice to feel happy. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_happy\"}"
+    },
+    { "uuid": "mad_settings", "ownerUuid": "emotion3", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\":\"Everyone feels mad sometimes. Try one of these things when you feel mad.\",\"background-color\":\"#dc6d69\",\"audio\":\"audio_message_mad_1\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less mad?\",\"somethingElseAudio\":\"audio_something_else_mad\",\"checkInMessage\":\"Everyone feels mad sometimes. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_mad\"}"
+    },
+    { "uuid": "sad_settings", "ownerUuid": "emotion2", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\":\"It's ok to feel sad sometimes. Try one of these things when you feel sad.\",\"background-color\":\"#75adae\",\"audio\":\"audio_message_sad_2\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less sad?\",\"somethingElseAudio\":\"audio_something_else_sad\",\"checkInMessage\":\"It's ok to feel sad sometimes. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_sad\"}"
+    },
+    { "uuid": "scared_settings", "ownerUuid": "emotion5", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\":\"We all feel scared sometimes. Try one of these things when you feel scared.\",\"background-color\":\"#5790b9\",\"audio\":\"audio_message_scared_1\",\"somethingElseMessage\":\"Would you like to try something else to help you feel less scared?\",\"somethingElseAudio\":\"audio_something_else_scared\",\"checkInMessage\":\"We all feel scared sometimes. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_scared\"}"
+    },
+    { "uuid": "excited_settings", "ownerUuid": "emotion6", "sequenceId": 1, "capabilityId": "display_emotion",
+      "capabilityParameters": "{\"message\":\"It's nice to feel happy. Try one of these things when you feel happy.\",\"background-color\":\"#f3bb41\",\"audio\":\"audio_message_happy_2\",\"somethingElseMessage\":\"Would you like to try something else?\",\"somethingElseAudio\":\"audio_something_else\",\"checkInMessage\":\"It's nice to feel happy. Talk to your teacher about how you are feeling.\",\"checkInAudio\":\"audio_message_check_in_happy\"}"
+    },
+
+
+    { "uuid": "coping_skill_1_part1", "ownerUuid": "coping_skill_1", "sequenceId": 1, "capabilityId": "coping_skill_flower", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_1_part2", "ownerUuid": "coping_skill_1", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_1_part3", "ownerUuid": "coping_skill_1", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
+
+    { "uuid": "coping_skill_5_part1", "ownerUuid": "coping_skill_5", "sequenceId": 1, "capabilityId": "coping_skill_video.jumping_jacks", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_5_part2", "ownerUuid": "coping_skill_5", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_5_part3", "ownerUuid": "coping_skill_5", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
+
+    { "uuid": "coping_skill_14_part1", "ownerUuid": "coping_skill_14", "sequenceId": 1, "capabilityId": "coping_skill_wand", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_14_part2", "ownerUuid": "coping_skill_14", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_14_part3", "ownerUuid": "coping_skill_14", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" },
+
+    { "uuid": "coping_skill_18_part1", "ownerUuid": "coping_skill_18", "sequenceId": 1, "capabilityId": "coping_skill_cuddle_squeeze", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_18_part2", "ownerUuid": "coping_skill_18", "sequenceId": 2, "capabilityId": "post_coping_skill_heart_beating", "capabilityParameters": "{}" },
+    { "uuid": "coping_skill_18_part3", "ownerUuid": "coping_skill_18", "sequenceId": 3, "capabilityId": "post_coping_skill_finished_exercise", "capabilityParameters": "{}" }
+  ],
+  "sessionsCopingSkills": [],
+  "dbFiles":
+  [
+    { "uuid": "audio_message_happy_2", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_happy_2.wav" },
+    { "uuid": "audio_something_else", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else.wav" },
+    { "uuid": "audio_message_mad_1", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_mad_1.wav" },
+    { "uuid": "audio_something_else_mad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else_mad.wav" },
+    { "uuid": "audio_message_sad_2", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_sad_2.wav" },
+    { "uuid": "audio_something_else_sad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else_sad.wav" },
+    { "uuid": "audio_message_scared_1", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_scared_1.wav" },
+    { "uuid": "audio_something_else_scared", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_something_else_scared.wav" },
+    { "uuid": "audio_message_check_in_happy", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_happy.wav" },
+    { "uuid": "audio_message_check_in_mad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_mad.wav" },
+    { "uuid": "audio_message_check_in_sad", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_sad.wav" },
+    { "uuid": "audio_message_check_in_scared", "fileType": "asset_audio", "filePath": "etc/audio_prompts/audio_message_check_in_scared.wav" },
+    { "uuid": "ic_happy", "fileType": "asset_image", "filePath": "emotions/ic_happy.png" },
+    { "uuid": "ic_sad", "fileType": "asset_image", "filePath": "emotions/ic_sad.png" },
+    { "uuid": "ic_mad", "fileType": "asset_image", "filePath": "emotions/ic_mad.png" },
+    { "uuid": "ic_scared", "fileType": "asset_image", "filePath": "emotions/ic_scared.png" },
+    { "uuid": "ic_worried", "fileType": "asset_image", "filePath": "emotions/ic_worried.png" },
+    { "uuid": "ic_excited", "fileType": "asset_image", "filePath": "emotions/ic_excited.png" },
+    { "uuid": "ic_flower_breathing", "fileType": "asset_image", "filePath": "coping_skills/ic_flower_breathing.png" },
+    { "uuid": "ic_yoga", "fileType": "asset_image", "filePath": "coping_skills/ic_yoga.png" },
+    { "uuid": "ic_stretch1_wave_and_hug", "fileType": "asset_image", "filePath": "coping_skills/ic_stretch1_wave_and_hug.png" },
+    { "uuid": "ic_stretch2_rock_and_twist", "fileType": "asset_image", "filePath": "coping_skills/ic_stretch2_rock_and_twist.png" },
+    { "uuid": "ic_stretch3_spread_and_curl", "fileType": "asset_image", "filePath": "coping_skills/ic_stretch3_spread_and_curl.png" },
+    { "uuid": "ic_stretch4_swing_and_bend", "fileType": "asset_image", "filePath": "coping_skills/ic_stretch4_swing_and_bend.png" },
+    { "uuid": "ic_stretching", "fileType": "asset_image", "filePath": "coping_skills/ic_stretching.png" },
+    { "uuid": "ic_cuddle", "fileType": "asset_image", "filePath": "coping_skills/ic_cuddle.png" },
+    { "uuid": "ic_cuddle_alternative", "fileType": "asset_image", "filePath": "coping_skills/ic_cuddle_alternative.png" },
+    { "uuid": "ic_dance", "fileType": "asset_image", "filePath": "coping_skills/ic_dance.png" },
+    { "uuid": "ic_jumping_jacks", "fileType": "asset_image", "filePath": "coping_skills/ic_jumping_jacks.png" },
+    { "uuid": "ic_share", "fileType": "asset_image", "filePath": "coping_skills/ic_share.png" },
+    { "uuid": "ic_balloon_squeeze", "fileType": "asset_image", "filePath": "coping_skills/ic_balloon_squeeze.png" },
+    { "uuid": "ic_conducting", "fileType": "asset_image", "filePath": "coping_skills/ic_conducting.png" },
+    { "uuid": "ic_talk", "fileType": "asset_image", "filePath": "coping_skills/ic_talk.png" },
+    { "uuid": "ic_talk_teacher", "fileType": "asset_image", "filePath": "coping_skills/ic_talk_teacher.png" }
+  ]
+}
