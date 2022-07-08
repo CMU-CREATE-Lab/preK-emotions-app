@@ -41,7 +41,7 @@ public class BleSqueezeScanner implements UARTConnection.ConnectionListener {
         public void onScanResult(int callbackType, ScanResult result) {
             if (!isSqueezeDiscovered) {
                 BluetoothDevice device = result.getDevice();
-                if (device.getName() != null && GlobalHandler.getInstance(activity.getApplicationContext()).deviceConnectionHandler.checkIfValidBleDevice(BleSqueeze.class, device.getName())) {
+                if (device.getName() != null && GlobalHandler.getInstance(activity.getApplicationContext()).deviceConnectionHandler.checkIfValidBleDevice(BleSqueeze.class, device.getName(), activity.getApplicationContext())) {
                     Log.d(Constants.LOG_TAG, "onLeScan found Squeeze with name=" + device.getName());
                     isSqueezeDiscovered = true;
                     GlobalHandler.getInstance(activity.getApplicationContext()).startConnection(BleSqueeze.class, device, BleSqueezeScanner.this);

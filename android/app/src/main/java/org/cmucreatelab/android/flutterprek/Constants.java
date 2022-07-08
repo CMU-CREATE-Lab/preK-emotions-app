@@ -75,25 +75,13 @@ public class Constants {
     public static final String TREE_SQUEEZE = "SQWZ-B8FE2";
     public static final String TREE_WAND = "WAND-57BBB";
 
-    public static final DeviceConnectionHandler.HardcodedValues
-            // Stations with Tangibles
-            STATION_MOON__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF19 2020Fall", MOON_FLOWER, MOON_SQUEEZE, MOON_WAND,null),
-            STATION_HEART__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("\uD83D\uDC96 2020Fall", HEART_FLOWER, HEART_SQUEEZE, HEART_WAND,null),
-            STATION_SMILEY__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("🙂 2020Fall", SMILEY_FLOWER, SMILEY_SQUEEZE, SMILEY_WAND,null),
-            STATION_TREE__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("\uD83C\uDF32 2020Fall", TREE_FLOWER, TREE_SQUEEZE, TREE_WAND,null),
-
-            // Standalone Version
-            STATION_STANDALONE__FALL_2020 = new DeviceConnectionHandler.HardcodedValues("S 2020Fall", TREE_FLOWER, TREE_SQUEEZE, TREE_WAND,null),
-
-            // avoids need to update semi-colon placement; do not actually use this
-            NULL_STATION = null;
-
     /**
      * Set this to use hardcoded values for the MindfulNest BLE devices.
      * This is helpful when there are multiple stations in the same room.
      * Otherwise set to null.
      */
-    public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = STATION_MOON__FALL_2020;
+    //public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = new DeviceConnectionHandler.HardcodedValues("\uD83D\uDC96 2020Fall", HEART_FLOWER, HEART_SQUEEZE, HEART_WAND,null);
+    public static final DeviceConnectionHandler.HardcodedValues HARDCODED_VALUES = null;
 
 
     /** This file is defined in the assets/ directory. */

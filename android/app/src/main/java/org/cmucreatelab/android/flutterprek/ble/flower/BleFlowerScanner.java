@@ -34,7 +34,7 @@ public class BleFlowerScanner implements UARTConnection.ConnectionListener {
         public void onScanResult(int callbackType, ScanResult result) {
             if (!isFlowerDiscovered) {
                 BluetoothDevice device = result.getDevice();
-                if (device.getName() != null && GlobalHandler.getInstance(activity.getApplicationContext()).deviceConnectionHandler.checkIfValidBleDevice(BleFlower.class, device.getName())) {
+                if (device.getName() != null && GlobalHandler.getInstance(activity.getApplicationContext()).deviceConnectionHandler.checkIfValidBleDevice(BleFlower.class, device.getName(), activity.getApplicationContext())) {
                     Log.d(Constants.LOG_TAG, "onLeScan found Flower with name=" + device.getName());
                     isFlowerDiscovered = true;
                     GlobalHandler.getInstance(activity.getApplicationContext()).startConnection(BleFlower.class, device, BleFlowerScanner.this);

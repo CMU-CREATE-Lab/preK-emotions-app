@@ -40,7 +40,7 @@ public class BleWandScanner implements UARTConnection.ConnectionListener {
         public void onScanResult(int callbackType, ScanResult result) {
             if (!isWandDiscovered) {
                 BluetoothDevice device = result.getDevice();
-                if (device.getName() != null && GlobalHandler.getInstance(activity.getApplicationContext()).deviceConnectionHandler.checkIfValidBleDevice(BleWand.class, device.getName())) {
+                if (device.getName() != null && GlobalHandler.getInstance(activity.getApplicationContext()).deviceConnectionHandler.checkIfValidBleDevice(BleWand.class, device.getName(), activity.getApplicationContext())) {
                     Log.d(Constants.LOG_TAG, "onLeScan found Wand with name=" + device.getName());
                     isWandDiscovered = true;
                     GlobalHandler.getInstance(activity.getApplicationContext()).startConnection(BleWand.class, device, BleWandScanner.this);

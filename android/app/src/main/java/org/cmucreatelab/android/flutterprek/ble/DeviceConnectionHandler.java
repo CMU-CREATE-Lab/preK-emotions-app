@@ -1,11 +1,14 @@
 package org.cmucreatelab.android.flutterprek.ble;
 
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.ble.flower.BleFlower;
 import org.cmucreatelab.android.flutterprek.ble.squeeze.BleSqueeze;
 import org.cmucreatelab.android.flutterprek.ble.wand.BleWand;
@@ -41,16 +44,15 @@ public class DeviceConnectionHandler {
 
 
     private boolean validateFlowerOnPrefix(@NonNull String deviceName) {
-        return deviceName.startsWith("FL");
+        return deviceName.startsWith("FLOWER-");
     }
 
-    // TODO new prefix "SQWZ"
     private boolean validateSqueezeOnPrefix(@NonNull String deviceName) {
-        return deviceName.startsWith("MNSQ");
+        return deviceName.startsWith("SQWZ-");
     }
 
     private boolean validateWandOnPrefix(@NonNull String deviceName) {
-        return deviceName.startsWith("MNW");
+        return deviceName.startsWith("WAND-");
     }
 
     private boolean validateFlowerHardcoded(@NonNull String deviceName) {
@@ -97,26 +99,52 @@ public class DeviceConnectionHandler {
      * @param deviceName the name of the device, likely obtained from {@link BluetoothDevice#getName()}.
      * @return true if the device is valid, false otherwise.
      */
-    public boolean checkIfValidBleDevice(Class classToValidate, @NonNull String deviceName) {
-        // TODO add other hardware device classes
-        if (classToValidate == BleFlower.class) {
-            if (usesHardcodedBleDevices) {
+    public boolean checkIfValidBleDevice(Class classToValidate, @NonNull String deviceName, Context appContext) {
+        if (usesHardcodedBleDevices) {
+            if (classToValidate == BleFlower.class) {
                 return validateFlowerHardcoded(deviceName);
-            }
-            return validateFlowerOnPrefix(deviceName);
-        } else if (classToValidate == BleSqueeze.class) {
-            Log.v(Constants.LOG_TAG, "found valid squeeze class");
-            if (usesHardcodedBleDevices) {
+            } else if (classToValidate == BleSqueeze.class) {
+                Log.v(Constants.LOG_TAG, "found valid squeeze class");
                 return validateSqueezeHardcoded(deviceName);
-            }
-            return validateSqueezeOnPrefix(deviceName);
-        } else if(classToValidate == BleWand.class) {
-            if (usesHardcodedBleDevices) {
+            } else if(classToValidate == BleWand.class) {
                 return validateWandHardcoded(deviceName);
+            } else {
+                Log.e(Constants.LOG_TAG, "checkIfValidBleDevice Could not determine class; returning false");
             }
-            return validateWandOnPrefix(deviceName);
+            return false;
         } else {
-            Log.e(Constants.LOG_TAG, "checkIfValidBleDevice Could not determine class; returning false");
+            SharedPreferences sharedPreferences = GlobalHandler.getSharedPreferences(appContext);
+            boolean pairingModeIsManual;
+            String ssid;
+
+            if (classToValidate == BleFlower.class) {
+                pairingModeIsManual = sharedPreferences.getBoolean(Constants.PreferencesKeys.flowerPairingModeManual, false);
+                ssid = sharedPreferences.getString(Constants.PreferencesKeys.flowerSsid, "");
+
+                if (pairingModeIsManual && !ssid.isEmpty()) {
+                    return deviceName.equals(ssid);
+                }
+                return validateFlowerOnPrefix(deviceName);
+            } else if (classToValidate == BleSqueeze.class) {
+                pairingModeIsManual = sharedPreferences.getBoolean(Constants.PreferencesKeys.squeezePairingModeManual, false);
+                ssid = sharedPreferences.getString(Constants.PreferencesKeys.squeezeSsid, "");
+
+                if (pairingModeIsManual && !ssid.isEmpty()) {
+                    return deviceName.equals(ssid);
+                }
+                return validateSqueezeOnPrefix(deviceName);
+            } else if(classToValidate == BleWand.class) {
+                pairingModeIsManual = sharedPreferences.getBoolean(Constants.PreferencesKeys.wandPairingModeManual, false);
+                ssid = sharedPreferences.getString(Constants.PreferencesKeys.wandSsid, "");
+
+                if (pairingModeIsManual && !ssid.isEmpty()) {
+                    return deviceName.equals(ssid);
+                }
+                return validateWandOnPrefix(deviceName);
+            } else {
+                Log.e(Constants.LOG_TAG, "checkIfValidBleDevice Could not determine class; returning false");
+            }
+            //return false;
         }
         return false;
     }
