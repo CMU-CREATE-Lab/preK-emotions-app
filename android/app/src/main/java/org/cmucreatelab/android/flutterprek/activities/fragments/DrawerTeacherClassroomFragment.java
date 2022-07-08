@@ -202,6 +202,10 @@ public class DrawerTeacherClassroomFragment extends AbstractFragment {
                 startActivity(classroomShowStudentsActivity);
             }
         });
+
+        // TODO #112 hide unused for now
+        view.findViewById(R.id.constraintRow1).setVisibility(View.GONE);
+
         // TODO implement other sections
 //        view.findViewById(R.id.constraintRow3).setOnClickListener(new View.OnClickListener() {
 //            @Override

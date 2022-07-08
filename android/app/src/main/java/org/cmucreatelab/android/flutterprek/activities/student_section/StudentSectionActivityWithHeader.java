@@ -53,7 +53,7 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
         });
 
         updateImageStudent(StudentSectionActivityWithHeader.this);
-        findViewById(R.id.imageInfo).setVisibility( isInfoIconVisible() ? View.VISIBLE : View.GONE );
+        findViewById(R.id.imageInfo).setVisibility( isInfoIconVisible() ? View.VISIBLE : View.INVISIBLE );
     }
 
 

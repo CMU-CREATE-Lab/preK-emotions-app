@@ -37,6 +37,9 @@ public class AppHeaderFragment extends AbstractFragment {
                 Log.i(Constants.LOG_TAG, "imageInfo.onClick");
             }
         });
+
+        // TODO #112 hide unused for now
+        view.findViewById(R.id.imageInfo).setVisibility(View.INVISIBLE);
     }
 
 

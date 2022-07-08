@@ -96,7 +96,9 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
 
     @Override
     public boolean isInfoIconVisible() {
-        return true;
+        // TODO #112 hide unused for now
+        //return true;
+        return false;
     }
 
 }

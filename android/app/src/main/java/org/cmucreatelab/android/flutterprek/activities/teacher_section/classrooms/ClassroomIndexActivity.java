@@ -60,9 +60,14 @@ public class ClassroomIndexActivity extends TeacherSectionActivityWithHeaderAndD
 
 
     private void startClassroomShowStatsActivity(Classroom classroom) {
-        Intent classroomShowStatsActivity = new Intent(ClassroomIndexActivity.this, ClassroomShowStatsActivity.class);
-        classroomShowStatsActivity.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom);
-        startActivity(classroomShowStatsActivity);
+        // TODO #112 hide unused for now (navigate to students instead for now)
+//        Intent classroomShowStatsActivity = new Intent(ClassroomIndexActivity.this, ClassroomShowStatsActivity.class);
+//        classroomShowStatsActivity.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom);
+//        startActivity(classroomShowStatsActivity);
+
+        Intent classroomStudentsActivity = new Intent(ClassroomIndexActivity.this, ClassroomShowStudentsActivity.class);
+        classroomStudentsActivity.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom);
+        startActivity(classroomStudentsActivity);
     }
 
 
