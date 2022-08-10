@@ -56,7 +56,7 @@
     <string name="coping_skill_sheep_hug">Give the sheep a hug to make the hearts appear.</string>
     <string name="coping_skill_sheep_overlay">Would you like to keep hugging the sheep?</string>
     <string name="overlay_placeholder">Do you need more time?</string>
-    <string name="teacher_login_prompt">Re-enter password to access teacher settings.</string>
+    <string name="teacher_login_prompt">Enter your password to access teacher settings.</string>
     <string name="teacher_login_button">Submit</string>
     <string name="teacher_login_error">Incorrect password.</string>
     <string name="coping_skill_squeeze_overlay">Would you like to do the squeezing activity again?</string>
