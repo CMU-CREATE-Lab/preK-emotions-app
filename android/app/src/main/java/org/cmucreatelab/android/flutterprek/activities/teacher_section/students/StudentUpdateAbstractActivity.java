@@ -88,7 +88,7 @@ public abstract class StudentUpdateAbstractActivity extends AbstractActivity {
 
     private void updatePicture(File picture) {
         if (newStudentPicture != null) {
-            picture.delete();
+            newStudentPicture.delete();
         }
         this.newStudentPicture = picture;
         imageButtonStudentPhoto.setImageBitmap(BitmapFactory.decodeFile(newStudentPicture.getPath()));
