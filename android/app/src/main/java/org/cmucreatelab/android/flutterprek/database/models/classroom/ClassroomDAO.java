@@ -34,10 +34,10 @@ public interface ClassroomDAO {
     @Update
     void update(Classroom classroom);
 
-    @Query("SELECT * from classrooms ORDER BY name ASC")
+    @Query("SELECT * from classrooms ORDER BY lower(name) ASC")
     LiveData<List<Classroom>> getAllClassrooms();
 
-    @Query("SELECT * from classrooms ORDER BY name ASC")
+    @Query("SELECT * from classrooms ORDER BY lower(name) ASC")
     LiveData<List<ClassroomWithCustomizations>> getAllClassroomsWithCustomizations();
 
     @Query("SELECT * FROM classrooms WHERE uuid = :classroomUuid LIMIT 1")

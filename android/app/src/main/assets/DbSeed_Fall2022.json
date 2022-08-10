@@ -5,7 +5,7 @@
   ],
   "students":
   [
-    { "uuid": "student1", "name": "Sample Student", "classroomUuid": "classroom1", "sequenceId": 0 }
+    { "uuid": "student1", "name": "Sample Student", "classroomUuid": "classroom1", "sequenceId": 1 }
   ],
   "copingSkills":
   [
