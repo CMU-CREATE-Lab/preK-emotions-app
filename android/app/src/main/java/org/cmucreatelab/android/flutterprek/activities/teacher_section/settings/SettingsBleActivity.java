@@ -64,7 +64,7 @@ public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDraw
                     this.titleForTextViewTitle = "Wand Bluetooth Settings";
                     break;
                 case SQUEEZE:
-                    this.titleForTextViewTitle = "Squeeze Bluetooth Settings";
+                    this.titleForTextViewTitle = "Sheep Bluetooth Settings";
                     break;
                 default:
                     this.titleForTextViewTitle = "";

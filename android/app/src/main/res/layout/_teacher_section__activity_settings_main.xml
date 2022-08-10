@@ -150,7 +150,7 @@
                         style="@style/TeacherSectionSettingsTextHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Squeeze Bluetooth Settings" />
+                        android:text="Sheep Bluetooth Settings" />
 
                     <TextView
                         android:id="@+id/textViewBleSettingsSqueeze"

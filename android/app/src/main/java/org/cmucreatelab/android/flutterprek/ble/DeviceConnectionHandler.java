@@ -48,7 +48,7 @@ public class DeviceConnectionHandler {
     }
 
     private boolean validateSqueezeOnPrefix(@NonNull String deviceName) {
-        return deviceName.startsWith("SQWZ-");
+        return deviceName.startsWith("SHEEP-");
     }
 
     private boolean validateWandOnPrefix(@NonNull String deviceName) {
