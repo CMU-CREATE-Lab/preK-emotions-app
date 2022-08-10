@@ -39,58 +39,58 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.teacher_section.classrooms.ClassroomIndexActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.settings.SettingsMainActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.settings.SettingsPasswordActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.settings.SettingsBleActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.classrooms.ClassroomShowStudentsActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.classrooms.ClassroomShowStatsActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.ActiveClassroomIndexActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.StudentIndexActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.students.StudentEditActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.students.StudentAddActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.students.CameraActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.CopingSkillIndexActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.EmotionIndexActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.ChooseClassroomActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -100,123 +100,123 @@
         </activity>
         <activity
             android:name=".activities.student_section.ChooseStudentActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.choose_emotion.ChooseEmotionActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.choose_emotion.ChooseEmotionAndTalkAboutItActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.ChooseCopingSkillActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_flower.FlowerCopingSkillActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_flower_standalone.FlowerStandaloneCopingSkillActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_static.EmptyStaticCopingSkillActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_cuddle.CuddleCopingSkillActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_static.DanceCopingSkillActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_video.JumpingJacksCopingSkillActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_static.ShareCopingSkillActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_wand.WandCopingSkillActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_wand_standalone.WandStandaloneActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.post_coping_skills.post_coping_skill_heart_beating.HeartBeatingActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.post_coping_skills.post_coping_skill_finished_exercise.FinishedExerciseActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.post_coping_skills.post_coping_skill_rejoin_friends.RejoinFriendsActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.UseWordsActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.post_coping_skills.post_coping_skill_use_words.RecordUseWordsActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_video.YogaMadExcitedActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_video.YogaSadActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_video.YogaHappyActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_squeeze.SqueezeCopingSkillActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_talk_about_it.TalkAboutItActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_talk_to_the_teacher.TalkToTheTeacherCopingSkillActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_cuddle_with_squeeze.SqueezeCuddleCopingSkillActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.check_in.DisplayEmotionCheckInActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_video.YogaScaredActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.student_section.coping_skills.coping_skill_video.ParentVideoCopingSkillActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.LoginActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".activities.teacher_section.session_index.SessionIndexActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
 

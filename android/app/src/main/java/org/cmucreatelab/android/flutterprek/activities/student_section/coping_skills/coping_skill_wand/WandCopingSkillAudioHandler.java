@@ -15,7 +15,8 @@ public class WandCopingSkillAudioHandler {
     private boolean settingAudio = false;
     private boolean playingSlowAudio = false;
     private int audioHandlerCount = 0;
-    private int audioHandlerMaxCount = 200;  //Time between playing audio to slow down
+    // TODO @SamS1205 I reduced max count to resolve #117 since setAudio method is being called roughly once per second. Is this ok?
+    private int audioHandlerMaxCount = 5;  //Time between playing audio to slow down
     private int fastCount = 0;
     private  double fastThreshold = 0.8;
     private long slowAudioDuration = 2000;
