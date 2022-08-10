@@ -14,14 +14,14 @@
         android:id="@+id/layout_camera_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerInParent="true">
 
 
         <FrameLayout
             android:id="@+id/camera_preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:screenOrientation="portrait" />
 
         <ImageView

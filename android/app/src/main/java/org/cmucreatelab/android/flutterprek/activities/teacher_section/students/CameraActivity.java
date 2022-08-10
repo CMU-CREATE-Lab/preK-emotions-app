@@ -217,78 +217,9 @@ public class CameraActivity extends AbstractActivity {
 
             final FrameLayout cameraPreview = (FrameLayout) findViewById(R.id.camera_preview);
 
-            updateCameraLayoutSizes();
+            //updateCameraLayoutSizes();
 
             cameraPreview.addView(this.mPreview);
-        }
-    }
-
-
-    private void updateCameraLayoutSizes() {
-        final FrameLayout cameraPreview = (FrameLayout) findViewById(R.id.camera_preview);
-        final RelativeLayout layoutCameraPreview = (RelativeLayout) findViewById(R.id.layout_camera_preview);
-        final LinearLayout layoutCameraButtons = (LinearLayout) findViewById(R.id.layout_camera_buttons);
-
-        final ViewTreeObserver cameraPreviewViewTreeObserver = cameraPreview.getViewTreeObserver();
-        cameraPreviewViewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                try {
-                    RelativeLayout.LayoutParams lp;
-
-                    if (getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT) {
-                        lp = new RelativeLayout.LayoutParams(cameraPreview.getWidth(), cameraPreview.getWidth() * 4 / 3);
-                        lp.addRule(RelativeLayout.CENTER_IN_PARENT);
-                        cameraPreview.setLayoutParams(lp);
-                    } else {
-                        //for some reason, the layout params have to instantiated every time or they do not work
-                        lp = new RelativeLayout.LayoutParams(cameraPreview.getHeight() * 4 / 3, cameraPreview.getHeight());
-                        lp.addRule(RelativeLayout.CENTER_IN_PARENT);
-                        cameraPreview.setLayoutParams(lp);
-                    }
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
-            final ViewTreeObserver layoutCameraPreviewViewTreeObserver = layoutCameraPreview.getViewTreeObserver();
-            layoutCameraPreviewViewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    try {
-                        RelativeLayout.LayoutParams lp;
-
-                        //for some reason, the layout params have to instantiated every time or they do not work
-                        lp = new RelativeLayout.LayoutParams(layoutCameraPreview.getHeight() * 4 / 3, layoutCameraPreview.getHeight());
-                        lp.addRule(RelativeLayout.CENTER_IN_PARENT);
-                        layoutCameraPreview.setLayoutParams(lp);
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-            final ViewTreeObserver layoutCameraButtonsViewTreeObserver = layoutCameraButtons.getViewTreeObserver();
-            layoutCameraButtonsViewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    try {
-                        RelativeLayout.LayoutParams lp;
-
-                        //for some reason, the layout params have to instantiated every time or they do not work
-                        lp = new RelativeLayout.LayoutParams(layoutCameraButtons.getHeight() * 4 / 3, layoutCameraButtons.getHeight());
-                        lp.addRule(RelativeLayout.CENTER_IN_PARENT);
-                        layoutCameraButtons.setLayoutParams(lp);
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
         }
     }
 
@@ -345,6 +276,8 @@ public class CameraActivity extends AbstractActivity {
                     photoNo.setImageResource(R.mipmap.photo_no);
                     photoYes.setImageResource(R.mipmap.photo_yes);
                     findViewById(R.id.take_picture).setVisibility(View.INVISIBLE);
+                    findViewById(R.id.load_image).setVisibility(View.INVISIBLE);
+                    findViewById(R.id.flip_camera).setVisibility(View.INVISIBLE);
 
                     break;
             }
@@ -364,6 +297,8 @@ public class CameraActivity extends AbstractActivity {
                 photoNo.setImageResource(R.mipmap.photo_no);
                 photoYes.setImageResource(R.mipmap.photo_yes);
                 findViewById(R.id.take_picture).setVisibility(View.INVISIBLE);
+                findViewById(R.id.load_image).setVisibility(View.INVISIBLE);
+                findViewById(R.id.flip_camera).setVisibility(View.INVISIBLE);
                 possiblePhoto = bytes;
 
                 final FrameLayout cameraPreview = (FrameLayout) findViewById(R.id.camera_preview);
