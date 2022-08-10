@@ -1,14 +1,19 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.students;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -39,6 +44,8 @@ public abstract class StudentUpdateAbstractActivity extends AbstractActivity {
 
     public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
     public static final String EXTRA_STUDENT = "student";
+
+    private static final int requestCodeCameraPermission = 15;
 
     private boolean isHandlingPicture = false;
 
@@ -95,6 +102,15 @@ public abstract class StudentUpdateAbstractActivity extends AbstractActivity {
         String filename = String.format("%s_%d", student.getUuid(), Util.getCurrentTimestamp());
         cameraIntent.putExtra(CameraActivity.EXTRA_PICTURE_FILENAME, filename);
         startActivityForResult(cameraIntent, CameraActivity.REQUEST_CODE);
+    }
+
+
+    private void requestCameraActivityForResult() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, requestCodeCameraPermission);
+        } else {
+            startCameraActivityForResult();
+        }
     }
 
 
@@ -213,13 +229,13 @@ public abstract class StudentUpdateAbstractActivity extends AbstractActivity {
             @Override
             public void onClick(View view) {
                 Log.d(Constants.LOG_TAG, "onClick imageButtonStudentPhoto");
-                startCameraActivityForResult();
+                requestCameraActivityForResult();
             }
         });
         textButtonRetakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCameraActivityForResult();
+                requestCameraActivityForResult();
             }
         });
     }
@@ -236,6 +252,37 @@ public abstract class StudentUpdateAbstractActivity extends AbstractActivity {
 
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case requestCodeCameraPermission:
+                for (int i=0; i<permissions.length; i++) {
+                    String permission = permissions[i];
+                    if (permission.equals(Manifest.permission.CAMERA)) {
+                        if (i < grantResults.length) {
+                            if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                                startCameraActivityForResult();
+                            } else {
+                                String alertMessage = getString(R.string.alert_message_permissions_camera);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                                builder.setMessage(alertMessage);
+                                builder.setTitle(R.string.alert_title_permissions_camera);
+                                builder.create().show();
+                            }
+                            break;
+                        } else {
+                            Log.e(Constants.LOG_TAG, "onRequestPermissionsResult out of index for camera permission; ignoring result.");
+                        }
+                    }
+                }
+                break;
+        }
+    }
+
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -248,7 +295,7 @@ public abstract class StudentUpdateAbstractActivity extends AbstractActivity {
                     File picture = (File) data.getExtras().getSerializable(CameraActivity.EXTRA_RESULT_PICTURE);
                     updatePicture(picture);
                 } else if (resultCode == CameraActivity.RESULT_START_OVER) {
-                    startCameraActivityForResult();
+                    requestCameraActivityForResult();
                 }
                 break;
         }

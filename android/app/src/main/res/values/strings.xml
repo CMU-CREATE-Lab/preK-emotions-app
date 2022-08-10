@@ -91,5 +91,7 @@
     <string name="alert_message_ble_select">Set default SSID to \'%s\'?</string>
     <string name="alert_title_ble_manual">Manual Device SSID</string>
     <string name="alert_message_ble_manual">Please enter an SSID and click to confirm.</string>
+    <string name="alert_title_permissions_camera">Camera Permissions</string>
+    <string name="alert_message_permissions_camera">Camera permissions are currently disabled. Please go to system settings to enable camera permissions.</string>
     <string name="empty"></string>
 </resources>
