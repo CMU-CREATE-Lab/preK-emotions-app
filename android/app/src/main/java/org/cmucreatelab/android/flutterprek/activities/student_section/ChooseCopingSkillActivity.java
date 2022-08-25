@@ -60,15 +60,15 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
         // TODO determine coping skills to display based on current classroom
         if (studentUuid.isEmpty()) {
             if (showFirst) {
-                return AppDatabase.getInstance(this).copingSkillDAO().getCopingSkillsForEmotionOnFirst(emotionUuid);
+                return AppDatabase.getInstance(this).copingSkillDAO().getEnabledCopingSkillsForEmotionOnFirst(emotionUuid);
             }
-            return AppDatabase.getInstance(this).copingSkillDAO().getCopingSkillsForEmotion(emotionUuid);
+            return AppDatabase.getInstance(this).copingSkillDAO().getEnabledCopingSkillsForEmotion(emotionUuid);
         } else {
             String ownerUuid = studentUuid;
             if (showFirst) {
-                return AppDatabase.getInstance(this).copingSkillDAO().getCopingSkillsForEmotionOnFirst(ownerUuid, emotionUuid);
+                return AppDatabase.getInstance(this).copingSkillDAO().getEnabledCopingSkillsForEmotionOnFirst(ownerUuid, emotionUuid);
             }
-            return AppDatabase.getInstance(this).copingSkillDAO().getCopingSkillsForEmotion(ownerUuid, emotionUuid);
+            return AppDatabase.getInstance(this).copingSkillDAO().getEnabledCopingSkillsForEmotion(ownerUuid, emotionUuid);
         }
     }
 
