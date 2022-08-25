@@ -36,7 +36,7 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
 
     private final CopingSkillIndexAdapter.ClickListener listener = new CopingSkillIndexAdapter.ClickListener() {
         @Override
-        public void onClick(CopingSkill copingSkill, List<ItineraryItem> itineraryItems) {
+        public void onClick(CopingSkill copingSkill, List<ItineraryItem> itineraryItems, View view) {
             Log.d(Constants.LOG_TAG, "onClick coping skill = " + copingSkill.getName());
             if (!activityShouldHandleOnClickEvents()) {
                 Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");

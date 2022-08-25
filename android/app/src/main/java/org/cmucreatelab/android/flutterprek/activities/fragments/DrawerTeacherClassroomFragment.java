@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSkillIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomShowStudentsActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomShowStatsActivity;
@@ -202,18 +203,21 @@ public class DrawerTeacherClassroomFragment extends AbstractFragment {
                 startActivity(classroomShowStudentsActivity);
             }
         });
+        view.findViewById(R.id.constraintRow3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent copingSkillsIndexActivity = new Intent(getContext(), CopingSkillIndexActivity.class);
+                ManageClassroomActivityWithHeaderAndDrawer activity = (ManageClassroomActivityWithHeaderAndDrawer) getActivity();
+                copingSkillsIndexActivity.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, activity.getClassroom());
+                copingSkillsIndexActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(copingSkillsIndexActivity);
+            }
+        });
 
         // TODO #112 hide unused for now
         view.findViewById(R.id.constraintRow1).setVisibility(View.GONE);
 
         // TODO implement other sections
-//        view.findViewById(R.id.constraintRow3).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent copingSkillsIndexActivity = new Intent(getContext(), CopingSkillIndexActivity.class);
-//                startActivity(copingSkillsIndexActivity);
-//            }
-//        });
 //        view.findViewById(R.id.constraintRow4).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

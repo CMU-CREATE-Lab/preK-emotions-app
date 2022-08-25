@@ -11,14 +11,23 @@ import android.widget.GridView;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillIndexAdapter;
-import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
+import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherClassroomFragment;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
+import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 
 import java.util.List;
 
-public class CopingSkillIndexActivity extends TeacherSectionActivityWithHeaderAndDrawer {
+public class CopingSkillIndexActivity extends ManageClassroomActivityWithHeaderAndDrawer {
 
+    private final CopingSkillIndexAdapter.ClickListener clickListener = new CopingSkillIndexAdapter.ClickListener() {
+        @Override
+        public void onClick(CopingSkill copingSkill, List<ItineraryItem> itineraryItems, View view) {
+            // TODO actions
+            view.setAlpha(0.5f);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +37,7 @@ public class CopingSkillIndexActivity extends TeacherSectionActivityWithHeaderAn
             @Override
             public void onChanged(@Nullable List<CopingSkill> copingSkills) {
                 GridView copingSkillsGridView = findViewById(R.id.copingSkillsGridView);
-                copingSkillsGridView.setAdapter(new CopingSkillIndexAdapter(CopingSkillIndexActivity.this, copingSkills));
+                copingSkillsGridView.setAdapter(new CopingSkillIndexAdapter(CopingSkillIndexActivity.this, copingSkills, clickListener));
             }
         });
 
@@ -47,8 +56,8 @@ public class CopingSkillIndexActivity extends TeacherSectionActivityWithHeaderAn
 
 
     @Override
-    public DrawerTeacherMainFragment.Section getSectionForDrawer() {
-        return DrawerTeacherMainFragment.Section.COPING_SKILLS;
+    public DrawerTeacherClassroomFragment.Section getSectionForDrawer() {
+        return DrawerTeacherClassroomFragment.Section.COPING_SKILLS;
     }
 
 

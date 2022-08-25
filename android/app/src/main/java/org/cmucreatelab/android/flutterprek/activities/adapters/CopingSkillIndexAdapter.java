@@ -27,7 +27,7 @@ public class CopingSkillIndexAdapter extends AbstractListAdapter<CopingSkill> {
     private final ClickListener clickListener;
 
     public interface ClickListener {
-        void onClick(CopingSkill copingSkill, List<ItineraryItem> itineraryItems);
+        void onClick(CopingSkill copingSkill, List<ItineraryItem> itineraryItems, View view);
     }
 
 
@@ -85,7 +85,7 @@ public class CopingSkillIndexAdapter extends AbstractListAdapter<CopingSkill> {
                     result.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            clickListener.onClick(copingSkill, itineraryItems);
+                            clickListener.onClick(copingSkill, itineraryItems, result);
                         }
                     });
                 }

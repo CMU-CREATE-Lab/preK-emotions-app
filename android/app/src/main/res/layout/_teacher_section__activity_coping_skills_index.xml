@@ -17,8 +17,8 @@
             android:layout_height="65sp" />
 
         <fragment
-            android:id="@+id/drawerTeacherMain"
-            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment"
+            android:id="@+id/drawerTeacherClassroom"
+            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherClassroomFragment"
             android:layout_width="205sp"
             android:layout_height="0sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +30,7 @@
             style="@style/TeacherSectionGridView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/drawerTeacherMain"
+            app:layout_constraintStart_toEndOf="@+id/drawerTeacherClassroom"
             app:layout_constraintTop_toBottomOf="@+id/appHeader" />
 
     </android.support.constraint.ConstraintLayout>
