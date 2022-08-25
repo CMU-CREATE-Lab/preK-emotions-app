@@ -6,6 +6,8 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import org.cmucreatelab.android.flutterprek.database.models.CopingSkillWithCustomizations;
+
 import java.util.List;
 
 /**
@@ -30,6 +32,9 @@ public interface CopingSkillDAO {
 
     @Query("SELECT * from coping_skills ORDER BY name ASC")
     LiveData<List<CopingSkill>> getAllCopingSkills();
+
+    @Query("SELECT * from coping_skills ORDER BY name ASC")
+    LiveData<List<CopingSkillWithCustomizations>> getAllCopingSkillsWithCustomizations();
 
     @Query("SELECT * FROM coping_skills WHERE uuid = :copingSkillUuid LIMIT 1")
     LiveData<CopingSkill> getCopingSkill(String copingSkillUuid);
