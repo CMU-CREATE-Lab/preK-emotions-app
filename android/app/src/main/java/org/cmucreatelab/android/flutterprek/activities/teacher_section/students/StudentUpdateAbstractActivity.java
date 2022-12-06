@@ -90,6 +90,7 @@ public abstract class StudentUpdateAbstractActivity extends AbstractActivity {
         if (newStudentPicture != null) {
             newStudentPicture.delete();
         }
+        Util.defaultReformatImageFile(picture);
         this.newStudentPicture = picture;
         imageButtonStudentPhoto.setImageBitmap(BitmapFactory.decodeFile(newStudentPicture.getPath()));
     }

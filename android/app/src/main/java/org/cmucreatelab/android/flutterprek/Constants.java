@@ -23,6 +23,7 @@ public class Constants {
         public static final String wandSsid = "wand_ssid";
         public static final String squeezePairingModeManual = "squeeze_pairing_mode_manual";
         public static final String squeezeSsid = "squeeze_ssid";
+        public static final String hotfixCollection = "hotfix_collection";
     }
 
     /** Determines if the flower activity should display the debug window (shows BLE name and last message received). */

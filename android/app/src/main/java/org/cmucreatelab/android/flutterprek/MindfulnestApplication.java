@@ -24,6 +24,9 @@ public class MindfulnestApplication extends Application implements LifecycleObse
         super.onCreate();
 
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
+
+        HotfixManager hotfixManager = HotfixManager.getInstance(this);
+        hotfixManager.checkAndRunHotfixes();
     }
 
 

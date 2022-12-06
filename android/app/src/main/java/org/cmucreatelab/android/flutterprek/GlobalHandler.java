@@ -121,6 +121,7 @@ public class GlobalHandler {
         return result;
     }
 
+
     public boolean onEnterForeground() {
         boolean result = false;
 

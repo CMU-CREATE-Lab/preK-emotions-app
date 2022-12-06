@@ -31,6 +31,9 @@ public interface DbFileDAO {
     @Query("SELECT * FROM db_files")
     LiveData<List<DbFile>> getAllDbFiles();
 
+    @Query("SELECT * FROM db_files INNER JOIN students ON db_files.uuid = students.picture_file_uuid")
+    LiveData<List<DbFile>> getAllStudentPictureDbFiles();
+
     @Query("SELECT * FROM db_files WHERE uuid = :dbFileUuid LIMIT 1")
     LiveData<DbFile> getDbFile(String dbFileUuid);
 
