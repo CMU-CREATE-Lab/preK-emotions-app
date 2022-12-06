@@ -1,6 +1,5 @@
 package org.cmucreatelab.android.flutterprek;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -12,7 +11,6 @@ public final class HotfixManager implements Hotfix.Listener {
 
     public static final String h20221206_updateResForStudentImages = "student_img_res_update";
 
-    //private final Context appContext;
     private final MindfulnestApplication mindfulnestApplication;
     private final String[] applicationHotfixes = {
             h20221206_updateResForStudentImages
