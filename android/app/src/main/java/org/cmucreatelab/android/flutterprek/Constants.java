@@ -38,6 +38,10 @@ public class Constants {
     public static final UARTSettings SQUEEZE_UART_SETTINGS;
     public static final UARTSettings WAND_UART_SETTINGS;
 
+    /** Toggle support of legacy flower protocol (where ble notification returns three comma-separated values, instead of four) */
+
+    public static final boolean SUPPORT_LEGACY_FLOWER_PROTOCOL = true;
+
     static {
         FLOWER_UART_SETTINGS = new UARTSettings.Builder()
                 .setUARTServiceUUID(UUID.fromString("6E400001-B5A3-F393-E0A9-E50E24DCCA9E"))

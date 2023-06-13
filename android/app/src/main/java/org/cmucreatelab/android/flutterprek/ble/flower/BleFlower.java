@@ -22,11 +22,24 @@ public class BleFlower {
                 Log.d(Constants.LOG_TAG, "newData='" + new String(newData).trim() + "'");
                 if (notificationCallback != null) {
                     String[] params = new String(newData).trim().split(",");
-                    if (params.length < 4) {
-                        Log.e(Constants.LOG_TAG, "parsed less than four params from notification='"+new String(newData).trim()+"'; unable to call NotificationCallback.");
-                        return;
+                    if (Constants.SUPPORT_LEGACY_FLOWER_PROTOCOL) {
+                        if (params.length == 4) {
+                            notificationCallback.onReceivedData(params[0], params[1], params[2], params[3]);
+                        } else if (params.length == 3) {
+                            // NOTE: this value increments on the new flower but is unused by the onReceivedData method, so a constant here is okay.
+                            String str = "0";
+                            notificationCallback.onReceivedData(str, params[0], params[1], params[2]);
+                        } else {
+                            Log.e(Constants.LOG_TAG, "parsed invalid number of params from notification='" + new String(newData).trim() + "'; unable to call NotificationCallback.");
+                            return;
+                        }
+                    } else {
+                        if (params.length < 4) {
+                            Log.e(Constants.LOG_TAG, "parsed less than four params from notification='" + new String(newData).trim() + "'; unable to call NotificationCallback.");
+                            return;
+                        }
+                        notificationCallback.onReceivedData(params[0], params[1], params[2], params[3]);
                     }
-                    notificationCallback.onReceivedData(params[0], params[1], params[2], params[3]);
                 }
             }
         });
