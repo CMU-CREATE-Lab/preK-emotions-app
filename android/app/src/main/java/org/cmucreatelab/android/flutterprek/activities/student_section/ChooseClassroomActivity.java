@@ -8,9 +8,11 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -38,6 +40,12 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
     private DebugCorner debugCorner;
 
     private final int requestCodeLocation = 1;
+    private final int requestCodeBluetoothConnect = 2;
+    private final int requestCodeBluetoothScan = 4;
+
+    private final int[] requestPermissions = {requestCodeLocation, requestCodeBluetoothConnect, requestCodeBluetoothScan};
+
+    private int requestPermissionsPtr = 0;
 
     private final ClassroomWithCustomizationsIndexAdapter.ClickListener listener = new ClassroomWithCustomizationsIndexAdapter.ClickListener() {
         @Override
@@ -58,6 +66,15 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
         // Initializes Bluetooth adapter.
         BluetoothAdapter bluetoothAdapter = ((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter();
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_DENIED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, requestCodeBluetoothConnect);
+            }
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_DENIED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH_SCAN}, requestCodeBluetoothScan);
+            }
+        }
+
         // Ensures Bluetooth is available on the device and it is enabled. If not,
         // displays a dialog requesting user permission to enable Bluetooth.
         if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled()) {
@@ -69,17 +86,25 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
 
     // Android 11+ requires Location permissions at runtime
     private void checkAndRequestLocationForBluetooth() {
-        //String locationPermission = "android.permission.ACCESS_FINE_LOCATION";
-        String locationPermission = Manifest.permission.ACCESS_FINE_LOCATION;
+//        // not needed for Android 12 or higher
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+//            return;
+//        }
+//        //String locationPermission = "android.permission.ACCESS_FINE_LOCATION";
+//        String locationPermission = Manifest.permission.ACCESS_FINE_LOCATION;
 
-        int result = ContextCompat.checkSelfPermission(getApplicationContext(), locationPermission);
-        if (result == PERMISSION_GRANTED) {
-            Log.d(Constants.LOG_TAG, "location permission granted");
-        } else {
-            Log.d(Constants.LOG_TAG, "location permission NOT granted");
-            // https://developer.android.com/training/permissions/requesting#manage-request-code-yourself
-            requestPermissions(new String[] {locationPermission}, requestCodeLocation);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, requestCodeLocation);
         }
+
+//        int result = ContextCompat.checkSelfPermission(getApplicationContext(), locationPermission);
+//        if (result == PERMISSION_GRANTED) {
+//            Log.d(Constants.LOG_TAG, "location permission granted");
+//        } else {
+//            Log.d(Constants.LOG_TAG, "location permission NOT granted");
+//            // https://developer.android.com/training/permissions/requesting#manage-request-code-yourself
+//            requestPermissions(new String[] {locationPermission}, requestCodeLocation);
+//        }
     }
 
 
@@ -89,6 +114,52 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
                 .setMessage("Location permissions must be enabled in order for Bluetooth devices to work with this app.")
                 .setNeutralButton("OK", null)
                 .show();
+    }
+
+
+    private synchronized void handleRequestPermissions() {
+        boolean requestingPermission = false;
+        int length = this.requestPermissions.length;
+        if (requestPermissionsPtr < length) {
+            int requestCode = requestPermissions[requestPermissionsPtr++];
+            switch (requestCode) {
+                case requestCodeLocation:
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        break;
+                    }
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+                        requestingPermission = true;
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, requestCodeLocation);
+                    }
+                    break;
+                case requestCodeBluetoothConnect:
+                case requestCodeBluetoothScan:
+                    BluetoothAdapter bluetoothAdapter = ((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter();
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_DENIED) {
+                            requestingPermission = true;
+                            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, requestCodeBluetoothConnect);
+                        }
+                        if (!requestingPermission && ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_DENIED) {
+                            requestingPermission = true;
+                            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH_SCAN}, requestCodeBluetoothScan);
+                        }
+                    }
+
+                    // Ensures Bluetooth is available on the device and it is enabled. If not,
+                    // displays a dialog requesting user permission to enable Bluetooth.
+                    if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled()) {
+                        Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                        startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                    }
+                    break;
+                default:
+                    Log.e(Constants.LOG_TAG, "failed to identify request code.");
+            }
+            // request next permission (if not already requesting)
+            if (!requestingPermission) handleRequestPermissions();
+        }
     }
 
 
@@ -105,8 +176,9 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
         });
 
         this.debugCorner = new DebugCorner(this);
-        checkAndRequestBle();
-        checkAndRequestLocationForBluetooth();
+//        checkAndRequestBle();
+//        checkAndRequestLocationForBluetooth();
+        handleRequestPermissions();
     }
 
 
@@ -115,16 +187,19 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
         //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case requestCodeLocation:
+            case requestCodeBluetoothConnect:
+            case requestCodeBluetoothScan:
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.d(Constants.LOG_TAG, "permissions result: PERMISSION_GRANTED");
-                    return;
+                    break;
                 }
             default:
                 Log.d(Constants.LOG_TAG, "permissions result: NO RESULT");
                 // dialog explaining you need Location permissions for BLE
                 displayLocationPermissionDialog();
         }
+        handleRequestPermissions();
     }
 
 
