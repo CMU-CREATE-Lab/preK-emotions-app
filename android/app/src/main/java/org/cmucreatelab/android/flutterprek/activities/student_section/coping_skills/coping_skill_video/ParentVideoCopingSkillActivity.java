@@ -23,11 +23,12 @@ public class ParentVideoCopingSkillActivity extends VideoCopingSkillActivity {
     protected void onCreate(Bundle savedInstanceState) {
         String videoType = getIntent().getStringExtra(EXTRA_VIDEO_TYPE);
         if (videoType != null) {
-            if (videoType.equals(CLASS_3B_STUDENT2)) {
-                videoResource = R.raw.student2_video;
-            } else {
-                videoResource = R.raw.jumpingjacks;
-            }
+//            if (videoType.equals(CLASS_3B_STUDENT2)) {
+//                videoResource = R.raw.student2_video;
+//            } else {
+//                videoResource = R.raw.jumpingjacks;
+//            }
+            videoResource = R.raw.jumpingjacks;
         } else {
             videoResource = R.raw.jumpingjacks;
         }
