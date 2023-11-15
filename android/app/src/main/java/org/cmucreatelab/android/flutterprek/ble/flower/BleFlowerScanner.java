@@ -73,7 +73,7 @@ public class BleFlowerScanner implements UARTConnection.ConnectionListener {
     }
 
 
-    public BleFlowerScanner(FlowerCopingSkillActivity activity, @NonNull DiscoveryListener discoveryListener, @NonNull UARTConnection.ConnectionListener connectionListener) {
+    public BleFlowerScanner(AbstractActivity activity, @NonNull DiscoveryListener discoveryListener, @NonNull UARTConnection.ConnectionListener connectionListener) {
         this.activity = activity;
         this.discoveryListener = discoveryListener;
         this.connectionListener = connectionListener;
