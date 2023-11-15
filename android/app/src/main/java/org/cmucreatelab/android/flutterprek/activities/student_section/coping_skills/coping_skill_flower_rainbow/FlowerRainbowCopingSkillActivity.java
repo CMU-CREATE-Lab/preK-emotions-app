@@ -1,8 +1,14 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower_rainbow;
 
+import android.animation.Animator;
+import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.widget.ImageView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
@@ -13,6 +19,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
     private FlowerRainbowCopingSkillProcess flowerCopingSkillProcess;
     private FlowerRainbowCopingSkillStep1Timer step1Timer;
     private FlowerRainbowStateHandler flowerStateHandler;
+    private RainbowCreator rainbowCreator;
     private boolean activityIsPaused;
 
 
@@ -42,7 +49,8 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
 
         flowerCopingSkillProcess = new FlowerRainbowCopingSkillProcess(this);
         step1Timer = new FlowerRainbowCopingSkillStep1Timer(flowerCopingSkillProcess);
-        flowerStateHandler = new FlowerRainbowStateHandler(this);
+        rainbowCreator = new RainbowCreator(this);
+        flowerStateHandler = new FlowerRainbowStateHandler(this, rainbowCreator);
 
         findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
             @Override

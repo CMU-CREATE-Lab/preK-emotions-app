@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item
+        android:drawable="@drawable/shape_ring_red"/>
+    <item
+        android:drawable="@drawable/shape_ring_orange"/>
+    <item
+        android:drawable="@drawable/shape_ring_yellow"/>
+    <item
+        android:drawable="@drawable/shape_ring_green"/>
+    <item
+        android:drawable="@drawable/shape_ring_blue"/>
+    <item
+        android:drawable="@drawable/shape_ring_purple"/>
+</layer-list>

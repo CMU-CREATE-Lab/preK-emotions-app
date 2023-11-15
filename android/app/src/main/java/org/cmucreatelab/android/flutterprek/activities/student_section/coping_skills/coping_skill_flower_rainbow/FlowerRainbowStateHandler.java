@@ -19,6 +19,10 @@ public class FlowerRainbowStateHandler implements BleFlower.NotificationCallback
         FINISHED
     }
 
+    public interface BleBreathListener {
+        void onReceivedData(boolean flowerDetectsBreathing);
+    }
+
     private static final boolean SHOW_DEBUG_WINDOW = Constants.FLOWER_SHOW_DEBUG_WINDOW;
 
     private final FlowerRainbowCopingSkillActivity activity;
@@ -27,6 +31,7 @@ public class FlowerRainbowStateHandler implements BleFlower.NotificationCallback
     private final FlowerRainbowWriteTimer flowerWriteTimer;
     private boolean isPressingButton = false;
     private BleFlower bleFlower;
+    private BleBreathListener bleBreathListener;
 
 
     private void updateDebugWindow(String message) {
@@ -87,7 +92,13 @@ public class FlowerRainbowStateHandler implements BleFlower.NotificationCallback
 
 
     public FlowerRainbowStateHandler(FlowerRainbowCopingSkillActivity activity) {
+        this(activity, null);
+    }
+
+
+    public FlowerRainbowStateHandler(FlowerRainbowCopingSkillActivity activity, BleBreathListener bleBreathListener) {
         this.activity = activity;
+        this.bleBreathListener = bleBreathListener;
         this.breathTracker = new FlowerRainbowBreathTracker(activity, this);
         this.bleFlowerScanner = new BleFlowerScanner(activity, this, this);
         this.flowerWriteTimer = new FlowerRainbowWriteTimer(this);
@@ -114,6 +125,7 @@ public class FlowerRainbowStateHandler implements BleFlower.NotificationCallback
         }
 
         boolean newValue = arg2.equals("1");
+        boolean flowerDetectsBreathing = arg4.equals("1");
 
         // only listen for when the button is first pressed
         if (!isPressingButton && newValue) {
@@ -124,6 +136,10 @@ public class FlowerRainbowStateHandler implements BleFlower.NotificationCallback
         if (SHOW_DEBUG_WINDOW) {
             String reformedData = arg1+","+arg2+","+arg3+","+arg4;
             updateDebugWindow(reformedData);
+        }
+
+        if (bleBreathListener != null) {
+            bleBreathListener.onReceivedData(flowerDetectsBreathing);
         }
     }
 

@@ -207,6 +207,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <ImageView
+        android:id="@+id/imageViewRainbow"
+        android:src="@drawable/shape_rainbow"
+        android:layout_height="300dp"
+        android:layout_width="300dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
     <include
         android:id="@+id/overlayYesNo"
         layout="@layout/overlay_yes_no" />
