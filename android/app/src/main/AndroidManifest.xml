@@ -90,6 +90,10 @@
             android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
+            android:name=".activities.teacher_section.coping_skills.CopingSkillEditActivity"
+            android:screenOrientation="userLandscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
             android:name=".activities.teacher_section.EmotionIndexActivity"
             android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
