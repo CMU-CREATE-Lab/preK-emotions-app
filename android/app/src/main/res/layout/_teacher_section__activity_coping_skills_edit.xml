@@ -71,7 +71,55 @@
                     android:id="@+id/switch1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Switch" />
+                    android:checked="true"
+                    android:text="Coping Skill Available" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp" />
+
+                <TextView
+                    android:id="@+id/labelCopingSkillOptions"
+                    android:text="Other Options"
+                    style="@style/LabelsForTeacherSectionEditActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <ScrollView
+                    android:id="@+id/scrollViewOtherOptions"
+                    android:background="@color/cardview_light_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <fragment
+                            android:id="@+id/option1Fragment"
+                            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.OptionCheckItemSoundFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+
+                        <fragment
+                            android:id="@+id/option2Fragment"
+                            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.OptionCheckItemSoundFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+
+                        <fragment
+                            android:id="@+id/option3Fragment"
+                            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.OptionCheckItemSoundFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </LinearLayout>
+                </ScrollView>
             </LinearLayout>
 
             <android.support.constraint.ConstraintLayout

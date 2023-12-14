@@ -29,6 +29,7 @@ public class CopingSkillEditActivity extends AbstractActivity {
         super.onCreate(savedInstanceState);
 
         // TODO actions
+
     }
 
     @Override
