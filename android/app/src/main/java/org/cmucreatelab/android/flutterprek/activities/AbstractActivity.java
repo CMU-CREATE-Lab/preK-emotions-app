@@ -96,6 +96,11 @@ public abstract class AbstractActivity extends AppCompatActivity {
     }
 
 
+    public void stopAudio() {
+        AudioPlayer.getInstance(getApplicationContext()).stop();
+    }
+
+
     public void playAudio(String filepath) {
         playAudio(filepath, null);
     }

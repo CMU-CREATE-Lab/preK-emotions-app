@@ -13,15 +13,50 @@ import org.cmucreatelab.android.flutterprek.R;
 public class OptionCheckItemSoundFragment extends AbstractFragment {
 
     private boolean songIsPlaying = false;
+    private boolean isChecked = true;
+    private String audioFilepath, songName;
+    private OptionCheckItemSoundPlayListener listener;
+
     private Button buttonSongPlayPause;
     private CheckBox checkboxSongName;
+
+    public interface OptionCheckItemSoundPlayListener {
+        void onClickSongPlayPause(OptionCheckItemSoundFragment fragment, String audioFilepath, boolean play);
+    }
+
+
+    public void setOnPlayListener(OptionCheckItemSoundPlayListener listener) {
+        this.listener = listener;
+    }
+
+
+    public void setAttributes(String audioFilepath, String songName, boolean isChecked) {
+        this.audioFilepath = audioFilepath;
+        this.songName = songName;
+        this.isChecked = isChecked;
+    }
+
+
+    public void setSongIsPlaying(boolean songIsPlaying) {
+        this.songIsPlaying = songIsPlaying;
+    }
+
+
+    public void updateViews() {
+        if (songIsPlaying) {
+            buttonSongPlayPause.setText("Stop");
+        } else {
+            buttonSongPlayPause.setText("Play");
+        }
+        checkboxSongName.setChecked(isChecked);
+    }
 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.buttonSongPlayPause = view.findViewById(R.id.checkboxSongName);
+        this.buttonSongPlayPause = view.findViewById(R.id.buttonSongPlayPause);
         this.checkboxSongName = view.findViewById(R.id.checkboxSongName);
 
         // TODO set state (song name, checkbox)
@@ -29,14 +64,10 @@ public class OptionCheckItemSoundFragment extends AbstractFragment {
         buttonSongPlayPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (songIsPlaying) {
-                    // TODO stop music, change state
-                    buttonSongPlayPause.setText("Play");
-                } else {
-                    // TODO play music, change state
-                    buttonSongPlayPause.setText("Stop");
+                setSongIsPlaying(!songIsPlaying);
+                if (listener != null) {
+                    listener.onClickSongPlayPause(OptionCheckItemSoundFragment.this, audioFilepath, songIsPlaying);
                 }
-                songIsPlaying = !songIsPlaying;
             }
         });
     }
@@ -45,13 +76,6 @@ public class OptionCheckItemSoundFragment extends AbstractFragment {
     @Override
     public int getInflatedLayoutResource() {
         return R.layout.fragment_coping_skill_option_check_item_sound;
-    }
-
-
-    /** Set header to be transparent when {@param flag} is true. */
-    public void setHeaderTransparency(boolean flag) {
-        int color = flag ? Color.alpha(100) : getResources().getColor(R.color.colorPrimary);
-        getView().setBackgroundColor(color);
     }
 
 }
