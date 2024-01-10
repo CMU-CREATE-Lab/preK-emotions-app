@@ -41,10 +41,6 @@ public class CopingSkillEditActivity extends AbstractActivity implements OptionC
                 fragment4.updateViews();
             }
         });
-
-        AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
-        audioPlayer.addAudioFromAssets("etc/music/WandMusic.wav");
-        audioPlayer.playAudio();
     }
 
 

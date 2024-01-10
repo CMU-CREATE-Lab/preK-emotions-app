@@ -24,9 +24,9 @@
             android:checked="true"
             android:text="Name of Song"/>
 
-        <Button
-            android:id="@+id/buttonSongPlayPause"
-            android:layout_weight="1"
+        <ImageView
+            android:id="@+id/imageViewSongPlayPause"
+            android:src="@drawable/ic_music_play"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:padding="10dp"

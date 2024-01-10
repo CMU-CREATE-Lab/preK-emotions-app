@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import org.cmucreatelab.android.flutterprek.R;
 
@@ -17,7 +19,7 @@ public class OptionCheckItemSoundFragment extends AbstractFragment {
     private String audioFilepath, songName;
     private OptionCheckItemSoundPlayListener listener;
 
-    private Button buttonSongPlayPause;
+    private ImageView imageViewSongPlayPause;
     private CheckBox checkboxSongName;
 
     public interface OptionCheckItemSoundPlayListener {
@@ -44,11 +46,12 @@ public class OptionCheckItemSoundFragment extends AbstractFragment {
 
     public void updateViews() {
         if (songIsPlaying) {
-            buttonSongPlayPause.setText("Stop");
+            imageViewSongPlayPause.setImageResource(R.drawable.ic_music_stop);
         } else {
-            buttonSongPlayPause.setText("Play");
+            imageViewSongPlayPause.setImageResource(R.drawable.ic_music_play);
         }
         checkboxSongName.setChecked(isChecked);
+        checkboxSongName.setText(songName);
     }
 
 
@@ -56,12 +59,12 @@ public class OptionCheckItemSoundFragment extends AbstractFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.buttonSongPlayPause = view.findViewById(R.id.buttonSongPlayPause);
+        this.imageViewSongPlayPause = view.findViewById(R.id.imageViewSongPlayPause);
         this.checkboxSongName = view.findViewById(R.id.checkboxSongName);
 
         // TODO set state (song name, checkbox)
 
-        buttonSongPlayPause.setOnClickListener(new View.OnClickListener() {
+        imageViewSongPlayPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setSongIsPlaying(!songIsPlaying);
