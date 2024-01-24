@@ -93,37 +93,10 @@
                     >
 
                     <LinearLayout
+                        android:id="@+id/linearLayoutOtherOptions"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-
-                        <fragment
-                            android:id="@+id/option1Fragment"
-                            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.OptionCheckItemSoundFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            />
-
-                        <fragment
-                            android:id="@+id/option2Fragment"
-                            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.OptionCheckItemSoundFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            />
-
-                        <fragment
-                            android:id="@+id/option3Fragment"
-                            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.OptionCheckItemSoundFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            />
-
-                        <fragment
-                            android:id="@+id/option4Fragment"
-                            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.OptionCheckItemSoundFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            />
 
                     </LinearLayout>
                 </ScrollView>
