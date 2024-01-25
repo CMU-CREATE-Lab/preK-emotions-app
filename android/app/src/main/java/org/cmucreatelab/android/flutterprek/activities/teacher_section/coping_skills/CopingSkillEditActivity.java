@@ -128,7 +128,7 @@ public class CopingSkillEditActivity extends AbstractActivity implements OptionC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.dbHelperWandMusicSongs = new DbHelperWandMusicSongs(this, "coping_skill_14");
+        this.dbHelperWandMusicSongs = new DbHelperWandMusicSongs(this);
         initializeOptionItems();
     }
 

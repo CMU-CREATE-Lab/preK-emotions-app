@@ -1,12 +1,22 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
+import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.DbHelperWandMusicSongs;
+import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class WandCopingSkillAudioHandler {
@@ -26,15 +36,58 @@ public class WandCopingSkillAudioHandler {
     public boolean title_playing = false;
     public boolean more_time_playing = false;
     private AssetFileDescriptor music;
+    private DbHelperWandMusicSongs dbHelperWandMusicSongs;
+    private ArrayList<String> dbFilesForMusic;
+
+    private static int musicFileIndex = 0;
 
 
     public WandCopingSkillAudioHandler (WandCopingSkillActivity wandCopingSkillActivity) {
+        musicFileIndex++;
+        this.dbFilesForMusic = new ArrayList<>();
         this.wandCopingSkillActivity = wandCopingSkillActivity;
-        try {
-            initMediaPlayer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.dbHelperWandMusicSongs = new DbHelperWandMusicSongs(wandCopingSkillActivity);
+
+        // TODO consider case where read fails and initMediaPlayer() is not called?
+        dbHelperWandMusicSongs.readFromDb(new DbHelperWandMusicSongs.Listener() {
+            @Override
+            public void onReadFromDb(ArrayList<DbHelperWandMusicSongs.MusicFileJson> arrayListJson) {
+                ArrayList<String> uuids = new ArrayList<>();
+                 for (DbHelperWandMusicSongs.MusicFileJson musicFileJson: arrayListJson) {
+                     if (musicFileJson.selected == 1) {
+                         uuids.add(musicFileJson.dbfileuuid);
+//                         AppDatabase.getInstance(wandCopingSkillActivity).dbFileDAO().getDbFile(musicFileJson.dbfileuuid).observe(wandCopingSkillActivity, new Observer<DbFile>() {
+//                             @Override
+//                             public void onChanged(@Nullable DbFile dbFile) {
+//                                 dbFilesForMusic.add(dbFile.getFilePath());
+//                             }
+//                         });
+                     }
+                 }
+
+                 if (uuids.size() == 0) {
+                     try {
+                         initMediaPlayer();
+                     } catch (IOException e) {
+                         e.printStackTrace();
+                     }
+                 } else {
+                     AppDatabase.getInstance(wandCopingSkillActivity).dbFileDAO().getDbFiles(uuids).observe(wandCopingSkillActivity, new Observer<List<DbFile>>() {
+                         @Override
+                         public void onChanged(@Nullable List<DbFile> dbFiles) {
+                             for (DbFile dbFile : dbFiles) {
+                                 dbFilesForMusic.add(dbFile.getFilePath());
+                             }
+                             try {
+                                 initMediaPlayer();
+                             } catch (IOException e) {
+                                 e.printStackTrace();
+                             }
+                         }
+                     });
+                 }
+            }
+        });
     }
 
     public void setAudio(boolean fast) {
@@ -146,9 +199,21 @@ public class WandCopingSkillAudioHandler {
                         .setUsage(AudioAttributes.USAGE_MEDIA)
                         .build()
         );
-        music = wandCopingSkillActivity.getAssets().openFd(wandCopingSkillActivity.getAudioFileForMusic());
+        String audioFileForMusic = getAudioFileForMusic();
+        Log.v(Constants.LOG_TAG, String.format("Found audio file for music: %s", audioFileForMusic));
+        music = wandCopingSkillActivity.getAssets().openFd(audioFileForMusic);
         audioPlayer.setDataSource(music.getFileDescriptor(), music.getStartOffset(), music.getLength());
         audioPlayer.prepare();
+    }
+
+
+    public String getAudioFileForMusic() {
+        if (dbFilesForMusic.size() == 0) {
+            // use default song when nothing is selected
+            return "etc/music/WandMusic.wav";
+        }
+        int index = (musicFileIndex % dbFilesForMusic.size());
+        return dbFilesForMusic.get(index);
     }
 
     public void playedTitle () {

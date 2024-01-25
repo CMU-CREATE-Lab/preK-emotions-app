@@ -41,6 +41,15 @@ public class DbHelperWandMusicSongs {
     private AbstractActivity activity;
 
 
+    /**
+     * Constructor that assumes wand coping skill
+     * @param activity
+     */
+    public DbHelperWandMusicSongs(AbstractActivity activity) {
+        this(activity, "coping_skill_14");
+    }
+
+
     public DbHelperWandMusicSongs(AbstractActivity activity, String ownerUuid) {
         this.activity = activity;
         this.ownerUuid = ownerUuid;
