@@ -157,20 +157,22 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
     }
 
 
-    public String getAudioFileForMusic() {
-        return "etc/music/WandMusic.wav";
-    }
-
-
-    public void playMusic() {
-        AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
-        audioPlayer.addAudioFromAssets(getAudioFileForMusic());
-    }
-
-
-    public void stopMusic () {
-        AudioPlayer.getInstance(getApplicationContext()).stop();
-    }
+//    public String getAudioFileForMusic() {
+//        // TODO read DB, find selected, static index
+//        //return "etc/music/WandMusic.wav";
+//        return "etc/music/minfulnest_song1.mp3";
+//    }
+//
+//
+//    public void playMusic() {
+//        AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
+//        audioPlayer.addAudioFromAssets(getAudioFileForMusic());
+//    }
+//
+//
+//    public void stopMusic () {
+//        AudioPlayer.getInstance(getApplicationContext()).stop();
+//    }
 
 
     /** Get the background resource for the coping skill. */

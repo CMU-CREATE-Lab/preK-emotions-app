@@ -37,6 +37,9 @@ public interface DbFileDAO {
     @Query("SELECT * FROM db_files WHERE uuid = :dbFileUuid LIMIT 1")
     LiveData<DbFile> getDbFile(String dbFileUuid);
 
+    @Query("SELECT * FROM db_files WHERE uuid IN (:listDbFileUuid)")
+    LiveData<List<DbFile>> getDbFiles(List<String> listDbFileUuid);
+
     @Query("SELECT * FROM db_files WHERE file_type = :type")
     LiveData<List<DbFile>> getDbFilesOfType(String type);
 
