@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="800dp"
+    android:layout_height="600dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<!--    list = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0].map{|x| x/11.0}-->
+<!--    x = list.map{|x| Math.cos(Math::PI*(x))*170+370}-->
+<!--    y = list.map{|x| Math.sin(Math::PI * x)*140+150 }-->
+<!--    for i in 1..12 do; puts "#{i}: #{x[i-1]}, #{y[i-1]}"; end-->
+
+    <ImageView
+        android:id="@+id/imageViewRainbow"
+        android:src="@drawable/shape_rainbow"
+        android:layout_height="300dp"
+        android:layout_width="300dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/imageViewStar1"
+        android:src="@drawable/star_red"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginBottom="150dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewStar2"
+        android:src="@drawable/star_red"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="206dp"
+        android:layout_marginBottom="189dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewStar3"
+        android:src="@drawable/star_orange"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="226dp"
+        android:layout_marginBottom="225dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewStar4"
+        android:src="@drawable/star_orange"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="258dp"
+        android:layout_marginBottom="255dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewStar5"
+        android:src="@drawable/star_yellow"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="299dp"
+        android:layout_marginBottom="277dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewStar6"
+        android:src="@drawable/star_yellow"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="345dp"
+        android:layout_marginBottom="288dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewStar7"
+        android:src="@drawable/star_green"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="394dp"
+        android:layout_marginBottom="288dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewStar8"
+        android:src="@drawable/star_green"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="440dp"
+        android:layout_marginBottom="277dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewStar9"
+        android:src="@drawable/star_blue"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="481dp"
+        android:layout_marginBottom="255dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewStar10"
+        android:src="@drawable/star_blue"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="513dp"
+        android:layout_marginBottom="225dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewStar11"
+        android:src="@drawable/star_purple"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="533dp"
+        android:layout_marginBottom="189dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewStar12"
+        android:src="@drawable/star_purple"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="540dp"
+        android:layout_marginBottom="150dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

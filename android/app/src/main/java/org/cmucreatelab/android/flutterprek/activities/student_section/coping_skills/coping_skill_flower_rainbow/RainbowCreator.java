@@ -30,7 +30,7 @@ public class RainbowCreator implements FlowerRainbowStateHandler.BleBreathListen
     }
 
 
-    private void animateRainbowFadeIn() {
+    public void animateRainbowFadeIn() {
         ImageView rainbowView = activity.findViewById(R.id.imageViewRainbow);
 
         activity.runOnUiThread(new Runnable() {

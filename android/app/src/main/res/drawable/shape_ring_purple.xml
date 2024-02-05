@@ -7,5 +7,5 @@
     android:useLevel="false">
 
     <solid
-        android:color="#8f00ff" />
+        android:color="@color/rainbowPurple" />
 </shape>

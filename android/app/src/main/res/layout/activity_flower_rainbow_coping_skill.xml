@@ -207,17 +207,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <ImageView
-        android:id="@+id/imageViewRainbow"
-        android:src="@drawable/shape_rainbow"
-        android:layout_height="300dp"
-        android:layout_width="300dp"
+    <include
+        android:id="@+id/rainbowStars"
+        android:layout_height="600dp"
+        android:layout_width="800dp"
+        layout="@layout/include_rainbow_stars"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        android:layout_marginBottom="100dp"
+        ></include>
 
     <include
         android:id="@+id/overlayYesNo"
@@ -243,6 +242,24 @@
         android:background="#0000"
         app:srcCompat="@drawable/ic_connection_error"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewAnim"
+        android:src="@drawable/star_yellow"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_margin="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewAnim2"
+        android:src="@drawable/star_yellow"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="200dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

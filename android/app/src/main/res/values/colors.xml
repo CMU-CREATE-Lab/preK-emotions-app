@@ -32,4 +32,11 @@
     <color name="colorBlockRadioButtonTextSelected">#1dab92</color>
     <color name="colorBlockRadioButtonTextRegular">#9b9b9b</color>
     <color name="colorNone"></color>
+    <!-- flower: colors of the rainbow (for the rainbow and stars) -->
+    <color name="rainbowRed">#ff0000</color>
+    <color name="rainbowOrange">#ff7f00</color>
+    <color name="rainbowYellow">#ffff00</color>
+    <color name="rainbowGreen">#00ff00</color>
+    <color name="rainbowBlue">#0000ff</color>
+    <color name="rainbowPurple">#8f00ff</color>
 </resources>
