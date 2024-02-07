@@ -244,22 +244,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageViewAnim"
-        android:src="@drawable/star_yellow"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_margin="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageViewAnim2"
-        android:src="@drawable/star_yellow"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="200dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </android.support.constraint.ConstraintLayout>

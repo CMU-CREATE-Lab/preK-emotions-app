@@ -5,6 +5,7 @@ import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -45,6 +46,84 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
 
     private void playAudioOverlay() {
         playAudio("etc/audio_prompts/audio_flower_again.wav");
+    }
+
+
+    private void demo1() {
+        // TODO calculate geometry for margins to form semi-circle (also inside a container?)
+        // -- 12 stars, 6 colors with 2 stars each
+        // -- margin left to right in fixed increments, sine function for y-values
+        // -- Consider animation delay to "move" in an arc from left to right?
+        //   +++ This might require lots of timers, async jobs, object instances mgmt, etc
+        // TODO play with Interpolators?
+        // -- https://developer.android.com/reference/android/view/animation/Interpolator
+        //((ImageView)findViewById(R.id.imageViewAnim)).animate();
+        Animation slow = AnimationUtils.loadAnimation(this, R.anim.heart_beat_slow);
+        Animation fast = AnimationUtils.loadAnimation(this, R.anim.star_scale_fast);
+        ImageView imageViewAnim = findViewById(R.id.imageViewStar1);
+        ImageView imageViewAnim2 = findViewById(R.id.imageViewStar2);
+        imageViewAnim.startAnimation(slow);
+
+
+//        RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+//        rotate.setDuration(500);
+//        rotate.setRepeatMode(Animation.REVERSE);
+//        rotate.setRepeatCount(Animation.INFINITE);
+//        rotate.setInterpolator(new LinearInterpolator());
+        Animation rotate = AnimationUtils.loadAnimation(this, R.anim.star_rotate);
+        rotate.setInterpolator(new LinearInterpolator());
+
+        // https://stackoverflow.com/questions/6355495/animation-with-animationset-in-android
+        // https://developer.android.com/reference/android/view/animation/AnimationSet.html
+        AnimationSet animationSet = new AnimationSet(false);
+        //animationSet.setInterpolator(new LinearInterpolator());
+        animationSet.addAnimation(fast);
+        animationSet.addAnimation(rotate);
+        imageViewAnim2.startAnimation(animationSet);
+
+        // TODO visibility and reset/restarting animations?
+        // TODO use a fade in (one time) upon restarting animation (and start small to big)
+        //imageViewAnim.setVisibility(View.INVISIBLE);
+
+        rainbowCreator.animateRainbowFadeIn();
+
+//        // TODO multiple animations?
+//        imageViewAnim2.startAnimation(fast);
+//        imageViewAnim2.startAnimation(rotate);
+    }
+
+
+    private void demo2() {
+        rainbowCreator.animateRainbowFadeIn();
+
+        VectorAnimator vectorAnimator = new VectorAnimator(this);
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar1));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar2));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar3));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar4));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar5));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar6));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar7));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar8));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar9));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar10));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar11));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar12));
+
+        final Handler handler = new Handler();
+        vectorAnimator.startAnimations();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                vectorAnimator.startAnimations();
+            }
+        }, 1000);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                vectorAnimator.startAnimations();
+            }
+        }, 2000);
     }
 
 
@@ -89,47 +168,8 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         flowerStateHandler.initializeState();
         flowerStateHandler.lookForFlower();
 
-
-        // TODO calculate geometry for margins to form semi-circle (also inside a container?)
-        // -- 12 stars, 6 colors with 2 stars each
-        // -- margin left to right in fixed increments, sine function for y-values
-        // -- Consider animation delay to "move" in an arc from left to right?
-        //   +++ This might require lots of timers, async jobs, object instances mgmt, etc
-        // TODO play with Interpolators?
-        // -- https://developer.android.com/reference/android/view/animation/Interpolator
-        //((ImageView)findViewById(R.id.imageViewAnim)).animate();
-        Animation slow = AnimationUtils.loadAnimation(this, R.anim.heart_beat_slow);
-        Animation fast = AnimationUtils.loadAnimation(this, R.anim.star_scale_fast);
-        ImageView imageViewAnim = findViewById(R.id.imageViewAnim);
-        ImageView imageViewAnim2 = findViewById(R.id.imageViewAnim2);
-        imageViewAnim.startAnimation(slow);
-
-
-//        RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-//        rotate.setDuration(500);
-//        rotate.setRepeatMode(Animation.REVERSE);
-//        rotate.setRepeatCount(Animation.INFINITE);
-//        rotate.setInterpolator(new LinearInterpolator());
-        Animation rotate = AnimationUtils.loadAnimation(this, R.anim.star_rotate);
-        rotate.setInterpolator(new LinearInterpolator());
-
-        // https://stackoverflow.com/questions/6355495/animation-with-animationset-in-android
-        // https://developer.android.com/reference/android/view/animation/AnimationSet.html
-        AnimationSet animationSet = new AnimationSet(false);
-        //animationSet.setInterpolator(new LinearInterpolator());
-        animationSet.addAnimation(fast);
-        animationSet.addAnimation(rotate);
-        imageViewAnim2.startAnimation(animationSet);
-
-        // TODO visibility and reset/restarting animations?
-        // TODO use a fade in (one time) upon restarting animation (and start small to big)
-        //imageViewAnim.setVisibility(View.INVISIBLE);
-
-        rainbowCreator.animateRainbowFadeIn();
-
-//        // TODO multiple animations?
-//        imageViewAnim2.startAnimation(fast);
-//        imageViewAnim2.startAnimation(rotate);
+//        demo1();
+        demo2();
     }
 
 
