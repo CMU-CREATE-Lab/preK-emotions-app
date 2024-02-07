@@ -111,19 +111,15 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         vectorAnimator.addImageView(findViewById(R.id.imageViewStar12));
 
         final Handler handler = new Handler();
-        vectorAnimator.startAnimations();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                vectorAnimator.startAnimations();
-            }
-        }, 1000);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                vectorAnimator.startAnimations();
-            }
-        }, 2000);
+        for (int i=0; i<12; i++) {
+            final int numberOfStars = i+1;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    vectorAnimator.startAnimations(numberOfStars);
+                }
+            }, 1000*i);
+        }
     }
 
 

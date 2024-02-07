@@ -52,6 +52,12 @@ public class VectorAnimator {
 
 
     public void startAnimations() {
+        startAnimations(12);
+    }
+
+
+    public void startAnimations(int numberOfStars) {
+        // ASSERT: numberOfStars is between 0 and 12
         // TODO AnimatedVector instances from imageViewsToAnimate
         final Handler handler = new Handler();
         final ArrayList<Runnable> toRun = new ArrayList<>();
@@ -72,7 +78,12 @@ public class VectorAnimator {
         });
 
         //for (ImageView imageView: imageViewsToAnimate) {
+        int starCount = 0;
         for (AnimatedVector animatedVector: listAnimatedVectors) {
+            starCount++;
+            if (starCount > numberOfStars) {
+                break;
+            }
             toRun.add(new Runnable() {
                 @Override
                 public void run() {
