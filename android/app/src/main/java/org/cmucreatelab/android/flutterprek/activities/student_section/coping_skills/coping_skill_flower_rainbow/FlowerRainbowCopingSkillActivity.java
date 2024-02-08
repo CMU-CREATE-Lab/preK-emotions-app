@@ -27,6 +27,8 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
     private FlowerRainbowStateHandler flowerStateHandler;
     private RainbowCreator rainbowCreator;
     private boolean activityIsPaused;
+    public int ledCountOnFlower = 0;
+    private final Handler loopHandler = new Handler();
 
 
     private void playAudioInstructions() {
@@ -123,6 +125,34 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
     }
 
 
+    private void initVectorAnimatorAndLoop() {
+        VectorAnimator vectorAnimator = new VectorAnimator(this);
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar1));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar2));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar3));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar4));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar5));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar6));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar7));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar8));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar9));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar10));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar11));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar12));
+
+        final Handler handler = new Handler();
+        // TODO calculate this based on delay of 12th start and animation duration
+        final int delayMillis = 1250;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                vectorAnimator.startAnimations(ledCountOnFlower);
+                if (!activityIsPaused) handler.postDelayed(this, delayMillis);
+            }
+        }, delayMillis);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,7 +195,8 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         flowerStateHandler.lookForFlower();
 
 //        demo1();
-        demo2();
+//        demo2();
+        initVectorAnimatorAndLoop();
     }
 
 

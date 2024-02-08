@@ -107,7 +107,7 @@ public class FlowerStateHandler implements BleFlower.NotificationCallback, Flowe
 
 
     @Override
-    public void onReceivedData(String arg1, String arg2, String arg3, String arg4) {
+    public void onReceivedData(String arg1, String arg2, String arg3, String arg4, String arg5) {
         if (activity.isPaused()) {
             Log.v(Constants.LOG_TAG, "onReceivedData ignored while activity is paused.");
             return;

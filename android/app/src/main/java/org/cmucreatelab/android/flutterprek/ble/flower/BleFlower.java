@@ -12,6 +12,7 @@ public class BleFlower {
 
     private UARTConnection uartConnection;
     public NotificationCallback notificationCallback = null;
+    private static String ledCountUnimplemented = "-1";
 
 
     public BleFlower(Context appContext, BluetoothDevice device, UARTConnection.ConnectionListener connectionListener) {
@@ -23,12 +24,15 @@ public class BleFlower {
                 if (notificationCallback != null) {
                     String[] params = new String(newData).trim().split(",");
                     if (Constants.SUPPORT_LEGACY_FLOWER_PROTOCOL) {
-                        if (params.length == 4) {
-                            notificationCallback.onReceivedData(params[0], params[1], params[2], params[3]);
+
+                        if (params.length == 5) {
+                            notificationCallback.onReceivedData(params[0], params[1], params[2], params[3], params[4]);
+                        } else if (params.length == 4) {
+                            notificationCallback.onReceivedData(params[0], params[1], params[2], params[3], ledCountUnimplemented);
                         } else if (params.length == 3) {
                             // NOTE: this value increments on the new flower but is unused by the onReceivedData method, so a constant here is okay.
                             String str = "0";
-                            notificationCallback.onReceivedData(str, params[0], params[1], params[2]);
+                            notificationCallback.onReceivedData(str, params[0], params[1], params[2], ledCountUnimplemented);
                         } else {
                             Log.e(Constants.LOG_TAG, "parsed invalid number of params from notification='" + new String(newData).trim() + "'; unable to call NotificationCallback.");
                             return;
@@ -38,7 +42,7 @@ public class BleFlower {
                             Log.e(Constants.LOG_TAG, "parsed less than four params from notification='" + new String(newData).trim() + "'; unable to call NotificationCallback.");
                             return;
                         }
-                        notificationCallback.onReceivedData(params[0], params[1], params[2], params[3]);
+                        notificationCallback.onReceivedData(params[0], params[1], params[2], params[3], ledCountUnimplemented);
                     }
                 }
             }
@@ -77,7 +81,7 @@ public class BleFlower {
 
 
     public interface NotificationCallback {
-        void onReceivedData(@NonNull String arg1, @NonNull String arg2, @NonNull String arg3, @NonNull String arg4);
+        void onReceivedData(@NonNull String arg1, @NonNull String arg2, @NonNull String arg3, @NonNull String arg4, @NonNull String arg5);
     }
 
 }

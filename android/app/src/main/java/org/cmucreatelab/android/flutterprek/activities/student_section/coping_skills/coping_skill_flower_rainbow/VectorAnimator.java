@@ -98,7 +98,7 @@ public class VectorAnimator {
             public void run() {
                 int delay = 0;
                 for (Runnable runnable: toRun) {
-                    delay += 80;
+                    delay += 60;
                     handler.postDelayed(runnable, delay);
                 }
             }

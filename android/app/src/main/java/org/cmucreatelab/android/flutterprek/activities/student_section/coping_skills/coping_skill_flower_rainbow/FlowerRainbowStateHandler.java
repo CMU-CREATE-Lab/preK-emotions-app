@@ -118,7 +118,7 @@ public class FlowerRainbowStateHandler implements BleFlower.NotificationCallback
 
 
     @Override
-    public void onReceivedData(String arg1, String arg2, String arg3, String arg4) {
+    public void onReceivedData(String arg1, String arg2, String arg3, String arg4, String arg5) {
         if (activity.isPaused()) {
             Log.v(Constants.LOG_TAG, "onReceivedData ignored while activity is paused.");
             return;
@@ -127,6 +127,17 @@ public class FlowerRainbowStateHandler implements BleFlower.NotificationCallback
         boolean newValue = arg2.equals("1");
         boolean flowerDetectsBreathing = arg4.equals("1");
 
+        // update led count for activity
+        try {
+            int ledCount = Integer.parseInt(arg5);
+            // forces interpret value between 0 and 12
+            activity.ledCountOnFlower = Math.max(Math.min(ledCount, 12), 0);
+        } catch (NumberFormatException e) {
+            Log.e(Constants.LOG_TAG, String.format("Failed to parge ledCount '%s'; will default to 0", arg5));
+            activity.ledCountOnFlower = 0;
+            e.printStackTrace();
+        }
+
         // only listen for when the button is first pressed
         if (!isPressingButton && newValue) {
             isPressingButton = true;
@@ -134,7 +145,7 @@ public class FlowerRainbowStateHandler implements BleFlower.NotificationCallback
         }
 
         if (SHOW_DEBUG_WINDOW) {
-            String reformedData = arg1+","+arg2+","+arg3+","+arg4;
+            String reformedData = arg1+","+arg2+","+arg3+","+arg4+","+arg5;
             updateDebugWindow(reformedData);
         }
 
