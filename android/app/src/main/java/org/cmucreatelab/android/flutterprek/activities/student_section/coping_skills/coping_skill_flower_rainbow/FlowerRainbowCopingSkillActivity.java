@@ -20,15 +20,16 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
 
-public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivity {
+public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivity implements FlowerRainbowStateHandler.BleBreathListener {
 
     private FlowerRainbowCopingSkillProcess flowerCopingSkillProcess;
     private FlowerRainbowCopingSkillStep1Timer step1Timer;
     private FlowerRainbowStateHandler flowerStateHandler;
-    private RainbowCreator rainbowCreator;
     private boolean activityIsPaused;
     public int ledCountOnFlower = 0;
     private final Handler loopHandler = new Handler();
+    private VectorAnimator vectorAnimator;
+    private boolean readyToPlayStarAnimation = false;
 
 
     private void playAudioInstructions() {
@@ -87,7 +88,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         // TODO use a fade in (one time) upon restarting animation (and start small to big)
         //imageViewAnim.setVisibility(View.INVISIBLE);
 
-        rainbowCreator.animateRainbowFadeIn();
+//        rainbowCreator.animateRainbowFadeIn();
 
 //        // TODO multiple animations?
 //        imageViewAnim2.startAnimation(fast);
@@ -96,7 +97,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
 
 
     private void demo2() {
-        rainbowCreator.animateRainbowFadeIn();
+//        rainbowCreator.animateRainbowFadeIn();
 
         VectorAnimator vectorAnimator = new VectorAnimator(this);
         vectorAnimator.addImageView(findViewById(R.id.imageViewStar1));
@@ -126,7 +127,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
 
 
     private void initVectorAnimatorAndLoop() {
-        VectorAnimator vectorAnimator = new VectorAnimator(this);
+        this.vectorAnimator = new VectorAnimator(this);
         vectorAnimator.addImageView(findViewById(R.id.imageViewStar1));
         vectorAnimator.addImageView(findViewById(R.id.imageViewStar2));
         vectorAnimator.addImageView(findViewById(R.id.imageViewStar3));
@@ -140,14 +141,13 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         vectorAnimator.addImageView(findViewById(R.id.imageViewStar11));
         vectorAnimator.addImageView(findViewById(R.id.imageViewStar12));
 
-        final Handler handler = new Handler();
         // TODO calculate this based on delay of 12th start and animation duration
         final int delayMillis = 1250;
-        handler.postDelayed(new Runnable() {
+        loopHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 vectorAnimator.startAnimations(ledCountOnFlower);
-                if (!activityIsPaused) handler.postDelayed(this, delayMillis);
+                if (!activityIsPaused) loopHandler.postDelayed(this, delayMillis);
             }
         }, delayMillis);
     }
@@ -159,8 +159,23 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
 
         flowerCopingSkillProcess = new FlowerRainbowCopingSkillProcess(this);
         step1Timer = new FlowerRainbowCopingSkillStep1Timer(flowerCopingSkillProcess);
-        rainbowCreator = new RainbowCreator(this);
-        flowerStateHandler = new FlowerRainbowStateHandler(this, rainbowCreator);
+//        rainbowCreator = new RainbowCreator(this);
+//        flowerStateHandler = new FlowerRainbowStateHandler(this, rainbowCreator);
+        flowerStateHandler = new FlowerRainbowStateHandler(this, this);
+
+        this.vectorAnimator = new VectorAnimator(this);
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar1));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar2));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar3));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar4));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar5));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar6));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar7));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar8));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar9));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar10));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar11));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewStar12));
 
         findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,7 +211,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
 
 //        demo1();
 //        demo2();
-        initVectorAnimatorAndLoop();
+//        initVectorAnimatorAndLoop();
     }
 
 
@@ -214,6 +229,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
 
 
     public void displayBreatheIn() {
+        this.readyToPlayStarAnimation = false;
         step1Timer.stopTimer();
         flowerCopingSkillProcess.goToStep(FlowerRainbowCopingSkillProcess.StepNumber.STEP_2_SMELL);
         playAudioSmell();
@@ -221,6 +237,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
 
 
     public void displayBreatheOut() {
+        this.readyToPlayStarAnimation = true;
         step1Timer.stopTimer();
         flowerCopingSkillProcess.goToStep(FlowerRainbowCopingSkillProcess.StepNumber.STEP_3_BLOW);
         playAudioBlow();
@@ -235,6 +252,21 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
 
     public boolean isPaused() {
         return activityIsPaused;
+    }
+
+
+    @Override
+    public void onReceivedData(boolean flowerDetectsBreathing) {
+        if (flowerDetectsBreathing && readyToPlayStarAnimation) {
+            this.readyToPlayStarAnimation = false;
+
+            loopHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    vectorAnimator.startAnimations();
+                }
+            }, 100);
+        }
     }
 
 }

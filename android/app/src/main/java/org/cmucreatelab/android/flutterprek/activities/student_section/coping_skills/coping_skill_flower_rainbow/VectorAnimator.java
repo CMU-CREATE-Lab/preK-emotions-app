@@ -18,15 +18,18 @@ public class VectorAnimator {
     private AbstractActivity activity;
     private ArrayList<ImageView> imageViewsToAnimate;
 
+    private static int starAnimationResource = R.anim.star_anim2;
+    private static long delayBetweenStarAnimationsInMilliseconds = 100;
+
     private static class AnimatedVector {
         public ImageView imageView;
-        public Animation rotate, scaleFast, anim1;
+        public Animation anim;
 
         public AnimatedVector(Context context, ImageView imageView) {
             this.imageView = imageView;
-            this.scaleFast = AnimationUtils.loadAnimation(context, R.anim.star_scale_fast);
-            this.rotate = AnimationUtils.loadAnimation(context, R.anim.star_rotate);
-            this.anim1 = AnimationUtils.loadAnimation(context, R.anim.star_anim1);
+//            this.scaleFast = AnimationUtils.loadAnimation(context, R.anim.star_scale_fast);
+//            this.rotate = AnimationUtils.loadAnimation(context, R.anim.star_rotate);
+            this.anim = AnimationUtils.loadAnimation(context, starAnimationResource);
             // TODO set/handle AnimationListener?
         }
 
@@ -35,7 +38,7 @@ public class VectorAnimator {
 //            animationSet.addAnimation(scaleFast);
 //            animationSet.addAnimation(rotate);
 //            imageView.startAnimation(animationSet);
-            imageView.startAnimation(anim1);
+            imageView.startAnimation(anim);
         }
     }
 
@@ -98,7 +101,7 @@ public class VectorAnimator {
             public void run() {
                 int delay = 0;
                 for (Runnable runnable: toRun) {
-                    delay += 60;
+                    delay += delayBetweenStarAnimationsInMilliseconds;
                     handler.postDelayed(runnable, delay);
                 }
             }
