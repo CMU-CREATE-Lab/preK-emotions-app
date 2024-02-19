@@ -31,13 +31,9 @@ public class CopingSkillIndexActivity extends ManageClassroomActivityWithHeaderA
     private final CopingSkillWithCustomizationsIndexAdapter.ClickListener clickListener = new CopingSkillWithCustomizationsIndexAdapter.ClickListener() {
         @Override
         public void onClick(CopingSkillWithCustomizations copingSkillWithCustomizations, List<ItineraryItem> itineraryItems, View view) {
-            // TODO new click listener to send to "Show" activity (this is where you will toggle isDisabled and other customizations)
-
             Intent intent = new Intent(CopingSkillIndexActivity.this, CopingSkillEditActivity.class);
-            // TODO extras?
-            //intent.putExtra(SessionIndexActivity.STUDENT_KEY, student);
+            intent.putExtra(CopingSkillEditActivity.COPING_SKILL_KEY, copingSkillWithCustomizations.copingSkill.getUuid());
             startActivity(intent);
-
 
 //            // NOTE: you will need to run the query again to make sure newly-inserted customizations (and updates?) are taken into account
 //            if (copingSkillWithCustomizations.isDisabled()) {
