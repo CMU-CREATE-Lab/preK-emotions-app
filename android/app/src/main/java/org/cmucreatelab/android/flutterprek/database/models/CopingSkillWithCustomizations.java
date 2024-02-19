@@ -9,9 +9,10 @@ import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CopingSkillWithCustomizations {
+public class CopingSkillWithCustomizations implements Serializable {
 
     public static final String CUSTOMIZATION_IS_DISABLED = "isDisabled";
 

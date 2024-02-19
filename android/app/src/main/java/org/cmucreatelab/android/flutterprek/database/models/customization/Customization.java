@@ -8,6 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
@@ -19,7 +20,7 @@ import java.util.UUID;
  *   https://developer.android.com/training/data-storage/room/accessing-data
  */
 @Entity(tableName = "customizations", indices = {@Index("owner_uuid"), @Index("based_on_uuid")})
-public class Customization {
+public class Customization implements Serializable {
 
     @PrimaryKey
     @NonNull
