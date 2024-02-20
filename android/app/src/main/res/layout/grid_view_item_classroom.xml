@@ -13,21 +13,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewStudents"
         style="@style/GridViewItemClassroomLabels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/classroom_grid_label_students"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text1" />
 
-    <TextView
-        android:id="@+id/textView3"
-        style="@style/GridViewItemClassroomLabels"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:text="@string/classroom_grid_label_coping_skills"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 </android.support.constraint.ConstraintLayout>

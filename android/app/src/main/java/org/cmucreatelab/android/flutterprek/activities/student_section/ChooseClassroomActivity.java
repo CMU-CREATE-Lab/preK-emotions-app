@@ -171,7 +171,7 @@ public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
             @Override
             public void onChanged(@Nullable List<ClassroomWithCustomizations> classrooms) {
                 GridView classroomsGridView = findViewById(R.id.classroomsGridView);
-                classroomsGridView.setAdapter(new ClassroomWithCustomizationsIndexAdapter(classrooms, listener));
+                classroomsGridView.setAdapter(new ClassroomWithCustomizationsIndexAdapter(ChooseClassroomActivity.this, classrooms, listener));
             }
         });
 
