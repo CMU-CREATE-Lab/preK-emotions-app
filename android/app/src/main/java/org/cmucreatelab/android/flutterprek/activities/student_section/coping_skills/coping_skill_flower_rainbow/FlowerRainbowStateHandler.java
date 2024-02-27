@@ -145,7 +145,7 @@ public class FlowerRainbowStateHandler implements BleFlower.NotificationCallback
         }
 
         if (SHOW_DEBUG_WINDOW) {
-            String reformedData = arg1+","+arg2+","+arg3+","+arg4+","+arg5;
+            String reformedData = arg1+","+arg2+","+arg3+","+arg4+","+arg5+"\n\n BREATH: "+activity.breathCount;
             updateDebugWindow(reformedData);
         }
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
@@ -17,6 +16,7 @@ public class VectorAnimator {
 
     private AbstractActivity activity;
     private ArrayList<ImageView> imageViewsToAnimate;
+    private AnimationListener animationListener;
 
     private static int starAnimationResource = R.anim.star_anim2;
     private static long delayBetweenStarAnimationsInMilliseconds = 100;
@@ -30,7 +30,6 @@ public class VectorAnimator {
 //            this.scaleFast = AnimationUtils.loadAnimation(context, R.anim.star_scale_fast);
 //            this.rotate = AnimationUtils.loadAnimation(context, R.anim.star_rotate);
             this.anim = AnimationUtils.loadAnimation(context, starAnimationResource);
-            // TODO set/handle AnimationListener?
         }
 
         public void startAnimation() {
@@ -42,10 +41,24 @@ public class VectorAnimator {
         }
     }
 
+    public interface AnimationListener {
+        /**
+         * Notifies when every animation is started
+         * @param vectorAnimator the instance that the callback is related to
+         */
+        void OnAllAnimationsStarted(VectorAnimator vectorAnimator);
+    }
+
 
     public VectorAnimator(AbstractActivity activity) {
+        this(activity, null);
+    }
+
+
+    public VectorAnimator(AbstractActivity activity, AnimationListener animationListener) {
         this.activity = activity;
         this.imageViewsToAnimate = new ArrayList<>();
+        this.animationListener = animationListener;
     }
 
 
@@ -82,11 +95,13 @@ public class VectorAnimator {
 
         //for (ImageView imageView: imageViewsToAnimate) {
         int starCount = 0;
+        AnimatedVector lastAnimatedVector = null;
         for (AnimatedVector animatedVector: listAnimatedVectors) {
             starCount++;
             if (starCount > numberOfStars) {
                 break;
             }
+            lastAnimatedVector = animatedVector;
             toRun.add(new Runnable() {
                 @Override
                 public void run() {
@@ -96,6 +111,24 @@ public class VectorAnimator {
                 }
             });
         }
+        lastAnimatedVector.anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                // does nothing
+                if (animationListener != null) animationListener.OnAllAnimationsStarted(VectorAnimator.this);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // callback that all animations have ended
+                //if (animationListener != null) animationListener.onAnimationEnd(VectorAnimator.this);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                // does nothing
+            }
+        });
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
