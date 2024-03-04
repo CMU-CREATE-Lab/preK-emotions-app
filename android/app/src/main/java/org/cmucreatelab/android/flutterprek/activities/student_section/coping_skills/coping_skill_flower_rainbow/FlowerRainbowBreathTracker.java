@@ -72,8 +72,8 @@ public class FlowerRainbowBreathTracker {
                 ((ImageView)activity.findViewById(allPetals[i])).setImageResource(resource);
             }
         } else {
-            for (int i=allPetals.length-1; i>=0; i--) {
-                int resource = (i>=allPetals.length-counter) ? R.drawable.flower_petal : R.drawable.flower_petal_highlighted;
+            for (int i=0; i<allPetals.length; i++) {
+                int resource = (i<counter) ? R.drawable.flower_petal : R.drawable.flower_petal_highlighted;
                 ((ImageView)activity.findViewById(allPetals[i])).setImageResource(resource);
             }
         }
