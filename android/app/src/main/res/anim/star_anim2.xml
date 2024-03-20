@@ -11,7 +11,7 @@
         android:toYScale="2.0"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:duration="300"
+        android:duration="250"
         />
 
     <rotate
@@ -19,11 +19,11 @@
         android:toDegrees="360"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:duration="600"
+        android:duration="400"
         />
 
     <alpha
-        android:startOffset="400"
+        android:startOffset="300"
         android:fromAlpha="1.0"
         android:toAlpha="0.0"
         android:duration="100"

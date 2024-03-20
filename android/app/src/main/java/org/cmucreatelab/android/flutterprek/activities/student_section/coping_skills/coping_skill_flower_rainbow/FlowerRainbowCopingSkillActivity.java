@@ -8,8 +8,9 @@ import android.view.View;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
+import org.cmucreatelab.android.flutterprek.ble.flower.BleFlower;
 
-public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivity implements FlowerRainbowStateHandler.BleBreathListener, VectorAnimator.AnimationListener {
+public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivity implements FlowerRainbowStateHandler.BleBreathListener {
 
     private FlowerRainbowCopingSkillProcess flowerCopingSkillProcess;
     private FlowerRainbowCopingSkillStep1Timer step1Timer;
@@ -17,7 +18,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
     private boolean activityIsPaused;
     public int ledCountOnFlower = 0;
     private final Handler loopHandler = new Handler();
-    private VectorAnimator vectorAnimator, bottomVectorAnimator;
+    private VectorAnimator vectorAnimator;
     private boolean readyToPlayStarAnimation = false;
     private boolean readyToPlayBottomStarAnimation = false;
 
@@ -46,6 +47,17 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
     }
 
 
+    private void toggleBreathOnBleFlower(boolean enabled) {
+        BleFlower flower = flowerStateHandler.getBleFlower();
+        if (flower == null) {
+            Log.w(Constants.LOG_TAG, "tried to send ble data with no BleFlower; ignoring.");
+        } else {
+            byte[] msg = enabled ? "@b1".getBytes() : "@b0".getBytes();
+            flower.writeData(msg);
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +66,8 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         step1Timer = new FlowerRainbowCopingSkillStep1Timer(flowerCopingSkillProcess);
         flowerStateHandler = new FlowerRainbowStateHandler(this, this);
 
-        this.vectorAnimator = new VectorAnimator(this, this);
+        //this.vectorAnimator = new VectorAnimator(this, this);
+        this.vectorAnimator = new VectorAnimator(this);
         vectorAnimator.addImageView(findViewById(R.id.imageViewStar1));
         vectorAnimator.addImageView(findViewById(R.id.imageViewStar2));
         vectorAnimator.addImageView(findViewById(R.id.imageViewStar3));
@@ -67,20 +80,16 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         vectorAnimator.addImageView(findViewById(R.id.imageViewStar10));
         vectorAnimator.addImageView(findViewById(R.id.imageViewStar11));
         vectorAnimator.addImageView(findViewById(R.id.imageViewStar12));
-
-        this.bottomVectorAnimator = new VectorAnimator(this);
-        bottomVectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar12));
-        bottomVectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar11));
-        bottomVectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar10));
-        bottomVectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar9));
-        bottomVectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar8));
-        bottomVectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar7));
-        bottomVectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar6));
-        bottomVectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar5));
-        bottomVectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar4));
-        bottomVectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar3));
-        bottomVectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar2));
-        bottomVectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar1));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar11));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar10));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar9));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar8));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar7));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar6));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar5));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar4));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar3));
+        vectorAnimator.addImageView(findViewById(R.id.imageViewBottomStar2));
 
         findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +135,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         flowerCopingSkillProcess.goToStep(FlowerRainbowCopingSkillProcess.StepNumber.STEP_1A_HOLD_FLOWER_LADYBUG);
         step1Timer.startTimer();
         playAudioInstructions();
+        toggleBreathOnBleFlower(false);
     }
 
 
@@ -136,6 +146,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         step1Timer.stopTimer();
         flowerCopingSkillProcess.goToStep(FlowerRainbowCopingSkillProcess.StepNumber.STEP_2_SMELL);
         playAudioSmell();
+        toggleBreathOnBleFlower(false);
     }
 
 
@@ -146,12 +157,14 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         step1Timer.stopTimer();
         flowerCopingSkillProcess.goToStep(FlowerRainbowCopingSkillProcess.StepNumber.STEP_3_BLOW);
         playAudioBlow();
+        toggleBreathOnBleFlower(true);
     }
 
 
     public void displayOverlay() {
         flowerCopingSkillProcess.goToStep(FlowerRainbowCopingSkillProcess.StepNumber.STEP_4_OVERLAY);
         playAudioOverlay();
+        toggleBreathOnBleFlower(false);
     }
 
 
@@ -175,31 +188,31 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
             }
             if (readyToPlayBottomStarAnimation && breathCount >= breathCountThresholdToDisplayBottomAnimation) {
                 this.readyToPlayBottomStarAnimation = false;
-                loopHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        bottomVectorAnimator.startAnimations();
-                    }
-                }, 100);
+//                loopHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        bottomVectorAnimator.startAnimations();
+//                    }
+//                }, 100);
             }
         }
     }
 
 
-    @Override
-    public void OnAllAnimationsStarted(VectorAnimator vectorAnimator) {
-        // ASSERT: vectorAnimator == this.vectorAnimator
-        this.readyToPlayBottomStarAnimation = true;
-        // NOTE: check for count immediately for a smooth transition between animation sets
-        if (breathCount >= breathCountThresholdToDisplayBottomAnimation) {
-            this.readyToPlayBottomStarAnimation = false;
-            loopHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    bottomVectorAnimator.startAnimations();
-                }
-            }, 0);
-        }
-    }
+//    @Override
+//    public void OnAllAnimationsStarted(VectorAnimator vectorAnimator) {
+//        // ASSERT: vectorAnimator == this.vectorAnimator
+//        this.readyToPlayBottomStarAnimation = true;
+//        // NOTE: check for count immediately for a smooth transition between animation sets
+//        if (breathCount >= breathCountThresholdToDisplayBottomAnimation) {
+//            this.readyToPlayBottomStarAnimation = false;
+//            loopHandler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    bottomVectorAnimator.startAnimations();
+//                }
+//            }, 0);
+//        }
+//    }
 
 }

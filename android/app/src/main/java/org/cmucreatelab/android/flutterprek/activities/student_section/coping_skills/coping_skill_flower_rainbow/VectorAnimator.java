@@ -19,7 +19,7 @@ public class VectorAnimator {
     private AnimationListener animationListener;
 
     private static int starAnimationResource = R.anim.star_anim2;
-    private static long delayBetweenStarAnimationsInMilliseconds = 100;
+    private static long delayBetweenStarAnimationsInMilliseconds = 80;
 
     private static class AnimatedVector {
         public ImageView imageView;
@@ -68,13 +68,12 @@ public class VectorAnimator {
 
 
     public void startAnimations() {
-        startAnimations(12);
+        //startAnimations(12);
+        startAnimations(imageViewsToAnimate.size());
     }
 
 
     public void startAnimations(int numberOfStars) {
-        // ASSERT: numberOfStars is between 0 and 12
-        // TODO AnimatedVector instances from imageViewsToAnimate
         final Handler handler = new Handler();
         final ArrayList<Runnable> toRun = new ArrayList<>();
         final ArrayList<AnimatedVector> listAnimatedVectors = new ArrayList<>();

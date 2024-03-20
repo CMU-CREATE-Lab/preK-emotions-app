@@ -8,18 +8,7 @@
 <!--    x = list.map{|x| Math.cos(Math::PI*(x))*170+370}-->
 <!--    y = list.map{|x| Math.sin(Math::PI * x)*140+150 }-->
 <!--    for i in 1..12 do; puts "#{i}: #{x[i-1]}, #{y[i-1]}"; end-->
-
-    <ImageView
-        android:id="@+id/imageViewRainbow"
-        android:src="@drawable/shape_rainbow"
-        android:visibility="invisible"
-        android:layout_height="300dp"
-        android:layout_width="300dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-
+    
     <ImageView
         android:id="@+id/imageViewStar1"
         android:src="@drawable/star_red"
@@ -44,7 +33,7 @@
 
     <ImageView
         android:id="@+id/imageViewStar3"
-        android:src="@drawable/star_orange"
+        android:src="@drawable/star_red"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -66,7 +55,7 @@
 
     <ImageView
         android:id="@+id/imageViewStar5"
-        android:src="@drawable/star_yellow"
+        android:src="@drawable/star_orange"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -77,7 +66,7 @@
 
     <ImageView
         android:id="@+id/imageViewStar6"
-        android:src="@drawable/star_yellow"
+        android:src="@drawable/star_orange"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -88,7 +77,7 @@
 
     <ImageView
         android:id="@+id/imageViewStar7"
-        android:src="@drawable/star_green"
+        android:src="@drawable/star_yellow"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -99,7 +88,7 @@
 
     <ImageView
         android:id="@+id/imageViewStar8"
-        android:src="@drawable/star_green"
+        android:src="@drawable/star_yellow"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -110,7 +99,7 @@
 
     <ImageView
         android:id="@+id/imageViewStar9"
-        android:src="@drawable/star_blue"
+        android:src="@drawable/star_yellow"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -121,7 +110,7 @@
 
     <ImageView
         android:id="@+id/imageViewStar10"
-        android:src="@drawable/star_blue"
+        android:src="@drawable/star_yellow"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -132,7 +121,7 @@
 
     <ImageView
         android:id="@+id/imageViewStar11"
-        android:src="@drawable/star_purple"
+        android:src="@drawable/star_green"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -143,7 +132,7 @@
 
     <ImageView
         android:id="@+id/imageViewStar12"
-        android:src="@drawable/star_purple"
+        android:src="@drawable/star_green"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -156,7 +145,7 @@
 
     <ImageView
         android:id="@+id/imageViewBottomStar12"
-        android:src="@drawable/star_purple"
+        android:src="@drawable/star_green"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -167,7 +156,7 @@
 
     <ImageView
         android:id="@+id/imageViewBottomStar11"
-        android:src="@drawable/star_purple"
+        android:src="@drawable/star_green"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -178,7 +167,7 @@
 
     <ImageView
         android:id="@+id/imageViewBottomStar10"
-        android:src="@drawable/star_blue"
+        android:src="@drawable/star_green"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -200,7 +189,7 @@
 
     <ImageView
         android:id="@+id/imageViewBottomStar8"
-        android:src="@drawable/star_green"
+        android:src="@drawable/star_blue"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -211,7 +200,7 @@
 
     <ImageView
         android:id="@+id/imageViewBottomStar7"
-        android:src="@drawable/star_green"
+        android:src="@drawable/star_blue"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -222,7 +211,7 @@
 
     <ImageView
         android:id="@+id/imageViewBottomStar6"
-        android:src="@drawable/star_yellow"
+        android:src="@drawable/star_purple"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -233,7 +222,7 @@
 
     <ImageView
         android:id="@+id/imageViewBottomStar5"
-        android:src="@drawable/star_yellow"
+        android:src="@drawable/star_purple"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -244,7 +233,7 @@
 
     <ImageView
         android:id="@+id/imageViewBottomStar4"
-        android:src="@drawable/star_orange"
+        android:src="@drawable/star_purple"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -255,7 +244,7 @@
 
     <ImageView
         android:id="@+id/imageViewBottomStar3"
-        android:src="@drawable/star_orange"
+        android:src="@drawable/star_purple"
         android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"

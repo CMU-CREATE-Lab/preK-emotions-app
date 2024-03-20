@@ -17,11 +17,15 @@ public class RainbowCreator implements FlowerRainbowStateHandler.BleBreathListen
     private FlowerRainbowCopingSkillActivity activity;
     private boolean rainbowIsGrowing = false;
 
+    // TODO no longer used; delete this class
+    //private static int imageViewRainbow = R.id.imageViewRainbow;
+    private static int imageViewRainbow = 0;
+
 
     public RainbowCreator(FlowerRainbowCopingSkillActivity activity) {
         this.activity = activity;
 
-        ImageView rainbowView = activity.findViewById(R.id.imageViewRainbow);
+        ImageView rainbowView = activity.findViewById(imageViewRainbow);
         rainbowView.setAlpha(0f);
         Drawable drawable = rainbowView.getDrawable();
         if (drawable instanceof ClipDrawable) {
@@ -31,7 +35,7 @@ public class RainbowCreator implements FlowerRainbowStateHandler.BleBreathListen
 
 
     public void animateRainbowFadeIn() {
-        ImageView rainbowView = activity.findViewById(R.id.imageViewRainbow);
+        ImageView rainbowView = activity.findViewById(imageViewRainbow);
 
         activity.runOnUiThread(new Runnable() {
             @Override
@@ -43,7 +47,7 @@ public class RainbowCreator implements FlowerRainbowStateHandler.BleBreathListen
 
 
     private void animateRainbowFadeOut() {
-        ImageView rainbowView = activity.findViewById(R.id.imageViewRainbow);
+        ImageView rainbowView = activity.findViewById(imageViewRainbow);
 
         activity.runOnUiThread(new Runnable() {
             @Override
@@ -55,7 +59,7 @@ public class RainbowCreator implements FlowerRainbowStateHandler.BleBreathListen
 
 
     private void animateRainbowCircularReveal() {
-        ImageView rainbowView = activity.findViewById(R.id.imageViewRainbow);
+        ImageView rainbowView = activity.findViewById(imageViewRainbow);
 
         // Check whether the runtime version is at least Android 5.0.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
