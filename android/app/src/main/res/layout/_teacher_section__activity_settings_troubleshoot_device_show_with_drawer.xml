@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorOffWhite" >
+
+        <fragment
+            android:id="@+id/appHeader"
+            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.AppHeaderFragment"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="65sp" />
+
+        <fragment
+            android:id="@+id/drawerTeacherMain"
+            android:name="org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment"
+            android:layout_width="205sp"
+            android:layout_height="0sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appHeader" />
+
+
+        <ImageView
+            android:id="@+id/imageButtonBackArrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:tint="#1c8773"
+            android:src="@mipmap/ic_arrow_back"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toEndOf="@+id/drawerTeacherMain"
+            app:layout_constraintTop_toBottomOf="@+id/appHeader"
+            />
+
+        <TextView
+            android:id="@+id/textViewBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back to Settings"
+            android:textSize="14dp"
+            android:textColor="#1c8773"
+            android:clickable="true"
+            app:layout_constraintStart_toEndOf="@+id/imageButtonBackArrow"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonBackArrow" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSettingsDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/drawerTeacherMain"
+            app:layout_constraintTop_toBottomOf="@+id/imageButtonBackArrow" >
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Placeholder"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:textColor="#4a4a4a"
+                android:layout_marginBottom="20dp"
+                />
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.design.widget.CoordinatorLayout>

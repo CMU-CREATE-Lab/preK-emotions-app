@@ -11,6 +11,7 @@ import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.TeacherSectionActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.settings.troubleshoot_device.SettingsTroubleshootDeviceIndex;
 
 public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDrawer {
 
@@ -84,7 +85,6 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
         squeezeBleSettings = new BluetoothSettings((TextView) findViewById(R.id.textViewHeaderBleSettingsSqueeze), (TextView) findViewById(R.id.textViewBleSettingsSqueeze), (TextView) findViewById(R.id.textButtonBleSettingsSqueeze));
         wandBleSettings = new BluetoothSettings((TextView) findViewById(R.id.textViewHeaderBleSettingsWand), (TextView) findViewById(R.id.textViewBleSettingsWand), (TextView) findViewById(R.id.textButtonBleSettingsWand));
 
-        // TODO testing click listeners for now
         flowerBleSettings.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +109,13 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
             public void onClick(View view) {
                 Intent settingsPasswordActivity = new Intent(getApplicationContext(), SettingsPasswordActivity.class);
                 startActivity(settingsPasswordActivity);
+            }
+        });
+        findViewById(R.id.textButtonTroubleshootDevices).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent settingsTroubleshootDeviceIndex = new Intent(getApplicationContext(), SettingsTroubleshootDeviceIndex.class);
+                startActivity(settingsTroubleshootDeviceIndex);
             }
         });
     }
