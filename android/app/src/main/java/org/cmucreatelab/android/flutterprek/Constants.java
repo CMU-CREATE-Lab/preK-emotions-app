@@ -37,31 +37,25 @@ public class Constants {
     public static final UARTSettings FLOWER_UART_SETTINGS;
     public static final UARTSettings SQUEEZE_UART_SETTINGS;
     public static final UARTSettings WAND_UART_SETTINGS;
+    public static final UARTSettings DEFAULT_UART_SETTINGS;
 
     /** Toggle support of legacy flower protocol (where ble notification returns three comma-separated values, instead of four) */
 
     public static final boolean SUPPORT_LEGACY_FLOWER_PROTOCOL = true;
 
     static {
-        FLOWER_UART_SETTINGS = new UARTSettings.Builder()
-                .setUARTServiceUUID(UUID.fromString("6E400001-B5A3-F393-E0A9-E50E24DCCA9E"))
-                .setRxCharacteristicUUID(UUID.fromString("6E400003-B5A3-F393-E0A9-E50E24DCCA9E"))
-                .setTxCharacteristicUUID(UUID.fromString("6E400002-B5A3-F393-E0A9-E50E24DCCA9E"))
-                .setRxConfigUUID(UUID.fromString("00002902-0000-1000-8000-00805f9b34fb"))
-                .build();
-        SQUEEZE_UART_SETTINGS = new UARTSettings.Builder()
+        DEFAULT_UART_SETTINGS = new UARTSettings.Builder()
                 .setUARTServiceUUID(UUID.fromString("6E400001-B5A3-F393-E0A9-E50E24DCCA9E"))
                 .setRxCharacteristicUUID(UUID.fromString("6E400003-B5A3-F393-E0A9-E50E24DCCA9E"))
                 .setTxCharacteristicUUID(UUID.fromString("6E400002-B5A3-F393-E0A9-E50E24DCCA9E"))
                 .setRxConfigUUID(UUID.fromString("00002902-0000-1000-8000-00805f9b34fb"))
                 .build();
 
-        WAND_UART_SETTINGS = new UARTSettings.Builder()
-                .setUARTServiceUUID(UUID.fromString("6E400001-B5A3-F393-E0A9-E50E24DCCA9E"))
-                .setRxCharacteristicUUID(UUID.fromString("6E400003-B5A3-F393-E0A9-E50E24DCCA9E"))
-                .setTxCharacteristicUUID(UUID.fromString("6E400002-B5A3-F393-E0A9-E50E24DCCA9E"))
-                .setRxConfigUUID(UUID.fromString("00002902-0000-1000-8000-00805F9B34FB"))
-                .build();
+        FLOWER_UART_SETTINGS = DEFAULT_UART_SETTINGS;
+
+        SQUEEZE_UART_SETTINGS = DEFAULT_UART_SETTINGS;
+
+        WAND_UART_SETTINGS = DEFAULT_UART_SETTINGS;
     }
 
     public static final String MOON_FLOWER = "FLOWER-7F257";

@@ -27,6 +27,7 @@
     <color name="colorTransparent">#00ffffff</color>
     <color name="colorError">#ff0000</color>
     <color name="colorCancel">#ee6a6a</color>
+    <color name="colorBluetooth">#0083fc</color>
     <color name="colorBlockRadioGroupBackground">#e5e5e5</color>
     <color name="colorBlockRadioButtonBackground">#fff</color>
     <color name="colorBlockRadioButtonTextSelected">#1dab92</color>

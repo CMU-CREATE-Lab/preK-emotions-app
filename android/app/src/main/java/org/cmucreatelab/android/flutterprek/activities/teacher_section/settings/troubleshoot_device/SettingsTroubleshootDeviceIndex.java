@@ -132,8 +132,9 @@ public class SettingsTroubleshootDeviceIndex extends TeacherSectionActivityWithH
         final String deviceName = item.getName();
         Log.d(Constants.LOG_TAG, String.format("onItemSelected: %s (connected=%b)", deviceName, isConnected));
 
-        // TODO actions (pass device, isConnected)
         Intent settingsTroubleshootDeviceShow = new Intent(getApplicationContext(), SettingsTroubleshootDeviceShow.class);
+        settingsTroubleshootDeviceShow.putExtra(SettingsTroubleshootDeviceShow.EXTRA_DEVICE, item);
+        settingsTroubleshootDeviceShow.putExtra(SettingsTroubleshootDeviceShow.EXTRA_IS_CONNECTED, isConnected);
         startActivity(settingsTroubleshootDeviceShow);
     }
 }
