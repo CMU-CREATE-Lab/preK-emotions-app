@@ -196,6 +196,11 @@
 
         </TableLayout>
 
+
+        <include
+            android:id="@+id/debugCorner"
+            layout="@layout/fragment_debug_corner" />
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

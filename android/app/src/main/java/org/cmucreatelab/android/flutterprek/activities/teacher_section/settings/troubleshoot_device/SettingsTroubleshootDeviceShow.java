@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.DebugCorner;
 import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.TeacherSectionActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
@@ -36,6 +37,8 @@ public class SettingsTroubleshootDeviceShow extends TeacherSectionActivityWithHe
 
     public BluetoothDevice device;
     public boolean isConnected;
+
+    private DebugCorner debugCorner;
 
 
     private void onClickButtonBluetooth() {
@@ -104,6 +107,7 @@ public class SettingsTroubleshootDeviceShow extends TeacherSectionActivityWithHe
         this.uartConnection = new UARTConnection(getApplicationContext(), device, Constants.DEFAULT_UART_SETTINGS, this);
         uartConnection.addRxDataListener(this);
 
+        this.debugCorner = new DebugCorner(this);
     }
 
 
