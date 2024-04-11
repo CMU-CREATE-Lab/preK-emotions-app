@@ -215,7 +215,6 @@ public class SessionTracker {
                 }
                 if (selectedEmotion.selectedCopingSkills.size() > 0) {
                     Intent intent = new Intent(currentActivity, ChooseCopingSkillActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     populateChooseAnotherIntentWithEmotionInfo(currentActivity.getApplicationContext(), intent);
                     return intent;
                 } else {

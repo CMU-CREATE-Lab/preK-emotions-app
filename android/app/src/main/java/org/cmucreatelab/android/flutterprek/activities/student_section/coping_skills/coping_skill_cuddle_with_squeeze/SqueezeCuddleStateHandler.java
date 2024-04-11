@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_cuddle_with_squeeze;
 
 import android.animation.ValueAnimator;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -174,15 +175,21 @@ public class SqueezeCuddleStateHandler implements BleSqueeze.NotificationCallbac
             Log.v(Constants.LOG_TAG, "lookForSqueeze ignored while activity is paused.");
             return;
         }
-        GlobalHandler globalHandler = GlobalHandler.getInstance(activity.getApplicationContext());
-        if (bleSqueezeScanner.isSqueezeDiscovered()) {
-            updateSqueeze(globalHandler.bleSqueeze);
-        } else {
-            bleSqueezeScanner.requestScan();
-        }
+        // NOTE: avoid using UI thread for ble scans/connection
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                GlobalHandler globalHandler = GlobalHandler.getInstance(activity.getApplicationContext());
+                if (bleSqueezeScanner.isSqueezeDiscovered()) {
+                    updateSqueeze(globalHandler.bleSqueeze);
+                } else {
+                    bleSqueezeScanner.requestScan();
+                }
 
-        updateConnectionErrorView();
-        updateDebugWindow();
+                updateConnectionErrorView();
+                updateDebugWindow();
+            }
+        });
     }
 
 

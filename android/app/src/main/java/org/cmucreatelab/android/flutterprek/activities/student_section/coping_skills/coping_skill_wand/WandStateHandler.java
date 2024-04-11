@@ -1,5 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_wand;
 
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -257,15 +258,21 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             Log.v(Constants.LOG_TAG, "lookForWand ignored while activity is paused.");
             return;
         }
-        GlobalHandler globalHandler = GlobalHandler.getInstance(activity.getApplicationContext());
-        if (bleWandScanner.isWandDiscovered()) {
-            updateWand(globalHandler.bleWand);
-        } else {
-            bleWandScanner.requestScan();
-        }
+        // NOTE: avoid using UI thread for ble scans/connection
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                GlobalHandler globalHandler = GlobalHandler.getInstance(activity.getApplicationContext());
+                if (bleWandScanner.isWandDiscovered()) {
+                    updateWand(globalHandler.bleWand);
+                } else {
+                    bleWandScanner.requestScan();
+                }
 
-        updateConnectionErrorView();
-        updateDebugWindow();
+                updateConnectionErrorView();
+                updateDebugWindow();
+            }
+        });
     }
 
 

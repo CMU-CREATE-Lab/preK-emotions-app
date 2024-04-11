@@ -1,5 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower_rainbow;
 
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -184,15 +185,21 @@ public class FlowerRainbowStateHandler implements BleFlower.NotificationCallback
             Log.v(Constants.LOG_TAG, "lookForFlower ignored while activity is paused.");
             return;
         }
-        GlobalHandler globalHandler = GlobalHandler.getInstance(activity.getApplicationContext());
-        if (bleFlowerScanner.isFlowerDiscovered()) {
-            updateFlower(globalHandler.bleFlower);
-        } else {
-            bleFlowerScanner.requestScan();
-        }
+        // NOTE: avoid using UI thread for ble scans/connection
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                GlobalHandler globalHandler = GlobalHandler.getInstance(activity.getApplicationContext());
+                if (bleFlowerScanner.isFlowerDiscovered()) {
+                    updateFlower(globalHandler.bleFlower);
+                } else {
+                    bleFlowerScanner.requestScan();
+                }
 
-        updateConnectionErrorView();
-        updateDebugWindow("");
+                updateConnectionErrorView();
+                updateDebugWindow("");
+            }
+        });
     }
 
 
