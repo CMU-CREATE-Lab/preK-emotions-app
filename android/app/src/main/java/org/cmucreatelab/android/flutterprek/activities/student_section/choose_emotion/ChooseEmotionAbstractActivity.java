@@ -49,76 +49,80 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
 
             // next activity
             globalHandler.getSessionTracker().onSelectedEmotion(ChooseEmotionAbstractActivity.this, emotion, itineraryItems);
-            Intent nextActivityIntent = globalHandler.getSessionTracker().getNextIntent(ChooseEmotionAbstractActivity.this);
+            //Intent nextActivityIntent = globalHandler.getSessionTracker().getNextIntent(ChooseEmotionAbstractActivity.this);
+            Intent nextActivityIntent = new Intent(ChooseEmotionAbstractActivity.this, DisplayEmotionActivity.class);
+            nextActivityIntent.putExtra(DisplayEmotionActivity.EMOTION_UUID, emotion.getUuid());
+            nextActivityIntent.putExtra(DisplayEmotionActivity.EMOTION_NAME, emotion.getName());
+            nextActivityIntent.putExtra(DisplayEmotionActivity.EMOTION_IMAGEFILE_UUID, emotion.getImageFileUuid());
 
-            // add custom message/background
-            // TODO generate this elsewhere
-            String message=null, backgroundColor=null, audioFile=null, somethingElseMessage="", somethingElseAudio="", checkInMessage=null, checkInAudio=null;
-            for (ItineraryItem item: itineraryItems) {
-                // TODO check for proper capabilityId?
-                Log.i(Constants.LOG_TAG, "capabilityParams=" + item.getCapabilityParameters().toString());
-                JSONObject jsonObject = item.getCapabilityParameters();
-                try {
-                    message = jsonObject.getString("message");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    backgroundColor = jsonObject.getString("background-color");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    audioFile = jsonObject.getString("audio");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                // something else
-                try {
-                    somethingElseMessage = jsonObject.getString("somethingElseMessage");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    somethingElseAudio = jsonObject.getString("somethingElseAudio");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                // check-in
-                try {
-                    checkInMessage = jsonObject.getString("checkInMessage");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    checkInAudio = jsonObject.getString("checkInAudio");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (message != null) {
-                nextActivityIntent.putExtra(INTENT_MESSAGE, message);
-            }
-            if (backgroundColor != null) {
-                nextActivityIntent.putExtra(INTENT_BACKGROUND_COLOR, backgroundColor);
-            } else {
-                backgroundColor = "";
-            }
-            if (audioFile != null) {
-                nextActivityIntent.putExtra(INTENT_AUDIO_FILE, audioFile);
-            }
-            if (checkInMessage != null) {
-                nextActivityIntent.putExtra(INTENT_CHECKIN_MESSAGE, checkInMessage);
-            }
-            if (checkInAudio != null) {
-                nextActivityIntent.putExtra(INTENT_CHECKIN_AUDIO_FILE, checkInAudio);
-            }
-
-            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.emotionBackgroundColor = backgroundColor;
-            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.somethingElseMessage = somethingElseMessage;
-            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.somethingElseAudio = somethingElseAudio;
+//            // add custom message/background
+//            /// TODO generate this elsewhere
+//            String message=null, backgroundColor=null, audioFile=null, somethingElseMessage="", somethingElseAudio="", checkInMessage=null, checkInAudio=null;
+//            for (ItineraryItem item: itineraryItems) {
+//                // TODO check for proper capabilityId?
+//                Log.i(Constants.LOG_TAG, "capabilityParams=" + item.getCapabilityParameters().toString());
+//                JSONObject jsonObject = item.getCapabilityParameters();
+//                try {
+//                    message = jsonObject.getString("message");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                try {
+//                    backgroundColor = jsonObject.getString("background-color");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                try {
+//                    audioFile = jsonObject.getString("audio");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                // something else
+//                try {
+//                    somethingElseMessage = jsonObject.getString("somethingElseMessage");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                try {
+//                    somethingElseAudio = jsonObject.getString("somethingElseAudio");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                // check-in
+//                try {
+//                    checkInMessage = jsonObject.getString("checkInMessage");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                try {
+//                    checkInAudio = jsonObject.getString("checkInAudio");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            if (message != null) {
+//                nextActivityIntent.putExtra(INTENT_MESSAGE, message);
+//            }
+//            if (backgroundColor != null) {
+//                nextActivityIntent.putExtra(INTENT_BACKGROUND_COLOR, backgroundColor);
+//            } else {
+//                backgroundColor = "";
+//            }
+//            if (audioFile != null) {
+//                nextActivityIntent.putExtra(INTENT_AUDIO_FILE, audioFile);
+//            }
+//            if (checkInMessage != null) {
+//                nextActivityIntent.putExtra(INTENT_CHECKIN_MESSAGE, checkInMessage);
+//            }
+//            if (checkInAudio != null) {
+//                nextActivityIntent.putExtra(INTENT_CHECKIN_AUDIO_FILE, checkInAudio);
+//            }
+//
+//            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.emotionBackgroundColor = backgroundColor;
+//            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.somethingElseMessage = somethingElseMessage;
+//            GlobalHandler.getInstance(getApplicationContext()).studentSectionNavigationHandler.somethingElseAudio = somethingElseAudio;
 
             startActivity(nextActivityIntent);
         }

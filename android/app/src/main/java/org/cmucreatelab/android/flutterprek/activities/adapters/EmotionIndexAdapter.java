@@ -60,6 +60,10 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
             audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_emotion_sad.wav");
         } else if (e.equals("Mad")) {
             audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_emotion_mad.wav");
+        } else if (e.equals("Scared")) {
+            audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_emotion_scared.wav");
+        } else if (e.equals("Excited")) {
+            audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_emotion_excited.wav");
         }
         audioPlayer.playAudio();
     }

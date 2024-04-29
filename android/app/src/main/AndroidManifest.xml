@@ -240,6 +240,10 @@
             android:name=".activities.teacher_section.session_index.SessionIndexActivity"
             android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.student_section.choose_emotion.DisplayEmotionActivity"
+            android:screenOrientation="userLandscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
 
 </manifest>
