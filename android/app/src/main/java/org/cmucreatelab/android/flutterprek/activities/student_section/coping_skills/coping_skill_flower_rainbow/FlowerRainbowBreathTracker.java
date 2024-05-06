@@ -23,7 +23,8 @@ public class FlowerRainbowBreathTracker {
         public void run() {
             currentCycleCounter++;
             if (currentCycleCounter <= BREATHE_IN_CYCLE_MAX) {
-                displayFlowerFromCycleCounter(currentCycleCounter, true);
+                //displayFlowerFromCycleCounter(currentCycleCounter, true);
+                displayFlowerFromCycleCounter(0, true);
                 setCurrentCallbackForHandler(breatheInCallback);
             } else {
                 currentCycleCounter = 0;
@@ -37,7 +38,8 @@ public class FlowerRainbowBreathTracker {
         public void run() {
             currentCycleCounter++;
             if (currentCycleCounter <= BREATHE_OUT_CYCLE_MAX) {
-                displayFlowerFromCycleCounter(currentCycleCounter, false);
+                //displayFlowerFromCycleCounter(currentCycleCounter, false);
+                displayFlowerFromCycleCounter(0, true);
                 setCurrentCallbackForHandler(breatheOutCallback);
             } else {
                 currentCycleCounter = 0;

@@ -68,14 +68,9 @@ public class DisplayEmotionActivity extends StudentSectionActivityWithHeader {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO get serializables
-        //getIntent().getExtra
         this.emotionUuid = getIntent().getStringExtra(EMOTION_UUID);
         this.emotionName = getIntent().getStringExtra(EMOTION_NAME);
         this.emotionImagefileUuid = getIntent().getStringExtra(EMOTION_IMAGEFILE_UUID);
-        // TODO serializables for getNextIntent?
-        // ... (and eventually on a timer expire)
-        //Intent nextActivityIntent = globalHandler.getSessionTracker().getNextIntent(ChooseEmotionAbstractActivity.this);
 
         TextView textTitle = findViewById(R.id.textTitle);
         textTitle.setText(emotionName);
@@ -179,8 +174,6 @@ public class DisplayEmotionActivity extends StudentSectionActivityWithHeader {
     @Override
     protected void onResume() {
         super.onResume();
-
-        // TODO start timers, play audio
         playAudioFeeling(emotionName);
         backgroundTimer.startTimer();
     }
@@ -189,8 +182,6 @@ public class DisplayEmotionActivity extends StudentSectionActivityWithHeader {
     @Override
     protected void onPause() {
         super.onPause();
-
-        // TODO handle state to pause (timer, audio) then ready to restart in onResume
         backgroundTimer.stopTimer();
     }
 

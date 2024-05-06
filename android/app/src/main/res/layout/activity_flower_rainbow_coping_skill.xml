@@ -55,7 +55,7 @@
         android:layout_marginEnd="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
-        app:srcCompat="@drawable/ic_flower_air_lines" />
+        android:src="@drawable/clip_breath_in" />
 
     <ImageView
         android:id="@+id/imageViewBreatheOut"
@@ -67,7 +67,7 @@
         android:layout_marginEnd="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageViewSilhouette"
-        app:srcCompat="@drawable/ic_flower_air_lines" />
+        android:src="@drawable/clip_breath_out" />
 
     <ImageView
         android:id="@+id/imageViewFlowerStem"

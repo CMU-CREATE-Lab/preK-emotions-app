@@ -1,9 +1,12 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower_rainbow;
 
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -143,6 +146,60 @@ public class FlowerRainbowCopingSkillProcess {
                 // set title (for overlay only)
                 if (stepNumber == StepNumber.STEP_4_OVERLAY) {
                     ((TextView)flowerCopingSkillActivity.findViewById(R.id.textViewOverlayTitle)).setText(R.string.coping_skill_flower_overlay);
+                }
+                // TODO refactor array check (force only once, then log warning if both exist?)
+                // trigger animation whenever the view is in the array (ASSERT: only one will be in the array)
+                for (int value: viewsToDisplay) {
+                    if (value == R.id.imageViewBreatheOut) {
+                        animateBreatheOut();
+                    }
+                    if (value == R.id.imageViewBreatheIn) {
+                        animateBreatheIn();
+                    }
+                }
+            }
+        });
+    }
+
+    // TODO refactor these attributes, methods
+    // animate clipdrawable taken from:  https://stackoverflow.com/questions/12127476/how-to-display-an-imageview-progressively-down-from-top-to-bottom
+    private void animateBreatheOut() {
+        ImageView breatheOut = flowerCopingSkillActivity.findViewById(R.id.imageViewBreatheOut);
+        breatheOut.setVisibility(View.VISIBLE);
+        animate(breatheOut);
+    }
+    private void animateBreatheIn() {
+        ImageView breatheIn = flowerCopingSkillActivity.findViewById(R.id.imageViewBreatheIn);
+        breatheIn.setVisibility(View.VISIBLE);
+        animate(breatheIn);
+    }
+
+    private int mLevel = 0;
+    private Handler handler = new Handler();
+    private Drawable animatedDrawable;
+    private Runnable animateImage = new Runnable() {
+        @Override
+        public void run() {
+            doAnimateBreath();
+        }
+    };
+    private void animate(ImageView imageView) {
+        mLevel = 0;
+        animatedDrawable = imageView.getDrawable();
+        animatedDrawable.setLevel(0);
+        handler.post(animateImage);
+    }
+
+    private void doAnimateBreath() {
+        flowerCopingSkillActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mLevel += 500;
+                animatedDrawable.setLevel(mLevel);
+                if (mLevel <= 10000) {
+                    handler.postDelayed(animateImage, 50);
+                } else {
+                    handler.removeCallbacks(animateImage);
                 }
             }
         });

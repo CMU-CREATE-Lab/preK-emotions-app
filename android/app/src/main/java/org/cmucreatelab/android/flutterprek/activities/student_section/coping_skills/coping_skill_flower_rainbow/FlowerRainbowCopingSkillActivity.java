@@ -47,15 +47,16 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
     }
 
 
-    private void toggleBreathOnBleFlower(boolean enabled) {
-        BleFlower flower = flowerStateHandler.getBleFlower();
-        if (flower == null) {
-            Log.w(Constants.LOG_TAG, "tried to send ble data with no BleFlower; ignoring.");
-        } else {
-            byte[] msg = enabled ? "@b1".getBytes() : "@b0".getBytes();
-            flower.writeData(msg);
-        }
-    }
+    // TODO delete if unused (removed as of release-v2.3)
+//    private void toggleBreathOnBleFlower(boolean enabled) {
+//        BleFlower flower = flowerStateHandler.getBleFlower();
+//        if (flower == null) {
+//            Log.w(Constants.LOG_TAG, "tried to send ble data with no BleFlower; ignoring.");
+//        } else {
+//            byte[] msg = enabled ? "@b1".getBytes() : "@b0".getBytes();
+//            flower.writeData(msg);
+//        }
+//    }
 
 
     @Override
@@ -135,7 +136,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         flowerCopingSkillProcess.goToStep(FlowerRainbowCopingSkillProcess.StepNumber.STEP_1A_HOLD_FLOWER_LADYBUG);
         step1Timer.startTimer();
         playAudioInstructions();
-        toggleBreathOnBleFlower(false);
+//        toggleBreathOnBleFlower(false);
     }
 
 
@@ -146,7 +147,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         step1Timer.stopTimer();
         flowerCopingSkillProcess.goToStep(FlowerRainbowCopingSkillProcess.StepNumber.STEP_2_SMELL);
         playAudioSmell();
-        toggleBreathOnBleFlower(false);
+//        toggleBreathOnBleFlower(false);
     }
 
 
@@ -157,14 +158,14 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         step1Timer.stopTimer();
         flowerCopingSkillProcess.goToStep(FlowerRainbowCopingSkillProcess.StepNumber.STEP_3_BLOW);
         playAudioBlow();
-        toggleBreathOnBleFlower(true);
+//        toggleBreathOnBleFlower(true);
     }
 
 
     public void displayOverlay() {
         flowerCopingSkillProcess.goToStep(FlowerRainbowCopingSkillProcess.StepNumber.STEP_4_OVERLAY);
         playAudioOverlay();
-        toggleBreathOnBleFlower(false);
+//        toggleBreathOnBleFlower(false);
     }
 
 
