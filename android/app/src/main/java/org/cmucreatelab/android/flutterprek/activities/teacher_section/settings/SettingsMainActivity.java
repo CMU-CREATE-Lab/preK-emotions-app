@@ -3,7 +3,11 @@ package org.cmucreatelab.android.flutterprek.activities.teacher_section.settings
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -28,6 +32,8 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
     }
 
     private BluetoothSettings flowerBleSettings, squeezeBleSettings, wandBleSettings;
+    private Switch switchPostCopingSkills;
+    private SeekBar seekBarPromptRepeatDelay;
 
 
     private void startSettingsBleActivity(SettingsBleActivity.DeviceType deviceType) {
@@ -70,10 +76,31 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
     }
 
 
+    private void updateViewsForGeneralAppSettings() {
+        SharedPreferences sharedPreferences = GlobalHandler.getSharedPreferences(getApplicationContext());
+
+        // switch
+        switchPostCopingSkills.setChecked(sharedPreferences.getBoolean(Constants.PreferencesKeys.settingsPostCopingSkills, Constants.DEFAULT_USE_POST_COPING_SKILLS));
+
+        // TODO slider for seekBarPromptRepeatDelay
+    }
+
+
+    public void updateViews() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                updateViewsForPairingMode();
+                updateViewsForGeneralAppSettings();
+            }
+        });
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
-        updateViewsForPairingMode();
+        updateViews();
     }
 
 
@@ -84,6 +111,9 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
         flowerBleSettings = new BluetoothSettings((TextView) findViewById(R.id.textViewHeaderBleSettingsFlower), (TextView) findViewById(R.id.textViewBleSettingsFlower), (TextView) findViewById(R.id.textButtonBleSettingsFlower));
         squeezeBleSettings = new BluetoothSettings((TextView) findViewById(R.id.textViewHeaderBleSettingsSqueeze), (TextView) findViewById(R.id.textViewBleSettingsSqueeze), (TextView) findViewById(R.id.textButtonBleSettingsSqueeze));
         wandBleSettings = new BluetoothSettings((TextView) findViewById(R.id.textViewHeaderBleSettingsWand), (TextView) findViewById(R.id.textViewBleSettingsWand), (TextView) findViewById(R.id.textButtonBleSettingsWand));
+
+        switchPostCopingSkills = findViewById(R.id.switchPostCopingSkills);
+        seekBarPromptRepeatDelay = findViewById(R.id.seekBarPromptRepeatDelay);
 
         flowerBleSettings.button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +131,13 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
             @Override
             public void onClick(View view) {
                 startSettingsBleActivity(SettingsBleActivity.DeviceType.WAND);
+            }
+        });
+
+        switchPostCopingSkills.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                GlobalHandler.getSharedPreferences(getApplicationContext()).edit().putBoolean(Constants.PreferencesKeys.settingsPostCopingSkills, b).apply();
             }
         });
 

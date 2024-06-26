@@ -1,7 +1,9 @@
 package org.cmucreatelab.android.flutterprek.activities.adapters;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
@@ -28,6 +32,18 @@ public class CopingSkillIndexAdapter extends AbstractListAdapter<CopingSkill> {
 
     public interface ClickListener {
         void onClick(CopingSkill copingSkill, List<ItineraryItem> itineraryItems, View view);
+    }
+
+
+    private LiveData<List<ItineraryItem>> getItineraryItems(String copingSkillUuid) {
+        Context appContext = activity.getApplicationContext();
+        SharedPreferences sharedPreferences = GlobalHandler.getSharedPreferences(appContext);
+        boolean usesPostCopingSkills = sharedPreferences.getBoolean(Constants.PreferencesKeys.settingsPostCopingSkills, Constants.DEFAULT_USE_POST_COPING_SKILLS);
+        if (usesPostCopingSkills) {
+            return AppDatabase.getInstance(appContext).intermediateTablesDAO().getItineraryItemsForCopingSkill(copingSkillUuid);
+        } else {
+            return AppDatabase.getInstance(appContext).intermediateTablesDAO().getItineraryItemsForCopingSkillWithoutPostCopingSkills(copingSkillUuid);
+        }
     }
 
 
@@ -78,7 +94,7 @@ public class CopingSkillIndexAdapter extends AbstractListAdapter<CopingSkill> {
         }
 
         final Context appContext = activity.getApplicationContext();
-        AppDatabase.getInstance(appContext).intermediateTablesDAO().getItineraryItemsForCopingSkill(copingSkill.getUuid()).observe(activity, new Observer<List<ItineraryItem>>() {
+        getItineraryItems(copingSkill.getUuid()).observe(activity, new Observer<List<ItineraryItem>>() {
             @Override
             public void onChanged(@Nullable final List<ItineraryItem> itineraryItems) {
                 if (onClickListener) {

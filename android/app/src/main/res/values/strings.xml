@@ -81,7 +81,7 @@
     <string name="alert_option_create">Create</string>
     <string name="alert_option_save">Save</string>
     <string name="alert_option_confirm">Confirm</string>
-    <string name="teacher_section_settings_change_password"><u>Change Password</u></string>
+    <string name="teacher_section_settings_change_password"><u>Change Teacher Password</u></string>
     <string name="teacher_section_settings_configure_pairing_mode"><u>Configure Pairing Mode</u></string>
     <string name="teacher_section_settings_troubleshoot_devices"><u>Troubleshoot Devices</u></string>
     <string name="teacher_section_settings_pairing_mode_automatic">Pairing Mode:  Automatic</string>

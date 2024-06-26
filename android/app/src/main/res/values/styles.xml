@@ -241,6 +241,13 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="TeacherSectionSettingsTextHeader2">
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:fontFamily">@font/source_sans_pro</item>
+        <item name="android:textColor">@color/colorDarkGray</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
     <style name="TeacherSectionSettingsTextButton">
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:clickable">true</item>

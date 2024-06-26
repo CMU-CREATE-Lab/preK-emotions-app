@@ -14,6 +14,10 @@ public class Constants {
 
     public static final String DEFAULT_TEACHER_PASSWORD = "admin";
 
+    public static final boolean DEFAULT_USE_POST_COPING_SKILLS = true;
+
+    public static final long DEFAULT_REPROMPT_IN_MILLISECONDS = 7000;
+
     // *PairingModeManual == false implies Automatic Pairing Mode
     public static final class PreferencesKeys {
         public static final String teacherPassword = "teacher_password";
@@ -24,6 +28,8 @@ public class Constants {
         public static final String squeezePairingModeManual = "squeeze_pairing_mode_manual";
         public static final String squeezeSsid = "squeeze_ssid";
         public static final String hotfixCollection = "hotfix_collection";
+        public static final String settingsPostCopingSkills = "settings_post_coping_skills";
+        public static final String settingsRepromptInMilliseconds = "settings_reprompt_in_milliseconds";
     }
 
     /** Determines if the flower activity should display the debug window (shows BLE name and last message received). */

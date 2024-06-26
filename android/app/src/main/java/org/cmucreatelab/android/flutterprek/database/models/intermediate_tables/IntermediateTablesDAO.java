@@ -60,4 +60,10 @@ public interface IntermediateTablesDAO {
             "WHERE itinerary_items.owner_uuid = :copingSkillUuid ORDER BY sequence_id ASC")
     LiveData<List<ItineraryItem>> getItineraryItemsForCopingSkill(String copingSkillUuid);
 
+    @Query("SELECT itinerary_items.* FROM itinerary_items " +
+            "WHERE itinerary_items.owner_uuid = :copingSkillUuid " +
+            "AND itinerary_items.capability_id NOT LIKE 'post_coping_skill_%' " +
+            "ORDER BY sequence_id ASC")
+    LiveData<List<ItineraryItem>> getItineraryItemsForCopingSkillWithoutPostCopingSkills(String copingSkillUuid);
+
 }
