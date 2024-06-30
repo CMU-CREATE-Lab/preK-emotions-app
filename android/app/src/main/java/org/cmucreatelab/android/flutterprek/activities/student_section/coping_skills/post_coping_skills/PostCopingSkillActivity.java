@@ -13,7 +13,11 @@ public abstract class PostCopingSkillActivity extends StudentSectionActivityWith
     protected void onResume() {
         super.onResume();
         Log.i(Constants.LOG_TAG, "PostCopingSkillActivity.onResume");
-        playAudio(getAudioFileForPostCopingSkillTitle(), this);
+        // NOTE: might be null (e.g. heart beat activity)
+        String filepathForPrompt = getAudioFileForPostCopingSkillTitle();
+        if (filepathForPrompt != null) {
+            startTimerToRepromptAndPlayAudio(filepathForPrompt);
+        }
     }
 
 

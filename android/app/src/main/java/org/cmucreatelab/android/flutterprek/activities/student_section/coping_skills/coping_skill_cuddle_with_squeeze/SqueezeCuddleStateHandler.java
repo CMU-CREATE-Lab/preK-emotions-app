@@ -138,8 +138,6 @@ public class SqueezeCuddleStateHandler implements BleSqueeze.NotificationCallbac
         final int currentSqueezeValue = Integer.parseInt(arg1);
 
         if (currentSqueezeValue > 0) {
-            // TODO actions for squeeze
-            Log.v(Constants.LOG_TAG, "S Q U E E Z E");
             activity.doSqueeze();
         }
     }

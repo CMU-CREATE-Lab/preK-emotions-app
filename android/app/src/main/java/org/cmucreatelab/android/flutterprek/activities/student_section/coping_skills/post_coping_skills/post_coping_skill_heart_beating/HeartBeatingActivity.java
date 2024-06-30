@@ -55,13 +55,16 @@ public class HeartBeatingActivity extends PostCopingSkillActivity implements Hea
             placeHandOnHeartFragment.displayFragment(true, this);
             howFastIsHeartBeatingFragment.displayFragment(false, this);
             audioToPlay = "etc/audio_prompts/audio_place_hand_on_heart.wav";
+            playAudio(audioToPlay);
+            restartOverlayTimers();
         } else {
             placeHandOnHeartFragment.displayFragment(false, this);
             howFastIsHeartBeatingFragment.displayFragment(true, this);
+
             audioToPlay = "etc/audio_prompts/audio_how_fast_is_heart_beating.wav";
+            startTimerToRepromptAndPlayAudio(audioToPlay);
+            restartOverlayTimers();
         }
-        playAudio(audioToPlay);
-        restartOverlayTimers();
     }
 
 

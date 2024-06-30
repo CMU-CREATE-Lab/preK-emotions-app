@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
+import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
 
-    private final AppCompatActivity activity;
+    private final AbstractActivity activity;
     private final List<Emotion> emotions;
     private final boolean onClickListener;
     private final ClickListener clickListener;
@@ -32,12 +33,12 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
     }
 
 
-    public EmotionIndexAdapter(AppCompatActivity activity, List<Emotion> emotions) {
+    public EmotionIndexAdapter(AbstractActivity activity, List<Emotion> emotions) {
         this(activity, emotions, null);
     }
 
 
-    public EmotionIndexAdapter(AppCompatActivity activity, List<Emotion> emotions, ClickListener clickListener) {
+    public EmotionIndexAdapter(AbstractActivity activity, List<Emotion> emotions, ClickListener clickListener) {
         this.activity = activity;
         this.emotions = emotions;
         this.clickListener = clickListener;
@@ -88,6 +89,8 @@ public class EmotionIndexAdapter extends AbstractListAdapter<Emotion> {
         result.findViewById(R.id.imageEmotionAudio).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // NOTE: user interaction cancels reprompt timer
+                activity.cancelTimerToReprompt();
                 playAudioFeeling(emotion.getName());
             }
         });

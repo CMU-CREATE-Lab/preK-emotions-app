@@ -34,6 +34,7 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
     private BluetoothSettings flowerBleSettings, squeezeBleSettings, wandBleSettings;
     private Switch switchPostCopingSkills;
     private SeekBar seekBarPromptRepeatDelay;
+    private TextView textViewHeader2PromptRepeat;
 
 
     private void startSettingsBleActivity(SettingsBleActivity.DeviceType deviceType) {
@@ -82,7 +83,22 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
         // switch
         switchPostCopingSkills.setChecked(sharedPreferences.getBoolean(Constants.PreferencesKeys.settingsPostCopingSkills, Constants.DEFAULT_USE_POST_COPING_SKILLS));
 
-        // TODO slider for seekBarPromptRepeatDelay
+        // seekbar
+        long value = sharedPreferences.getLong(Constants.PreferencesKeys.settingsRepromptInMilliseconds, Constants.DEFAULT_REPROMPT_IN_MILLISECONDS);;
+        int seekBarValue = (int)(value/1000);
+        seekBarPromptRepeatDelay.setProgress(seekBarValue);
+        updateViewForTextViewHeader2PromptRepeat(seekBarValue);
+    }
+
+
+    private void updateViewForTextViewHeader2PromptRepeat(int seekBarValue) {
+        final String text = String.format("Repeat Audio Prompts after %d seconds", seekBarValue);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                textViewHeader2PromptRepeat.setText(text);
+            }
+        });
     }
 
 
@@ -114,6 +130,7 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
 
         switchPostCopingSkills = findViewById(R.id.switchPostCopingSkills);
         seekBarPromptRepeatDelay = findViewById(R.id.seekBarPromptRepeatDelay);
+        textViewHeader2PromptRepeat = findViewById(R.id.textViewHeader2PromptRepeat);
 
         flowerBleSettings.button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,14 +150,35 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
                 startSettingsBleActivity(SettingsBleActivity.DeviceType.WAND);
             }
         });
-
         switchPostCopingSkills.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 GlobalHandler.getSharedPreferences(getApplicationContext()).edit().putBoolean(Constants.PreferencesKeys.settingsPostCopingSkills, b).apply();
             }
         });
+        seekBarPromptRepeatDelay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                // TODO change value (text)
+                Log.v(Constants.LOG_TAG, "SeekBar.onProgressChanged: value = "+i);
+                updateViewForTextViewHeader2PromptRepeat(i);
+            }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // do nothing
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                int i = seekBar.getProgress();
+                Log.v(Constants.LOG_TAG, "SeekBar.onStopTrackingTouch: value = "+i);
+                // get value in milliseconds
+                long value = i*1000;
+                GlobalHandler.getSharedPreferences(getApplicationContext()).edit().putLong(Constants.PreferencesKeys.settingsRepromptInMilliseconds, value).apply();
+                updateViewForTextViewHeader2PromptRepeat(i);
+            }
+        });
         findViewById(R.id.textButtonChangePassword).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -7,16 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import org.cmucreatelab.android.flutterprek.BackgroundTimer;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.audio.AudioPlayer;
 import org.cmucreatelab.android.flutterprek.Constants;
 
 /**
  * All activities in the project should extend from this class.
  */
-public abstract class AbstractActivity extends AppCompatActivity {
+public abstract class AbstractActivity extends AppCompatActivity implements BackgroundTimer.TimeExpireListener {
 
     private final DelayedOnClickHandler delayedOnClickHandler = new DelayedOnClickHandler(this);
     private boolean audioPlaybackPaused = false;
+    private BackgroundTimer backgroundTimerForReprompt;
+    private boolean backgroundTimerForRepromptIsStarted = false;
+    private String audioFileForReprompt;
 
 
     /**
@@ -49,6 +54,51 @@ public abstract class AbstractActivity extends AppCompatActivity {
 
     public boolean isAudioPlaybackPaused() {
         return audioPlaybackPaused;
+    }
+
+
+    /**
+     * Plays the audio prompt for the activity as well as starts a timer that triggers a replay of the same audio file, unless cancelled with the cancelTimerToReprompt() method.
+     *
+     * @param filepathForPrompt path to the audio file (the prompt)
+     */
+    public synchronized void startTimerToRepromptAndPlayAudio(String filepathForPrompt) {
+        // play audio filepathForPrompt
+        playAudio(filepathForPrompt);
+
+        // create/start a timer, with callback to play prompt again
+        if (backgroundTimerForRepromptIsStarted) {
+            backgroundTimerForReprompt.stopTimer();
+        } else {
+            this.backgroundTimerForRepromptIsStarted = true;
+        }
+        long millisecondsToWait = GlobalHandler.getSharedPreferences(getApplicationContext()).getLong(Constants.PreferencesKeys.settingsRepromptInMilliseconds, Constants.DEFAULT_REPROMPT_IN_MILLISECONDS);
+        this.backgroundTimerForReprompt = new BackgroundTimer(millisecondsToWait, this);
+        this.audioFileForReprompt = filepathForPrompt;
+        backgroundTimerForReprompt.startTimer();
+    }
+
+
+    /**
+     * Stops the timer responsible for replaying the audio prompt, as defined by a previous call to the startTimerToRepromptAndPlayAudio() method.
+     *
+     * This should be called any time the user interacts with the system (e.g. button click, some tangible interaction like button push)
+     *
+     * NOTE: using Activity.onUserInteraction triggers for too many things (even just touching the screen without buttons)
+     *
+     */
+    public synchronized void cancelTimerToReprompt() {
+        if (backgroundTimerForRepromptIsStarted) {
+            this.backgroundTimerForRepromptIsStarted = false;
+            backgroundTimerForReprompt.stopTimer();
+        }
+    }
+
+
+    @Override
+    public void timerExpired() {
+        this.backgroundTimerForRepromptIsStarted = false;
+        playAudio(audioFileForReprompt);
     }
 
 
@@ -92,6 +142,9 @@ public abstract class AbstractActivity extends AppCompatActivity {
             delayedOnClickHandler.onPauseActivity();
         }
 
+        // NOTE: onPause (leaving the activity) cancels reprompt timer
+        cancelTimerToReprompt();
+
         super.onPause();
     }
 
@@ -113,6 +166,7 @@ public abstract class AbstractActivity extends AppCompatActivity {
      * @param listener Callback for when the added audio finishes playing
      */
     public void playAudio(String filepath, MediaPlayer.OnCompletionListener listener) {
+        // NOTE: use startTimerToRepromptAndPlayAudio() instead, if audio to be played is the "main prompt" of the activity
         AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
         audioPlayer.stop();
         if (isAudioPlaybackPaused()) {

@@ -44,11 +44,6 @@ public class SqueezeCuddleCopingSkillActivity extends AbstractCopingSkillActivit
     });
 
 
-    private void playAudioInstructions() {
-        playAudio("etc/audio_prompts/audio_sheep_hug.wav");
-    }
-
-
     private void playAudioOverlay() {
         playAudio("etc/audio_prompts/audio_sheep_overlay.wav");
     }
@@ -64,11 +59,12 @@ public class SqueezeCuddleCopingSkillActivity extends AbstractCopingSkillActivit
         displayOverlay(false);
         squeezeCuddleStateHandler.lookForSqueeze();
         timerToDisplayOverlay.startTimer();
-        playAudioInstructions();
+        startTimerToRepromptAndPlayAudio("etc/audio_prompts/audio_sheep_hug.wav");
     }
 
 
     public void doSqueeze() {
+        cancelTimerToReprompt();
         if (heartAnimationIsReady) {
             heartAnimationIsReady = false;
             runOnUiThread(new Runnable() {

@@ -104,7 +104,7 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
     }
 
 
-    private void playAudioFile() {
+    private void playAudioFile(boolean isPlayingFromUserInteraction) {
         if (audioFile != null) {
             final AudioPlayer audioPlayer = AudioPlayer.getInstance(getApplicationContext());
             audioPlayer.stop();
@@ -116,8 +116,14 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
                         Log.w(Constants.LOG_TAG, "onChanged trying to add/play audio from activity but audioPlaybackPaused is true; not adding/playing audio.");
                         return;
                     }
-                    audioPlayer.addAudioFromAssets(dbFile.getFilePath());
-                    audioPlayer.playAudio();
+                    String filepathForPrompt = dbFile.getFilePath();
+                    if (isPlayingFromUserInteraction) {
+                        cancelTimerToReprompt();
+                        audioPlayer.addAudioFromAssets(filepathForPrompt);
+                        audioPlayer.playAudio();
+                    } else {
+                        startTimerToRepromptAndPlayAudio(filepathForPrompt);
+                    }
                 }
             });
         }
@@ -138,7 +144,8 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
                     Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
                     return;
                 }
-                playAudioFile();
+                // NOTE: user interaction cancels reprompt timer
+                playAudioFile(true);
             }
         });
 
@@ -163,7 +170,7 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
     @Override
     protected void onResume() {
         super.onResume();
-        playAudioFile();
+        playAudioFile(false);
     }
 
 

@@ -18,17 +18,9 @@ import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_AUDIO_FILE;
-import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_BACKGROUND_COLOR;
-import static org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCopingSkillActivity.INTENT_MESSAGE;
-import static org.cmucreatelab.android.flutterprek.activities.student_section.check_in.DisplayEmotionCheckInActivity.INTENT_CHECKIN_AUDIO_FILE;
-import static org.cmucreatelab.android.flutterprek.activities.student_section.check_in.DisplayEmotionCheckInActivity.INTENT_CHECKIN_MESSAGE;
 
 public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivityWithTimeout {
 
@@ -79,7 +71,10 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
                     Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
                     return;
                 }
-                playAudioHowAreYouFeeling();
+                //playAudioHowAreYouFeeling();
+                // NOTE: user interaction cancels reprompt timer
+                cancelTimerToReprompt();
+                playAudio(filepathHowAreYouFeelingPrompt);
             }
         });
 
@@ -103,7 +98,7 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
 
 
     public void playAudioHowAreYouFeeling() {
-        playAudio(filepathHowAreYouFeelingPrompt);
+        startTimerToRepromptAndPlayAudio(filepathHowAreYouFeelingPrompt);
     }
 
 }
