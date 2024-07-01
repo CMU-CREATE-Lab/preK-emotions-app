@@ -69,6 +69,7 @@ public class FlowerRainbowCopingSkillProcess {
 
         if (stepNumber == StepNumber.STEP_1A_HOLD_FLOWER_LADYBUG) {
             viewsToDisplay = new int[] {
+                    R.id.imageViewSilhouette,
                     R.id.imageViewFlowerLadyBug,
                     R.id.imageViewFlowerLadyBugArrow,
                     R.id.imageViewFlowerStem,
@@ -82,6 +83,7 @@ public class FlowerRainbowCopingSkillProcess {
             stringResourceForTitle = R.string.coping_skill_flower_step_1_hold;
         } else if (stepNumber == StepNumber.STEP_1B_HOLD_FLOWER_HAND) {
             viewsToDisplay = new int[] {
+                    R.id.imageViewSilhouette,
                     R.id.imageViewFlowerHand,
                     R.id.imageViewFlowerStem,
                     R.id.imageViewFlowerMiddle,
