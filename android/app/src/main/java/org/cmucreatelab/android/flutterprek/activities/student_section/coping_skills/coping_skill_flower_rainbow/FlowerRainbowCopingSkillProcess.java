@@ -196,10 +196,11 @@ public class FlowerRainbowCopingSkillProcess {
         flowerCopingSkillActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mLevel += 500;
+                // TODO notice if you don't end with exactly 10000 the image will remain partially clipped
+                mLevel += 100;
                 animatedDrawable.setLevel(mLevel);
                 if (mLevel <= 10000) {
-                    handler.postDelayed(animateImage, 50);
+                    handler.postDelayed(animateImage, 20);
                 } else {
                     handler.removeCallbacks(animateImage);
                 }
