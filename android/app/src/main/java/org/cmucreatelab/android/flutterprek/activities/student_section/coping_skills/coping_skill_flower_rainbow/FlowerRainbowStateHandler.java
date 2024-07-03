@@ -83,7 +83,9 @@ public class FlowerRainbowStateHandler implements BleFlower.NotificationCallback
             // clear this flag (in case button was held down before entering this state)
             isPressingButton = false;
         } else if (newState == State.BREATHING) {
-            activity.displayBreatheIn();
+            // start breathing out instead
+            activity.displayBreatheOut();
+            //activity.displayBreatheIn();
             breathTracker.startTracker();
         } else if (newState == State.FINISHED) {
             breathTracker.resetTracker();
@@ -137,12 +139,6 @@ public class FlowerRainbowStateHandler implements BleFlower.NotificationCallback
             Log.e(Constants.LOG_TAG, String.format("Failed to parge ledCount '%s'; will default to 0", arg5));
             activity.ledCountOnFlower = 0;
             e.printStackTrace();
-        }
-
-        // only listen for when the button is first pressed
-        if (!isPressingButton && newValue) {
-            isPressingButton = true;
-            changeState(State.BREATHING);
         }
 
         if (SHOW_DEBUG_WINDOW) {
@@ -204,7 +200,7 @@ public class FlowerRainbowStateHandler implements BleFlower.NotificationCallback
 
 
     public void initializeState() {
-        changeState(State.WAIT_FOR_BUTTON);
+        changeState(State.BREATHING);
     }
 
 

@@ -13,7 +13,7 @@ public class FlowerRainbowBreathTracker {
     private static final int NUMBER_OF_FLOWER_PETALS = 5;
     private static final int BREATHE_IN_CYCLE_MAX = NUMBER_OF_FLOWER_PETALS;
     private static final int BREATHE_OUT_CYCLE_MAX = NUMBER_OF_FLOWER_PETALS;
-    private static final int TOTAL_NUMBER_OF_CYCLES = 3;
+    private static final int TOTAL_NUMBER_OF_CYCLES = 4;
 
     private final FlowerRainbowCopingSkillActivity activity;
     private final Listener listener;
@@ -91,7 +91,6 @@ public class FlowerRainbowBreathTracker {
     }
 
 
-
     public FlowerRainbowBreathTracker(FlowerRainbowCopingSkillActivity activity, Listener listener) {
         this.activity = activity;
         this.listener = listener;
@@ -108,7 +107,7 @@ public class FlowerRainbowBreathTracker {
 
 
     public void startTracker() {
-        setCurrentCallbackForHandler(breatheInCallback);
+        setCurrentCallbackForHandler(breatheOutCallback);
     }
 
 

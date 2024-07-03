@@ -27,6 +27,11 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
     private static final int breathCountThresholdToDisplayBottomAnimation = 4;
 
 
+    private void playAudioRainbowSoundFX() {
+        playAudio("etc/sounds/chimefx.mp3");
+    }
+
+
     private void playAudioInstructions() {
         playAudio("etc/audio_prompts/audio_flower_button_stem.wav");
     }
@@ -179,6 +184,8 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         if (flowerDetectsBreathing) {
             breathCount++;
             if (readyToPlayStarAnimation) {
+                // plays chime/harp sound (NOTE: prompt will stop the sound effect, which I think is preferable)
+                playAudioRainbowSoundFX();
                 this.readyToPlayStarAnimation = false;
                 loopHandler.postDelayed(new Runnable() {
                     @Override
