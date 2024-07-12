@@ -67,7 +67,7 @@ public class BleWandScanner implements UARTConnection.ConnectionListener {
     }
 
 
-    public BleWandScanner(WandCopingSkillActivity activity, @NonNull BleWandScanner.DiscoveryListener discoveryListener, @NonNull UARTConnection.ConnectionListener connectionListener) {
+    public BleWandScanner(AbstractActivity activity, @NonNull BleWandScanner.DiscoveryListener discoveryListener, @NonNull UARTConnection.ConnectionListener connectionListener) {
         this.activity = activity;
         this.discoveryListener = discoveryListener;
         this.connectionListener = connectionListener;

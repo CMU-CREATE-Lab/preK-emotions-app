@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.ConnectBleDeviceActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.ConnectBleFlowerActivity;
+import org.cmucreatelab.android.flutterprek.activities.student_section.ConnectBleWandActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_cuddle_with_squeeze.SqueezeCuddleCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower.FlowerCopingSkillActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_flower_rainbow.FlowerRainbowCopingSkillActivity;
@@ -31,6 +34,7 @@ import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.
 import java.io.Serializable;
 import java.util.HashMap;
 
+import static org.cmucreatelab.android.flutterprek.GlobalHandler.getInstance;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.ParentVideoCopingSkillActivity.CLASS_3B_STUDENT2;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.ParentVideoCopingSkillActivity.DEFAULT;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_video.ParentVideoCopingSkillActivity.EXTRA_VIDEO_TYPE;
@@ -48,6 +52,7 @@ public class ItineraryItemToIntentMapper {
     public Intent createIntentFromItineraryItem(AbstractActivity activity, ItineraryItem itineraryItem) {
         Intent result;
         HashMap<String, Serializable> extras = new HashMap<>();
+        boolean bleConnected;
         Class copingSkillClass;
         String capabilityId = itineraryItem.getCapabilityId();
 
@@ -61,7 +66,8 @@ public class ItineraryItemToIntentMapper {
                 copingSkillClass = FlowerCopingSkillActivity.class;
                 break;
             case "coping_skill_flower_rainbow":
-                copingSkillClass = FlowerRainbowCopingSkillActivity.class;
+                bleConnected = GlobalHandler.getInstance(activity.getApplicationContext()).isFlowerConnected();
+                copingSkillClass = bleConnected ? FlowerRainbowCopingSkillActivity.class : ConnectBleFlowerActivity.class;
                 break;
             case "coping_skill_static.cuddle":
                 copingSkillClass = CuddleCopingSkillActivity.class;
@@ -103,7 +109,8 @@ public class ItineraryItemToIntentMapper {
                 copingSkillClass = TalkAboutItActivity.class;
                 break;
             case "coping_skill_wand":
-                copingSkillClass = WandCopingSkillActivity.class;
+                bleConnected = GlobalHandler.getInstance(activity.getApplicationContext()).isWandConnected();
+                copingSkillClass = bleConnected ? WandCopingSkillActivity.class : ConnectBleWandActivity.class;
                 break;
             case "coping_skill_wand_standalone":
                 copingSkillClass = WandStandaloneActivity.class;
