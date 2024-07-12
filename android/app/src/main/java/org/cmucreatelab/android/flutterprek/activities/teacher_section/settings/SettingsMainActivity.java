@@ -32,7 +32,7 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
     }
 
     private BluetoothSettings flowerBleSettings, squeezeBleSettings, wandBleSettings;
-    private Switch switchPostCopingSkills;
+    private Switch switchHeartBeat;
     private SeekBar seekBarPromptRepeatDelay;
     private TextView textViewHeader2PromptRepeat;
 
@@ -81,7 +81,7 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
         SharedPreferences sharedPreferences = GlobalHandler.getSharedPreferences(getApplicationContext());
 
         // switch
-        switchPostCopingSkills.setChecked(sharedPreferences.getBoolean(Constants.PreferencesKeys.settingsPostCopingSkills, Constants.DEFAULT_USE_POST_COPING_SKILLS));
+        switchHeartBeat.setChecked(sharedPreferences.getBoolean(Constants.PreferencesKeys.settingsHeartBeatActivity, Constants.DEFAULT_USE_HEART_BEAT_ACTIVITY));
 
         // seekbar
         long value = sharedPreferences.getLong(Constants.PreferencesKeys.settingsRepromptInMilliseconds, Constants.DEFAULT_REPROMPT_IN_MILLISECONDS);;
@@ -128,7 +128,7 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
         squeezeBleSettings = new BluetoothSettings((TextView) findViewById(R.id.textViewHeaderBleSettingsSqueeze), (TextView) findViewById(R.id.textViewBleSettingsSqueeze), (TextView) findViewById(R.id.textButtonBleSettingsSqueeze));
         wandBleSettings = new BluetoothSettings((TextView) findViewById(R.id.textViewHeaderBleSettingsWand), (TextView) findViewById(R.id.textViewBleSettingsWand), (TextView) findViewById(R.id.textButtonBleSettingsWand));
 
-        switchPostCopingSkills = findViewById(R.id.switchPostCopingSkills);
+        switchHeartBeat = findViewById(R.id.switchHeartBeat);
         seekBarPromptRepeatDelay = findViewById(R.id.seekBarPromptRepeatDelay);
         textViewHeader2PromptRepeat = findViewById(R.id.textViewHeader2PromptRepeat);
 
@@ -150,10 +150,10 @@ public class SettingsMainActivity extends TeacherSectionActivityWithHeaderAndDra
                 startSettingsBleActivity(SettingsBleActivity.DeviceType.WAND);
             }
         });
-        switchPostCopingSkills.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        switchHeartBeat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                GlobalHandler.getSharedPreferences(getApplicationContext()).edit().putBoolean(Constants.PreferencesKeys.settingsPostCopingSkills, b).apply();
+                GlobalHandler.getSharedPreferences(getApplicationContext()).edit().putBoolean(Constants.PreferencesKeys.settingsHeartBeatActivity, b).apply();
             }
         });
         seekBarPromptRepeatDelay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

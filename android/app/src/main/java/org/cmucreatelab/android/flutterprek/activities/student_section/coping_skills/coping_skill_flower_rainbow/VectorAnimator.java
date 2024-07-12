@@ -19,7 +19,7 @@ public class VectorAnimator {
     private AnimationListener animationListener;
 
     private static int starAnimationResource = R.anim.star_anim2;
-    private static long delayBetweenStarAnimationsInMilliseconds = 80;
+    private static long delayBetweenStarAnimationsInMilliseconds = 40;
 
     private static class AnimatedVector {
         public ImageView imageView;

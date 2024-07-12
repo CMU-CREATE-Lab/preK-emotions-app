@@ -38,11 +38,12 @@ public class CopingSkillIndexAdapter extends AbstractListAdapter<CopingSkill> {
     private LiveData<List<ItineraryItem>> getItineraryItems(String copingSkillUuid) {
         Context appContext = activity.getApplicationContext();
         SharedPreferences sharedPreferences = GlobalHandler.getSharedPreferences(appContext);
-        boolean usesPostCopingSkills = sharedPreferences.getBoolean(Constants.PreferencesKeys.settingsPostCopingSkills, Constants.DEFAULT_USE_POST_COPING_SKILLS);
+        boolean usesPostCopingSkills = sharedPreferences.getBoolean(Constants.PreferencesKeys.settingsHeartBeatActivity, Constants.DEFAULT_USE_HEART_BEAT_ACTIVITY);
         if (usesPostCopingSkills) {
             return AppDatabase.getInstance(appContext).intermediateTablesDAO().getItineraryItemsForCopingSkill(copingSkillUuid);
         } else {
-            return AppDatabase.getInstance(appContext).intermediateTablesDAO().getItineraryItemsForCopingSkillWithoutPostCopingSkills(copingSkillUuid);
+            //return AppDatabase.getInstance(appContext).intermediateTablesDAO().getItineraryItemsForCopingSkillWithoutPostCopingSkills(copingSkillUuid);
+            return AppDatabase.getInstance(appContext).intermediateTablesDAO().getItineraryItemsForCopingSkillWithoutHeartBeatPrompt(copingSkillUuid);
         }
     }
 

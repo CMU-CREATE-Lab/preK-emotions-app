@@ -59,20 +59,21 @@
                         android:text="General App Settings" />
 
                     <Switch
-                        android:id="@+id/switchPostCopingSkills"
+                        android:id="@+id/switchHeartBeat"
                         android:layout_marginStart="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:checked="true"
                         style="@style/LabelsForTeacherSectionEditActivity"
-                        android:text="Include Follow-up Activities (e.g. Heart beat, Emotion)" />
+                        android:text="Include Heart Rate Prompt" />
 
                     <TextView
-                        android:id="@+id/labelDescriptionCopingSkillAvailable"
-                        android:layout_marginStart="20dp"
-                        android:text="When disabled, sessions will end immediately after the coping skill and return to the students screen."
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    android:id="@+id/labelDescriptionCopingSkillAvailable"
+                    android:layout_marginStart="20dp"
+                    android:text="After each coping skill activity, display the 'how fast is your heart beating' prompt."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
 
                     <android.support.v4.widget.Space
                         android:layout_width="match_parent"

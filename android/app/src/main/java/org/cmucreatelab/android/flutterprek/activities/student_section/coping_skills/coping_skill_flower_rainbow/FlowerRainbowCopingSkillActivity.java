@@ -28,7 +28,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
 
 
     private void playAudioRainbowSoundFX() {
-        playAudio("etc/sounds/chimefx.mp3");
+        playAudio("etc/sounds/harp1.mp3");
     }
 
 

@@ -14,7 +14,7 @@ public class Constants {
 
     public static final String DEFAULT_TEACHER_PASSWORD = "admin";
 
-    public static final boolean DEFAULT_USE_POST_COPING_SKILLS = true;
+    public static final boolean DEFAULT_USE_HEART_BEAT_ACTIVITY = true;
 
     public static final long DEFAULT_REPROMPT_IN_MILLISECONDS = 7000;
 
@@ -28,7 +28,7 @@ public class Constants {
         public static final String squeezePairingModeManual = "squeeze_pairing_mode_manual";
         public static final String squeezeSsid = "squeeze_ssid";
         public static final String hotfixCollection = "hotfix_collection";
-        public static final String settingsPostCopingSkills = "settings_post_coping_skills";
+        public static final String settingsHeartBeatActivity = "settings_heart_beat_activity";
         public static final String settingsRepromptInMilliseconds = "settings_reprompt_in_milliseconds";
     }
 
