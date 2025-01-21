@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
+import org.cmucreatelab.android.flutterprek.BackgroundTimer;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.AbstractCopingSkillActivity;
@@ -21,10 +22,21 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
     private VectorAnimator vectorAnimator;
     private boolean readyToPlayStarAnimation = false;
     private boolean readyToPlayBottomStarAnimation = false;
+    private boolean overlayIsDisplayed = false;
 
     public int breathCount = 0;
 
     private static final int breathCountThresholdToDisplayBottomAnimation = 4;
+
+    private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 120000;
+
+    private final BackgroundTimer timerToExitFromOverlay = new BackgroundTimer(DISMISS_OVERLAY_AFTER_MILLISECONDS, new BackgroundTimer.TimeExpireListener() {
+        @Override
+        public void timerExpired() {
+            releaseOverlayTimers();
+            finish();
+        }
+    });
 
 
     private void playAudioRainbowSoundFX() {
@@ -49,6 +61,19 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
 
     private void playAudioOverlay() {
         playAudio("etc/audio_prompts/audio_flower_again.wav");
+    }
+
+
+    public void releaseOverlayTimers() {
+        Log.d(Constants.LOG_TAG, "Flower: releaseOverlayTimers()");
+        timerToExitFromOverlay.stopTimer();
+    }
+
+
+    public void finish() {
+        Log.d(Constants.LOG_TAG, "Flower: called finish()");
+        releaseOverlayTimers();
+        super.finish();
     }
 
 
@@ -100,6 +125,8 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
         findViewById(R.id.imageViewYes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                overlayIsDisplayed = false;
+                releaseOverlayTimers();
                 flowerStateHandler.initializeState();
             }
         });
@@ -115,6 +142,7 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
     @Override
     protected void onPause() {
         activityIsPaused = true;
+        releaseOverlayTimers();
         super.onPause();
         Log.d(Constants.LOG_TAG,"Stopping LeScan...");
         // avoid playing through after early exit
@@ -126,8 +154,12 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
     protected void onResume() {
         activityIsPaused = false;
         super.onResume();
-        flowerStateHandler.initializeState();
-        flowerStateHandler.lookForFlower();
+        if (overlayIsDisplayed) {
+            timerToExitFromOverlay.startTimer();
+        } else {
+            flowerStateHandler.initializeState();
+            flowerStateHandler.lookForFlower();
+        }
     }
 
 
@@ -168,8 +200,10 @@ public class FlowerRainbowCopingSkillActivity extends AbstractCopingSkillActivit
 
 
     public void displayOverlay() {
+        overlayIsDisplayed = true;
         flowerCopingSkillProcess.goToStep(FlowerRainbowCopingSkillProcess.StepNumber.STEP_4_OVERLAY);
         playAudioOverlay();
+        timerToExitFromOverlay.startTimer();
 //        toggleBreathOnBleFlower(false);
     }
 

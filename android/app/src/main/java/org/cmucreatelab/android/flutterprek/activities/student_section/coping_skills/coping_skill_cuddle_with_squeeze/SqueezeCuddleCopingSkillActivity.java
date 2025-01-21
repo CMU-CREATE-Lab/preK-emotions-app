@@ -11,7 +11,7 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.coping_sk
 public class SqueezeCuddleCopingSkillActivity extends AbstractCopingSkillActivity {
 
     private static final long DISPLAY_OVERLAY_AFTER_MILLISECONDS = 30000;
-    private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 10000;
+    private static final long DISMISS_OVERLAY_AFTER_MILLISECONDS = 120000;
 
     private static final long HEART_ANIMATION_MILLISECONDS = 2000;
 
