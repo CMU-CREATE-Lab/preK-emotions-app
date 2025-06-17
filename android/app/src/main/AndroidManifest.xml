@@ -252,6 +252,22 @@
             android:name=".activities.student_section.ConnectBleWandActivity"
             android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.teacher_section.highlights_design.ClassroomIndexActivity"
+            android:screenOrientation="userLandscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.teacher_section.highlights_design.ClassroomHighlightsActivity"
+            android:screenOrientation="userLandscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.teacher_section.highlights_design.StudentHighlightsActivity"
+            android:screenOrientation="userLandscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.teacher_section.highlights_design.UploadPhotoActivity"
+            android:screenOrientation="userLandscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
 
 </manifest>
