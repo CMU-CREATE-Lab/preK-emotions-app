@@ -57,7 +57,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout._highlights_design__activity_placeholder;
+        return R.layout._highlights_design__activity_classroom_highlights;
     }
 
 }
