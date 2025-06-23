@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO replace background #aaa -->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appHeaderHighlights"
+    style="@style/AppHeader"
+    android:background="#aaa"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        style="@style/AppHeaderImages"
+        android:layout_width="158sp"
+        android:layout_height="31sp"
+        android:background="@drawable/ic_mindfulnest_header_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageInfo"
+        style="@style/AppHeaderImages"
+        android:layout_width="36sp"
+        android:layout_height="36sp"
+        android:background="@drawable/ic_mindfulnest_header_info"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/imageStudent"
+        style="@style/AppHeaderImages"
+        android:layout_width="36sp"
+        android:layout_height="36sp"
+        android:background="@drawable/ic_mindfulnest_header_student_section"
+        app:layout_constraintEnd_toStartOf="@+id/imageInfo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:civ_border_width="1.5dp"
+        />
+
+</android.support.constraint.ConstraintLayout>
