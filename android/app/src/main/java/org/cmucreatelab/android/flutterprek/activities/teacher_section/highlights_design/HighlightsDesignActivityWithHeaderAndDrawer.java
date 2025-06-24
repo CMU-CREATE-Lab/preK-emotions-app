@@ -6,13 +6,13 @@ import android.view.View;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.ActiveClassroomIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomIndexActivity;
 
 public abstract class HighlightsDesignActivityWithHeaderAndDrawer extends AbstractActivity {
 
-    // TODO Header, Drawer
-    private View appHeaderHighlights, drawerHighlights;
+    private HighlightsViewAppHeader appHeaderHighlights;
+    private HighlightsViewDrawer drawerHighlights;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,16 @@ public abstract class HighlightsDesignActivityWithHeaderAndDrawer extends Abstra
                 startActivity(classroomsIndexActivity);
             }
         });
+    }
+
+
+    public HighlightsViewAppHeader getAppHeaderHighlights() {
+        return appHeaderHighlights;
+    }
+
+
+    public HighlightsViewDrawer getDrawerHighlights() {
+        return drawerHighlights;
     }
 
 }

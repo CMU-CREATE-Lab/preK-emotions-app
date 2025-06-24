@@ -10,15 +10,15 @@
         android:layout_height="match_parent"
         android:background="#ffaaaa" >
 
-        <include
-            layout="@layout/_highlights_design__view_app_header"
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsViewAppHeader
+            android:id="@+id/appHeaderHighlights"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
             android:layout_height="65sp" />
 
-        <include
-            layout="@layout/_highlights_design__view_drawer"
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsViewDrawer
+            android:id="@+id/drawerHighlights"
             android:layout_width="205sp"
             android:layout_height="0sp"
             app:layout_constraintBottom_toBottomOf="parent"
