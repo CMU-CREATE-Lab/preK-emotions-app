@@ -29,14 +29,36 @@
                 app:layout_constraintStart_toStartOf="parent"
                 />
 
-            <Button
-                android:id="@+id/buttonPlaceholder"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Next Activity"
+                android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/textViewPlaceholder"
                 app:layout_constraintStart_toStartOf="@id/textViewPlaceholder"
-                />
+                >
+
+                <Button
+                    android:id="@+id/buttonPlaceholderOpt1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reset to Icon"
+                    />
+
+                <Button
+                    android:id="@+id/buttonPlaceholderOpt2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Keep Old Image"
+                    />
+
+                <Button
+                    android:id="@+id/buttonPlaceholderOpt3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update Image"
+                    />
+
+            </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
 

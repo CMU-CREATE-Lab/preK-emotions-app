@@ -2,10 +2,13 @@ package org.cmucreatelab.android.flutterprek.activities.teacher_section.highligh
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 
 public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeaderAndDrawer {
@@ -29,9 +32,9 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         buttonPlaceholder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO next activity
+                // TODO helper class for requestCode and resultCode (determines which emotion/profile photo to update)
                 Intent intent = new Intent(StudentHighlightsActivity.this, UploadPhotoActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
     }
@@ -48,6 +51,20 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     @Override
     public int getResourceIdForActivityLayout() {
         return R.layout._highlights_design__activity_placeholder;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // TODO helper class for requestCode and resultCode (determines which emotion/profile photo to update)
+        if (requestCode == 1) {
+            if (data != null) {
+                Log.v(Constants.LOG_TAG, String.format("StudentHighlightsActivity got result from photo activity with resultCode=%d AND data not null", resultCode));
+            } else {
+                Log.v(Constants.LOG_TAG, String.format("StudentHighlightsActivity got result from photo activity with resultCode=%d (data null)", resultCode));
+            }
+        }
     }
 
 }
