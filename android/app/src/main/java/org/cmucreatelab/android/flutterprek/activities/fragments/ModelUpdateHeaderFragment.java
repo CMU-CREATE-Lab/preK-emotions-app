@@ -2,8 +2,8 @@ package org.cmucreatelab.android.flutterprek.activities.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -66,3 +66,6 @@ public class ModelUpdateHeaderFragment extends AbstractFragment {
     }
 
 }
+
+
+

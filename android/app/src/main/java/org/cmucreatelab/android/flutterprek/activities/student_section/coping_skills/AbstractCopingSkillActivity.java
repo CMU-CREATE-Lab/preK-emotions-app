@@ -54,3 +54,6 @@ public abstract class AbstractCopingSkillActivity extends AbstractActivity {
     }
 
 }
+
+
+

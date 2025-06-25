@@ -75,3 +75,6 @@ public class UseWordsActivity extends PostCopingSkillActivity {
     }
 
 }
+
+
+

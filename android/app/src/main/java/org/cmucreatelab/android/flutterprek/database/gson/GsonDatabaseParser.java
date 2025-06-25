@@ -1,8 +1,8 @@
 package org.cmucreatelab.android.flutterprek.database.gson;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
-import android.support.annotation.Nullable;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.annotation.Nullable;
 
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
@@ -172,3 +172,6 @@ public class GsonDatabaseParser {
     }
 
 }
+
+
+

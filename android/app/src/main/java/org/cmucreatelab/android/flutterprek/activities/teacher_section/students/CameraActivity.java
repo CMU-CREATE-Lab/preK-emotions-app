@@ -416,3 +416,6 @@ public class CameraActivity extends AbstractActivity {
     }
 
 }
+
+
+

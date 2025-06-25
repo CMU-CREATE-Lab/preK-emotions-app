@@ -3,7 +3,7 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.CountDownTimer;
-import android.support.v4.view.VelocityTrackerCompat;
+import androidx.core.view.VelocityTrackerCompat;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -259,3 +259,6 @@ public class WandStandaloneProcess {
     }
 
 }
+
+
+

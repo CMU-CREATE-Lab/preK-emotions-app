@@ -16,8 +16,8 @@ package org.cmucreatelab.android.flutterprek.database;
  * limitations under the License.
  */
 
-import android.arch.core.executor.ArchTaskExecutor;
-import android.arch.core.executor.TaskExecutor;
+import androidx.arch.core.executor.ArchTaskExecutor;
+import androidx.arch.core.executor.TaskExecutor;
 
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
@@ -57,3 +57,5 @@ public class InstantTaskExecutorRule extends TestWatcher {
         ArchTaskExecutor.getInstance().setDelegate(null);
     }
 }
+
+

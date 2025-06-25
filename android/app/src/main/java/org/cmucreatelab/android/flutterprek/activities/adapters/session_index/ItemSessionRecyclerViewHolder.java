@@ -1,8 +1,8 @@
 package org.cmucreatelab.android.flutterprek.activities.adapters.session_index;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -86,3 +86,5 @@ public class ItemSessionRecyclerViewHolder extends RecyclerView.ViewHolder {
     }
 
 }
+
+

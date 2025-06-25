@@ -51,3 +51,6 @@ public class RejoinFriendsActivity extends PostCopingSkillActivity {
     }
 
 }
+
+
+

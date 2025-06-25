@@ -1,9 +1,9 @@
 package org.cmucreatelab.android.flutterprek.activities.adapters.session_index;
 
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.Observer;
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,3 +88,5 @@ public class SessionCopingSkillAdapter extends RecyclerView.Adapter<SessionCopin
     }
 
 }
+
+

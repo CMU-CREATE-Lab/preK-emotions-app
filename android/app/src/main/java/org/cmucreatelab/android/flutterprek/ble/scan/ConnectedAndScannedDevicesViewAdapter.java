@@ -1,7 +1,7 @@
 package org.cmucreatelab.android.flutterprek.ble.scan;
 
 import android.bluetooth.BluetoothDevice;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,3 +102,6 @@ public class ConnectedAndScannedDevicesViewAdapter extends RecyclerView.Adapter<
     }
 
 }
+
+
+

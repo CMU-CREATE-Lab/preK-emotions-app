@@ -44,3 +44,6 @@ public class HowFastIsHeartBeatingFragment extends HeartBeatingFragment  {
         heartFast.startAnimation(fast);
     }
 }
+
+
+

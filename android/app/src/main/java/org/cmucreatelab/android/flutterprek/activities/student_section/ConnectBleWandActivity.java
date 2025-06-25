@@ -56,3 +56,6 @@ public class ConnectBleWandActivity extends ConnectBleDeviceActivity {
     }
 
 }
+
+
+

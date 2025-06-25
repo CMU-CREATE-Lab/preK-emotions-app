@@ -1,3 +1,96 @@
+//apply plugin: 'com.android.application'
+//
+//def getLatestGitHash = { ->
+//    def stdout = new ByteArrayOutputStream()
+//    exec {
+//        commandLine 'git', 'rev-parse', '--short', 'HEAD'
+//        standardOutput = stdout
+//    }
+//    return stdout.toString().trim();
+//}
+//
+//android {
+//    compileSdk 33
+//    defaultConfig {
+//        applicationId "org.cmucreatelab.android.flutterprek"
+//        minSdkVersion 22
+//        targetSdkVersion 34
+//        versionCode 26
+//        versionName "2.6"
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//
+//        // used by Room, to test migrations
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+//            }
+//        }
+//    }
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
+//
+//    // used by Room, to test migrations
+//    sourceSets {
+//        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+//
+////        // used by the room flavors to avoid duplication
+////        room.java.srcDirs += "src/room_common/java"
+////        room2.java.srcDirs += "src/room_common/java"
+////        room3.java.srcDirs += "src/room_common/java"
+////
+////        androidTest.java.srcDirs += "src/androidTestRoom_Common/java"
+//    }
+//
+//    buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
+//    }
+//    namespace 'org.cmucreatelab.android.flutterprek'
+//
+//    applicationVariants.all { variant ->
+//        def versionName
+//        if (variant.buildType.isDebuggable()) {
+//            // Set properties for debug
+//            versionName = "dev-"  + getLatestGitHash()
+//        } else {
+//            // Set properties for release
+//            versionName = "v" + variant.versionName
+//        }
+//        variant.resValue "string", "versionName", versionName
+//    }
+//}
+//
+//dependencies {
+//    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    //noinspection GradleCompatible
+//    implementation 'com.android.support:appcompat-v7:28.0.0'
+//    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+//    implementation 'com.google.code.gson:gson:2.8.5'
+//    //noinspection GradleCompatible,GradleCompatible
+//    implementation 'com.android.support:design:28.0.0'
+//    //implementation 'com.mikhaellopez:circularimageview:3.2.0'
+//    //implementation(name:'com.mikhaellopez:circularimageview', ext:'aar', version:'3.2.0')
+//    implementation(name:'circularimageview', ext:'aar', version:'3.2.0')
+//
+//    testImplementation 'junit:junit:4.12'
+//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+//
+//    // Room components
+//    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
+//    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+//    androidTestImplementation "android.arch.persistence.room:testing:$rootProject.roomVersion"
+//
+//    // Lifecycle components
+//    implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
+//    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
+//}
+
+
 apply plugin: 'com.android.application'
 
 def getLatestGitHash = { ->
@@ -6,58 +99,49 @@ def getLatestGitHash = { ->
         commandLine 'git', 'rev-parse', '--short', 'HEAD'
         standardOutput = stdout
     }
-    return stdout.toString().trim();
+    return stdout.toString().trim()
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
     defaultConfig {
         applicationId "org.cmucreatelab.android.flutterprek"
         minSdkVersion 22
         targetSdkVersion 34
         versionCode 26
         versionName "2.6"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        // used by Room, to test migrations
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    // used by Room, to test migrations
     sourceSets {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
-
-//        // used by the room flavors to avoid duplication
-//        room.java.srcDirs += "src/room_common/java"
-//        room2.java.srcDirs += "src/room_common/java"
-//        room3.java.srcDirs += "src/room_common/java"
-//
-//        androidTest.java.srcDirs += "src/androidTestRoom_Common/java"
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     namespace 'org.cmucreatelab.android.flutterprek'
 
     applicationVariants.all { variant ->
         def versionName
         if (variant.buildType.isDebuggable()) {
-            // Set properties for debug
-            versionName = "dev-"  + getLatestGitHash()
+            versionName = "dev-" + getLatestGitHash()
         } else {
-            // Set properties for release
             versionName = "v" + variant.versionName
         }
         variant.resValue "string", "versionName", versionName
@@ -66,26 +150,26 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+
+    // AndroidX equivalents of support libraries
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.android.material:material:1.11.0'
+
     implementation 'com.google.code.gson:gson:2.8.5'
-    //noinspection GradleCompatible,GradleCompatible
-    implementation 'com.android.support:design:28.0.0'
-    //implementation 'com.mikhaellopez:circularimageview:3.2.0'
-    //implementation(name:'com.mikhaellopez:circularimageview', ext:'aar', version:'3.2.0')
     implementation(name:'circularimageview', ext:'aar', version:'3.2.0')
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    // Room components (AndroidX)
+    implementation "androidx.room:room-runtime:2.6.1"
+    annotationProcessor "androidx.room:room-compiler:2.6.1"
+    androidTestImplementation "androidx.room:room-testing:2.6.1"
 
-    // Room components
-    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
-    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
-    androidTestImplementation "android.arch.persistence.room:testing:$rootProject.roomVersion"
+    // Lifecycle components (AndroidX)
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0"
 
-    // Lifecycle components
-    implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
-    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
+    // Testing
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

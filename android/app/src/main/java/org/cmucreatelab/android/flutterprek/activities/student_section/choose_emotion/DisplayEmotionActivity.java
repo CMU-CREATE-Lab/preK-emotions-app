@@ -6,10 +6,10 @@ import static org.cmucreatelab.android.flutterprek.activities.student_section.Ch
 import static org.cmucreatelab.android.flutterprek.activities.student_section.check_in.DisplayEmotionCheckInActivity.INTENT_CHECKIN_AUDIO_FILE;
 import static org.cmucreatelab.android.flutterprek.activities.student_section.check_in.DisplayEmotionCheckInActivity.INTENT_CHECKIN_MESSAGE;
 
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -192,3 +192,6 @@ public class DisplayEmotionActivity extends StudentSectionActivityWithHeader {
     }
 
 }
+
+
+

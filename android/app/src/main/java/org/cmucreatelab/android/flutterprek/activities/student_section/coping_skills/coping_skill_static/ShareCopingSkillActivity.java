@@ -23,3 +23,6 @@ public class ShareCopingSkillActivity extends StaticCopingSkillActivity {
     }
 
 }
+
+
+

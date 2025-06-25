@@ -6,3 +6,5 @@
         android:startColor="@color/colorTransparent"
         android:endColor="@color/colorWhite" />
 </shape>
+
+

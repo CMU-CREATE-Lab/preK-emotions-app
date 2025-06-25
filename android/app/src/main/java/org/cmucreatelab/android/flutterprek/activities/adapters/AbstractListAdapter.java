@@ -44,3 +44,6 @@ public abstract class AbstractListAdapter<T> extends BaseAdapter {
     public abstract View getView(int position, View convertView, ViewGroup parent);
 
 }
+
+
+

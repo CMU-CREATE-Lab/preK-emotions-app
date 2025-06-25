@@ -1,9 +1,9 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 
@@ -18,3 +18,6 @@ public class HighlightsViewDrawer extends ConstraintLayout {
     }
 
 }
+
+
+

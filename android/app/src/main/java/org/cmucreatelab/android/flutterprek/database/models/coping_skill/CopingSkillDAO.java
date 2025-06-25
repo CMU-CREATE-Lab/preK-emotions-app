@@ -1,10 +1,10 @@
 package org.cmucreatelab.android.flutterprek.database.models.coping_skill;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.Query;
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.Query;
 
 import org.cmucreatelab.android.flutterprek.database.models.CopingSkillWithCustomizations;
 
@@ -107,3 +107,6 @@ public interface CopingSkillDAO {
     LiveData<List<CopingSkill>> getEnabledCopingSkillsForEmotionOnFirst(String ownerUuid, String emotionUuid);
 
 }
+
+
+

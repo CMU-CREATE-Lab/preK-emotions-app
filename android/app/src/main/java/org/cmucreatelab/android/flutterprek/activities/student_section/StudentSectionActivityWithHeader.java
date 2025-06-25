@@ -1,10 +1,10 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section;
 
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.Observer;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -100,3 +100,6 @@ public abstract class StudentSectionActivityWithHeader extends AbstractActivity 
     }
 
 }
+
+
+

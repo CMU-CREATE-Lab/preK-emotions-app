@@ -56,3 +56,6 @@ public class CuddleCopingSkillActivity extends StaticCopingSkillActivity {
     }
 
 }
+
+
+

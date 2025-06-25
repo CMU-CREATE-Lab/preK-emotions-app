@@ -1,9 +1,9 @@
 package org.cmucreatelab.android.flutterprek;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ProcessLifecycleOwner;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ProcessLifecycleOwner;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -89,3 +89,6 @@ public abstract class Hotfix {
     public abstract Status doHotfix();
 
 }
+
+
+

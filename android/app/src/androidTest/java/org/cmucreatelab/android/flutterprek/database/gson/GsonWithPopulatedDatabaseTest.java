@@ -1,9 +1,9 @@
 package org.cmucreatelab.android.flutterprek.database.gson;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -93,3 +93,6 @@ public class GsonWithPopulatedDatabaseTest {
     }
 
 }
+
+
+

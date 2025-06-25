@@ -2,7 +2,7 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 import android.view.View;
 import android.widget.VideoView;
 
@@ -72,3 +72,6 @@ public abstract class VideoCopingSkillActivity extends AbstractCopingSkillActivi
     public abstract boolean useAudioFromVideo();
 
 }
+
+
+

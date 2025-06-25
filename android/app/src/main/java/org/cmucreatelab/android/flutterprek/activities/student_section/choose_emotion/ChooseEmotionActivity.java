@@ -18,3 +18,6 @@ public class ChooseEmotionActivity extends ChooseEmotionAbstractActivity {
     }
 
 }
+
+
+

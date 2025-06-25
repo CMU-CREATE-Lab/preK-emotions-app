@@ -100,3 +100,6 @@ public class RecordUseWordsActivity extends PostCopingSkillActivity implements U
     }
 
 }
+
+
+

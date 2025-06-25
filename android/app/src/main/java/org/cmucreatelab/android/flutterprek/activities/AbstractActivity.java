@@ -2,8 +2,8 @@ package org.cmucreatelab.android.flutterprek.activities;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.LayoutRes;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
@@ -187,3 +187,5 @@ public abstract class AbstractActivity extends AppCompatActivity implements Back
     public abstract int getResourceIdForActivityLayout();
 
 }
+
+

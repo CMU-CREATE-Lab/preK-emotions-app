@@ -1,6 +1,6 @@
 package org.cmucreatelab.android.flutterprek.database;
 
-import android.arch.persistence.room.TypeConverter;
+import androidx.room.TypeConverter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,3 +25,5 @@ public class JSONObjectConverter {
     }
 
 }
+
+

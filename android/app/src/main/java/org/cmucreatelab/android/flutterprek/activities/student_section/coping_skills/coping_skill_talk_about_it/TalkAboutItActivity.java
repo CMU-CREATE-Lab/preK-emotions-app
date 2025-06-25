@@ -94,3 +94,6 @@ public class TalkAboutItActivity extends AbstractCopingSkillActivity implements 
     }
 
 }
+
+
+

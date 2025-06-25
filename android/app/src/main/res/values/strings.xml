@@ -100,3 +100,5 @@
     <string name="alert_message_permissions_camera">Camera permissions are currently disabled. Please go to system settings to enable camera permissions.</string>
     <string name="empty"></string>
 </resources>
+
+

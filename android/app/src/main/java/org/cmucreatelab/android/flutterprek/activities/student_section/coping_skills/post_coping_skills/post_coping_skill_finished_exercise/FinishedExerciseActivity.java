@@ -112,3 +112,6 @@ public class FinishedExerciseActivity extends PostCopingSkillActivity {
     }
 
 }
+
+
+

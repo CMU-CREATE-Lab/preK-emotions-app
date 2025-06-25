@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorOffWhite" >
@@ -37,7 +37,7 @@
             app:layout_constraintStart_toEndOf="@+id/drawerTeacherMain"
             app:layout_constraintTop_toBottomOf="@+id/appHeader" >
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/classroomsGridView">
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content" />
 
 
-                    <android.support.v4.widget.Space
+                    <androidx.legacy.widget.Space
                         android:layout_width="match_parent"
                         android:layout_height="22dp" />
 
@@ -96,7 +96,7 @@
                         android:max="15"
                         android:progress="7" />
 
-                    <android.support.v4.widget.Space
+                    <androidx.legacy.widget.Space
                         android:layout_width="match_parent"
                         android:layout_height="22dp" />
 
@@ -152,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/teacher_section_settings_configure_pairing_mode" />
 
-                    <android.support.v4.widget.Space
+                    <androidx.legacy.widget.Space
                         android:layout_width="match_parent"
                         android:layout_height="22dp" />
 
@@ -182,7 +182,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/teacher_section_settings_configure_pairing_mode" />
 
-                    <android.support.v4.widget.Space
+                    <androidx.legacy.widget.Space
                         android:layout_width="match_parent"
                         android:layout_height="22dp" />
 
@@ -212,7 +212,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/teacher_section_settings_configure_pairing_mode" />
 
-                    <android.support.v4.widget.Space
+                    <androidx.legacy.widget.Space
                         android:layout_width="match_parent"
                         android:layout_height="22dp" />
 
@@ -245,9 +245,10 @@
 
                 </LinearLayout>
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

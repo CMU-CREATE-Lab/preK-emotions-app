@@ -1,9 +1,9 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static;
 
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
 import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.R;
@@ -90,3 +90,6 @@ public abstract class StaticCopingSkillActivity extends AbstractCopingSkillActiv
     public abstract int getTextTitleResource();
 
 }
+
+
+

@@ -2,7 +2,7 @@ package org.cmucreatelab.android.flutterprek.ble.squeeze;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -73,3 +73,5 @@ public class BleSqueeze {
     }
 
 }
+
+

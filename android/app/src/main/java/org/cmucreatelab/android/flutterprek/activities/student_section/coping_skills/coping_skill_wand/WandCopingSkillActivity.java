@@ -3,10 +3,10 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 
 import android.Manifest;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
-import android.support.v4.app.ActivityCompat;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
+import androidx.core.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -201,3 +201,5 @@ public class WandCopingSkillActivity extends AbstractCopingSkillActivity {
         textView.setTextColor(getResources().getColor(getColorResourceForTitle()));
     }
 }
+
+

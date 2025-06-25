@@ -14,3 +14,6 @@
         android:layout_marginBottom="4dp"
         android:hint="Device SSID" />
 </LinearLayout>
+
+
+

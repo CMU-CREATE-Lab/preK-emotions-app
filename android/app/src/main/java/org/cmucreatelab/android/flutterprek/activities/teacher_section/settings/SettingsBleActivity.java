@@ -11,8 +11,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -325,7 +325,7 @@ public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDraw
         textViewButtonEnterDeviceName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(SettingsBleActivity.this);
+                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(SettingsBleActivity.this);
                 final View alertView = getLayoutInflater().inflate(R.layout.dialog_device_ssid, null);
                 builder.setView(alertView)
                         .setPositiveButton(R.string.alert_option_confirm, new DialogInterface.OnClickListener() {
@@ -388,3 +388,6 @@ public class SettingsBleActivity extends TeacherSectionActivityWithHeaderAndDraw
     }
 
 }
+
+
+

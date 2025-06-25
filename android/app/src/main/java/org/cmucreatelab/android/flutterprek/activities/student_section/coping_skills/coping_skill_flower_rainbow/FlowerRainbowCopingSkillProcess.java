@@ -2,8 +2,8 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.support.annotation.IdRes;
-import android.support.annotation.StringRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.StringRes;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -209,3 +209,6 @@ public class FlowerRainbowCopingSkillProcess {
     }
 
 }
+
+
+

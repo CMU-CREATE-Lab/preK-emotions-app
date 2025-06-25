@@ -65,3 +65,6 @@ public class DanceCopingSkillActivity extends StaticCopingSkillActivity {
     }
 
 }
+
+
+

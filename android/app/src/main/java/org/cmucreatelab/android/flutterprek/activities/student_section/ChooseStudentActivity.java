@@ -1,11 +1,11 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -102,3 +102,6 @@ public class ChooseStudentActivity extends StudentSectionActivityWithHeader {
     }
 
 }
+
+
+

@@ -1,8 +1,8 @@
 package org.cmucreatelab.android.flutterprek.database.models;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
+import androidx.test.InstrumentationRegistry;
 
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.InstantTaskExecutorRule;
@@ -53,3 +53,6 @@ public abstract class DaoTest {
     public abstract void initializeDaos();
 
 }
+
+
+

@@ -1,11 +1,11 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
@@ -180,3 +180,6 @@ public class ChooseCopingSkillActivity extends StudentSectionActivityWithTimeout
     }
 
 }
+
+
+

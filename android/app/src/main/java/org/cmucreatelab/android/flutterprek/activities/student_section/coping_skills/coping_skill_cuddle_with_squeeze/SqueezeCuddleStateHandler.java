@@ -2,7 +2,7 @@ package org.cmucreatelab.android.flutterprek.activities.student_section.coping_s
 
 import android.animation.ValueAnimator;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -196,3 +196,5 @@ public class SqueezeCuddleStateHandler implements BleSqueeze.NotificationCallbac
     }
 
 }
+
+

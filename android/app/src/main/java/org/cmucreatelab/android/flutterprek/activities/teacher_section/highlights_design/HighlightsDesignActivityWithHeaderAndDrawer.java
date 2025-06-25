@@ -43,3 +43,6 @@ public abstract class HighlightsDesignActivityWithHeaderAndDrawer extends Abstra
     }
 
 }
+
+
+

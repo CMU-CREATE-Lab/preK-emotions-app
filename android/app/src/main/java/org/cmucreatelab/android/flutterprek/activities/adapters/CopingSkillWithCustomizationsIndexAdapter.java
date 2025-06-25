@@ -1,10 +1,10 @@
 package org.cmucreatelab.android.flutterprek.activities.adapters;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,3 +122,6 @@ public class CopingSkillWithCustomizationsIndexAdapter extends AbstractListAdapt
     }
 
 }
+
+
+

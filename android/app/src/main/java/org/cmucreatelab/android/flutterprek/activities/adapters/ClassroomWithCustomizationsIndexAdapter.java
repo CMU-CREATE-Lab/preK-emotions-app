@@ -1,7 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.adapters;
 
-import android.arch.lifecycle.Observer;
-import android.support.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,3 +82,6 @@ public class ClassroomWithCustomizationsIndexAdapter extends AbstractListAdapter
     }
 
 }
+
+
+

@@ -1,10 +1,10 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.session_index;
 
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.Observer;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.session_index.SessionAdapter;
@@ -70,3 +70,6 @@ public class SessionIndexActivity extends TeacherSectionActivityWithHeader imple
     }
 
 }
+
+
+

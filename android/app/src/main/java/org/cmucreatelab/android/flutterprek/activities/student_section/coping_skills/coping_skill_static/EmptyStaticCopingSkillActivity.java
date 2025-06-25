@@ -23,3 +23,6 @@ public class EmptyStaticCopingSkillActivity extends StaticCopingSkillActivity {
     }
 
 }
+
+
+

@@ -23,3 +23,6 @@ public abstract class YogaCopingSkillActivity extends VideoCopingSkillActivity {
     }
 
 }
+
+
+

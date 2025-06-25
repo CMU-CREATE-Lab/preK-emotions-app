@@ -1,7 +1,7 @@
 package org.cmucreatelab.android.flutterprek.database.models;
 
-import android.arch.persistence.room.Embedded;
-import android.arch.persistence.room.Relation;
+import androidx.room.Embedded;
+import androidx.room.Relation;
 
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
@@ -27,3 +27,6 @@ public class ClassroomWithCustomizations {
     }
 
 }
+
+
+

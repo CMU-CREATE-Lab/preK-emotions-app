@@ -35,3 +35,5 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener
         this.cuddleCopingSkillAnimation = cuddleCopingSkillAnimation;
     }
 }
+
+

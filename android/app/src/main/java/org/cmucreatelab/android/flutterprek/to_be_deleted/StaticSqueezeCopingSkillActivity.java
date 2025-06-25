@@ -24,3 +24,6 @@ public class StaticSqueezeCopingSkillActivity extends StaticCopingSkillActivity 
     }
 
 }
+
+
+

@@ -1,7 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_squeeze;
 
 import android.animation.ValueAnimator;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -359,3 +359,5 @@ public class SqueezeStateHandler implements BleSqueeze.NotificationCallback, UAR
     }
 
 }
+
+

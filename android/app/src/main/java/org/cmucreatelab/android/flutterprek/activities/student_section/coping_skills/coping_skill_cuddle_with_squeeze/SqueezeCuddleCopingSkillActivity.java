@@ -153,3 +153,6 @@ public class SqueezeCuddleCopingSkillActivity extends AbstractCopingSkillActivit
     }
 
 }
+
+
+

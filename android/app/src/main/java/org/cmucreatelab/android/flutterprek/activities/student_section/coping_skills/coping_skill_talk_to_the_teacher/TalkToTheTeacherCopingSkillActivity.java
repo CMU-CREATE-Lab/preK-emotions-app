@@ -1,6 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_talk_to_the_teacher;
 
-import android.support.annotation.ColorRes;
+import androidx.annotation.ColorRes;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.coping_skill_static.StaticCopingSkillActivity;
@@ -47,3 +47,6 @@ public class TalkToTheTeacherCopingSkillActivity extends StaticCopingSkillActivi
     }
 
 }
+
+
+

@@ -294,3 +294,6 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     }
 
 }
+
+
+
