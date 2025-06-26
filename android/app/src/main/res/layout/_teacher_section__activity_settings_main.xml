@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content" />
 
 
-                    <androidx.legacy.widget.Space
+                    <View
                         android:layout_width="match_parent"
                         android:layout_height="22dp" />
 
@@ -96,7 +96,7 @@
                         android:max="15"
                         android:progress="7" />
 
-                    <androidx.legacy.widget.Space
+                    <View
                         android:layout_width="match_parent"
                         android:layout_height="22dp" />
 
@@ -152,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/teacher_section_settings_configure_pairing_mode" />
 
-                    <androidx.legacy.widget.Space
+                    <View
                         android:layout_width="match_parent"
                         android:layout_height="22dp" />
 
@@ -182,7 +182,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/teacher_section_settings_configure_pairing_mode" />
 
-                    <androidx.legacy.widget.Space
+                    <View
                         android:layout_width="match_parent"
                         android:layout_height="22dp" />
 
@@ -212,7 +212,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/teacher_section_settings_configure_pairing_mode" />
 
-                    <androidx.legacy.widget.Space
+                    <View
                         android:layout_width="match_parent"
                         android:layout_height="22dp" />
 
