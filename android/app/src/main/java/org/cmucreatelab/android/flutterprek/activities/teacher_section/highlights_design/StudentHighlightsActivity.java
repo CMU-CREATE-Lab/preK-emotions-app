@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.mylibrary.CameraActivity;
 
 public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeaderAndDrawer {
 
@@ -33,7 +34,8 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             @Override
             public void onClick(View view) {
                 // TODO helper class for requestCode and resultCode (determines which emotion/profile photo to update)
-                Intent intent = new Intent(StudentHighlightsActivity.this, UploadPhotoActivity.class);
+                //Intent intent = new Intent(StudentHighlightsActivity.this, UploadPhotoActivity.class);
+                Intent intent = new Intent(StudentHighlightsActivity.this, CameraActivity.class);
                 startActivityForResult(intent, 1);
             }
         });

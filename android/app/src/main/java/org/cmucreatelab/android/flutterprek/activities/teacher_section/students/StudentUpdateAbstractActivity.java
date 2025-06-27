@@ -99,10 +99,10 @@ public abstract class StudentUpdateAbstractActivity extends AbstractActivity {
     private void startCameraActivityForResult() {
         GlobalHandler.getInstance(getApplicationContext()).isRunningActivityForImageResult = true;
 
-        Intent cameraIntent = new Intent(StudentUpdateAbstractActivity.this, CameraActivity.class);
+        Intent cameraIntent = new Intent(StudentUpdateAbstractActivity.this, CameraActivityLegacy.class);
         String filename = String.format("%s_%d", student.getUuid(), Util.getCurrentTimestamp());
-        cameraIntent.putExtra(CameraActivity.EXTRA_PICTURE_FILENAME, filename);
-        startActivityForResult(cameraIntent, CameraActivity.REQUEST_CODE);
+        cameraIntent.putExtra(CameraActivityLegacy.EXTRA_PICTURE_FILENAME, filename);
+        startActivityForResult(cameraIntent, CameraActivityLegacy.REQUEST_CODE);
     }
 
 
@@ -288,14 +288,14 @@ public abstract class StudentUpdateAbstractActivity extends AbstractActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-            case CameraActivity.REQUEST_CODE:
+            case CameraActivityLegacy.REQUEST_CODE:
                 GlobalHandler.getInstance(getApplicationContext()).isRunningActivityForImageResult = false;
 
                 if (resultCode == Activity.RESULT_OK) {
                     Log.d(Constants.LOG_TAG, "got RESULT_OK from CameraActivity, updating picture");
-                    File picture = (File) data.getExtras().getSerializable(CameraActivity.EXTRA_RESULT_PICTURE);
+                    File picture = (File) data.getExtras().getSerializable(CameraActivityLegacy.EXTRA_RESULT_PICTURE);
                     updatePicture(picture);
-                } else if (resultCode == CameraActivity.RESULT_START_OVER) {
+                } else if (resultCode == CameraActivityLegacy.RESULT_START_OVER) {
                     requestCameraActivityForResult();
                 }
                 break;

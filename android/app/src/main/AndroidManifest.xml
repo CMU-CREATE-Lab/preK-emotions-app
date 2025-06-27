@@ -90,7 +90,7 @@
             android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".activities.teacher_section.students.CameraActivity"
+            android:name=".activities.teacher_section.students.CameraActivityLegacy"
             android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity

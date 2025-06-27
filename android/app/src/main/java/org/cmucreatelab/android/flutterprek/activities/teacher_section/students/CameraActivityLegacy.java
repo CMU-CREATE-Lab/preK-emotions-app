@@ -1,8 +1,5 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.students;
 
-import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
-import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -17,11 +14,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Surface;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
@@ -38,7 +32,7 @@ import java.util.ArrayList;
 /**
  * Code originally from mfm-android project.
  */
-public class CameraActivity extends AbstractActivity {
+public class CameraActivityLegacy extends AbstractActivity {
 
     private static final int defaultCameraId = 0;
     private static final int frontFacingCameraId = 1;
@@ -403,7 +397,7 @@ public class CameraActivity extends AbstractActivity {
 
     public void flipCamera() {
         if (!pictureTaken && !loadImage) {
-            CameraActivity.cameraId = (cameraId == defaultCameraId) ? frontFacingCameraId : defaultCameraId;
+            CameraActivityLegacy.cameraId = (cameraId == defaultCameraId) ? frontFacingCameraId : defaultCameraId;
             setResult(RESULT_START_OVER);
             finish();
         }
@@ -412,7 +406,7 @@ public class CameraActivity extends AbstractActivity {
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout.activity_camera;
+        return R.layout.activity_camera_legacy;
     }
 
 }
