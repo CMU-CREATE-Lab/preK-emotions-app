@@ -80,6 +80,9 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
+
     implementation 'com.github.tasota:android-camera-and-image-select:1.2.5'
 
 }

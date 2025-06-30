@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import android.util.Log;
@@ -63,6 +64,12 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         if (requestCode == 1) {
             if (data != null) {
                 Log.v(Constants.LOG_TAG, String.format("StudentHighlightsActivity got result from photo activity with resultCode=%d AND data not null", resultCode));
+
+                Intent  intent = new Intent(StudentHighlightsActivity.this, UploadPhotoActivity.class);
+                Uri imageUri = data.getParcelableExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI);
+                intent.putExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI, imageUri);
+                startActivity(intent);
+
             } else {
                 Log.v(Constants.LOG_TAG, String.format("StudentHighlightsActivity got result from photo activity with resultCode=%d (data null)", resultCode));
             }

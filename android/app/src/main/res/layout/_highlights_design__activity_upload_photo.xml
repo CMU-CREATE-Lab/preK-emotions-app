@@ -5,65 +5,73 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Main content area -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffaaaa" >
+        android:background="#ffaaaa">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <!-- Top label -->
+        <TextView
+            android:id="@+id/textViewPlaceholder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#aaffaa"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="Placeholder"
+            android:textSize="18sp"
             app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="16dp" />
 
-            <TextView
-                android:id="@+id/textViewPlaceholder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Placeholder"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
+        <!-- Main ImageView -->
+        <ImageView
+            android:id="@+id/displayedImageView"
+            android:src="@android:drawable/ic_menu_camera"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+<!--            android:scaleType="fitCenter"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/textViewPlaceholder"-->
+<!--            app:layout_constraintBottom_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:background="#0000ff"-->
+<!--            android:layout_margin="16dp" />-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/textViewPlaceholder"
-                app:layout_constraintStart_toStartOf="@id/textViewPlaceholder"
-                >
+        <LinearLayout
+            android:id="@+id/greenBottomBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#aaffaa"
+            android:padding="12dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+        <Button
+            android:id="@+id/resetToIconButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Reset to Icon" />
 
-                <Button
-                    android:id="@+id/buttonPlaceholderOpt1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Reset to Icon"
-                    />
+        <Button
+            android:id="@+id/keepOldImageButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Keep Old Image" />
 
-                <Button
-                    android:id="@+id/buttonPlaceholderOpt2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Keep Old Image"
-                    />
+        <Button
+            android:id="@+id/updateImageButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Update Image" />
 
-                <Button
-                    android:id="@+id/buttonPlaceholderOpt3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Update Image"
-                    />
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
