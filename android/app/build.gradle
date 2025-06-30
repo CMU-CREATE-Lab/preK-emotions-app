@@ -85,4 +85,6 @@ dependencies {
 
     implementation 'com.github.tasota:android-camera-and-image-select:1.2.5'
 
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }

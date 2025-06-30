@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
@@ -21,7 +22,7 @@ import org.cmucreatelab.android.mylibrary.CameraActivity;
 
 public class UploadPhotoActivity extends AbstractActivity {
 
-    private Button resetToIconButton, keepOldImageButton, updateImageButton;
+    private ImageView resetToIconButton, keepOldImageButton, updateImageButton;
     private ImageView displayedImage;
 
     private Uri displayedImagedUri;
@@ -91,26 +92,6 @@ public class UploadPhotoActivity extends AbstractActivity {
     public int getResourceIdForActivityLayout() {
         return R.layout._highlights_design__activity_upload_photo;
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        // TODO helper class for requestCode and resultCode (determines which emotion/profile photo to update)
-//        if (requestCode == 1) {
-//            if (data != null) {
-//                Log.v(Constants.LOG_TAG, String.format("UploadPhotoActivity got result from photo activity with resultCode=%d AND data not null", resultCode));
-//                Log.v("penguin", String.format("UploadPhotoActivity got result from photo activity with resultCode=%d AND data not null", resultCode));
-//
-//                displayedImagedUri = data.getParcelableExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI);
-//
-//
-//            } else {
-//                Log.v(Constants.LOG_TAG, String.format("UploadPhotoActivity got result from photo activity with resultCode=%d (data null)", resultCode));
-//                Log.v("penguin", String.format("UploadPhotoActivity got result from photo activity with resultCode=%d (data null)", resultCode));
-//            }
-//        }
-//    }
-
 }
 
 
