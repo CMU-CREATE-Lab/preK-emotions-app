@@ -26,26 +26,19 @@ public class CropOverlayView extends View {
     private float cornerLength = 40f; // length of each arm of the L shape
     private float cornerStrokeWidth = 6f;
     private RectF cropRect;
-    private float lastX, lastY;
-    private boolean isDragging = false;
     private ImageView imageView;
-
     private static final float HANDLE_RADIUS = 40f; // size of draggable corner
     private static final float MIN_CROP_SIZE = 100f; // min width/height
+    private float max_crop_size = 100;
     private ScaleGestureDetector scaleDetector;
-    private float scaleFactor = 1f;
-
     private TouchArea currentTouch = TouchArea.NONE;
-
     private OnCropRectChangedListener cropRectChangedListener;
-
     public void setOnCropRectChangedListener(OnCropRectChangedListener listener) {
         this.cropRectChangedListener = listener;
     }
     private enum TouchArea {
         NONE, INSIDE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
     }
-
     public interface OnCropRectChangedListener {
         void onCropRectChanged(RectF newRect);
     }
@@ -115,62 +108,6 @@ public class CropOverlayView extends View {
         return cropRect.contains(x, y);
     }
 
-    public void centerCropBoxOnImage() {
-        if (imageView == null || imageView.getDrawable() == null) {
-            Log.v("giraffe", "imageView is null or drawable is null");
-            return;
-        } else {
-            Log.v("giraffe", "imageView is not null and drawable is not null");
-        }
-
-        RectF imageBounds = getImageDisplayedBounds(imageView);
-        if (imageBounds == null){
-            Log.v("giraffe", "imageBounds is null");
-            return;
-        } else{
-            Log.v("giraffe", "imageBounds is not null");
-        }
-
-        float boxSize = Math.min(imageBounds.width(), imageBounds.height()) / 2f;
-
-        float left = imageBounds.centerX() - boxSize / 2f;
-        float top = imageBounds.centerY() - boxSize / 2f;
-        float right = left + boxSize;
-        float bottom = top + boxSize;
-
-        cropRect.set(left, top, right, bottom);
-        invalidate();
-    }
-
-    // Helper method to get actual displayed image bounds inside the ImageView for fitCenter
-    private RectF getImageDisplayedBounds(ImageView imageView) {
-        Drawable drawable = imageView.getDrawable();
-        if (drawable == null) return null;
-
-        int drawableWidth = drawable.getIntrinsicWidth();
-        int drawableHeight = drawable.getIntrinsicHeight();
-
-        int imageViewWidth = imageView.getWidth();
-        int imageViewHeight = imageView.getHeight();
-
-        float scale;
-        float dx = 0, dy = 0;
-
-        if (drawableWidth * imageViewHeight > imageViewWidth * drawableHeight) {
-            // Image is limited by width
-            scale = (float) imageViewWidth / (float) drawableWidth;
-            dy = (imageViewHeight - drawableHeight * scale) * 0.5f;
-        } else {
-            // Image is limited by height
-            scale = (float) imageViewHeight / (float) drawableHeight;
-            dx = (imageViewWidth - drawableWidth * scale) * 0.5f;
-        }
-
-        float displayedWidth = drawableWidth * scale;
-        float displayedHeight = drawableHeight * scale;
-
-        return new RectF(dx, dy, dx + displayedWidth, dy + displayedHeight);
-    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -187,11 +124,7 @@ public class CropOverlayView extends View {
         canvas.drawCircle(cropRect.centerX(), cropRect.centerY(), radius, circleBorderPaint);
         canvas.drawRect(cropRect, squareBorderPaint);
 
-        //draw handles
-//        canvas.drawCircle(cropRect.left, cropRect.top, HANDLE_RADIUS / 2, squareBorderPaint);
-//        canvas.drawCircle(cropRect.right, cropRect.top, HANDLE_RADIUS / 2, squareBorderPaint);
-//        canvas.drawCircle(cropRect.left, cropRect.bottom, HANDLE_RADIUS / 2, squareBorderPaint);
-//        canvas.drawCircle(cropRect.right, cropRect.bottom, HANDLE_RADIUS / 2, squareBorderPaint);
+
         // TOP-LEFT corner
         canvas.drawLine(cropRect.left, cropRect.top, cropRect.left + cornerLength, cropRect.top, cornerPaint); // horizontal
         canvas.drawLine(cropRect.left, cropRect.top, cropRect.left, cropRect.top + cornerLength, cornerPaint); // vertical
@@ -214,8 +147,9 @@ public class CropOverlayView extends View {
 
 @Override
 public boolean onTouchEvent(MotionEvent event) {
-    scaleDetector.onTouchEvent(event);
 
+    max_crop_size = getMaxCropSize();
+    scaleDetector.onTouchEvent(event);
 
     float x = event.getX();
     float y = event.getY();
@@ -242,7 +176,7 @@ public boolean onTouchEvent(MotionEvent event) {
             if (currentTouch == TouchArea.INSIDE) {
                 // Move the entire cropRect
                 cropRect.offset(dx, dy);
-                // TODO: optionally clamp to bounds here
+
             } else {
                 // Resize square based on corner drag (use earlier logic)
                 float delta = Math.abs(dx) > Math.abs(dy) ? dx : dy;
@@ -250,34 +184,35 @@ public boolean onTouchEvent(MotionEvent event) {
                 switch(currentTouch) {
                     case TOP_LEFT:
                         float sideTL = cropRect.right - (cropRect.left + delta);
-                        sideTL = Math.max(sideTL, MIN_CROP_SIZE);
+                        sideTL = Math.max(MIN_CROP_SIZE, Math.min(max_crop_size,sideTL));
                         cropRect.left = cropRect.right - sideTL;
                         cropRect.top = cropRect.bottom - sideTL;
                         break;
 
                     case TOP_RIGHT:
                         float sideTR = (cropRect.right + delta) - cropRect.left;
-                        sideTR = Math.max(sideTR, MIN_CROP_SIZE);
+                        sideTR = Math.max(MIN_CROP_SIZE, Math.min(max_crop_size,sideTR));
                         cropRect.right = cropRect.left + sideTR;
                         cropRect.top = cropRect.bottom - sideTR;
                         break;
 
                     case BOTTOM_LEFT:
                         float sideBL = cropRect.right - (cropRect.left + delta);
-                        sideBL = Math.max(sideBL, MIN_CROP_SIZE);
+                        sideBL = Math.max(MIN_CROP_SIZE, Math.min(max_crop_size,sideBL));
                         cropRect.left = cropRect.right - sideBL;
                         cropRect.bottom = cropRect.top + sideBL;
                         break;
 
                     case BOTTOM_RIGHT:
                         float sideBR = (cropRect.right + delta) - cropRect.left;
-                        sideBR = Math.max(sideBR, MIN_CROP_SIZE);
+                        sideBR = Math.max(MIN_CROP_SIZE, Math.min(max_crop_size,sideBR));
                         cropRect.right = cropRect.left + sideBR;
                         cropRect.bottom = cropRect.top + sideBR;
                         break;
                 }
             }
 
+            clampRect();
             invalidate();
 
             //detecting change
@@ -300,8 +235,53 @@ public boolean onTouchEvent(MotionEvent event) {
     return super.onTouchEvent(event);
 }
 
+    private float getMaxCropSize() {
+        RectF imageBounds = getImageBounds();
+        if (imageBounds == null) return 100f;
+        return imageBounds.height();
+    }
 
 
+    private void clampRect(){
+
+        RectF imageBounds = getImageBounds();
+        if (imageBounds == null) return;
+
+        // Clamp size first: if cropRect is bigger than image bounds, resize it
+        float width = cropRect.width();
+        float height = cropRect.height();
+
+        if (width > imageBounds.width()) {
+            cropRect.left = imageBounds.left;
+            cropRect.right = imageBounds.right;
+        }
+        if (height > imageBounds.height()) {
+            cropRect.top = imageBounds.top;
+            cropRect.bottom = imageBounds.bottom;
+        }
+
+        // Clamp edges individually to image bounds, keep size fixed if possible
+        if (cropRect.left < imageBounds.left) {
+            float diff = imageBounds.left - cropRect.left;
+            cropRect.left += diff;
+            cropRect.right += diff;
+        }
+        if (cropRect.right > imageBounds.right) {
+            float diff = cropRect.right - imageBounds.right;
+            cropRect.left -= diff;
+            cropRect.right -= diff;
+        }
+        if (cropRect.top < imageBounds.top) {
+            float diff = imageBounds.top - cropRect.top;
+            cropRect.top += diff;
+            cropRect.bottom += diff;
+        }
+        if (cropRect.bottom > imageBounds.bottom) {
+            float diff = cropRect.bottom - imageBounds.bottom;
+            cropRect.top -= diff;
+            cropRect.bottom -= diff;
+        }
+    }
     private TouchArea getTouchedCorner(float x, float y) {
         if (distance(x, y, cropRect.left, cropRect.top) < HANDLE_RADIUS) {
             return TouchArea.TOP_LEFT;
@@ -379,8 +359,12 @@ public boolean onTouchEvent(MotionEvent event) {
 
             // Enforce minimum size
             float minSize = MIN_CROP_SIZE;
+            float maxSize = getMaxCropSize();
+
             if (newWidth < minSize) newWidth = minSize;
             if (newHeight < minSize) newHeight = minSize;
+            if (newWidth > maxSize) newWidth = maxSize;
+            if (newHeight > maxSize) newHeight = maxSize;
 
             // Keep square box centered on current center
             float centerX = cropRect.centerX();
@@ -393,8 +377,10 @@ public boolean onTouchEvent(MotionEvent event) {
             cropRect.top = centerY - halfSize;
             cropRect.bottom = centerY + halfSize;
 
+            clampRect();
             invalidate();
             return true;
+
         }
     }
 

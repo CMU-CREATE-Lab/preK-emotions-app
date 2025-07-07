@@ -7,45 +7,55 @@
 
     <!-- Main content area -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffaaaa">
 
-        <!-- Top label -->
-        <TextView
-            android:id="@+id/textViewPlaceholder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Placeholder"
-            android:textSize="18sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_margin="16dp" />
 
-        <ImageView
-            android:id="@+id/displayedImageView"
-            android:src="@android:drawable/ic_menu_camera"
+        <FrameLayout
+            android:id="@+id/imageContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/textViewPlaceholder"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/greenBottomBar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:scaleType="fitCenter"
-            android:layout_margin="16dp"/>
+            android:layout_margin="0dp">
 
-        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CropOverlayView
-            android:id="@+id/cropOverlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <ImageView
+                android:id="@+id/displayedImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:background="#FFFFFF" />
+
+            <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CropOverlayView
+                android:id="@+id/cropOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/closeButton"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="12dp"
+                android:src="@drawable/ic_close" />
+
+
+
+        </FrameLayout>
+
 
         <LinearLayout
             android:id="@+id/greenBottomBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#aaffaa"
-            android:padding="4dp"
+            android:background="#eeeeee"
+            android:padding="0dp"
             android:gravity="center_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
