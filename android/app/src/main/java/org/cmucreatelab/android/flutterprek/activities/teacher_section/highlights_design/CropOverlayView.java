@@ -92,7 +92,7 @@ public class CropOverlayView extends View {
         //float boxSize = screenWidth / 2f;
 
         float side = Math.min(screenWidth, screenHeight);
-        side*=0.2f;
+        side*=0.4f;
 
         float left = (screenWidth - side) / 2f;
         float top = (screenHeight - side) / 2f;

@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -26,12 +27,25 @@ import com.bumptech.glide.request.target.Target;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
+import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
+import org.cmucreatelab.android.flutterprek.audio.audio_recording.SaveFileHandler;
 import org.cmucreatelab.android.mylibrary.CameraActivity;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UploadPhotoActivity extends AbstractActivity {
 
+    public static final int UPDATE = 200;
+    public static final int KEEP = 201;
+    public static final int RESET = 202;
+    private int requestCode;
     private ImageView resetToIconButton, keepOldImageButton,
             updateImageButton, displayedImage, closeButton;
 
@@ -39,28 +53,6 @@ public class UploadPhotoActivity extends AbstractActivity {
     private CropOverlayView cropOverlay;
 
     private Bitmap getCroppedPicture() {
-
-//        RectF cropRect = cropOverlay.getCropRect();
-//        // 1. Take a screenshot of the root view
-//        View rootView = getWindow().getDecorView().getRootView();
-//        rootView.setDrawingCacheEnabled(true);
-//        rootView.buildDrawingCache();
-//        Bitmap screenBitmap = Bitmap.createBitmap(rootView.getDrawingCache());
-//        rootView.setDrawingCacheEnabled(false);
-//
-//        // 2. Crop using the provided RectF (in screen/view coords)
-//        int x = (int) cropRect.left;
-//        int y = (int) cropRect.top;
-//        int width = (int) cropRect.width();
-//        int height = (int) cropRect.height();
-//
-//        // Clamp to screen bounds
-//        x = Math.max(0, x);
-//        y = Math.max(0, y);
-//        width = Math.min(width, screenBitmap.getWidth() - x);
-//        height = Math.min(height, screenBitmap.getHeight() - y);
-//
-//        return Bitmap.createBitmap(screenBitmap, x, y, width, height);
 
         if (displayedImage.getDrawable() == null) return null;
 
@@ -117,6 +109,25 @@ public class UploadPhotoActivity extends AbstractActivity {
 
         return new RectF(left, top, left + actualWidth, top + actualHeight);
     }
+    private void acceptPhoto() throws IOException {
+        //String pictureFilename = String.format("%s_%d", student.getUuid(), Util.getCurrentTimestamp());
+        String pictureFilename = "test";
+        File picture = SaveFileHandler.getOutputMediaFile(getApplicationContext(), SaveFileHandler.MEDIA_TYPE_IMAGE, pictureFilename);
+        FileOutputStream out = new FileOutputStream(picture);
+        getCroppedPicture().compress(Bitmap.CompressFormat.JPEG, 100, out);
+        out.flush();
+        out.close();
+
+
+        String path = picture.getAbsolutePath();
+        Intent intent = new Intent(this, StudentHighlightsActivity.class);
+        intent.putExtra("path", path);
+        intent.putExtra("resultCode", UPDATE);
+        intent.putExtra("requestCode", requestCode);
+        startActivity(intent);
+
+
+    }
 
     private void initOnClickListeners() {
         resetToIconButton.setOnClickListener(new View.OnClickListener() {
@@ -136,17 +147,20 @@ public class UploadPhotoActivity extends AbstractActivity {
         updateImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent data = new Intent();
-                data.putExtra("foo", "bar");
-                setResult(3, data);
-                finish();
+                try {
+                    acceptPhoto();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent = new Intent(UploadPhotoActivity.this, CameraActivity.class);
+                GlobalHandler.getInstance(getApplicationContext()).isRunningActivityForImageResult = true;
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -167,15 +181,12 @@ public class UploadPhotoActivity extends AbstractActivity {
     protected void onResume() {
         super.onResume();
 
-       // TextView textViewPlaceholder = findViewById(R.id.textViewPlaceholder);
         this.resetToIconButton = findViewById(R.id.resetToIconButton);
         this.keepOldImageButton = findViewById(R.id.keepOldImageButton);
         this.updateImageButton = findViewById(R.id.updateImageButton);
         this.displayedImage = findViewById(R.id.displayedImageView);
         this.closeButton = findViewById(R.id.closeButton);
 
-
-      //  textViewPlaceholder.setText("UploadPhotoActivity");
 
         Glide.with(this)
                 .load(displayedImagedUri)
@@ -188,6 +199,34 @@ public class UploadPhotoActivity extends AbstractActivity {
         cropOverlay.setImageView(displayedImage);
 
         initOnClickListeners();
+        setButtonColors(requestCode);
+    }
+
+    private void setButtonColors(int emotion){
+        switch(emotion){
+            case StudentHighlightsActivity.HAPPY_CODE:
+                setButtonColorsHelper(ColorConstants.HAPPY_COLOR);
+                break;
+            case StudentHighlightsActivity.SAD_CODE:
+                setButtonColorsHelper(ColorConstants.SAD_COLOR);
+                break;
+            case StudentHighlightsActivity.ANGRY_CODE:
+                setButtonColorsHelper(ColorConstants.MAD_COLOR);
+                break;
+            case StudentHighlightsActivity.SCARED_CODE:
+                setButtonColorsHelper(ColorConstants.SCARED_COLOR);
+                break;
+            case StudentHighlightsActivity.EXCITED_CODE:
+                setButtonColorsHelper(ColorConstants.EXCITED_COLOR);
+                break;
+        }
+    }
+
+    private void setButtonColorsHelper(int color){
+        ((CircleImageView) resetToIconButton).setBorderColor(color);
+        ((CircleImageView) keepOldImageButton).setBorderColor(color);
+        ((CircleImageView) updateImageButton).setBorderColor(color);
+
     }
 
 
@@ -197,7 +236,25 @@ public class UploadPhotoActivity extends AbstractActivity {
 
         // TODO Student from Intent?
         Intent intent = getIntent();
+        requestCode = intent.getIntExtra("requestCode", 0);
         displayedImagedUri = intent.getParcelableExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.v("penguin", "result code: " + resultCode);
+
+        //handles logic for retaking a picture after X clicked
+        if(resultCode == RESULT_OK){
+            displayedImagedUri = data.getParcelableExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI);
+        } else if(resultCode == RESULT_CANCELED){
+            Log.v("penguin", "cancled");
+            Intent intent = new Intent(UploadPhotoActivity.this, StudentHighlightsActivity.class);
+            setResult(RESULT_CANCELED, intent);
+            startActivity(intent);
+        }
+
     }
 
 

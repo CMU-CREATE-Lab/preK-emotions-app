@@ -45,13 +45,38 @@
                 />
 
             <Button
-                android:id="@+id/buttonPlaceholder"
+                android:id="@+id/buttonAngry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Next Activity"
+                android:text="Launch Angry"
                 app:layout_constraintTop_toBottomOf="@id/textViewPlaceholder"
                 app:layout_constraintStart_toStartOf="@id/textViewPlaceholder"
                 />
+            <Button
+                android:id="@+id/buttonHappy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Launch Happy"
+                app:layout_constraintTop_toBottomOf="@id/buttonAngry"
+                app:layout_constraintStart_toStartOf="@id/buttonAngry"
+                />
+            <Button
+                android:id="@+id/buttonSad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Launch Sad"
+                app:layout_constraintTop_toBottomOf="@id/buttonHappy"
+                app:layout_constraintStart_toStartOf="@id/buttonAngry"
+                />
+            <ImageView
+                android:id="@+id/testImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sheep"
+                app:layout_constraintTop_toBottomOf="@id/buttonSad"
+                app:layout_constraintStart_toStartOf="@id/buttonAngry"
+                />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
