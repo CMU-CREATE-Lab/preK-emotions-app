@@ -5,6 +5,10 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
+
+import org.cmucreatelab.android.flutterprek.database.models.StudentWithSessionsAndSessionCopingSkills;
+import org.cmucreatelab.android.flutterprek.database.models.session.Session;
 
 import java.util.List;
 
@@ -71,6 +75,12 @@ public interface IntermediateTablesDAO {
             "AND itinerary_items.capability_id NOT LIKE 'post_coping_skill_heart_beating' " +
             "ORDER BY sequence_id ASC")
     LiveData<List<ItineraryItem>> getItineraryItemsForCopingSkillWithoutHeartBeatPrompt(String copingSkillUuid);
+
+    @Transaction
+    @Query("SELECT * FROM students WHERE uuid IN (:studentUuids)")
+    LiveData<List<StudentWithSessionsAndSessionCopingSkills>> getSessionsWithSessionCopingSkillsFromStudents(List<String> studentUuids);
+//    @Query("SELECT * FROM sessions WHERE student_uuid IN (:studentUuids) ORDER BY started_at DESC")
+//    LiveData<List<Session>> getSessionsFromStudents(List<String> studentUuids);
 
 }
 
