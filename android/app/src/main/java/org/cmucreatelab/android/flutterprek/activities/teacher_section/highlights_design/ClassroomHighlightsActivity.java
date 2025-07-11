@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 import org.cmucreatelab.android.flutterprek.Constants;
@@ -20,8 +23,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlightWithCustomizationsIndexAdapter;
+import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
+
 public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHeaderAndDrawer {
 
+    private String classroomUuid;
+    private String classroomName;
+    private Classroom classroom;
+    public static final String EXTRA_CLASSROOM = "classroom";
 
     private void textViewDemo() {
         final TextView textViewDemo = findViewById(R.id.textViewDemo);
@@ -100,7 +110,32 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                 startActivity(intent);
             }
         });
+
+        LiveData<List<StudentWithCustomizations>> liveData;
+        liveData = AppDatabase.getInstance(this).studentDAO().getAllStudentsWithCustomizationsFromClassroom(classroomUuid);
+        liveData.observe(this, new Observer<List<StudentWithCustomizations>>() {
+            @Override
+            public void onChanged(@Nullable List<StudentWithCustomizations> students) {
+                GridView studentsGridView = findViewById(R.id.studentsGridView);
+                 studentsGridView.setAdapter(new StudentHighlightWithCustomizationsIndexAdapter(ClassroomHighlightsActivity.this, students, listener));
+
+                 Log.v("penguin", String.valueOf(students.size()));
+            }
+        });
     }
+
+    private final StudentHighlightWithCustomizationsIndexAdapter.ClickListener listener = new StudentHighlightWithCustomizationsIndexAdapter.ClickListener() {
+        @Override
+        public void onClick(StudentWithCustomizations studentWithCustomizations) {
+            final Student student = studentWithCustomizations.student;
+            Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
+
+//            Intent studentEditActivity = new Intent(ClassroomShowStudentsActivity.this, StudentEditActivity.class);
+//            studentEditActivity.putExtra(StudentEditActivity.EXTRA_STUDENT, studentWithCustomizations.student);
+//            studentEditActivity.putExtra(StudentEditActivity.EXTRA_CLASSROOM_NAME, classroomName);
+//            startActivity(studentEditActivity);
+        }
+    };
 
 
     @Override
@@ -108,6 +143,11 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         super.onCreate(savedInstanceState);
 
         // TODO Classroom from Intent?
+        this.classroom = (Classroom) getIntent().getSerializableExtra(EXTRA_CLASSROOM);
+
+        this.classroomUuid = getClassroom().getUuid();
+        this.classroomName = getClassroom().getName();
+
 
         // TODO STUDENTS adapter
         //...
@@ -129,6 +169,9 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         return R.layout._highlights_design__activity_classroom_highlights;
     }
 
+    public Classroom getClassroom() {
+        return classroom;
+    }
 }
 
 

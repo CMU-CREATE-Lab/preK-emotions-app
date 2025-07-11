@@ -99,6 +99,18 @@
         <item name="android:stretchMode">spacingWidthUniform</item>
         <item name="android:verticalSpacing">25sp</item>
     </style>
+
+    <style name="StudentCircularViewForListStudentsInClass">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:columnWidth">60dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:numColumns">auto_fit</item>
+        <item name="android:stretchMode">columnWidth</item>
+        <item name="android:verticalSpacing">25dp</item>
+        <item name="android:horizontalSpacing">5dp</item>
+    </style>
+
     <style name="StudentSectionGridView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
@@ -130,6 +142,11 @@
         <item name="android:elevation">5sp</item>
         <item name="android:background">@drawable/card</item>
     </style>
+    <style name="GridViewCircleItemStudent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">200sp</item>
+        <item name="android:elevation">5sp</item>
+    </style>
     <style name="GridViewItemClassroomTitle" parent="textBold">
         <item name="android:layout_height">69dp</item>
         <item name="android:layout_marginEnd">10dp</item>
@@ -148,6 +165,13 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:background">@drawable/card</item>
+        <!-- NOTE: margin/padding hack to avoid clipped image -->
+        <item name="android:layout_marginBottom">36sp</item>
+        <item name="android:paddingBottom">4sp</item>
+    </style>
+    <style name="GridViewItemCircleThumbnail">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
         <!-- NOTE: margin/padding hack to avoid clipped image -->
         <item name="android:layout_marginBottom">36sp</item>
         <item name="android:paddingBottom">4sp</item>
