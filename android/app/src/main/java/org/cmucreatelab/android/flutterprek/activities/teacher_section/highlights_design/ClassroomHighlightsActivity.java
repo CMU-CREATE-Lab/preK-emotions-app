@@ -2,14 +2,34 @@ package org.cmucreatelab.android.flutterprek.activities.teacher_section.highligh
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.adapters.StudentWithCustomizationsIndexAdapter;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomShowStudentsActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
+import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
+
+import java.util.List;
 
 public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHeaderAndDrawer {
 
+    private String classroomUuid;
+    private String classroomName;
+    private Classroom classroom;
+    public static final String EXTRA_CLASSROOM = "classroom";
 
     @Override
     protected void onResume() {
@@ -34,7 +54,32 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                 startActivity(intent);
             }
         });
+
+        LiveData<List<StudentWithCustomizations>> liveData;
+        liveData = AppDatabase.getInstance(this).studentDAO().getAllStudentsWithCustomizationsFromClassroom(classroomUuid);
+        liveData.observe(this, new Observer<List<StudentWithCustomizations>>() {
+            @Override
+            public void onChanged(@Nullable List<StudentWithCustomizations> students) {
+                GridView studentsGridView = findViewById(R.id.studentsGridView);
+                 studentsGridView.setAdapter(new StudentWithCustomizationsIndexAdapter(ClassroomHighlightsActivity.this, students, listener));
+
+                 Log.v("penguin", String.valueOf(students.size()));
+            }
+        });
     }
+
+    private final StudentWithCustomizationsIndexAdapter.ClickListener listener = new StudentWithCustomizationsIndexAdapter.ClickListener() {
+        @Override
+        public void onClick(StudentWithCustomizations studentWithCustomizations) {
+            final Student student = studentWithCustomizations.student;
+            Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
+
+//            Intent studentEditActivity = new Intent(ClassroomShowStudentsActivity.this, StudentEditActivity.class);
+//            studentEditActivity.putExtra(StudentEditActivity.EXTRA_STUDENT, studentWithCustomizations.student);
+//            studentEditActivity.putExtra(StudentEditActivity.EXTRA_CLASSROOM_NAME, classroomName);
+//            startActivity(studentEditActivity);
+        }
+    };
 
 
     @Override
@@ -42,6 +87,11 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         super.onCreate(savedInstanceState);
 
         // TODO Classroom from Intent?
+        this.classroom = (Classroom) getIntent().getSerializableExtra(EXTRA_CLASSROOM);
+
+        this.classroomUuid = getClassroom().getUuid();
+        this.classroomName = getClassroom().getName();
+
 
         // TODO STUDENTS adapter
         //...
@@ -60,6 +110,9 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         return R.layout._highlights_design__activity_classroom_highlights;
     }
 
+    public Classroom getClassroom() {
+        return classroom;
+    }
 }
 
 

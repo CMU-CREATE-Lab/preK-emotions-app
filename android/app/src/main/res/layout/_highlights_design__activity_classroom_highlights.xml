@@ -112,10 +112,16 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Placeholder"
                             app:layout_constraintTop_toBottomOf="@id/titleMyClassroom"
-                            android:paddingBottom="100dp"
+                            android:paddingBottom="200dp"
                             />
+                        <GridView
+                            android:id="@+id/studentsGridView"
+                            style="@style/StudentCircularViewForListStudentsInClass"
+                            app:layout_constraintTop_toBottomOf="@id/titleMyClassroom"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
