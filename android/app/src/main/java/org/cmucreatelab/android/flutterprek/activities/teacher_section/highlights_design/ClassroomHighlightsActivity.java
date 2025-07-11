@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlightWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomShowStudentsActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
@@ -61,14 +62,14 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
             @Override
             public void onChanged(@Nullable List<StudentWithCustomizations> students) {
                 GridView studentsGridView = findViewById(R.id.studentsGridView);
-                 studentsGridView.setAdapter(new StudentWithCustomizationsIndexAdapter(ClassroomHighlightsActivity.this, students, listener));
+                 studentsGridView.setAdapter(new StudentHighlightWithCustomizationsIndexAdapter(ClassroomHighlightsActivity.this, students, listener));
 
                  Log.v("penguin", String.valueOf(students.size()));
             }
         });
     }
 
-    private final StudentWithCustomizationsIndexAdapter.ClickListener listener = new StudentWithCustomizationsIndexAdapter.ClickListener() {
+    private final StudentHighlightWithCustomizationsIndexAdapter.ClickListener listener = new StudentHighlightWithCustomizationsIndexAdapter.ClickListener() {
         @Override
         public void onClick(StudentWithCustomizations studentWithCustomizations) {
             final Student student = studentWithCustomizations.student;
