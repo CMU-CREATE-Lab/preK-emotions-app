@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerHighlights"
     style="@style/DrawerTeacherSection"
-    android:background="#aaa"
+    android:background="#7393C7"
     android:layout_height="match_parent">
 
 

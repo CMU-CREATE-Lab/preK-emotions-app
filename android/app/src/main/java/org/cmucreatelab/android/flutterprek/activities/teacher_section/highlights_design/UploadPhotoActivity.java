@@ -49,6 +49,10 @@ public class UploadPhotoActivity extends AbstractActivity {
     private ImageView resetToIconButton, keepOldImageButton,
             updateImageButton, displayedImage, closeButton;
 
+    private String classroomName, studentUuid;
+    public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
+    public static final String EXTRA_STUDENT = "student";
+    public static final String STUDENT_UUID = "student_uuid";
     private Uri displayedImagedUri;
     private CropOverlayView cropOverlay;
 
@@ -124,6 +128,8 @@ public class UploadPhotoActivity extends AbstractActivity {
         intent.putExtra("path", path);
         intent.putExtra("resultCode", UPDATE);
         intent.putExtra("requestCode", requestCode);
+        intent.putExtra(STUDENT_UUID, studentUuid);
+        intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
         startActivity(intent);
 
 
@@ -238,6 +244,13 @@ public class UploadPhotoActivity extends AbstractActivity {
         Intent intent = getIntent();
         requestCode = intent.getIntExtra("requestCode", 0);
         displayedImagedUri = intent.getParcelableExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI);
+
+        if(getIntent().getStringExtra(EXTRA_CLASSROOM_NAME) != null && getIntent().getStringExtra(EXTRA_STUDENT) != null) {
+            this.classroomName = getIntent().getStringExtra(EXTRA_CLASSROOM_NAME);
+            this.studentUuid = getIntent().getStringExtra(EXTRA_STUDENT);
+            Log.v("penguin", "classroom name: " + classroomName);
+            Log.v("penguin", "student uuid: " + studentUuid);
+        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,14 +13,25 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
+import com.zigis.segmentedarcview.SegmentedArcView;
+import com.zigis.segmentedarcview.custom.ArcSegment;
+
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillHighlightWCIndexAdapter;
+import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillWithCustomizationsIndexAdapter;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSkillIndexActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomShowStudentsActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.CopingSkillWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.StudentWithSessionsAndSessionCopingSkills;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +43,10 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
     private String classroomUuid;
     private String classroomName;
     private Classroom classroom;
+    private final List<String> MONTHS =
+            new ArrayList<>(Arrays.asList("Jan", "Feb", "Mar", "Apr", "May",
+                            "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
+
     public static final String EXTRA_CLASSROOM = "classroom";
 
     private void textViewDemo() {
@@ -84,20 +100,72 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                 }
             }
         });
+
     }
 
+    private void setRings() {
+        List<SegmentedArcView> saList = new ArrayList<SegmentedArcView>();
+        saList.add(findViewById(R.id.monthFirst));
+        saList.add(findViewById(R.id.monthPrev));
+        saList.add(findViewById(R.id.monthCurr));
+
+        for (SegmentedArcView sa : saList) {
+            List<ArcSegment> segments = new ArrayList<>();
+            segments.add(new ArcSegment(Color.RED, Color.RED,false, 45f));    // 45 degrees
+            segments.add(new ArcSegment(Color.GREEN, Color.GREEN,false, 90f)); // 90 degrees
+            segments.add(new ArcSegment(Color.BLUE, Color.BLUE,false, 225f));  // 225 degrees
+
+            // Set the segments (custom sweep angles are taken from constructor)
+            sa.setSegments(segments);
+
+        }
+
+    }
+
+    private void setMonthNames() {
+        String first;
+        String prev;
+        String curr;
+
+        Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(Calendar.MONTH); // 0 = January, 11 = December
+
+        if(month == 0){
+            first = MONTHS.get(10);
+            prev = MONTHS.get(11);
+            curr = MONTHS.get(0);
+        } else if(month ==1){
+            first = MONTHS.get(11);
+            prev = MONTHS.get(0);
+            curr = MONTHS.get(1);
+        } else {
+            first = MONTHS.get(month-2);
+            prev = MONTHS.get(month-1);
+            curr = MONTHS.get(month);
+        }
+
+        String[] months = {first, prev, curr};
+
+        List<SegmentedArcView> saList = new ArrayList<SegmentedArcView>();
+        saList.add(findViewById(R.id.monthFirst));
+        saList.add(findViewById(R.id.monthPrev));
+        saList.add(findViewById(R.id.monthCurr));
+
+        for(int i=0; i<saList.size(); i++){
+            saList.get(i).setValue(months[i]);
+        }
+
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        TextView textViewPlaceholder = findViewById(R.id.textViewPlaceholder);
         Button buttonPlaceholder = findViewById(R.id.buttonPlaceholder);
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                textViewPlaceholder.setText("ClassroomHighlightsActivity");
                 buttonPlaceholder.setText("GoTo Student");
             }
         });
@@ -111,17 +179,30 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
             }
         });
 
+        //fill classroom with students
         LiveData<List<StudentWithCustomizations>> liveData;
         liveData = AppDatabase.getInstance(this).studentDAO().getAllStudentsWithCustomizationsFromClassroom(classroomUuid);
         liveData.observe(this, new Observer<List<StudentWithCustomizations>>() {
             @Override
             public void onChanged(@Nullable List<StudentWithCustomizations> students) {
                 GridView studentsGridView = findViewById(R.id.studentsGridView);
-                 studentsGridView.setAdapter(new StudentHighlightWithCustomizationsIndexAdapter(ClassroomHighlightsActivity.this, students, listener));
+                 studentsGridView.setAdapter(new StudentHighlightWithCustomizationsIndexAdapter(ClassroomHighlightsActivity.this, students, listener,addNewStudentListener));
+                studentsGridView.post(() -> StudentHighlightWithCustomizationsIndexAdapter.setGridViewHeightBasedOnChildren(studentsGridView, 6));
 
-                 Log.v("penguin", String.valueOf(students.size()));
             }
         });
+
+        //fill emotions in most used
+        AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkillsWithCustomizations().observe(this, new Observer<List<CopingSkillWithCustomizations>>() {
+            @Override
+            public void onChanged(@Nullable List<CopingSkillWithCustomizations> copingSkillsWithCustomizations) {
+                GridView copingSkillsGridView = findViewById(R.id.copingSkillsGridView);
+                copingSkillsGridView.setAdapter(new CopingSkillHighlightWCIndexAdapter(ClassroomHighlightsActivity.this, copingSkillsWithCustomizations));
+            }
+        });
+
+        setMonthNames();
+        setRings();
     }
 
     private final StudentHighlightWithCustomizationsIndexAdapter.ClickListener listener = new StudentHighlightWithCustomizationsIndexAdapter.ClickListener() {
@@ -130,10 +211,20 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
             final Student student = studentWithCustomizations.student;
             Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
 
-//            Intent studentEditActivity = new Intent(ClassroomShowStudentsActivity.this, StudentEditActivity.class);
-//            studentEditActivity.putExtra(StudentEditActivity.EXTRA_STUDENT, studentWithCustomizations.student);
-//            studentEditActivity.putExtra(StudentEditActivity.EXTRA_CLASSROOM_NAME, classroomName);
-//            startActivity(studentEditActivity);
+            Intent studentEditActivity = new Intent(ClassroomHighlightsActivity.this, StudentHighlightsActivity.class);
+            studentEditActivity.putExtra(StudentEditActivity.EXTRA_STUDENT, studentWithCustomizations.student);
+            studentEditActivity.putExtra(StudentEditActivity.EXTRA_CLASSROOM_NAME, classroomName);
+            startActivity(studentEditActivity);
+
+
+        }
+    };
+
+    private final StudentHighlightWithCustomizationsIndexAdapter.ClickAddNewStudentListener addNewStudentListener = new StudentHighlightWithCustomizationsIndexAdapter.ClickAddNewStudentListener() {
+        @Override
+        public void onClick() {
+            Log.d("penguin", "ADD STUDENT");
+
         }
     };
 
@@ -161,6 +252,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
         // TODO delete later (demo count of coping skills with emotions)
         textViewDemo();
+        CalculateHighlightInfo.test(this, getApplicationContext(), classroom);
     }
 
 

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffaaaa" >
+
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsViewAppHeader
+            android:id="@+id/appHeaderHighlights"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="65sp" />
+
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsViewDrawer
+            android:id="@+id/drawerHighlights"
+            android:layout_width="205sp"
+            android:layout_height="0sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appHeaderHighlights" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#EFF7FF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/drawerHighlights"
+            app:layout_constraintTop_toBottomOf="@+id/appHeaderHighlights"
+            >
+
+
+            <Button
+                android:id="@+id/buttonPlaceholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next Activity"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/buttonPlaceholder"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="50dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    >
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="50dp"
+                        >
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/frameLayout"
+                            >
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/profilePicture"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_margin="10dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:src="@drawable/ic_placeholder"
+                                />
+                            <com.zigis.segmentedarcview.SegmentedArcView
+                                android:id="@+id/studentArcView"
+                                android:layout_width="170dp"
+                                android:layout_height="170dp"
+                                android:layout_gravity="center"
+                                app:sav_useCustomSweepAngles="true"
+                                app:sav_segmentThickness="20dp"
+                                app:sav_segmentSeparationAngle="0"
+                                app:sav_startAngle="0" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/studentName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="48sp"
+                            android:gravity="center_horizontal"
+                            app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+                            app:layout_constraintStart_toStartOf="@+id/frameLayout"
+                            app:layout_constraintEnd_toEndOf="@+id/frameLayout"/>
+
+                        <GridView
+                            android:id="@+id/emotionsGridView"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            style="@style/StudentCircularViewForListStudentsInClass"
+                            app:layout_constraintTop_toBottomOf="@+id/studentName"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:stretchMode="columnWidth"
+                            />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="50dp"
+                        >
+                        <TextView
+                            android:id="@+id/titleMostUsed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Most Used:"
+                            android:textSize="36dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginBottom="15dp"
+                            />
+
+                        <GridView
+                            android:id="@+id/copingSkillsGridView"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:background="#FFFFFF"
+                            style="@style/CopingSkillCircularView"
+                            app:layout_constraintTop_toBottomOf="@id/titleMostUsed"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:stretchMode="columnWidth"
+                            />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#aaaaff"
+                        android:layout_marginBottom="50dp"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:id="@+id/emotionLog"
+                            android:layout_height="wrap_content"
+                            android:text="Emotion Log:"
+                            android:textSize="36dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Placeholder"
+                            app:layout_constraintTop_toBottomOf="@id/emotionLog"
+                            android:paddingBottom="100dp"
+                            />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#aaaaff"
+                        android:text="Placeholder"
+                        android:layout_marginBottom="50dp"
+                        />
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textViewDemo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Placeholder"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+

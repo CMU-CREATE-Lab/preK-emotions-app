@@ -4,11 +4,20 @@ import androidx.lifecycle.Observer;
 import android.content.Context;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import com.zigis.segmentedarcview.SegmentedArcView;
+import com.zigis.segmentedarcview.custom.ArcSegment;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
@@ -17,41 +26,49 @@ import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomiza
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractListAdapter<StudentWithCustomizations> {
 
     private final AppCompatActivity activity;
     private final List<StudentWithCustomizations> students;
-    private final boolean onClickListener;
+    private final boolean onClickListener, hasAddNewStudent;
     private final ClickListener clickListener;
+    private final ClickAddNewStudentListener clickAddNewStudentListener;
+
 
     public interface ClickListener {
         void onClick(StudentWithCustomizations student);
     }
+    public interface ClickAddNewStudentListener {
+       void onClick();
+    }
 
 
     public StudentHighlightWithCustomizationsIndexAdapter(AppCompatActivity activity, List<StudentWithCustomizations> students) {
-        this(activity, students, null);
+        this(activity, students, null, null);
     }
 
 
-    public StudentHighlightWithCustomizationsIndexAdapter(AppCompatActivity activity, List<StudentWithCustomizations> students, ClickListener clickListener) {
+    public StudentHighlightWithCustomizationsIndexAdapter(AppCompatActivity activity, List<StudentWithCustomizations> students, ClickListener clickListener,ClickAddNewStudentListener clickAddNewStudentListener) {
         this.activity = activity;
         this.students = students;
         this.clickListener = clickListener;
+        this.clickAddNewStudentListener = clickAddNewStudentListener;
         this.onClickListener = (clickListener != null);
+        this.hasAddNewStudent = (clickAddNewStudentListener != null);
+    }
+    @Override
+    public int getCount() {
+        if (hasAddNewStudent) {
+            return getList().size() +1;
+        }
+        return getList().size();
     }
 
-
-    @Override
-    public List<StudentWithCustomizations> getList() {
-        return students;
-    }
-
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    private View populateStudentView(int position, View convertView, ViewGroup parent) {
+        // TODO just copy params and code from before
         final View result;
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
@@ -65,6 +82,9 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
         final Student student = studentWithCustomizations.student;
         TextView textView = (TextView)result.findViewById(R.id.text1);
         textView.setText(student.getName());
+        SegmentedArcView arcView = result.findViewById(R.id.arcView);
+        setRings(arcView, false);
+
         if (student.getPictureFileUuid() != null) {
             final Context appContext = activity.getApplicationContext();
             AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(student.getPictureFileUuid()).observe(activity, new Observer<DbFile>() {
@@ -88,6 +108,123 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
 
         return result;
     }
+
+
+    private View populateAddNewStudentView(int position, View convertView, ViewGroup parent) {
+        // TODO populate new student view, use clickAddNewStudentListener
+        final View result;
+        if (convertView == null) {
+            // if it's not recycled, initialize some attributes
+            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_item_student_circle, parent, false);
+            // NOTE: requires api level 21
+            result.findViewById(R.id.imageView).setClipToOutline(false);
+        } else {
+            result = convertView;
+        }
+        TextView textView = result.findViewById(R.id.text1);
+        textView.setText("Add New Student");
+        textView.setGravity(Gravity.CENTER_HORIZONTAL);
+
+
+        SegmentedArcView arcView = result.findViewById(R.id.arcView);
+
+
+//        List<ArcSegment> segments = new ArrayList<>();
+//        segments.add(new ArcSegment(Color.GRAY, Color.GRAY, false, 90));
+//        arcView.setSegments(segments);
+
+
+
+        ((ImageView) result.findViewById(R.id.imageView)).setImageResource(R.drawable.ic_add_student);
+        setRings(arcView,true);
+
+        if (onClickListener) {
+            result.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickAddNewStudentListener.onClick();
+                }
+            });
+        }
+
+        return result;
+    }
+
+    private void setRings(SegmentedArcView arcView, boolean isAddStudent) {
+
+
+        List<ArcSegment> segments = new ArrayList<>();
+        if(isAddStudent){
+            segments.add(new ArcSegment(Color.GRAY, Color.GRAY, false, 180f));
+            segments.add(new ArcSegment(Color.GRAY, Color.GRAY, false, 180f));
+           // segments.add(new ArcSegment(Color.GRAY, Color.GRAY, false, 225f));
+        }else{
+            segments.add(new ArcSegment(Color.RED, Color.RED,false, 45f));    // 45 degrees
+            segments.add(new ArcSegment(Color.GREEN, Color.GREEN,false, 90f)); // 90 degrees
+            segments.add(new ArcSegment(Color.BLUE, Color.BLUE,false, 225f));  // 225 degrees
+        }
+
+
+        // Set the segments (custom sweep angles are taken from constructor)
+        arcView.setSegments(segments);
+    }
+
+
+    @Override
+    public List<StudentWithCustomizations> getList() {
+        return students;
+    }
+
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        //return populateStudentView(position, convertView, parent);
+
+        if(hasAddNewStudent) {
+            boolean lastPosition;
+            if (position == getCount() - 1) {
+                return populateAddNewStudentView(position, convertView, parent);
+            } else {
+                return populateStudentView(position, convertView, parent);
+            }
+        } else {
+            return populateStudentView(position, convertView, parent);
+        }
+    }
+
+    public static void setGridViewHeightBasedOnChildren(GridView gridView, int columns) {
+        ListAdapter listAdapter = gridView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = 0;
+        int items = listAdapter.getCount();
+        int rows;
+
+        if (items > 0) {
+            View listItem = listAdapter.getView(0, null, gridView);
+            listItem.measure(
+                    View.MeasureSpec.makeMeasureSpec(gridView.getWidth(), View.MeasureSpec.AT_MOST),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            );
+            int itemHeight = listItem.getMeasuredHeight();
+
+
+            rows = (int) Math.ceil((double) items / columns);
+
+            totalHeight = itemHeight * rows;
+
+            // Add spacing if needed (optional)
+//            totalHeight += gridView.getVerticalSpacing() * (rows - 1);
+        }
+
+        ViewGroup.LayoutParams params = gridView.getLayoutParams();
+        params.height = totalHeight;
+        gridView.setLayoutParams(params);
+        gridView.requestLayout();
+    }
+
 
 }
 

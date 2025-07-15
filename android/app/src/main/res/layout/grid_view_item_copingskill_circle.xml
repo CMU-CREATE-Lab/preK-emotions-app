@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/GridViewCircleItemStudent" >
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    style="@style/GridViewCircleItemStudent">
 
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/frameLayout">
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView"
@@ -15,29 +19,19 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             app:civ_border_width="0dp"
-            app:civ_border_color="@android:color/holo_blue_bright" />
+            app:civ_border_color="@android:color/black" />
 
         <com.zigis.segmentedarcview.SegmentedArcView
             android:id="@+id/arcView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_gravity="center"
             app:sav_useCustomSweepAngles="true"
             app:sav_segmentThickness="10dp"
             app:sav_segmentSeparationAngle="0"
-            app:sav_startAngle="0" />
-
+            app:sav_startAngle="270" />
 
     </FrameLayout>
-
-    <TextView
-        android:id="@+id/text1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

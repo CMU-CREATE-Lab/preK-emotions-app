@@ -28,30 +28,123 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="#aaffaa"
+            android:background="#EFF7FF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/drawerHighlights"
             app:layout_constraintTop_toBottomOf="@+id/appHeaderHighlights"
             >
 
-            <TextView
-                android:id="@+id/textViewPlaceholder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Placeholder"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
 
             <Button
                 android:id="@+id/buttonPlaceholder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Next Activity"
-                app:layout_constraintTop_toBottomOf="@id/textViewPlaceholder"
-                app:layout_constraintStart_toStartOf="@id/textViewPlaceholder"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/buttonPlaceholder"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_marginHorizontal="8dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_happy"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Happy"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_marginHorizontal="8dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_ok"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Okay"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_marginHorizontal="8dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_scared"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Scared"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_marginHorizontal="8dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_sad"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sad"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_marginHorizontal="8dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_mad"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Angry"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <ScrollView
                 android:layout_width="0dp"
@@ -97,7 +190,6 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#aaaaff"
                         android:layout_marginBottom="50dp"
                         >
                         <TextView
@@ -114,19 +206,18 @@
                             android:id="@+id/studentsGridView"
                             android:layout_height="wrap_content"
                             android:layout_width="match_parent"
+                            android:paddingLeft="20dp"
                             style="@style/StudentCircularViewForListStudentsInClass"
                             app:layout_constraintTop_toBottomOf="@id/titleMyClassroom"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:stretchMode="columnWidth"
-                            android:background="#8800FF00"
                             />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#aaaaff"
                         android:layout_marginBottom="50dp"
                         >
                         <TextView
@@ -137,20 +228,26 @@
                             android:textSize="36dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginBottom="15dp"
                             />
-                        <TextView
+
+                        <GridView
+                            android:id="@+id/copingSkillsGridView"
+                            android:layout_height="match_parent"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Placeholder"
+                            android:background="#FFFFFF"
+                            style="@style/CopingSkillCircularView"
                             app:layout_constraintTop_toBottomOf="@id/titleMostUsed"
-                            android:paddingBottom="100dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:stretchMode="columnWidth"
                             />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#aaaaff"
                         android:layout_marginBottom="50dp"
                         >
                         <TextView
@@ -161,14 +258,70 @@
                             android:textSize="36dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginBottom="15dp"
                             />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Placeholder"
-                            app:layout_constraintTop_toBottomOf="@id/titleMonthlyOverview"
-                            android:paddingBottom="100dp"
-                            />
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:orientation="horizontal"
+                           android:gravity="center"
+                           android:padding="0dp"
+                           android:background="#FFFFFF"
+                           app:layout_constraintTop_toBottomOf="@id/titleMonthlyOverview"
+
+                           >
+
+                           <Space
+                               android:layout_width="0dp"
+                               android:layout_height="0dp"
+                               android:layout_weight="1" />
+
+                           <com.zigis.segmentedarcview.SegmentedArcView
+                               android:id="@+id/monthFirst"
+                               android:layout_width="110dp"
+                               android:layout_height="110dp"
+                               app:sav_valueTypefaceSize="35dp"
+                               app:sav_useCustomSweepAngles="true"
+                               app:sav_segmentThickness="10dp"
+                               app:sav_segmentSeparationAngle="0"
+                               app:sav_startAngle="270" />
+
+                           <Space
+                               android:layout_width="0dp"
+                               android:layout_height="0dp"
+                               android:layout_weight="1" />
+
+                           <com.zigis.segmentedarcview.SegmentedArcView
+                               android:id="@+id/monthPrev"
+                               android:layout_width="110dp"
+                               android:layout_height="110dp"
+                               app:sav_valueTypefaceSize="35dp"
+                               app:sav_useCustomSweepAngles="true"
+                               app:sav_segmentThickness="10dp"
+                               app:sav_segmentSeparationAngle="0"
+                               app:sav_startAngle="270" />
+
+                           <Space
+                               android:layout_width="0dp"
+                               android:layout_height="0dp"
+                               android:layout_weight="1" />
+
+                           <com.zigis.segmentedarcview.SegmentedArcView
+                               android:id="@+id/monthCurr"
+                               android:layout_width="110dp"
+                               android:layout_height="110dp"
+                               app:sav_valueTypefaceSize="35dp"
+                               app:sav_useCustomSweepAngles="true"
+                               app:sav_segmentThickness="10dp"
+                               app:sav_segmentSeparationAngle="0"
+                               app:sav_startAngle="270" />
+
+                           <Space
+                               android:layout_width="0dp"
+                               android:layout_height="0dp"
+                               android:layout_weight="1" />
+
+                       </LinearLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
