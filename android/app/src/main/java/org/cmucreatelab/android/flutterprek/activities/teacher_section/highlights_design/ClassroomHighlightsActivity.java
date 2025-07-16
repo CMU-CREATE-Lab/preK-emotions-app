@@ -277,7 +277,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
         // TODO delete later (demo count of coping skills with emotions)
        // textViewDemo();
-        CalculateHighlightInfo.test(this, getApplicationContext(), classroom);
+       // CalculateHighlightInfo.test(this, getApplicationContext(), classroom);
     }
 
 
