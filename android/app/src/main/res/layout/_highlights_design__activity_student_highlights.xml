@@ -40,10 +40,20 @@
                 android:id="@+id/buttonPlaceholder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Next Activity"
+                android:text="Back to classroom"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 />
+            <ImageView
+                android:id="@+id/deleteStudent"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/ic_delete_black"
+                app:layout_constraintTop_toTopOf="@id/buttonPlaceholder"
+                app:layout_constraintBottom_toBottomOf="@id/buttonPlaceholder"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp" />
+
 
 
             <ScrollView
@@ -95,22 +105,38 @@
 
                         </FrameLayout>
 
-                        <TextView
-                            android:id="@+id/studentName"
-                            android:layout_width="wrap_content"
+
+                        <LinearLayout
+                            android:id="@+id/studentInfo"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:textSize="48sp"
-                            android:gravity="center_horizontal"
-                            app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-                            app:layout_constraintStart_toStartOf="@+id/frameLayout"
-                            app:layout_constraintEnd_toEndOf="@+id/frameLayout"/>
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            app:layout_constraintTop_toBottomOf="@id/frameLayout"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent">
+
+                            <TextView
+                                android:id="@+id/studentName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Student Name"
+                                android:textSize="48sp" />
+
+                            <ImageView
+                                android:id="@+id/editImage"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@mipmap/ic_edit_black"
+                                android:layout_marginStart="8dp"/>
+                        </LinearLayout>
 
                         <GridView
                             android:id="@+id/emotionsGridView"
                             android:layout_height="wrap_content"
                             android:layout_width="match_parent"
                             style="@style/StudentCircularViewForListStudentsInClass"
-                            app:layout_constraintTop_toBottomOf="@+id/studentName"
+                            app:layout_constraintTop_toBottomOf="@+id/studentInfo"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:stretchMode="columnWidth"

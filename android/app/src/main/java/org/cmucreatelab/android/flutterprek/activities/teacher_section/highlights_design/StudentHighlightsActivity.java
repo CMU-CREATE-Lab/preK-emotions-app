@@ -2,20 +2,24 @@ package org.cmucreatelab.android.flutterprek.activities.teacher_section.highligh
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zigis.segmentedarcview.SegmentedArcView;
 import com.zigis.segmentedarcview.custom.ArcSegment;
@@ -29,9 +33,13 @@ import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionHighlight
 import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionAbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.DisplayEmotionActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentUpdateAbstractActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.UpdateStudentModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.CopingSkillWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
@@ -49,6 +57,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     public static final int ANGRY_CODE = 102;
     public static final int SCARED_CODE = 103;
     public static final int EXCITED_CODE = 104;
+    public static final int STUDENT_CODE = 105;
     public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
     public static final String EXTRA_STUDENT = "student";
 
@@ -64,7 +73,6 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             Intent intent = new Intent(StudentHighlightsActivity.this, CameraActivity.class);
             intent.putExtra(EXTRA_STUDENT, studentUuid);
             intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
-            Log.v("penguin", "student uuid is: " + studentUuid);
 
             switch(emotion.getName()) {
                 case "Happy":
@@ -73,7 +81,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
                 case "Sad":
                     startActivityForResult(intent, SAD_CODE);
                     break;
-                case "Angry":
+                case "Mad":
                     startActivityForResult(intent, ANGRY_CODE);
                     break;
                 case "Scared":
@@ -88,6 +96,8 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         }
     };
 
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -97,35 +107,123 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             initEmotionsGrid();
             initMostUsedGrid();
         }
+        TextView textView = findViewById(R.id.buttonPlaceholder);
+        String text = "Back to " + classroomName;
+        textView.setText(text);
+        textView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                AppDatabase.getInstance(getApplicationContext()).classroomDAO().getClassroom(student.getClassroomUuid()).observe(StudentHighlightsActivity.this, new Observer<Classroom>() {
+                    @Override
+                    public void onChanged(@Nullable Classroom classroom) {
+                        Intent intent = new Intent(StudentHighlightsActivity.this, ClassroomHighlightsActivity.class);
+                        intent.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
 
+        //init delete button
+        findViewById(R.id.deleteStudent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(StudentHighlightsActivity.this);
+                builder.setMessage(R.string.alert_message_delete_student);
+                builder.setTitle(R.string.alert_title_delete_student);
+                builder.setPositiveButton(R.string.alert_option_delete, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        deleteAndFinish();
+                    }
+                });
+                builder.setNegativeButton(R.string.alert_option_cancel, null);
+                builder.create().show();
+            }
+        });
 
     }
 
     private void initStudentPic(){
+        ImageView profilePicture = findViewById(R.id.profilePicture);
 
         if (student.getPictureFileUuid() != null) {
             final Context appContext = getApplicationContext();
             AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(student.getPictureFileUuid()).observe(this, new Observer<DbFile>() {
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
-                    Util.setImageViewWithDbFile(appContext, (ImageView)findViewById(R.id.profilePicture), dbFile);
+                    Util.setImageViewWithDbFile(appContext, profilePicture, dbFile);
                 }
             });
         } else {
-            ((ImageView) findViewById(R.id.profilePicture)).setImageResource(R.drawable.ic_placeholder);
+            profilePicture.setImageResource(R.drawable.ic_placeholder);
         }
 
         TextView textView = (TextView) findViewById(R.id.studentName);
         textView.setText(student.getName());
+        ImageView editImage = findViewById(R.id.editImage);
+
+        editImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEditNamePopup();
+            }
+        });
+
 
         setRings();
+
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GlobalHandler.getInstance(getApplicationContext()).isRunningActivityForImageResult = true;
+                Intent intent = new Intent(StudentHighlightsActivity.this, CameraActivity.class);
+                intent.putExtra(EXTRA_STUDENT, studentUuid);
+                intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
+                startActivityForResult(intent, STUDENT_CODE);
+
+
+            }
+
+        });
+    }
+
+    private void showEditNamePopup(){
+        // Create an EditText
+        final EditText input = new EditText(this);
+        input.setHint("Enter new Name");
+
+        new AlertDialog.Builder(this)
+                .setTitle("Edit Name")
+                .setView(input)
+                .setPositiveButton("OK", (dialog, which) -> {
+                    String newText = input.getText().toString();
+                    updateName(newText);
+                    TextView myTextView = findViewById(R.id.studentName);
+                    myTextView.setText(newText);
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void updateName(String newName){
+        student.setName(newName);
+        new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ActionType.UPDATE, student, null, new UpdateStudentModelAsyncTask.PostExecute() {
+            @Override
+            public void onPostExecute(Boolean modelSaved) {
+                if (!modelSaved) {
+                    Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
+                }
+            }
+        }).execute();
     }
 
     private void initEmotionsGrid(){
-        LiveData<List<Emotion>> liveData = getLiveDataFromQuery(student.getClassroomUuid(), student.getUuid());
+        LiveData<List<Emotion>> liveData = AppDatabase.getInstance(this).emotionDAO().getAllEmotions();
         liveData.observe(this, new Observer<List<Emotion>>() {
             @Override
             public void onChanged(@Nullable List<Emotion> emotions) {
+                Log.v("penguin", "emotions + "+ emotions.size());
                 GridView emotionsGridView = findViewById(R.id.emotionsGridView);
                 emotionsGridView.setAdapter(new EmotionHighlightAdapter(StudentHighlightsActivity.this, emotions, emotionsListener));
             }
@@ -156,12 +254,6 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
 
     }
 
-    private LiveData<List<Emotion>> getLiveDataFromQuery(String classroomUuid, String studentUuid) {
-        ArrayList<String> uuids = new ArrayList<>();
-        if (!classroomUuid.isEmpty()) uuids.add(classroomUuid);
-        if (!studentUuid.isEmpty()) uuids.add(studentUuid);
-        return AppDatabase.getInstance(this).emotionDAO().getEmotionsOwnedBy(uuids);
-    }
 
 
     @Override
@@ -174,26 +266,29 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             this.studentUuid = student.getUuid();
         }
 
-        if(getIntent().getStringExtra(UploadPhotoActivity.STUDENT_UUID) ==null){
-            Log.v("penguin", "studentUuid is null");
-        }
 
             if(getIntent().getStringExtra(UploadPhotoActivity.STUDENT_UUID) !=null){
             Log.v("penguin", "studentUuid");
 
             this.studentUuid = getIntent().getStringExtra(UploadPhotoActivity.STUDENT_UUID);
             this.classroomName = getIntent().getStringExtra(UploadPhotoActivity.EXTRA_CLASSROOM_NAME);
+           //get student object and update UI
             AppDatabase.getInstance(this).studentDAO().getStudent(studentUuid).observe(this, new Observer<Student>() {
                 @Override
                 public void onChanged(@Nullable Student student) {
                     StudentHighlightsActivity.this.student = student;
                     Log.v("penguin", studentUuid);
-                    initStudentPic();
-                    initEmotionsGrid();
-                    initMostUsedGrid();
+
+                    if (StudentHighlightsActivity.this.student != null) {
+
+                        initStudentPic();
+                        initEmotionsGrid();
+                        initMostUsedGrid();
+                    }
+
                 }
             });
-            }
+        }
 
 
         //process picture from uploadPhotoActivity
@@ -204,6 +299,28 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             handleResult(requestCode, resultCode, intent);
         }
 
+
+    }
+
+    private void deleteAndFinish(){
+        Log.d(Constants.LOG_TAG, "performing DB delete");
+        new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ActionType.DELETE, student, null, new UpdateStudentModelAsyncTask.PostExecute() {
+            @Override
+            public void onPostExecute(Boolean modelSaved) {
+                if (!modelSaved) {
+                    Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
+                }
+                AppDatabase.getInstance(getApplicationContext()).classroomDAO().getClassroom(student.getClassroomUuid()).observe(StudentHighlightsActivity.this, new Observer<Classroom>() {
+                    @Override
+                    public void onChanged(@Nullable Classroom classroom) {
+                        Intent intent = new Intent(StudentHighlightsActivity.this, ClassroomHighlightsActivity.class);
+                        intent.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom);
+                        startActivity(intent);
+                    }
+                });
+
+            }
+        }).execute();
     }
 
 
@@ -232,12 +349,6 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
               break;
 
           case UploadPhotoActivity.UPDATE:
-              String path = data.getStringExtra("path");
-              File file = new File(path);
-
-//              Uri uri = Uri.fromFile(file);
-//              ImageView imageView = findViewById(R.id.testImage);
-//              imageView.setImageURI(uri);
               break;
 
           case UploadPhotoActivity.KEEP:

@@ -1,7 +1,10 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,9 +17,11 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
+import androidx.lifecycle.Observer;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -29,8 +34,13 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.UpdateStudentModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.audio.audio_recording.SaveFileHandler;
+import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 import org.cmucreatelab.android.mylibrary.CameraActivity;
 
 import java.io.File;
@@ -50,6 +60,7 @@ public class UploadPhotoActivity extends AbstractActivity {
             updateImageButton, displayedImage, closeButton;
 
     private String classroomName, studentUuid;
+    private Student student;
     public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
     public static final String EXTRA_STUDENT = "student";
     public static final String STUDENT_UUID = "student_uuid";
@@ -114,14 +125,15 @@ public class UploadPhotoActivity extends AbstractActivity {
         return new RectF(left, top, left + actualWidth, top + actualHeight);
     }
     private void acceptPhoto() throws IOException {
-        //String pictureFilename = String.format("%s_%d", student.getUuid(), Util.getCurrentTimestamp());
-        String pictureFilename = "test";
+        String pictureFilename = String.format("%s_%d", student.getUuid(), Util.getCurrentTimestamp());
+        //String pictureFilename = "test";
         File picture = SaveFileHandler.getOutputMediaFile(getApplicationContext(), SaveFileHandler.MEDIA_TYPE_IMAGE, pictureFilename);
         FileOutputStream out = new FileOutputStream(picture);
         getCroppedPicture().compress(Bitmap.CompressFormat.JPEG, 100, out);
         out.flush();
         out.close();
 
+        updateModel(student, picture);
 
         String path = picture.getAbsolutePath();
         Intent intent = new Intent(this, StudentHighlightsActivity.class);
@@ -135,10 +147,63 @@ public class UploadPhotoActivity extends AbstractActivity {
 
     }
 
+    public void updateModel(final Student student, final File newStudentPicture) {
+        Log.d(Constants.LOG_TAG, "performing DB writes in updateModel()");
+        if(requestCode == StudentHighlightsActivity.STUDENT_CODE){
+            new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ActionType.UPDATE, student, newStudentPicture, new UpdateStudentModelAsyncTask.PostExecute() {
+                @Override
+                public void onPostExecute(Boolean modelSaved) {
+                    if (!modelSaved) {
+                        Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
+                    }
+                    finish();
+                }
+            }).execute();
+        }
+
+    }
+    private void resetImage(){
+        File newStudentPicture = placeHolderToFile(R.drawable.ic_placeholder_png);
+
+        if(requestCode == StudentHighlightsActivity.STUDENT_CODE){
+            new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ActionType.UPDATE, student, newStudentPicture, new UpdateStudentModelAsyncTask.PostExecute() {
+                @Override
+                public void onPostExecute(Boolean modelSaved) {
+                    if (!modelSaved) {
+                        Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
+                    }
+                    finish();
+                }
+            }).execute();
+        }
+    }
+
+    private File placeHolderToFile(int drawableId){
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), drawableId);
+
+        String pictureFilename = String.format("%s_%d", student.getUuid(), Util.getCurrentTimestamp());
+        File picture = SaveFileHandler.getOutputMediaFile(getApplicationContext(), SaveFileHandler.MEDIA_TYPE_IMAGE, pictureFilename);
+
+        // Step 2: Create a file in the cache directory
+
+        try {
+            FileOutputStream outputStream = new FileOutputStream(picture);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream); // or JPEG
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return picture;
+    }
+
     private void initOnClickListeners() {
         resetToIconButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resetImage();
                 finish();
 
             }
@@ -225,6 +290,53 @@ public class UploadPhotoActivity extends AbstractActivity {
             case StudentHighlightsActivity.EXCITED_CODE:
                 setButtonColorsHelper(ColorConstants.EXCITED_COLOR);
                 break;
+            case StudentHighlightsActivity.STUDENT_CODE:
+                setButtonColorsHelper(Color.GRAY);
+        }
+    }
+
+    private void setButtonImages(){
+        switch(requestCode){
+            case StudentHighlightsActivity.STUDENT_CODE:
+               // ImageView resetToIconButton = findViewById(R.id.resetToIconButton);
+
+                //keep button
+                if (student.getPictureFileUuid() != null) {
+                    final Context appContext = getApplicationContext();
+                    AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(student.getPictureFileUuid()).observe(this, new Observer<DbFile>() {
+                        @Override
+                        public void onChanged(@Nullable DbFile dbFile) {
+                            Util.setImageViewWithDbFile(appContext, keepOldImageButton, dbFile);
+                        }
+                    });
+                } else {
+                    keepOldImageButton.setImageResource(R.drawable.ic_placeholder);
+                }
+
+                //reset button
+                resetToIconButton.setImageResource(R.drawable.ic_placeholder);
+                break;
+
+            case StudentHighlightsActivity.HAPPY_CODE:
+                //reset button
+                resetToIconButton.setImageResource(R.drawable.ic_happy);
+                break;
+            case StudentHighlightsActivity.SAD_CODE:
+                //reset button
+                resetToIconButton.setImageResource(R.drawable.ic_sad);
+                break;
+            case StudentHighlightsActivity.ANGRY_CODE:
+                //reset button
+                resetToIconButton.setImageResource(R.drawable.ic_mad);
+                break;
+            case StudentHighlightsActivity.SCARED_CODE:
+                //reset button
+                resetToIconButton.setImageResource(R.drawable.ic_scared);
+                break;
+            case StudentHighlightsActivity.EXCITED_CODE:
+                //reset button
+                resetToIconButton.setImageResource(R.drawable.ic_excited);
+                break;
         }
     }
 
@@ -248,8 +360,18 @@ public class UploadPhotoActivity extends AbstractActivity {
         if(getIntent().getStringExtra(EXTRA_CLASSROOM_NAME) != null && getIntent().getStringExtra(EXTRA_STUDENT) != null) {
             this.classroomName = getIntent().getStringExtra(EXTRA_CLASSROOM_NAME);
             this.studentUuid = getIntent().getStringExtra(EXTRA_STUDENT);
-            Log.v("penguin", "classroom name: " + classroomName);
-            Log.v("penguin", "student uuid: " + studentUuid);
+
+            //grab student object
+            AppDatabase.getInstance(this).studentDAO().getStudent(studentUuid).observe(this, new Observer<Student>() {
+                @Override
+                public void onChanged(@Nullable Student student) {
+                    UploadPhotoActivity.this.student = student;
+                    setButtonImages();
+
+                }
+            });
+
+
         }
     }
 
@@ -262,8 +384,12 @@ public class UploadPhotoActivity extends AbstractActivity {
         if(resultCode == RESULT_OK){
             displayedImagedUri = data.getParcelableExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI);
         } else if(resultCode == RESULT_CANCELED){
-            Log.v("penguin", "cancled");
+
             Intent intent = new Intent(UploadPhotoActivity.this, StudentHighlightsActivity.class);
+            intent.putExtra("resultCode", UPDATE);
+            intent.putExtra("requestCode", requestCode);
+            intent.putExtra(STUDENT_UUID, studentUuid);
+            intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
             setResult(RESULT_CANCELED, intent);
             startActivity(intent);
         }

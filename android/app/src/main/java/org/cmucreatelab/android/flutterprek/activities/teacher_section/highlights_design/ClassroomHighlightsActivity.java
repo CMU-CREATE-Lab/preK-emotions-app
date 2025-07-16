@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
@@ -22,13 +23,16 @@ import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillHighl
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSkillIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomShowStudentsActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentAddActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.UpdateStudentModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.CopingSkillWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.StudentWithSessionsAndSessionCopingSkills;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -166,7 +170,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                buttonPlaceholder.setText("GoTo Student");
+                buttonPlaceholder.setText("Back to classes");
             }
         });
 
@@ -174,7 +178,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
             @Override
             public void onClick(View view) {
                 // TODO next activity
-                Intent intent = new Intent(ClassroomHighlightsActivity.this, StudentHighlightsActivity.class);
+                Intent intent = new Intent(ClassroomHighlightsActivity.this, ClassroomIndexActivity.class);
                 startActivity(intent);
             }
         });
@@ -211,6 +215,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
             final Student student = studentWithCustomizations.student;
             Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
 
+
             Intent studentEditActivity = new Intent(ClassroomHighlightsActivity.this, StudentHighlightsActivity.class);
             studentEditActivity.putExtra(StudentEditActivity.EXTRA_STUDENT, studentWithCustomizations.student);
             studentEditActivity.putExtra(StudentEditActivity.EXTRA_CLASSROOM_NAME, classroomName);
@@ -223,10 +228,30 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
     private final StudentHighlightWithCustomizationsIndexAdapter.ClickAddNewStudentListener addNewStudentListener = new StudentHighlightWithCustomizationsIndexAdapter.ClickAddNewStudentListener() {
         @Override
         public void onClick() {
-            Log.d("penguin", "ADD STUDENT");
+            Intent studentAddActivityIntent = new Intent(ClassroomHighlightsActivity.this, StudentHighlightsActivity.class);
+            String templateNameForAddStudent = "New Student";
+
+            Student newStudent = new Student(templateNameForAddStudent, classroomUuid);
+            updateModel(newStudent);
+            studentAddActivityIntent.putExtra(StudentEditActivity.EXTRA_STUDENT, newStudent);
+            studentAddActivityIntent.putExtra(StudentEditActivity.EXTRA_CLASSROOM_NAME, classroomName);
+            startActivity(studentAddActivityIntent);
 
         }
     };
+
+    public void updateModel(final Student student) {
+        Log.d(Constants.LOG_TAG, "performing DB writes in updateModel()");
+        new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ActionType.INSERT, student, null, new UpdateStudentModelAsyncTask.PostExecute() {
+            @Override
+            public void onPostExecute(Boolean modelSaved) {
+                if (!modelSaved) {
+                    Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
+                }
+                finish();
+            }
+        }).execute();
+    }
 
 
     @Override
@@ -251,7 +276,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 //        });
 
         // TODO delete later (demo count of coping skills with emotions)
-        textViewDemo();
+       // textViewDemo();
         CalculateHighlightInfo.test(this, getApplicationContext(), classroom);
     }
 
