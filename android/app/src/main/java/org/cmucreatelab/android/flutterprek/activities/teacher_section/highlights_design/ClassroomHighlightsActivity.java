@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
@@ -23,6 +26,8 @@ import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillHighl
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSkillIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomShowStudentsActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.UpdateClassroomModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentAddActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.UpdateStudentModelAsyncTask;
@@ -89,7 +94,8 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                                         Integer count = mapCopingSkillEmotion.get(copingSkillEmotion);
                                         text.append(copingSkillEmotion.toString()).append(String.format(" -- appears %d times.\n", count));
                                     }
-
+                                    Log.v("penguin", "data tedst");
+                                    Log.v("penguin", String.valueOf(mapCopingSkillEmotion.size()));
                                     // update the text view on the UI thread ("onChanged" means we might not be in main thread anymore)
                                     runOnUiThread(new Runnable() {
                                         @Override
@@ -108,19 +114,17 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
     }
 
     private void setRings() {
-        List<SegmentedArcView> saList = new ArrayList<SegmentedArcView>();
+        List<ArcViewOverlay> saList = new ArrayList<ArcViewOverlay>();
         saList.add(findViewById(R.id.monthFirst));
         saList.add(findViewById(R.id.monthPrev));
         saList.add(findViewById(R.id.monthCurr));
 
-        for (SegmentedArcView sa : saList) {
-            List<ArcSegment> segments = new ArrayList<>();
-            segments.add(new ArcSegment(Color.RED, Color.RED,false, 45f));    // 45 degrees
-            segments.add(new ArcSegment(Color.GREEN, Color.GREEN,false, 90f)); // 90 degrees
-            segments.add(new ArcSegment(Color.BLUE, Color.BLUE,false, 225f));  // 225 degrees
-
-            // Set the segments (custom sweep angles are taken from constructor)
-            sa.setSegments(segments);
+        List<Integer> colors = Arrays.asList(Color.RED, Color.GREEN, Color.BLUE);
+        List<Float> angles = Arrays.asList(150f, 120f, 90f);
+        for (ArcViewOverlay arcView : saList) {
+            arcView.setSegmentColors(colors);
+            arcView.setSegmentAngles(angles);
+            arcView.setArcWidth(20f);
 
         }
 
@@ -150,13 +154,13 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
         String[] months = {first, prev, curr};
 
-        List<SegmentedArcView> saList = new ArrayList<SegmentedArcView>();
+        List<ArcViewOverlay> saList = new ArrayList<ArcViewOverlay>();
         saList.add(findViewById(R.id.monthFirst));
         saList.add(findViewById(R.id.monthPrev));
         saList.add(findViewById(R.id.monthCurr));
 
         for(int i=0; i<saList.size(); i++){
-            saList.get(i).setValue(months[i]);
+            saList.get(i).setCenterText(months[i]);
         }
 
     }
@@ -166,6 +170,8 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         super.onResume();
 
         Button buttonPlaceholder = findViewById(R.id.buttonPlaceholder);
+        TextView textView = findViewById(R.id.titleMyClassroom);
+        textView.setText(classroomName);
 
         runOnUiThread(new Runnable() {
             @Override
@@ -196,17 +202,77 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
             }
         });
 
-        //fill emotions in most used
-        AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkillsWithCustomizations().observe(this, new Observer<List<CopingSkillWithCustomizations>>() {
+        findViewById(R.id.editImage).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged(@Nullable List<CopingSkillWithCustomizations> copingSkillsWithCustomizations) {
-                GridView copingSkillsGridView = findViewById(R.id.copingSkillsGridView);
-                copingSkillsGridView.setAdapter(new CopingSkillHighlightWCIndexAdapter(ClassroomHighlightsActivity.this, copingSkillsWithCustomizations));
+            public void onClick(View view) {
+                showEditClassNamePopup();
             }
         });
 
+        //init edit classroom button
+
+        //fill copping skills in most used
+        AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkillsWithCustomizations().observe(this, new Observer<List<CopingSkillWithCustomizations>>() {
+            @Override
+            public void onChanged(@Nullable List<CopingSkillWithCustomizations> copingSkillsWithCustomizations) {
+                //Reorder list
+                List<Integer> percents = new ArrayList<>();
+                percents.add(60);
+                percents.add(20);
+                percents.add(10);
+                percents.add(10);
+                GridView copingSkillsGridView = findViewById(R.id.copingSkillsGridView);
+                copingSkillsGridView.setAdapter(new CopingSkillHighlightWCIndexAdapter(ClassroomHighlightsActivity.this, copingSkillsWithCustomizations,percents));
+            }
+        });
+
+        //edit coping skills
+        ImageView editCopingSkills = findViewById(R.id.editCopingSkills);
+        editCopingSkills.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ClassroomHighlightsActivity.this, EditCopingSkillsHighlightIndex.class);
+                intent.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom); // if needed
+                startActivity(intent);
+            }
+        });
         setMonthNames();
         setRings();
+
+    }
+
+    private void showEditClassNamePopup(){
+        // Create an EditText
+        final EditText input = new EditText(this);
+        input.setHint("Enter new Name");
+
+        new AlertDialog.Builder(this)
+                .setTitle("Edit Name")
+                .setView(input)
+                .setPositiveButton("OK", (dialog, which) -> {
+                    String newText = input.getText().toString();
+                    updateName(newText);
+                    TextView myTextView = findViewById(R.id.titleMyClassroom);
+                    myTextView.setText(newText);
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void updateName(String newName){
+        //student.setName(newName);
+        classroom.setName(newName);
+        classroomName = newName;
+
+        new UpdateClassroomModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateClassroomModelAsyncTask.ActionType.UPDATE, classroom, new UpdateClassroomModelAsyncTask.PostExecute() {
+            @Override
+            public void onPostExecute(Boolean modelSaved, Classroom classroom) {
+                // deleting classroom triggers return to index
+                if (!modelSaved) {
+                    Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
+                }
+            }
+        }).execute();
     }
 
     private final StudentHighlightWithCustomizationsIndexAdapter.ClickListener listener = new StudentHighlightWithCustomizationsIndexAdapter.ClickListener() {
@@ -257,6 +323,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setUpDrawer();
 
         // TODO Classroom from Intent?
         this.classroom = (Classroom) getIntent().getSerializableExtra(EXTRA_CLASSROOM);
@@ -276,7 +343,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 //        });
 
         // TODO delete later (demo count of coping skills with emotions)
-       // textViewDemo();
+        textViewDemo();
        // CalculateHighlightInfo.test(this, getApplicationContext(), classroom);
     }
 

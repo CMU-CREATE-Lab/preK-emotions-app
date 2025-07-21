@@ -83,26 +83,29 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/frameLayout"
-                            >
+                            android:clipChildren="false"
+                            android:clipToPadding="false">
+
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/profilePicture"
                                 android:layout_width="150dp"
                                 android:layout_height="150dp"
-                                android:layout_margin="10dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:src="@drawable/ic_placeholder"
-                                />
-                            <com.zigis.segmentedarcview.SegmentedArcView
-                                android:id="@+id/studentArcView"
-                                android:layout_width="170dp"
-                                android:layout_height="170dp"
                                 android:layout_gravity="center"
-                                app:sav_useCustomSweepAngles="true"
-                                app:sav_segmentThickness="20dp"
-                                app:sav_segmentSeparationAngle="0"
-                                app:sav_startAngle="0" />
+                                android:src="@drawable/ic_placeholder" />
 
+                            <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ArcViewOverlay
+                                android:id="@+id/arcViewOverlay"
+                                android:layout_width="190dp"
+                                android:layout_height="190dp"
+                                android:layout_gravity="center"
+                                 />
+
+                            <ImageView
+                                android:id="@+id/cameraIcon"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_gravity="bottom|end"
+                                android:src="@drawable/ic_new_photo" />
                         </FrameLayout>
 
 
@@ -154,7 +157,7 @@
                             android:id="@+id/titleMostUsed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Most Used:"
+                            android:text="Coping Skills:"
                             android:textSize="36dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"

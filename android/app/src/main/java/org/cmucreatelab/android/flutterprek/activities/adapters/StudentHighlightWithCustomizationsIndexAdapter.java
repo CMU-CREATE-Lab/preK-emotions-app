@@ -21,12 +21,14 @@ import com.zigis.segmentedarcview.custom.ArcSegment;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ArcViewOverlay;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractListAdapter<StudentWithCustomizations> {
@@ -82,8 +84,8 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
         final Student student = studentWithCustomizations.student;
         TextView textView = (TextView)result.findViewById(R.id.text1);
         textView.setText(student.getName());
-        SegmentedArcView arcView = result.findViewById(R.id.arcView);
-        setRings(arcView, false);
+        ArcViewOverlay arcView = result.findViewById(R.id.arcView);
+        setArc(arcView, false);
 
         if (student.getPictureFileUuid() != null) {
             final Context appContext = activity.getApplicationContext();
@@ -126,7 +128,7 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
 
 
-        SegmentedArcView arcView = result.findViewById(R.id.arcView);
+        ArcViewOverlay arcView = result.findViewById(R.id.arcView);
 
 
 //        List<ArcSegment> segments = new ArrayList<>();
@@ -136,7 +138,7 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
 
 
         ((ImageView) result.findViewById(R.id.imageView)).setImageResource(R.drawable.ic_add_student);
-        setRings(arcView,true);
+        setArc(arcView,true);
 
         if (onClickListener) {
             result.setOnClickListener(new View.OnClickListener() {
@@ -150,23 +152,25 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
         return result;
     }
 
-    private void setRings(SegmentedArcView arcView, boolean isAddStudent) {
+
+    private void setArc(ArcViewOverlay arcView, boolean isAddStudent){
+      if(!isAddStudent){
+          List<Integer> colors = Arrays.asList(Color.RED, Color.GREEN, Color.BLUE);
+          List<Float> angles = Arrays.asList(120f, 120f, 120f);
+          arcView.setSegmentColors(colors);
+          arcView.setSegmentAngles(angles);
+          arcView.setArcWidth(10f);
+
+      } else {
+          List<Integer> colors = Arrays.asList(Color.GRAY);
+          List<Float> angles = Arrays.asList(360f);
+          arcView.setSegmentColors(colors);
+          arcView.setSegmentAngles(angles);
+          arcView.setArcWidth(10f);
+      }
 
 
-        List<ArcSegment> segments = new ArrayList<>();
-        if(isAddStudent){
-            segments.add(new ArcSegment(Color.GRAY, Color.GRAY, false, 180f));
-            segments.add(new ArcSegment(Color.GRAY, Color.GRAY, false, 180f));
-           // segments.add(new ArcSegment(Color.GRAY, Color.GRAY, false, 225f));
-        }else{
-            segments.add(new ArcSegment(Color.RED, Color.RED,false, 45f));    // 45 degrees
-            segments.add(new ArcSegment(Color.GREEN, Color.GREEN,false, 90f)); // 90 degrees
-            segments.add(new ArcSegment(Color.BLUE, Color.BLUE,false, 225f));  // 225 degrees
-        }
 
-
-        // Set the segments (custom sweep angles are taken from constructor)
-        arcView.setSegments(segments);
     }
 
 

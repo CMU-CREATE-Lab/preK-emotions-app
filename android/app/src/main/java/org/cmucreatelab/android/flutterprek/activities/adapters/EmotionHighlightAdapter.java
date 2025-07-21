@@ -83,6 +83,7 @@ public class EmotionHighlightAdapter extends AbstractListAdapter<Emotion>{
         } else {
             result = convertView;
         }
+
         TextView textView = result.findViewById(R.id.text1);
         textView.setText(emotion.getName());
 
@@ -109,6 +110,15 @@ public class EmotionHighlightAdapter extends AbstractListAdapter<Emotion>{
                             clickListener.onClick(emotion, itineraryItems);
                         }
                     });
+
+                    result.findViewById(R.id.cameraPlusIcon).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clickListener.onClick(emotion, itineraryItems);
+                        }
+                    });
+
+
                 }
             }
         });

@@ -19,6 +19,10 @@ public abstract class HighlightsDesignActivityWithHeaderAndDrawer extends Abstra
         super.onCreate(savedInstanceState);
 
         this.appHeaderHighlights = findViewById(R.id.appHeaderHighlights);
+
+    }
+
+    protected void setUpDrawer(){
         this.drawerHighlights = findViewById(R.id.drawerHighlights);
 
         // TODO remove later (provided for backward navigation only)

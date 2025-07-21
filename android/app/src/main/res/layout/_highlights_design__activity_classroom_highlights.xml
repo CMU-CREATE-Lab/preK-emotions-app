@@ -203,6 +203,16 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             />
+                        <ImageView
+                            android:id="@+id/editImage"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@mipmap/ic_edit_black"
+                            android:layout_marginStart="12dp"
+                            app:layout_constraintStart_toEndOf="@id/titleMyClassroom"
+                            app:layout_constraintTop_toTopOf="@id/titleMyClassroom"
+                            app:layout_constraintBottom_toBottomOf="@id/titleMyClassroom"/>
+
 
                         <GridView
                             android:id="@+id/studentsGridView"
@@ -226,12 +236,21 @@
                             android:id="@+id/titleMostUsed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Most Used:"
+                            android:text="Coping Skills:"
                             android:textSize="36dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_marginBottom="15dp"
                             />
+                        <ImageView
+                            android:id = "@+id/editCopingSkills"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_gear"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="4dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
 
                         <GridView
                             android:id="@+id/copingSkillsGridView"
@@ -278,45 +297,34 @@
                                android:layout_height="0dp"
                                android:layout_weight="1" />
 
-                           <com.zigis.segmentedarcview.SegmentedArcView
+                           <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ArcViewOverlay
                                android:id="@+id/monthFirst"
                                android:layout_width="110dp"
                                android:layout_height="110dp"
-                               app:sav_valueTypefaceSize="35dp"
-                               app:sav_useCustomSweepAngles="true"
-                               app:sav_segmentThickness="10dp"
-                               app:sav_segmentSeparationAngle="0"
-                               app:sav_startAngle="270" />
+                               android:layout_gravity="center"
+                               />
 
                            <Space
                                android:layout_width="0dp"
                                android:layout_height="0dp"
                                android:layout_weight="1" />
 
-                           <com.zigis.segmentedarcview.SegmentedArcView
+                           <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ArcViewOverlay
                                android:id="@+id/monthPrev"
                                android:layout_width="110dp"
                                android:layout_height="110dp"
-                               app:sav_valueTypefaceSize="35dp"
-                               app:sav_useCustomSweepAngles="true"
-                               app:sav_segmentThickness="10dp"
-                               app:sav_segmentSeparationAngle="0"
-                               app:sav_startAngle="270" />
+                               />
 
                            <Space
                                android:layout_width="0dp"
                                android:layout_height="0dp"
                                android:layout_weight="1" />
 
-                           <com.zigis.segmentedarcview.SegmentedArcView
+                           <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ArcViewOverlay
                                android:id="@+id/monthCurr"
                                android:layout_width="110dp"
                                android:layout_height="110dp"
-                               app:sav_valueTypefaceSize="35dp"
-                               app:sav_useCustomSweepAngles="true"
-                               app:sav_segmentThickness="10dp"
-                               app:sav_segmentSeparationAngle="0"
-                               app:sav_startAngle="270" />
+                               />
 
                            <Space
                                android:layout_width="0dp"

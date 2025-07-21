@@ -71,6 +71,8 @@ public class ClassroomIndexActivity extends HighlightsDesignActivityWithHeaderAn
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setUpDrawer();
+
 
         // TODO replace adapter
         AppDatabase.getInstance(this).classroomDAO().getAllClassrooms().observe(this, new Observer<List<Classroom>>() {

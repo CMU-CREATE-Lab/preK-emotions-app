@@ -48,6 +48,7 @@ import org.cmucreatelab.android.mylibrary.CameraActivity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeaderAndDrawer {
@@ -171,21 +172,31 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         });
 
 
-        setRings();
-
+        //setRings();
+        setArc();
         profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GlobalHandler.getInstance(getApplicationContext()).isRunningActivityForImageResult = true;
-                Intent intent = new Intent(StudentHighlightsActivity.this, CameraActivity.class);
-                intent.putExtra(EXTRA_STUDENT, studentUuid);
-                intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
-                startActivityForResult(intent, STUDENT_CODE);
-
+                launchProfiePictureActivity();
 
             }
 
         });
+
+        findViewById(R.id.cameraIcon).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchProfiePictureActivity();
+            }
+        });
+    }
+
+    private void launchProfiePictureActivity(){
+        GlobalHandler.getInstance(getApplicationContext()).isRunningActivityForImageResult = true;
+        Intent intent = new Intent(StudentHighlightsActivity.this, CameraActivity.class);
+        intent.putExtra(EXTRA_STUDENT, studentUuid);
+        intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
+        startActivityForResult(intent, STUDENT_CODE);
     }
 
     private void showEditNamePopup(){
@@ -223,7 +234,6 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         liveData.observe(this, new Observer<List<Emotion>>() {
             @Override
             public void onChanged(@Nullable List<Emotion> emotions) {
-                Log.v("penguin", "emotions + "+ emotions.size());
                 GridView emotionsGridView = findViewById(R.id.emotionsGridView);
                 emotionsGridView.setAdapter(new EmotionHighlightAdapter(StudentHighlightsActivity.this, emotions, emotionsListener));
             }
@@ -234,24 +244,39 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkillsWithCustomizations().observe(this, new Observer<List<CopingSkillWithCustomizations>>() {
             @Override
             public void onChanged(@Nullable List<CopingSkillWithCustomizations> copingSkillsWithCustomizations) {
+                List<Integer> percents = new ArrayList<>();
+                percents.add(60);
+                percents.add(20);
+                percents.add(10);
+                percents.add(10);
                 GridView copingSkillsGridView = findViewById(R.id.copingSkillsGridView);
-                copingSkillsGridView.setAdapter(new CopingSkillHighlightWCIndexAdapter(StudentHighlightsActivity.this, copingSkillsWithCustomizations));
+                copingSkillsGridView.setAdapter(new CopingSkillHighlightWCIndexAdapter(StudentHighlightsActivity.this, copingSkillsWithCustomizations,percents));
             }
         });
     }
 
-    private void setRings() {
+//    private void setRings() {
+//
+//        SegmentedArcView sa = findViewById(R.id.studentArcView);
+//
+//        List<ArcSegment> segments = new ArrayList<>();
+//        segments.add(new ArcSegment(Color.RED, Color.RED,false, 45f));    // 45 degrees
+//        segments.add(new ArcSegment(Color.GREEN, Color.GREEN,false, 90f)); // 90 degrees
+//        segments.add(new ArcSegment(Color.BLUE, Color.BLUE,false, 225f));  // 225 degrees
+//
+//        // Set the segments (custom sweep angles are taken from constructor)
+//        sa.setSegments(segments);
+//
+//    }
 
-        SegmentedArcView sa = findViewById(R.id.studentArcView);
+    private void setArc(){
+        ArcViewOverlay arcView = findViewById(R.id.arcViewOverlay);
+        List<Integer> colors = Arrays.asList(Color.RED, Color.GREEN, Color.BLUE);
+        List<Float> angles = Arrays.asList(120f, 120f, 120f);
 
-        List<ArcSegment> segments = new ArrayList<>();
-        segments.add(new ArcSegment(Color.RED, Color.RED,false, 45f));    // 45 degrees
-        segments.add(new ArcSegment(Color.GREEN, Color.GREEN,false, 90f)); // 90 degrees
-        segments.add(new ArcSegment(Color.BLUE, Color.BLUE,false, 225f));  // 225 degrees
-
-        // Set the segments (custom sweep angles are taken from constructor)
-        sa.setSegments(segments);
-
+        arcView.setSegmentColors(colors);
+        arcView.setSegmentAngles(angles);
+        arcView.setArcWidth(20f);
     }
 
 
@@ -259,6 +284,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setUpDrawer();
         //get student from intent
         if(getIntent().getStringExtra(EXTRA_CLASSROOM_NAME) != null && getIntent().getSerializableExtra(EXTRA_STUDENT) != null) {
             this.classroomName = getIntent().getStringExtra(EXTRA_CLASSROOM_NAME);

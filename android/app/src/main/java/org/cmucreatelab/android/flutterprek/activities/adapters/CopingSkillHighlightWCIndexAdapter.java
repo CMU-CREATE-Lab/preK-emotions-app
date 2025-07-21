@@ -36,6 +36,7 @@ public class CopingSkillHighlightWCIndexAdapter extends AbstractListAdapter<Copi
 
     private final AbstractActivity activity;
     private final List<CopingSkillWithCustomizations> copingSkillsWithCustomizations;
+    private final List<Integer> percents;
 
     private LiveData<List<ItineraryItem>> getItineraryItems(String copingSkillUuid) {
         Context appContext = activity.getApplicationContext();
@@ -50,9 +51,10 @@ public class CopingSkillHighlightWCIndexAdapter extends AbstractListAdapter<Copi
     }
 
 
-    public CopingSkillHighlightWCIndexAdapter(AbstractActivity activity, List<CopingSkillWithCustomizations> copingSkillsWithCustomizations) {
+    public CopingSkillHighlightWCIndexAdapter(AbstractActivity activity, List<CopingSkillWithCustomizations> copingSkillsWithCustomizations, List<Integer> percents) {
         this.activity = activity;
         this.copingSkillsWithCustomizations = copingSkillsWithCustomizations;
+        this.percents = percents;
     }
 
     private void setRings(SegmentedArcView arcView) {
@@ -77,18 +79,32 @@ public class CopingSkillHighlightWCIndexAdapter extends AbstractListAdapter<Copi
     public View getView(int position, View convertView, ViewGroup parent) {
         final View result;
 
+
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             result = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_item_copingskill_circle, parent, false);
             // NOTE: requires api level 21
-            SegmentedArcView arcView = result.findViewById(R.id.arcView);
-            setRings(arcView);
             result.findViewById(R.id.imageView).setClipToOutline(false);
         } else {
             result = convertView;
         }
+
+        if(position ==0){
+            ImageView imageView = result.findViewById(R.id.imageView);
+            ViewGroup.LayoutParams params = imageView.getLayoutParams();
+
+            float scale = parent.getResources().getDisplayMetrics().density;
+            params.width = (int) (110 * scale + 0.5f); // 110dp
+            params.height = (int) (110 * scale + 0.5f);  // 110dp
+
+            imageView.setLayoutParams(params);
+        }
+
         final CopingSkillWithCustomizations copingSkillWithCustomizations = copingSkillsWithCustomizations.get(position);
         final CopingSkill copingSkill = copingSkillWithCustomizations.copingSkill;
+        String text = String.valueOf(percents.get(position)) + "%";
+        ((TextView) result.findViewById(R.id.textView)).setText(text);
+
 
         if (copingSkillWithCustomizations.isDisabled()) {
             result.setAlpha(0.5f);

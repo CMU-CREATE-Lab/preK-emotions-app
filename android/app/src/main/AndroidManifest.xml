@@ -4,33 +4,31 @@
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-permission android:name="android.permission.BLUETOOTH"
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"
         android:maxSdkVersion="30" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_ADMIN"
         android:maxSdkVersion="30" />
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"
         android:maxSdkVersion="30" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"
         android:maxSdkVersion="30" />
-
-    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
         android:usesPermissionFlags="neverForLocation" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
@@ -41,6 +39,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".activities.teacher_section.highlights_design.EditCopingSkillsHighlightIndex"
+            android:screenOrientation="userLandscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+
         <activity
             android:name=".activities.teacher_section.classrooms.ClassroomIndexActivity"
             android:screenOrientation="userLandscape"
@@ -109,7 +112,7 @@
             android:name=".activities.student_section.ChooseClassroomActivity"
             android:exported="true"
             android:screenOrientation="userLandscape"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" >
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -271,4 +274,3 @@
     </application>
 
 </manifest>
-

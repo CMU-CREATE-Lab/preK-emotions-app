@@ -4,34 +4,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clipChildren="false"
     android:clipToPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
     style="@style/GridViewCircleItemStudent">
 
-    <FrameLayout
+
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:clipChildren="false"
-        android:clipToPadding="false">
+        android:text="placeholder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            app:civ_border_width="0dp"
-            app:civ_border_color="@android:color/black" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <com.zigis.segmentedarcview.SegmentedArcView
-            android:id="@+id/arcView"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_gravity="center"
-            app:sav_useCustomSweepAngles="true"
-            app:sav_segmentThickness="10dp"
-            app:sav_segmentSeparationAngle="0"
-            app:sav_startAngle="270" />
 
-    </FrameLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
