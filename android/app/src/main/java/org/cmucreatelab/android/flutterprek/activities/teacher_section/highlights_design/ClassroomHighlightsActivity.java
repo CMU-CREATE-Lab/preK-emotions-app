@@ -170,7 +170,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         super.onResume();
 
         Button buttonPlaceholder = findViewById(R.id.buttonPlaceholder);
-        TextView textView = findViewById(R.id.titleMyClassroom);
+        TextView textView = findViewById(R.id.editMyClassroom);
         textView.setText(classroomName);
 
         runOnUiThread(new Runnable() {
@@ -252,7 +252,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                 .setPositiveButton("OK", (dialog, which) -> {
                     String newText = input.getText().toString();
                     updateName(newText);
-                    TextView myTextView = findViewById(R.id.titleMyClassroom);
+                    TextView myTextView = findViewById(R.id.editMyClassroom);
                     myTextView.setText(newText);
                 })
                 .setNegativeButton("Cancel", null)

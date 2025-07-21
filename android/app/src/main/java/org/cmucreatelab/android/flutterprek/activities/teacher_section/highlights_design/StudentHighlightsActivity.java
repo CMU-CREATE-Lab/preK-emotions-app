@@ -125,8 +125,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             }
         });
 
-        //init delete button
-        findViewById(R.id.deleteStudent).setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener deleteStudentListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(StudentHighlightsActivity.this);
@@ -141,7 +140,11 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
                 builder.setNegativeButton(R.string.alert_option_cancel, null);
                 builder.create().show();
             }
-        });
+        };
+
+        //init delete button
+        findViewById(R.id.trashStudentButton).setOnClickListener(deleteStudentListener);
+        findViewById(R.id.deleteStudent).setOnClickListener(deleteStudentListener);
 
     }
 
