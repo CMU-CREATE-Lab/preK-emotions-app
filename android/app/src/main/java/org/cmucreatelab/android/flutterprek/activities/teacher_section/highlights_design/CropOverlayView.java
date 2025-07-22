@@ -104,6 +104,27 @@ public class CropOverlayView extends View {
         cropRect = new RectF(left, top+30, right, bottom+30); // initial position
 
     }
+
+    public void centerCropRectOnImage() {
+        if (imageView == null || imageView.getDrawable() == null) return;
+
+        RectF imageBounds = getImageBounds();
+        if (imageBounds == null) return;
+
+        float size = Math.min(imageBounds.width(), imageBounds.height()) * 0.6f;
+
+        float left = imageBounds.centerX() - size / 2f;
+        float top = imageBounds.centerY() - size / 2f;
+        float right = left + size;
+        float bottom = top + size;
+
+        cropRect = new RectF(left, top, right, bottom);
+        invalidate();
+
+        if (cropRectChangedListener != null) {
+            cropRectChangedListener.onCropRectChanged(new RectF(cropRect));
+        }
+    }
     private boolean isInsideCropRect(float x, float y) {
         return cropRect.contains(x, y);
     }

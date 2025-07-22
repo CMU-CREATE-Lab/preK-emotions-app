@@ -406,8 +406,12 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
                 intent.putExtra(EXTRA_STUDENT, studentUuid);
                 intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
             }
+
+            boolean fromFile = data.getBooleanExtra("fromFiles", false);
+            intent.putExtra("fromFiles", fromFile);
             intent.putExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI, imageUri);
             intent.putExtra("requestCode", requestCode);
+
             startActivity(intent);
 
         } else {
