@@ -212,6 +212,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         //init edit classroom button
 
         //fill copping skills in most used
+        CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
         AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkillsWithCustomizations().observe(this, new Observer<List<CopingSkillWithCustomizations>>() {
             @Override
             public void onChanged(@Nullable List<CopingSkillWithCustomizations> copingSkillsWithCustomizations) {
@@ -221,21 +222,23 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                 percents.add(20);
                 percents.add(10);
                 percents.add(10);
-                GridView copingSkillsGridView = findViewById(R.id.copingSkillsGridView);
-                copingSkillsGridView.setAdapter(new CopingSkillHighlightWCIndexAdapter(ClassroomHighlightsActivity.this, copingSkillsWithCustomizations,percents));
+                //GridView copingSkillsGridView = findViewById(R.id.copingSkillsGridView);
+                copingSkillsView.setAdapter(new CopingSkillHighlightWCIndexAdapter(ClassroomHighlightsActivity.this, copingSkillsWithCustomizations,percents));
             }
         });
+        copingSkillsView.initSettingsClickListener(this, classroom);
+        copingSkillsView.enableSettingsConfig(true);
 
-        //edit coping skills
-        ImageView editCopingSkills = findViewById(R.id.editCopingSkills);
-        editCopingSkills.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ClassroomHighlightsActivity.this, EditCopingSkillsHighlightIndex.class);
-                intent.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom); // if needed
-                startActivity(intent);
-            }
-        });
+//        //edit coping skills
+//        ImageView editCopingSkills = findViewById(R.id.editCopingSkills);
+//        editCopingSkills.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(ClassroomHighlightsActivity.this, EditCopingSkillsHighlightIndex.class);
+//                intent.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom); // if needed
+//                startActivity(intent);
+//            }
+//        });
         setMonthNames();
         setRings();
 

@@ -244,6 +244,8 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     }
 
     private void initMostUsedGrid(){
+        CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
+
         AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkillsWithCustomizations().observe(this, new Observer<List<CopingSkillWithCustomizations>>() {
             @Override
             public void onChanged(@Nullable List<CopingSkillWithCustomizations> copingSkillsWithCustomizations) {
@@ -252,8 +254,8 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
                 percents.add(20);
                 percents.add(10);
                 percents.add(10);
-                GridView copingSkillsGridView = findViewById(R.id.copingSkillsGridView);
-                copingSkillsGridView.setAdapter(new CopingSkillHighlightWCIndexAdapter(StudentHighlightsActivity.this, copingSkillsWithCustomizations,percents));
+
+                copingSkillsView.setAdapter(new CopingSkillHighlightWCIndexAdapter(StudentHighlightsActivity.this, copingSkillsWithCustomizations,percents));
             }
         });
     }
