@@ -262,11 +262,11 @@
         <activity
             android:name=".activities.teacher_section.highlights_design.ClassroomHighlightsActivity"
             android:screenOrientation="userLandscape"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+            android:theme="@style/Theme.MyApp.Material" />
         <activity
             android:name=".activities.teacher_section.highlights_design.StudentHighlightsActivity"
             android:screenOrientation="userLandscape"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+            android:theme="@style/Theme.MyApp.Material" />
         <activity
             android:name=".activities.teacher_section.highlights_design.UploadPhotoActivity"
             android:screenOrientation="userLandscape"

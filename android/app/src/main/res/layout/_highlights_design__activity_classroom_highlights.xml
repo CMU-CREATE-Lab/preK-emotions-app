@@ -165,6 +165,7 @@
                     android:padding="10dp"
                     >
 
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -231,8 +232,16 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             />
+                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.PillToggleGroup
+                            android:id="@+id/classroomToggle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="0dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
 
                         <ImageView
+                            android:id="@+id/classroomInfo"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:src="@drawable/ic_mindfulnest_header_info"
@@ -261,6 +270,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="50dp"/>
 
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -277,6 +287,7 @@
                             android:layout_marginBottom="15dp"
                             />
                         <ImageView
+                            android:id="@+id/monthlyOverviewInfo"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:src="@drawable/ic_mindfulnest_header_info"
@@ -284,6 +295,15 @@
                             app:layout_constraintBottom_toBottomOf="@id/titleMonthlyOverview"
                             app:layout_constraintStart_toEndOf="@id/titleMonthlyOverview"
                             />
+
+                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.PillToggleGroup
+                            android:id="@+id/copingSkillsToggle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="0dp"
+                            android:layout_marginTop="12dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
                        <LinearLayout
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
@@ -353,8 +373,8 @@
                             android:id="@+id/deleteClassroom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Delete Student"
-                            android:background="@android:color/holo_red_dark"
+                            android:text="Delete Classroom"
+                            android:backgroundTint="@android:color/holo_red_dark"
                             app:layout_constraintStart_toEndOf="@id/trashClassroomButton"
                             />
 

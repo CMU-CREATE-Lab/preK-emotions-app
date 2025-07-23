@@ -1,5 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
@@ -64,6 +66,23 @@ public class CopingSkillsHighlightGridView extends ConstraintLayout {
                 context.startActivity(intent);
             }
         });
+    }
+
+    public void initInfoListener(Context context){
+        ImageView info = findViewById(R.id.copingSkillsInfo);
+        info.setOnClickListener(v -> showInfoDialog(
+                context,
+                "What is This?",
+                "This section explains emotional regulation techniques.")
+        );
+    }
+
+    public void showInfoDialog(Context context, String title, String message) {
+        new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("OK", null)
+                .show();
     }
 
     public void setTitle(String title) {

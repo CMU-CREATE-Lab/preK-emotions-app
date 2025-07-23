@@ -22,12 +22,21 @@
         android:layout_height="30dp"
         android:src="@drawable/ic_gear"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="12dp"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@id/copingSkillsToggle"/>
+    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.PillToggleGroup
+        android:id="@+id/copingSkillsToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
+        android:id="@+id/copingSkillsInfo"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/ic_mindfulnest_header_info"

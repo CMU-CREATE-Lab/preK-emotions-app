@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.button.MaterialButtonToggleGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toggleGroup"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cornerRadius="300dp"
+    app:singleSelection="true"
+    app:selectionRequired="true">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_day"
+        style="@style/SmallToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Day"
+        app:cornerRadius="15dp"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_week"
+        style="@style/SmallToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Week"
+        app:cornerRadius="0dp"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_month"
+        style="@style/SmallToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Month"
+        app:cornerRadius="0dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_year"
+        style="@style/SmallToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Year"
+        app:cornerRadius="15dp"/>
+
+</com.google.android.material.button.MaterialButtonToggleGroup>

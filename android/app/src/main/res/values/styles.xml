@@ -20,7 +20,13 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-
+<!--    theme for material design components-->
+    <style name="Theme.MyApp.Material" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
     <!-- custom text appearance (see calls to TextView.setTextAppearance) -->
     <style name="textBold">
         <item name="android:textStyle">bold</item>
@@ -297,6 +303,13 @@
         <item name="android:textColor">@color/colorGray</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SmallToggleButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
     </style>
 
 </resources>

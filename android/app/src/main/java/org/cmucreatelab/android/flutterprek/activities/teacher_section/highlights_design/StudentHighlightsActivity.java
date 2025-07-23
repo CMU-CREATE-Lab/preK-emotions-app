@@ -245,6 +245,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
 
     private void initMostUsedGrid(){
         CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
+        copingSkillsView.initInfoListener(this);
 
         AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkillsWithCustomizations().observe(this, new Observer<List<CopingSkillWithCustomizations>>() {
             @Override
@@ -299,7 +300,6 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
 
 
             if(getIntent().getStringExtra(UploadPhotoActivity.STUDENT_UUID) !=null){
-            Log.v("penguin", "studentUuid");
 
             this.studentUuid = getIntent().getStringExtra(UploadPhotoActivity.STUDENT_UUID);
             this.classroomName = getIntent().getStringExtra(UploadPhotoActivity.EXTRA_CLASSROOM_NAME);

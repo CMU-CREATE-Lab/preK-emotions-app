@@ -1,5 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -228,6 +229,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         });
         copingSkillsView.initSettingsClickListener(this, classroom);
         copingSkillsView.enableSettingsConfig(true);
+        copingSkillsView.initInfoListener(this);
 
 //        //edit coping skills
 //        ImageView editCopingSkills = findViewById(R.id.editCopingSkills);
@@ -239,9 +241,46 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 //                startActivity(intent);
 //            }
 //        });
+
+        initInfoButtonListeners();
+        delteClassListeners();
         setMonthNames();
         setRings();
 
+    }
+
+    private void delteClassListeners(){
+        findViewById(R.id.deleteClassroom).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayClassroomDeleteDialog();
+            }
+        });
+        findViewById(R.id.trashClassroomButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayClassroomDeleteDialog();
+            }
+        });
+
+    }
+    private void initInfoButtonListeners() {
+        String title = "What is This?";
+        String message = "This section explains emotional regulation techniques.";
+
+        ImageView infoClassroom = findViewById(R.id.classroomInfo);
+        ImageView montlyOverViewInfo = findViewById(R.id.monthlyOverviewInfo);
+
+        infoClassroom.setOnClickListener(v -> showInfoDialog(title, message));
+        montlyOverViewInfo.setOnClickListener(v -> showInfoDialog(title, message));
+
+    }
+    public void showInfoDialog(String title, String message) {
+        new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("OK", null)
+                .show();
     }
 
     private void showEditClassNamePopup(){
@@ -276,6 +315,38 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                 }
             }
         }).execute();
+    }
+
+    private void displayClassroomDeleteDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View view = getLayoutInflater().inflate(R.layout.dialog_classroom_name, null);
+        builder.setView(view)
+                .setTitle(R.string.alert_title_delete_classroom)
+                .setMessage(String.format(getString(R.string.alert_message_delete_classroom), classroom.getName()))
+                .setPositiveButton(R.string.alert_option_delete, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        String classroomName = ((EditText) view.findViewById(R.id.editTextClassroomName)).getText().toString();
+                        Log.d(Constants.LOG_TAG, String.format("dialog_classroom_name onClick positive; name='%s'", classroomName));
+
+                        // confirm deletion by checking input with class name
+                        if (classroom.getName().equals(classroomName)) {
+                            new UpdateClassroomModelAsyncTask(AppDatabase.getInstance(ClassroomHighlightsActivity.this), UpdateClassroomModelAsyncTask.ActionType.DELETE, classroom, new UpdateClassroomModelAsyncTask.PostExecute() {
+                                @Override
+                                public void onPostExecute(Boolean modelSaved, Classroom classroom) {
+                                    // deleting classroom triggers return to index
+                                    Intent intent = new Intent(ClassroomHighlightsActivity.this, ClassroomIndexActivity.class);
+                                    startActivity(intent);
+                                }
+                            }).execute();
+                        } else {
+                            Toast.makeText(ClassroomHighlightsActivity.this, R.string.toast_delete_classroom_message, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.alert_option_cancel, null);
+        builder.create().show();
     }
 
     private final StudentHighlightWithCustomizationsIndexAdapter.ClickListener listener = new StudentHighlightWithCustomizationsIndexAdapter.ClickListener() {
@@ -328,22 +399,13 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         super.onCreate(savedInstanceState);
         setUpDrawer();
 
-        // TODO Classroom from Intent?
         this.classroom = (Classroom) getIntent().getSerializableExtra(EXTRA_CLASSROOM);
 
         this.classroomUuid = getClassroom().getUuid();
         this.classroomName = getClassroom().getName();
 
 
-        // TODO STUDENTS adapter
-        //...
-//        AppDatabase.getInstance(this).classroomDAO().getAllClassrooms().observe(this, new Observer<List<Classroom>>() {
-//            @Override
-//            public void onChanged(@Nullable List<Classroom> classrooms) {
-//                GridView classroomsGridView = findViewById(R.id.classroomsGridView);
-//                classroomsGridView.setAdapter(new ClassroomIndexAdapter(ClassroomHighlightsActivity.this, classrooms, ClassroomHighlightsActivity.this));
-//            }
-//        });
+
 
         // TODO delete later (demo count of coping skills with emotions)
         textViewDemo();
