@@ -10,7 +10,7 @@ import android.widget.TextView;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.ClassroomWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.ClassroomWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;

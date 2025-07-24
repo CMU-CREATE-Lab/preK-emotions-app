@@ -1,17 +1,14 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design;
 
-import static androidx.camera.core.impl.utils.ContextUtil.getApplicationContext;
-
 import android.content.Context;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.StudentWithSessionsAndSessionCopingSkills;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.StudentWithSessionsAndSessionCopingSkills;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 

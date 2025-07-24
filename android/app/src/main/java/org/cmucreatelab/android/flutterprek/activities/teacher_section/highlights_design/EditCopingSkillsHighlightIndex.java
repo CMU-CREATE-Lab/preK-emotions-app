@@ -6,26 +6,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherClassroomFragment;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSkillIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.coping_skills.CopingSkillEditActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.CopingSkillWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.CopingSkillWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 
 import java.util.List;

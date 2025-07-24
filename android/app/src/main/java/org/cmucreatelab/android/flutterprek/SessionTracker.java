@@ -10,9 +10,8 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.check_in.
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionAndTalkAboutItActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.coping_skills.post_coping_skills.post_coping_skill_rejoin_friends.RejoinFriendsActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;

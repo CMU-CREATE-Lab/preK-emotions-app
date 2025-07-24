@@ -18,27 +18,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
-import com.zigis.segmentedarcview.SegmentedArcView;
-import com.zigis.segmentedarcview.custom.ArcSegment;
-
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillHighlightWCIndexAdapter;
-import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillWithCustomizationsIndexAdapter;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.CopingSkillIndexActivity;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomShowStudentsActivity;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.UpdateClassroomModelAsyncTask;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentAddActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.UpdateStudentModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.CopingSkillWithCustomizations;
-import org.cmucreatelab.android.flutterprek.database.models.StudentWithSessionsAndSessionCopingSkills;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.CopingSkillWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.StudentWithSessionsAndSessionCopingSkills;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -46,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlightWithCustomizationsIndexAdapter;
-import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.StudentWithCustomizations;
 
 public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHeaderAndDrawer {
 

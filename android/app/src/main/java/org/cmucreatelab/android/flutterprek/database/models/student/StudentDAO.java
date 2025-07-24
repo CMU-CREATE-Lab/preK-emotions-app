@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.StudentWithCustomizations;
 
 import java.util.List;
 

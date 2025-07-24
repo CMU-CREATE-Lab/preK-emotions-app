@@ -17,7 +17,7 @@ import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.CopingSkillWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.CopingSkillWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.coping_skill.CopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;

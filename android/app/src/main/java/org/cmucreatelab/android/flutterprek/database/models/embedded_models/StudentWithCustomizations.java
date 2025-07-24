@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.database.models;
+package org.cmucreatelab.android.flutterprek.database.models.embedded_models;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;
@@ -15,6 +15,12 @@ public class StudentWithCustomizations {
 
     @Relation(parentColumn = "uuid", entityColumn = "owner_uuid", entity = Customization.class)
     public List<Customization> customizations;
+
+
+    public StudentWithCustomizations(Student student, List<Customization> customizations) {
+        this.student = student;
+        this.customizations = customizations;
+    }
 
 
     public boolean disableAudio() {

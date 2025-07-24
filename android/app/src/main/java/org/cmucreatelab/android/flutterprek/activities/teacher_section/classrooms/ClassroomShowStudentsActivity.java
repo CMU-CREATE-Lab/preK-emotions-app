@@ -16,7 +16,7 @@ import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherCl
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentAddActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;

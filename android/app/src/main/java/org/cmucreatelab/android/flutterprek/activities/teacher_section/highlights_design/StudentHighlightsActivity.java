@@ -21,24 +21,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zigis.segmentedarcview.SegmentedArcView;
-import com.zigis.segmentedarcview.custom.ArcSegment;
-
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillHighlightWCIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionHighlightAdapter;
-import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionIndexAdapter;
-import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionAbstractActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.DisplayEmotionActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentUpdateAbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.UpdateStudentModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.CopingSkillWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.CopingSkillWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
@@ -46,7 +38,6 @@ import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 import org.cmucreatelab.android.mylibrary.CameraActivity;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

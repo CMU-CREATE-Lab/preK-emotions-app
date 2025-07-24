@@ -6,15 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseClassroomActivity;
-import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseStudentActivity;
 import org.cmucreatelab.android.flutterprek.ble.flower.BleFlower;
 import org.cmucreatelab.android.flutterprek.ble.DeviceConnectionHandler;
 import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
 import org.cmucreatelab.android.flutterprek.ble.wand.BleWand;
-import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
-import org.cmucreatelab.android.flutterprek.database.models.student.Student;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.ble.squeeze.BleSqueeze;
 
 /**

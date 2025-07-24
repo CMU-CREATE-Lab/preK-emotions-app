@@ -26,12 +26,10 @@ import org.cmucreatelab.android.flutterprek.activities.DebugCorner;
 import org.cmucreatelab.android.flutterprek.activities.adapters.ClassroomWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.LoginActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.ClassroomWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.ClassroomWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 import java.util.List;
-
-import static androidx.core.content.PermissionChecker.PERMISSION_GRANTED;
 
 public class ChooseClassroomActivity extends StudentSectionActivityWithHeader {
 

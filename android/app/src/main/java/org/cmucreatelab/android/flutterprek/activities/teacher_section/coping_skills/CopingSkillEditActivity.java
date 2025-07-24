@@ -1,6 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.coping_skills;
 
-import static org.cmucreatelab.android.flutterprek.database.models.CopingSkillWithCustomizations.CUSTOMIZATION_IS_DISABLED;
+import static org.cmucreatelab.android.flutterprek.database.models.embedded_models.CopingSkillWithCustomizations.CUSTOMIZATION_IS_DISABLED;
 
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -20,7 +20,7 @@ import org.cmucreatelab.android.flutterprek.activities.fragments.ModelUpdateHead
 import org.cmucreatelab.android.flutterprek.activities.fragments.OptionCheckItemSoundFragment;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.DbHelperWandMusicSongs;
-import org.cmucreatelab.android.flutterprek.database.models.CopingSkillWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.CopingSkillWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
 
 import java.util.ArrayList;

@@ -16,7 +16,7 @@ import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherCl
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.coping_skills.CopingSkillEditActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.CopingSkillWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.CopingSkillWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 
 import java.util.List;

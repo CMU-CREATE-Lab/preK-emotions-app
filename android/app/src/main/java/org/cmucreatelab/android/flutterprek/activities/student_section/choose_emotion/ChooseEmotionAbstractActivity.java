@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +16,16 @@ import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.student_section.StudentSectionActivityWithTimeout;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.StudentWithCustomizationsAndEmotions;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivityWithTimeout {
 
@@ -60,6 +65,56 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
     }
 
 
+    private void demoStudentEmotionImages(String studentUuid) {
+        // NOTE: an example row for use in the DB Seed file under "customizations" table:
+        // { "uuid": "custom_emotion1", "basedOnUuid": "emotion1", "key": "imageFileUuid", "value": "ic_yoga", "ownerUuid": "student1" }
+        getLiveDataForStudentEmotionImages(studentUuid).observe(this, new Observer<StudentWithCustomizationsAndEmotions>() {
+            @Override
+            public void onChanged(StudentWithCustomizationsAndEmotions studentWithCustomizationsAndEmotions) {
+                Log.v(Constants.LOG_TAG, String.format("Room DB getStudentWithEmotionsAndCustomImageFiles() returned with result studentUuid=%s", studentUuid));
+                if (studentWithCustomizationsAndEmotions != null) {
+                    Student student = studentWithCustomizationsAndEmotions.student.student;
+                    List<Customization> customizations = studentWithCustomizationsAndEmotions.student.customizations;
+                    List<Emotion> emotions = studentWithCustomizationsAndEmotions.emotions;
+                    Log.v(Constants.LOG_TAG, String.format("Student.name=%s, customizations=%d, emotions=%d", student.getName(), customizations.size(), emotions.size()));
+                } else {
+                    Log.v(Constants.LOG_TAG, "(null result)");
+                }
+            }
+        });
+    }
+
+    private final Executor executor = Executors.newSingleThreadExecutor();
+    private LiveData<StudentWithCustomizationsAndEmotions> getLiveDataForStudentEmotionImages(String studentUuid) {
+        MutableLiveData<StudentWithCustomizationsAndEmotions> liveData = new MutableLiveData<>();
+        executor.execute(() -> {
+            StudentWithCustomizationsAndEmotions studentWithCustomizationsAndEmotions = AppDatabase.getInstance(this).embeddedDAO().getStudentWithEmotionsAndCustomImageFiles(studentUuid);
+            liveData.postValue(studentWithCustomizationsAndEmotions);
+        });
+        return liveData;
+    }
+
+
+    private void demoStudentEmotionImagesOLD(String studentUuid) {
+        Log.v(Constants.LOG_TAG, "demoStudentEmotionImages() called, querying Room DB...");
+        // TODO this looks different because I wanted to test a non-LiveData call in UI
+        new Thread(() -> {
+            StudentWithCustomizationsAndEmotions studentWithCustomizationsAndEmotions = AppDatabase.getInstance(this).intermediateTablesDAO().getStudentWithEmotionsAndCustomImageFiles(studentUuid);
+            runOnUiThread(() -> {
+                Log.v(Constants.LOG_TAG, String.format("Room DB getStudentWithEmotionsAndCustomImageFiles() returned with result studentUuid=%s", studentUuid));
+                if (studentWithCustomizationsAndEmotions != null) {
+                    Student student = studentWithCustomizationsAndEmotions.student.student;
+                    List<Customization> customizations = studentWithCustomizationsAndEmotions.student.customizations;
+                    List<Emotion> emotions = studentWithCustomizationsAndEmotions.emotions;
+                    Log.v(Constants.LOG_TAG, String.format("Student.name=%s, customizations=%d, emotions=%d", student.getName(), customizations.size(), emotions.size()));
+                } else {
+                    Log.v(Constants.LOG_TAG, "(null result)");
+                }
+            });
+        }).start();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +139,7 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
             globalHandler.endCurrentSession(this);
         } else {
             Student student = globalHandler.getSessionTracker().getStudent();
+            demoStudentEmotionImages(student.getUuid());
 
             LiveData<List<Emotion>> liveData = getLiveDataFromQuery(student.getClassroomUuid(), student.getUuid());
             liveData.observe(this, new Observer<List<Emotion>>() {

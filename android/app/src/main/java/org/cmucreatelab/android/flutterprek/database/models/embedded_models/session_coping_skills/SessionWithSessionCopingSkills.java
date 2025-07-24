@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.database.models;
+package org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;

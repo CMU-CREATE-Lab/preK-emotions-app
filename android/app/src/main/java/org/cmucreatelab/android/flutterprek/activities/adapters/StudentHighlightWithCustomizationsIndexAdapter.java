@@ -6,7 +6,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,18 +15,14 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.zigis.segmentedarcview.SegmentedArcView;
-import com.zigis.segmentedarcview.custom.ArcSegment;
-
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ArcViewOverlay;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

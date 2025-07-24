@@ -13,12 +13,11 @@ import android.widget.ImageView;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.adapters.StudentIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.DebugCorner;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.LoginActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.StudentWithCustomizations;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;

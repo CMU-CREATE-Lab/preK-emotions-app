@@ -35,6 +35,7 @@ public class Customization implements Serializable {
     private String basedOnUuid;
 
     @NonNull
+    // NOTE: you can escape this in SQL statements using backticks (e.g. "...WHERE `key` = 'keyname'")
     private String key;
 
     @NonNull
