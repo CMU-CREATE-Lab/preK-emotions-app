@@ -54,6 +54,10 @@ public abstract class EmbeddedDAO {
         return new StudentWithCustomizationsAndEmotions(student, emotions);
     }
 
+
+    @Query("SELECT a.uuid AS uuid, a.owner_uuid AS ownerUuid, a.name AS name, COALESCE(b.value, a.image_file_uuid) AS resolvedImageFileUuid FROM emotions a LEFT JOIN customizations b ON b.owner_uuid = :studentUuid AND b.based_on_uuid = a.uuid AND b.`key` = 'imageFileUuid'")
+    public abstract LiveData<List<ResolvedEmotionWithImageFile>> getResolvedEmotionsForStudent(String studentUuid);
+
 }
 
 

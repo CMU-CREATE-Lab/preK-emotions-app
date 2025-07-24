@@ -11,14 +11,41 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.cmucreatelab.android.flutterprek.Constants.LOG_TAG;
 
 import org.cmucreatelab.android.flutterprek.database.DateConverter;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.ResolvedEmotionWithImageFile;
+import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 
 public class Util {
+
+    public static class EmotionMapper {
+
+        public static List<Emotion> fromResolvedList(List<ResolvedEmotionWithImageFile> resolvedList) {
+            List<Emotion> result = new ArrayList<>();
+
+            for (ResolvedEmotionWithImageFile item : resolvedList) {
+                //Emotion emotion = new Emotion();
+                //emotion.uuid = item.uuid;
+                //emotion.ownerUuid = item.ownerUuid;
+                //emotion.name = item.name;
+                //emotion.imageFileUuid = item.resolvedImageFileUuid;
+                Emotion emotion = new Emotion(item.uuid, item.name);
+                emotion.setOwnerUuid(item.ownerUuid);
+                emotion.setImageFileUuid(item.resolvedImageFileUuid);
+
+                result.add(emotion);
+            }
+
+            return result;
+        }
+    }
+
 
 
     private static void setImageViewWithAsset(Context appContext, ImageView imageView, String assetPath) {

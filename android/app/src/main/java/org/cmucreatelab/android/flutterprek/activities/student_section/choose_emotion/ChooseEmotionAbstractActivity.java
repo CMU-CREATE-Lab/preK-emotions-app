@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
@@ -13,10 +12,12 @@ import android.widget.GridView;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.student_section.StudentSectionActivityWithTimeout;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.ResolvedEmotionWithImageFile;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.StudentWithCustomizationsAndEmotions;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
@@ -65,9 +66,7 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
     }
 
 
-    private void demoStudentEmotionImages(String studentUuid) {
-        // NOTE: an example row for use in the DB Seed file under "customizations" table:
-        // { "uuid": "custom_emotion1", "basedOnUuid": "emotion1", "key": "imageFileUuid", "value": "ic_yoga", "ownerUuid": "student1" }
+    private void demoStudentWithCustomizationsAndEmotions(String studentUuid) {
         getLiveDataForStudentEmotionImages(studentUuid).observe(this, new Observer<StudentWithCustomizationsAndEmotions>() {
             @Override
             public void onChanged(StudentWithCustomizationsAndEmotions studentWithCustomizationsAndEmotions) {
@@ -77,6 +76,16 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
                     List<Customization> customizations = studentWithCustomizationsAndEmotions.student.customizations;
                     List<Emotion> emotions = studentWithCustomizationsAndEmotions.emotions;
                     Log.v(Constants.LOG_TAG, String.format("Student.name=%s, customizations=%d, emotions=%d", student.getName(), customizations.size(), emotions.size()));
+
+//                    AppDatabase.getInstance(getApplicationContext()).embeddedDAO().getResolvedEmotionsForStudent(studentUuid).observe(ChooseEmotionAbstractActivity.this, new Observer<List<ResolvedEmotionWithImageFile>>() {
+//                        @Override
+//                        public void onChanged(List<ResolvedEmotionWithImageFile> resolvedEmotionWithImageFiles) {
+//                            Log.v(Constants.LOG_TAG, String.format("Room DB getResolvedEmotionsForStudent() returned with list results size = %d", resolvedEmotionWithImageFiles.size()));
+//                            final List<Emotion> emotionList = Util.EmotionMapper.fromResolvedList(resolvedEmotionWithImageFiles);
+//                            GridView emotionsGridView = findViewById(R.id.emotionsGridView);
+//                            emotionsGridView.setAdapter(new EmotionIndexAdapter(ChooseEmotionAbstractActivity.this, emotionList, listener));
+//                        }
+//                    });
                 } else {
                     Log.v(Constants.LOG_TAG, "(null result)");
                 }
@@ -139,16 +148,32 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
             globalHandler.endCurrentSession(this);
         } else {
             Student student = globalHandler.getSessionTracker().getStudent();
-            demoStudentEmotionImages(student.getUuid());
-
-            LiveData<List<Emotion>> liveData = getLiveDataFromQuery(student.getClassroomUuid(), student.getUuid());
-            liveData.observe(this, new Observer<List<Emotion>>() {
+//
+//            LiveData<List<Emotion>> liveData = getLiveDataFromQuery(student.getClassroomUuid(), student.getUuid());
+//            liveData.observe(this, new Observer<List<Emotion>>() {
+//                @Override
+//                public void onChanged(@Nullable List<Emotion> emotions) {
+//                    GridView emotionsGridView = findViewById(R.id.emotionsGridView);
+//                    emotionsGridView.setAdapter(new EmotionIndexAdapter(ChooseEmotionAbstractActivity.this, emotions, listener));
+//                }
+//            });
+            //
+            // NOTE: an example row for use in the DB Seed file under "customizations" table:
+            // { "uuid": "custom_emotion1", "basedOnUuid": "emotion1", "key": "imageFileUuid", "value": "ic_yoga", "ownerUuid": "student1" }
+            //
+            // TODO consider emotions with classroom/student ownership
+            AppDatabase.getInstance(getApplicationContext()).embeddedDAO().getResolvedEmotionsForStudent(student.getUuid()).observe(ChooseEmotionAbstractActivity.this, new Observer<List<ResolvedEmotionWithImageFile>>() {
                 @Override
-                public void onChanged(@Nullable List<Emotion> emotions) {
+                public void onChanged(List<ResolvedEmotionWithImageFile> resolvedEmotionWithImageFiles) {
+                    // replaces adapter code from above
+                    Log.v(Constants.LOG_TAG, String.format("Room DB getResolvedEmotionsForStudent() returned with list results size = %d", resolvedEmotionWithImageFiles.size()));
+                    final List<Emotion> emotionList = Util.EmotionMapper.fromResolvedList(resolvedEmotionWithImageFiles);
                     GridView emotionsGridView = findViewById(R.id.emotionsGridView);
-                    emotionsGridView.setAdapter(new EmotionIndexAdapter(ChooseEmotionAbstractActivity.this, emotions, listener));
+                    emotionsGridView.setAdapter(new EmotionIndexAdapter(ChooseEmotionAbstractActivity.this, emotionList, listener));
                 }
             });
+            // demo query that fetches Customization objects
+            demoStudentWithCustomizationsAndEmotions(student.getUuid());
         }
     }
 
