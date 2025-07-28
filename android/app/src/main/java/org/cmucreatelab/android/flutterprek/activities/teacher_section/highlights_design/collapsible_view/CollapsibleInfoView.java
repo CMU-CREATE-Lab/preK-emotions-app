@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design;
+package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -128,12 +128,14 @@ public class CollapsibleInfoView extends ConstraintLayout implements View.OnClic
 
     public CollapsibleInfoView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        LayoutInflater.from(context).inflate(R.layout._highlights_design__view_collapsible_info, this);
+        LayoutInflater.from(context).inflate(getResourceIdForLayout(), this);
         // NOTE: the layout should be collapsed by default (View.GONE)
         this.isCollapsed = true;
         this.collapsibleLayout = findViewById(R.id.collapsibleLayout);
         collapsibleLayout.setVisibility(View.GONE);
         // TODO should collapsibleLayout have OnClickListener as well?
+        //TextView textViewCollapsible = findViewById(R.id.textViewCollapsible);
+        //textViewCollapsible.setText(R.string.highlights_design_info_description_placeholder);
     }
 
 
@@ -147,6 +149,12 @@ public class CollapsibleInfoView extends ConstraintLayout implements View.OnClic
                 Expand.withScaleY(collapsibleLayout);
             }
         }
+    }
+
+
+    // NOTE: make sure 'collapsibleLayout' is defined in the XML
+    public int getResourceIdForLayout() {
+        return R.layout._highlights_design__view_collapsible_info;
     }
 
 

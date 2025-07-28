@@ -22,6 +22,8 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillHighlightWCIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.UpdateClassroomModelAsyncTask;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.ClassroomInfoCollapsibleView;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.MonthlyOverviewInfoCollapsibleView;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.UpdateStudentModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -398,11 +400,11 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         this.classroomName = getClassroom().getName();
 
         ImageView classroomInfoImageView = findViewById(R.id.classroomInfoImageView);
-        CollapsibleInfoView classroomInfoCollapsibleView = findViewById(R.id.classroomInfoCollapsibleView);
+        ClassroomInfoCollapsibleView classroomInfoCollapsibleView = findViewById(R.id.classroomInfoCollapsibleView);
         classroomInfoImageView.setOnClickListener(classroomInfoCollapsibleView);
 
         ImageView monthlyOverviewInfoImageView = findViewById(R.id.monthlyOverviewInfoImageView);
-        CollapsibleInfoView monthlyOverviewInfoCollapsibleView = findViewById(R.id.monthlyOverviewInfoCollapsibleView);
+        MonthlyOverviewInfoCollapsibleView monthlyOverviewInfoCollapsibleView = findViewById(R.id.monthlyOverviewInfoCollapsibleView);
         monthlyOverviewInfoImageView.setOnClickListener(monthlyOverviewInfoCollapsibleView);
 
         // TODO other initializers should be here (e.g. CopingSkillsHighlightGridView)

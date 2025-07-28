@@ -44,7 +44,7 @@
         app:layout_constraintBottom_toBottomOf="@id/titleMostUsed"
         app:layout_constraintStart_toEndOf="@id/titleMostUsed" />
 
-    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CollapsibleInfoView
+    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.CopingSkillsInfoCollapsibleView
         android:id="@+id/copingSkillsInfoCollapsibleView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

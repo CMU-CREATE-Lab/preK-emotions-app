@@ -36,7 +36,7 @@ public class DrawerTeacherMainFragment extends AbstractFragment {
         switch (section) {
             case ACTIVE_CLASS:
                 highlightView = getView().findViewById(R.id.highlightViewActiveClass);
-                textView = getView().findViewById(R.id.textViewActiveClass);
+                textView = getView().findViewById(R.id.textViewCollapsible);
                 break;
             case CLASSES:
                 highlightView = getView().findViewById(R.id.highlightViewClasses);

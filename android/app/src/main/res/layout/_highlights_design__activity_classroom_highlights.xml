@@ -251,7 +251,7 @@
                             app:layout_constraintStart_toEndOf="@id/titleMyClassroom"
                             />
 
-                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CollapsibleInfoView
+                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.ClassroomInfoCollapsibleView
                             android:id="@+id/classroomInfoCollapsibleView"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -315,7 +315,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"/>
 
-                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CollapsibleInfoView
+                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.MonthlyOverviewInfoCollapsibleView
                             android:id="@+id/monthlyOverviewInfoCollapsibleView"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"

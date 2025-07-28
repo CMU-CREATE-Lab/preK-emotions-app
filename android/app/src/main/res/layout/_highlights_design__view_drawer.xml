@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewActiveClass"
+            android:id="@+id/textViewCollapsible"
             style="@style/DrawerTeacherSectionText"
             android:text="@string/mindfulnest_header_active_class"
             android:textStyle="bold"

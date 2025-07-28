@@ -1,6 +1,5 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,11 +12,12 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.CollapsibleInfoView;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.CopingSkillsInfoCollapsibleView;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 public class CopingSkillsHighlightGridView extends ConstraintLayout {
@@ -76,7 +76,7 @@ public class CopingSkillsHighlightGridView extends ConstraintLayout {
 //                "This section explains emotional regulation techniques.")
 //        );
         ImageView copingSkillsInfoImageView = findViewById(R.id.copingSkillsInfoImageView);
-        CollapsibleInfoView copingSkillsInfoCollapsibleView = findViewById(R.id.copingSkillsInfoCollapsibleView);
+        CopingSkillsInfoCollapsibleView copingSkillsInfoCollapsibleView = findViewById(R.id.copingSkillsInfoCollapsibleView);
         copingSkillsInfoImageView.setOnClickListener(copingSkillsInfoCollapsibleView);
     }
 

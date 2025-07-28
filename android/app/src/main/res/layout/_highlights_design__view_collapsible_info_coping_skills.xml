@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/collapsibleLayout"
-    android:background="#aa93C7"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -27,7 +26,7 @@
         <TextView
             android:id="@+id/textViewCollapsible"
             style="@style/TeacherSectionHighlightsSectionInfoText"
-            android:text="@string/highlights_design_info_description_placeholder"
+            android:text="@string/highlights_design_info_description_coping_skills"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/highlightViewActiveClass"
             app:layout_constraintTop_toTopOf="parent" />
