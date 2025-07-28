@@ -1,5 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design;
 
+import static org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CalculateHighlightInfo.setArc;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,6 +33,7 @@ import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillHighlightWCIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionHighlightAdapter;
 import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionIndexAdapter;
+import org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlightWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionAbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.DisplayEmotionActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
@@ -49,7 +52,10 @@ import org.cmucreatelab.android.mylibrary.CameraActivity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeaderAndDrawer {
 
@@ -66,6 +72,9 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     private String classroomName;
     private String studentUuid;
     private Student student;
+    private CalculateHighlightInfo.OverviewDateRange dateRange = CalculateHighlightInfo.OverviewDateRange.WEEK;
+    private CalculateHighlightInfo.OverviewDateRange currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.WEEK;
+
 
     private final EmotionHighlightAdapter.ClickListener emotionsListener = new EmotionHighlightAdapter.ClickListener() {
         @Override
@@ -150,6 +159,8 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
 
     private void initStudentPic(){
         ImageView profilePicture = findViewById(R.id.profilePicture);
+        initStudentPillGroup();
+        setStudentArc();
 
         if (student.getPictureFileUuid() != null) {
             final Context appContext = getApplicationContext();
@@ -174,9 +185,6 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             }
         });
 
-
-        //setRings();
-        setArc();
         profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,6 +200,53 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
                 launchProfiePictureActivity();
             }
         });
+    }
+
+    private void setStudentArc(){
+        ArcViewOverlay arcView = findViewById(R.id.arcViewOverlay);
+
+        //get arc info
+        CalculateHighlightInfo calculateHighlightInfo = new CalculateHighlightInfo(null, getApplicationContext(), StudentHighlightsActivity.this);
+        calculateHighlightInfo.studentOverview(student,dateRange, new StudentHighlightWithCustomizationsIndexAdapter.HighlightCalculationCallback() {
+            @Override
+            public void onHighlightsCalculated() {
+                Map<String, Integer> emotionCounts = calculateHighlightInfo.getStudentEmotionCounts();
+                setArc(emotionCounts, arcView,20f, false);
+
+            }
+
+        });
+    }
+
+    private void initStudentPillGroup(){
+        PillToggleGroup studentPillGroup = findViewById(R.id.studentPillToggle);
+        studentPillGroup.check(R.id.btn_week);
+        studentPillGroup.setOnCheckedChanged(new PillToggleGroup.OnCheckedChangedListener() {
+            @Override
+            public void onCheckedChanged(int checkedId) {
+                // Set student grid view adapter
+                switch (checkedId) {
+                    case R.id.btn_day:
+                        dateRange= CalculateHighlightInfo.OverviewDateRange.DAY;
+                        break;
+                    case R.id.btn_week:
+                        dateRange = CalculateHighlightInfo.OverviewDateRange.WEEK;
+                        break;
+                    case R.id.btn_month:
+                        dateRange = CalculateHighlightInfo.OverviewDateRange.MONTH;
+                        break;
+                    case R.id.btn_year:
+                        dateRange = CalculateHighlightInfo.OverviewDateRange.YEAR;
+                        break;
+                }
+//
+                if (dateRange == null) {
+                    dateRange = CalculateHighlightInfo.OverviewDateRange.WEEK;
+                }
+                setStudentArc();
+            }
+        });
+
     }
 
     private void launchProfiePictureActivity(){
@@ -244,47 +299,69 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     }
 
     private void initMostUsedGrid(){
+        updateCopingSkillsView();
+
         CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
-        copingSkillsView.initInfoListener(this);
-
-        AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkillsWithCustomizations().observe(this, new Observer<List<CopingSkillWithCustomizations>>() {
+        copingSkillsView.setOnToggleCheckedChanged(new PillToggleGroup.OnCheckedChangedListener() {
             @Override
-            public void onChanged(@Nullable List<CopingSkillWithCustomizations> copingSkillsWithCustomizations) {
-                List<Integer> percents = new ArrayList<>();
-                percents.add(60);
-                percents.add(20);
-                percents.add(10);
-                percents.add(10);
+            public void onCheckedChanged(int checkedId) {
+                switch (checkedId) {
+                    case R.id.btn_day:
+                        currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.DAY;
+                        break;
+                    case R.id.btn_week:
+                        currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.WEEK;
+                        break;
+                    case R.id.btn_month:
+                        currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.MONTH;
+                        break;
+                    case R.id.btn_year:
+                        currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.YEAR;
+                        break;
+                }
+                if(currentCopingSkillDisplayMode == null){
+                    currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.WEEK;
+                }
+                updateCopingSkillsView();
 
-                copingSkillsView.setAdapter(new CopingSkillHighlightWCIndexAdapter(StudentHighlightsActivity.this, copingSkillsWithCustomizations,percents));
             }
         });
     }
+    private void updateCopingSkillsView(){
+        CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
+        AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkillsWithCustomizations().observe(this, new Observer<List<CopingSkillWithCustomizations>>() {
+            @Override
+            public void onChanged(@Nullable List<CopingSkillWithCustomizations> copingSkillsWithCustomizations) {
 
-//    private void setRings() {
-//
-//        SegmentedArcView sa = findViewById(R.id.studentArcView);
-//
-//        List<ArcSegment> segments = new ArrayList<>();
-//        segments.add(new ArcSegment(Color.RED, Color.RED,false, 45f));    // 45 degrees
-//        segments.add(new ArcSegment(Color.GREEN, Color.GREEN,false, 90f)); // 90 degrees
-//        segments.add(new ArcSegment(Color.BLUE, Color.BLUE,false, 225f));  // 225 degrees
-//
-//        // Set the segments (custom sweep angles are taken from constructor)
-//        sa.setSegments(segments);
-//
-//    }
+                copingSkillsView.calculateStudentCopingSkillsOverview(currentCopingSkillDisplayMode, student, new ClassroomHighlightsActivity.CopingSkillsOverviewCallback() {
+                    @Override
+                    public void onOverviewCalculated(Map<String, Integer> copingSkillsMap) {
 
-    private void setArc(){
-        ArcViewOverlay arcView = findViewById(R.id.arcViewOverlay);
-        List<Integer> colors = Arrays.asList(Color.RED, Color.GREEN, Color.BLUE);
-        List<Float> angles = Arrays.asList(120f, 120f, 120f);
+                        //sort the coping skills based on count
+                        Collections.sort(copingSkillsWithCustomizations, new Comparator<CopingSkillWithCustomizations>() {
+                            @Override
+                            public int compare(CopingSkillWithCustomizations cp1, CopingSkillWithCustomizations cp2) {
+                                Integer count1 = copingSkillsMap.get(cp1.copingSkill.getUuid());
+                                Integer count2 = copingSkillsMap.get(cp2.copingSkill.getUuid());
 
-        arcView.setSegmentColors(colors);
-        arcView.setSegmentAngles(angles);
-        arcView.setArcWidth(20f);
+                                if (count1 == null) count1 = 0;
+                                if (count2 == null) count2 = 0;
+
+                                return count2.compareTo(count1); //highest to lowest
+                            }
+                        });
+
+                        // Now create percents list in the same order as copingSkillsWithCustomizations
+                        List<Integer> percents = new ArrayList<>();
+                        percents = CalculateHighlightInfo.calculateCopingSkillPercents(copingSkillsMap);
+
+
+                        copingSkillsView.setAdapter(new CopingSkillHighlightWCIndexAdapter(StudentHighlightsActivity.this, copingSkillsWithCustomizations, percents));
+                    }
+                });
+            }
+        });
     }
-
 
 
     @Override
@@ -308,7 +385,6 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
                 @Override
                 public void onChanged(@Nullable Student student) {
                     StudentHighlightsActivity.this.student = student;
-                    Log.v("penguin", studentUuid);
 
                     if (StudentHighlightsActivity.this.student != null) {
 
@@ -423,6 +499,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     private void saveImage(){
         return;
     }
+
 
 }
 

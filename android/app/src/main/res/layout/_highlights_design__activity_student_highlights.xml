@@ -97,6 +97,11 @@
                                 android:layout_gravity="bottom|end"
                                 android:src="@drawable/ic_new_photo" />
                         </FrameLayout>
+                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.PillToggleGroup
+                            android:id="@+id/studentPillToggle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"/>
 
 
                         <LinearLayout

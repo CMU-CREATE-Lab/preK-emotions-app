@@ -96,4 +96,9 @@ public class ArcViewOverlay extends View {
         this.centerText = text;
         invalidate();
     }
+
+    public void setTextSize(float size) {
+        this.textPaint.setTextSize(size);
+        invalidate();
+    }
 }
