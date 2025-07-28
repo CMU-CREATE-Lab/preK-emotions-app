@@ -36,13 +36,22 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
-        android:id="@+id/copingSkillsInfo"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:id="@+id/copingSkillsInfoImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_mindfulnest_header_info"
         app:layout_constraintTop_toTopOf="@id/titleMostUsed"
         app:layout_constraintBottom_toBottomOf="@id/titleMostUsed"
         app:layout_constraintStart_toEndOf="@id/titleMostUsed" />
+
+    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CollapsibleInfoView
+        android:id="@+id/copingSkillsInfoCollapsibleView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/titleMostUsed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <GridView
         android:id="@+id/copingSkillsGridView"
@@ -51,7 +60,7 @@
         android:background="#FFFFFF"
         style="@style/CopingSkillCircularView"
         android:stretchMode="columnWidth"
-        app:layout_constraintTop_toBottomOf="@id/titleMostUsed"
+        app:layout_constraintTop_toBottomOf="@id/copingSkillsInfoCollapsibleView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

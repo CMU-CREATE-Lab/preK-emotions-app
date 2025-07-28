@@ -233,7 +233,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 //            }
 //        });
 
-        initInfoButtonListeners();
+        //initInfoButtonListeners();
         delteClassListeners();
         setMonthNames();
         setRings();
@@ -255,17 +255,19 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         });
 
     }
-    private void initInfoButtonListeners() {
-        String title = "What is This?";
-        String message = "This section explains emotional regulation techniques.";
+//    private void initInfoButtonListeners() {
+//        String title = "What is This?";
+//        String message = "This section explains emotional regulation techniques.";
+//
+//        //ImageView infoClassroom = findViewById(R.id.classroomInfoImageView);
+//        ImageView montlyOverViewInfo = findViewById(R.id.monthlyOverviewInfo);
+//
+//        //infoClassroom.setOnClickListener(v -> showInfoDialog(title, message));
+//        montlyOverViewInfo.setOnClickListener(v -> showInfoDialog(title, message));
+//
+//
+//    }
 
-        ImageView infoClassroom = findViewById(R.id.classroomInfo);
-        ImageView montlyOverViewInfo = findViewById(R.id.monthlyOverviewInfo);
-
-        infoClassroom.setOnClickListener(v -> showInfoDialog(title, message));
-        montlyOverViewInfo.setOnClickListener(v -> showInfoDialog(title, message));
-
-    }
     public void showInfoDialog(String title, String message) {
         new AlertDialog.Builder(this)
                 .setTitle(title)
@@ -395,8 +397,15 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         this.classroomUuid = getClassroom().getUuid();
         this.classroomName = getClassroom().getName();
 
+        ImageView classroomInfoImageView = findViewById(R.id.classroomInfoImageView);
+        CollapsibleInfoView classroomInfoCollapsibleView = findViewById(R.id.classroomInfoCollapsibleView);
+        classroomInfoImageView.setOnClickListener(classroomInfoCollapsibleView);
 
+        ImageView monthlyOverviewInfoImageView = findViewById(R.id.monthlyOverviewInfoImageView);
+        CollapsibleInfoView monthlyOverviewInfoCollapsibleView = findViewById(R.id.monthlyOverviewInfoCollapsibleView);
+        monthlyOverviewInfoImageView.setOnClickListener(monthlyOverviewInfoCollapsibleView);
 
+        // TODO other initializers should be here (e.g. CopingSkillsHighlightGridView)
 
         // TODO delete later (demo count of coping skills with emotions)
         textViewDemo();

@@ -98,6 +98,7 @@
     <string name="alert_message_ble_manual">Please enter an SSID and click to confirm.</string>
     <string name="alert_title_permissions_camera">Camera Permissions</string>
     <string name="alert_message_permissions_camera">Camera permissions are currently disabled. Please go to system settings to enable camera permissions.</string>
+    <string name="highlights_design_info_description_placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="empty"></string>
 </resources>
 

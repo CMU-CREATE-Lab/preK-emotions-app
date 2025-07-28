@@ -219,6 +219,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/parentView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="50dp"
@@ -241,13 +242,22 @@
                             app:layout_constraintTop_toTopOf="parent"/>
 
                         <ImageView
-                            android:id="@+id/classroomInfo"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:id="@+id/classroomInfoImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@drawable/ic_mindfulnest_header_info"
                             app:layout_constraintTop_toTopOf="@id/titleMyClassroom"
                             app:layout_constraintBottom_toBottomOf="@id/titleMyClassroom"
                             app:layout_constraintStart_toEndOf="@id/titleMyClassroom"
+                            />
+
+                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CollapsibleInfoView
+                            android:id="@+id/classroomInfoCollapsibleView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/titleMyClassroom"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             />
 
                         <GridView
@@ -256,7 +266,7 @@
                             android:layout_width="match_parent"
                             android:paddingLeft="20dp"
                             style="@style/StudentCircularViewForListStudentsInClass"
-                            app:layout_constraintTop_toBottomOf="@id/titleMyClassroom"
+                            app:layout_constraintTop_toBottomOf="@id/classroomInfoCollapsibleView"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:stretchMode="columnWidth"
@@ -287,9 +297,9 @@
                             android:layout_marginBottom="15dp"
                             />
                         <ImageView
-                            android:id="@+id/monthlyOverviewInfo"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:id="@+id/monthlyOverviewInfoImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@drawable/ic_mindfulnest_header_info"
                             app:layout_constraintTop_toTopOf="@id/titleMonthlyOverview"
                             app:layout_constraintBottom_toBottomOf="@id/titleMonthlyOverview"
@@ -304,6 +314,16 @@
                             android:layout_marginTop="12dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"/>
+
+                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CollapsibleInfoView
+                            android:id="@+id/monthlyOverviewInfoCollapsibleView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/titleMonthlyOverview"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            />
+
                        <LinearLayout
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
@@ -311,7 +331,7 @@
                            android:gravity="center"
                            android:padding="0dp"
                            android:background="#FFFFFF"
-                           app:layout_constraintTop_toBottomOf="@id/titleMonthlyOverview"
+                           app:layout_constraintTop_toBottomOf="@id/monthlyOverviewInfoCollapsibleView"
 
                            >
 
