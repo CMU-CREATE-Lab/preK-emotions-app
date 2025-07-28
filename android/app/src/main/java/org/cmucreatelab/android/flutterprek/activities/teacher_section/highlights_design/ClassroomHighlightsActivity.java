@@ -72,7 +72,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                                 studentUuids.add(s.getUuid());
                             }
                             // Grab all sessions/coping skills with LIST of students (for individual Student use list of size 1)
-                            appDatabase.intermediateTablesDAO().getSessionsWithSessionCopingSkillsFromStudents(studentUuids).observe(ClassroomHighlightsActivity.this, new Observer<List<StudentWithSessionsAndSessionCopingSkills>>() {
+                            appDatabase.embeddedDAO().getSessionsWithSessionCopingSkillsFromStudents(studentUuids).observe(ClassroomHighlightsActivity.this, new Observer<List<StudentWithSessionsAndSessionCopingSkills>>() {
                                 @Override
                                 public void onChanged(List<StudentWithSessionsAndSessionCopingSkills> studentWithSessionsAndSessionCopingSkills) {
                                     Log.v(Constants.LOG_TAG, "Got result from getSessionsWithSessionCopingSkillsFromStudents");

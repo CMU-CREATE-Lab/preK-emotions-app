@@ -2,17 +2,12 @@ package org.cmucreatelab.android.flutterprek.database.models.embedded_models;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
 import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.StudentWithSessionsAndSessionCopingSkills;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
-import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.EmotionCopingSkill;
-import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
-import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.SessionCopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.List;
@@ -27,6 +22,11 @@ import java.util.List;
  */
 @Dao
 public abstract class EmbeddedDAO {
+
+
+    @Transaction
+    @Query("SELECT * FROM students WHERE uuid IN (:studentUuids)")
+    public abstract LiveData<List<StudentWithSessionsAndSessionCopingSkills>> getSessionsWithSessionCopingSkillsFromStudents(List<String> studentUuids);
 
 
     @Query("SELECT * FROM students WHERE uuid = :studentUuid LIMIT 1")

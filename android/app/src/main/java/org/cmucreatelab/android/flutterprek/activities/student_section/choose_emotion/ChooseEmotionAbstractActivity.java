@@ -108,7 +108,7 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
         Log.v(Constants.LOG_TAG, "demoStudentEmotionImages() called, querying Room DB...");
         // TODO this looks different because I wanted to test a non-LiveData call in UI
         new Thread(() -> {
-            StudentWithCustomizationsAndEmotions studentWithCustomizationsAndEmotions = AppDatabase.getInstance(this).intermediateTablesDAO().getStudentWithEmotionsAndCustomImageFiles(studentUuid);
+            StudentWithCustomizationsAndEmotions studentWithCustomizationsAndEmotions = AppDatabase.getInstance(this).embeddedDAO().getStudentWithEmotionsAndCustomImageFiles(studentUuid);
             runOnUiThread(() -> {
                 Log.v(Constants.LOG_TAG, String.format("Room DB getStudentWithEmotionsAndCustomImageFiles() returned with result studentUuid=%s", studentUuid));
                 if (studentWithCustomizationsAndEmotions != null) {
