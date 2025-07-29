@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design;
+package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,7 +16,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.CopingSkillsInfoCollapsibleView;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CalculateHighlightInfo;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomHighlightsActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.EditCopingSkillsHighlightIndex;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.CopingSkillsInfoCollapsibleView;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 

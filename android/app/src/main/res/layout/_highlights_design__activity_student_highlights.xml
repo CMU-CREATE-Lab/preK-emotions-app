@@ -10,14 +10,14 @@
         android:layout_height="match_parent"
         android:background="#ffaaaa" >
 
-        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsViewAppHeader
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewAppHeader
             android:id="@+id/appHeaderHighlights"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
             android:layout_height="65sp" />
 
-        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsViewDrawer
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer
             android:id="@+id/drawerHighlights"
             android:layout_width="205sp"
             android:layout_height="0sp"
@@ -83,7 +83,7 @@
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_placeholder" />
 
-                            <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ArcViewOverlay
+                            <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.ArcViewOverlay
                                 android:id="@+id/arcViewOverlay"
                                 android:layout_width="190dp"
                                 android:layout_height="190dp"
@@ -97,7 +97,7 @@
                                 android:layout_gravity="bottom|end"
                                 android:src="@drawable/ic_new_photo" />
                         </FrameLayout>
-                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.PillToggleGroup
+                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PillToggleGroup
                             android:id="@+id/studentPillToggle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CopingSkillsHighlightGridView
+                    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.CopingSkillsHighlightGridView
                         android:id="@+id/copingSkillsCustomView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

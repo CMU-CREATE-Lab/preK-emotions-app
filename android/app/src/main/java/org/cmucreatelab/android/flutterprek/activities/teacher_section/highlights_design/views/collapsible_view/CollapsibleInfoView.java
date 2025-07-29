@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view;
+package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

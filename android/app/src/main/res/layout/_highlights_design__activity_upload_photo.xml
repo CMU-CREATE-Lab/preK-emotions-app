@@ -31,7 +31,7 @@
                 android:adjustViewBounds="true"
                 android:background="#FFFFFF" />
 
-            <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CropOverlayView
+            <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.CropOverlayView
                 android:id="@+id/cropOverlay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -10,7 +10,7 @@ import android.widget.EditText;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ClassroomIndexActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomIndexActivity;
 
 public class LoginActivity extends TeacherSectionActivityWithHeader {
 

@@ -9,6 +9,9 @@ import androidx.lifecycle.Observer;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlightWithCustomizationsIndexAdapter;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomHighlightsActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.ArcViewOverlay;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.CopingSkillsHighlightGridView;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.StudentWithSessionsAndSessionCopingSkills;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.SessionWithSessionCopingSkills;
@@ -318,7 +321,7 @@ public class CalculateHighlightInfo {
 
 
     //main function for fill the monthly overview rings
-    public void sessionOverview(OverviewDateRange range,ClassroomHighlightsActivity.HighlightCalculationCallback callback) {
+    public void sessionOverview(OverviewDateRange range, ClassroomHighlightsActivity.HighlightCalculationCallback callback) {
 
 
        // appDatabase.studentDAO().getAllStudentsFromClassroom(classroom.getUuid()).observe(ClassroomHighlightsActivity.this, new Observer<List<Student>>() {

@@ -256,15 +256,15 @@
             android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".activities.teacher_section.highlights_design.ClassroomIndexActivity"
+            android:name=".activities.teacher_section.highlights_design.classrooms.ClassroomIndexActivity"
             android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".activities.teacher_section.highlights_design.ClassroomHighlightsActivity"
+            android:name=".activities.teacher_section.highlights_design.classrooms.ClassroomHighlightsActivity"
             android:screenOrientation="userLandscape"
             android:theme="@style/Theme.MyApp.Material" />
         <activity
-            android:name=".activities.teacher_section.highlights_design.StudentHighlightsActivity"
+            android:name=".activities.teacher_section.highlights_design.students.StudentHighlightsActivity"
             android:screenOrientation="userLandscape"
             android:theme="@style/Theme.MyApp.Material" />
         <activity

@@ -1,4 +1,4 @@
-package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design;
+package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,13 +27,18 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillHighlightWCIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.UpdateClassroomModelAsyncTask;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.ClassroomInfoCollapsibleView;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.MonthlyOverviewInfoCollapsibleView;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CalculateHighlightInfo;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PillToggleGroup;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.students.StudentHighlightsActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.ClassroomInfoCollapsibleView;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.MonthlyOverviewInfoCollapsibleView;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.ArcViewOverlay;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.CopingSkillsHighlightGridView;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.UpdateStudentModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.CopingSkillWithCustomizations;
-import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.StudentWithSessionsAndSessionCopingSkills;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
@@ -72,59 +77,6 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
     public static final String EXTRA_CLASSROOM = "classroom";
 
-    private void textViewDemo() {
-        final TextView textViewDemo = findViewById(R.id.textViewDemo);
-        final AppDatabase appDatabase = AppDatabase.getInstance(getApplicationContext());
-        // TODO use Classroom object from Intent; demo uses first classroom listed in the database
-        appDatabase.classroomDAO().getAllClassrooms().observe(this, new Observer<List<Classroom>>() {
-            @Override
-            public void onChanged(List<Classroom> classrooms) {
-                Log.v(Constants.LOG_TAG, "Got result from getAllClassrooms");
-                if (!classrooms.isEmpty()) {
-                    final Classroom classroom = classrooms.get(0);
-                    appDatabase.studentDAO().getAllStudentsFromClassroom(classroom.getUuid()).observe(ClassroomHighlightsActivity.this, new Observer<List<Student>>() {
-                        @Override
-                        public void onChanged(List<Student> students) {
-                            Log.v(Constants.LOG_TAG, "Got result from getAllStudentsFromClassroom");
-                            // API 24...
-                            // List<String> studentUuids = students.stream().map(Student::getUuid).collect(Collectors.toList());
-                            // ...
-                            ArrayList<String> studentUuids = new ArrayList<>();
-                            for (Student s: students) {
-                                studentUuids.add(s.getUuid());
-                            }
-                            // Grab all sessions/coping skills with LIST of students (for individual Student use list of size 1)
-                            appDatabase.embeddedDAO().getSessionsWithSessionCopingSkillsFromStudents(studentUuids).observe(ClassroomHighlightsActivity.this, new Observer<List<StudentWithSessionsAndSessionCopingSkills>>() {
-                                @Override
-                                public void onChanged(List<StudentWithSessionsAndSessionCopingSkills> studentWithSessionsAndSessionCopingSkills) {
-                                    Log.v(Constants.LOG_TAG, "Got result from getSessionsWithSessionCopingSkillsFromStudents");
-
-                                    // create mapping of CopingSkill + Emotion with Count
-                                    Map<StudentWithSessionsAndSessionCopingSkills.CopingSkillEmotion, Integer> mapCopingSkillEmotion = StudentWithSessionsAndSessionCopingSkills.countSessionCopingSkillsWithEmotion(studentWithSessionsAndSessionCopingSkills);
-
-                                    // build string to display Mapping
-                                    StringBuilder text = new StringBuilder();
-                                    for (StudentWithSessionsAndSessionCopingSkills.CopingSkillEmotion copingSkillEmotion : mapCopingSkillEmotion.keySet()) {
-                                        Integer count = mapCopingSkillEmotion.get(copingSkillEmotion);
-                                        text.append(copingSkillEmotion.toString()).append(String.format(" -- appears %d times.\n", count));
-                                    }
-
-                                    // update the text view on the UI thread ("onChanged" means we might not be in main thread anymore)
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            textViewDemo.setText(text.toString());
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            }
-        });
-
-    }
 
     private void setOverviewRings(CalculateHighlightInfo calculateHighlightInfo) {
         //list in order currrent, prev, 2 monthsago

@@ -10,14 +10,14 @@
         android:layout_height="match_parent"
         android:background="#ffaaaa" >
 
-        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsViewAppHeader
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewAppHeader
             android:id="@+id/appHeaderHighlights"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="match_parent"
             android:layout_height="65sp" />
 
-        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsViewDrawer
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer
             android:id="@+id/drawerHighlights"
             android:layout_width="205sp"
             android:layout_height="0sp"
@@ -45,108 +45,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/buttonPlaceholder"
-                >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:layout_marginHorizontal="8dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_happy"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Happy"
-                        android:gravity="center"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:layout_marginHorizontal="8dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_scared"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Scared"
-                        android:gravity="center"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:layout_marginHorizontal="8dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_sad"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sad"
-                        android:gravity="center"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:layout_marginHorizontal="8dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_mad"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Angry"
-                        android:gravity="center"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:layout_marginHorizontal="8dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_excited"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Excited"
-                        android:gravity="center"
-                        />
-                </LinearLayout>
-
-            </LinearLayout>
 
             <ScrollView
                 android:layout_width="0dp"
@@ -233,7 +131,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             />
-                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.PillToggleGroup
+                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PillToggleGroup
                             android:id="@+id/classroomToggle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -251,7 +149,7 @@
                             app:layout_constraintStart_toEndOf="@id/titleMyClassroom"
                             />
 
-                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.ClassroomInfoCollapsibleView
+                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.ClassroomInfoCollapsibleView
                             android:id="@+id/classroomInfoCollapsibleView"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -274,7 +172,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CopingSkillsHighlightGridView
+                    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.CopingSkillsHighlightGridView
                         android:id="@+id/copingSkillsCustomView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -306,7 +204,7 @@
                             app:layout_constraintStart_toEndOf="@id/titleMonthlyOverview"
                             />
 
-                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.PillToggleGroup
+                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PillToggleGroup
                             android:id="@+id/classOverviewToggle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -315,7 +213,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"/>
 
-                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.MonthlyOverviewInfoCollapsibleView
+                        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.MonthlyOverviewInfoCollapsibleView
                             android:id="@+id/monthlyOverviewInfoCollapsibleView"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -340,7 +238,7 @@
                                android:layout_height="0dp"
                                android:layout_weight="1" />
 
-                           <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ArcViewOverlay
+                           <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.ArcViewOverlay
                                android:id="@+id/monthFirst"
                                android:layout_width="110dp"
                                android:layout_height="110dp"
@@ -352,7 +250,7 @@
                                android:layout_height="0dp"
                                android:layout_weight="1" />
 
-                           <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ArcViewOverlay
+                           <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.ArcViewOverlay
                                android:id="@+id/monthPrev"
                                android:layout_width="110dp"
                                android:layout_height="110dp"
@@ -363,7 +261,7 @@
                                android:layout_height="0dp"
                                android:layout_weight="1" />
 
-                           <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ArcViewOverlay
+                           <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.ArcViewOverlay
                                android:id="@+id/monthCurr"
                                android:layout_width="110dp"
                                android:layout_height="110dp"
@@ -405,16 +303,6 @@
             </ScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/textViewDemo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="Placeholder"
-            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -58,41 +58,6 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
     };
 
 
-    private LiveData<List<Emotion>> getLiveDataFromQuery(String classroomUuid, String studentUuid) {
-        ArrayList<String> uuids = new ArrayList<>();
-        if (!classroomUuid.isEmpty()) uuids.add(classroomUuid);
-        if (!studentUuid.isEmpty()) uuids.add(studentUuid);
-        return AppDatabase.getInstance(this).emotionDAO().getEmotionsOwnedBy(uuids);
-    }
-
-
-    private void demoStudentWithCustomizationsAndEmotions(String studentUuid) {
-        getLiveDataForStudentEmotionImages(studentUuid).observe(this, new Observer<StudentWithCustomizationsAndEmotions>() {
-            @Override
-            public void onChanged(StudentWithCustomizationsAndEmotions studentWithCustomizationsAndEmotions) {
-                Log.v(Constants.LOG_TAG, String.format("Room DB getStudentWithEmotionsAndCustomImageFiles() returned with result studentUuid=%s", studentUuid));
-                if (studentWithCustomizationsAndEmotions != null) {
-                    Student student = studentWithCustomizationsAndEmotions.student.student;
-                    List<Customization> customizations = studentWithCustomizationsAndEmotions.student.customizations;
-                    List<Emotion> emotions = studentWithCustomizationsAndEmotions.emotions;
-                    Log.v(Constants.LOG_TAG, String.format("Student.name=%s, customizations=%d, emotions=%d", student.getName(), customizations.size(), emotions.size()));
-
-//                    AppDatabase.getInstance(getApplicationContext()).embeddedDAO().getResolvedEmotionsForStudent(studentUuid).observe(ChooseEmotionAbstractActivity.this, new Observer<List<ResolvedEmotionWithImageFile>>() {
-//                        @Override
-//                        public void onChanged(List<ResolvedEmotionWithImageFile> resolvedEmotionWithImageFiles) {
-//                            Log.v(Constants.LOG_TAG, String.format("Room DB getResolvedEmotionsForStudent() returned with list results size = %d", resolvedEmotionWithImageFiles.size()));
-//                            final List<Emotion> emotionList = Util.EmotionMapper.fromResolvedList(resolvedEmotionWithImageFiles);
-//                            GridView emotionsGridView = findViewById(R.id.emotionsGridView);
-//                            emotionsGridView.setAdapter(new EmotionIndexAdapter(ChooseEmotionAbstractActivity.this, emotionList, listener));
-//                        }
-//                    });
-                } else {
-                    Log.v(Constants.LOG_TAG, "(null result)");
-                }
-            }
-        });
-    }
-
     private final Executor executor = Executors.newSingleThreadExecutor();
     private LiveData<StudentWithCustomizationsAndEmotions> getLiveDataForStudentEmotionImages(String studentUuid) {
         MutableLiveData<StudentWithCustomizationsAndEmotions> liveData = new MutableLiveData<>();
@@ -101,26 +66,6 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
             liveData.postValue(studentWithCustomizationsAndEmotions);
         });
         return liveData;
-    }
-
-
-    private void demoStudentEmotionImagesOLD(String studentUuid) {
-        Log.v(Constants.LOG_TAG, "demoStudentEmotionImages() called, querying Room DB...");
-        // TODO this looks different because I wanted to test a non-LiveData call in UI
-        new Thread(() -> {
-            StudentWithCustomizationsAndEmotions studentWithCustomizationsAndEmotions = AppDatabase.getInstance(this).embeddedDAO().getStudentWithEmotionsAndCustomImageFiles(studentUuid);
-            runOnUiThread(() -> {
-                Log.v(Constants.LOG_TAG, String.format("Room DB getStudentWithEmotionsAndCustomImageFiles() returned with result studentUuid=%s", studentUuid));
-                if (studentWithCustomizationsAndEmotions != null) {
-                    Student student = studentWithCustomizationsAndEmotions.student.student;
-                    List<Customization> customizations = studentWithCustomizationsAndEmotions.student.customizations;
-                    List<Emotion> emotions = studentWithCustomizationsAndEmotions.emotions;
-                    Log.v(Constants.LOG_TAG, String.format("Student.name=%s, customizations=%d, emotions=%d", student.getName(), customizations.size(), emotions.size()));
-                } else {
-                    Log.v(Constants.LOG_TAG, "(null result)");
-                }
-            });
-        }).start();
     }
 
 
@@ -148,15 +93,6 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
             globalHandler.endCurrentSession(this);
         } else {
             Student student = globalHandler.getSessionTracker().getStudent();
-//
-//            LiveData<List<Emotion>> liveData = getLiveDataFromQuery(student.getClassroomUuid(), student.getUuid());
-//            liveData.observe(this, new Observer<List<Emotion>>() {
-//                @Override
-//                public void onChanged(@Nullable List<Emotion> emotions) {
-//                    GridView emotionsGridView = findViewById(R.id.emotionsGridView);
-//                    emotionsGridView.setAdapter(new EmotionIndexAdapter(ChooseEmotionAbstractActivity.this, emotions, listener));
-//                }
-//            });
             //
             // NOTE: an example row for use in the DB Seed file under "customizations" table:
             // { "uuid": "custom_emotion1", "basedOnUuid": "emotion1", "key": "imageFileUuid", "value": "ic_yoga", "ownerUuid": "student1" }
@@ -172,8 +108,6 @@ public abstract class ChooseEmotionAbstractActivity extends StudentSectionActivi
                     emotionsGridView.setAdapter(new EmotionIndexAdapter(ChooseEmotionAbstractActivity.this, emotionList, listener));
                 }
             });
-            // demo query that fetches Customization objects
-            demoStudentWithCustomizationsAndEmotions(student.getUuid());
         }
     }
 
