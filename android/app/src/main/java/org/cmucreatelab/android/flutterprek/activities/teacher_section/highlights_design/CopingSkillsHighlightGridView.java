@@ -6,25 +6,30 @@ import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.CollapsibleInfoView;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.collapsible_view.CopingSkillsInfoCollapsibleView;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
+
+import java.util.Map;
 
 public class CopingSkillsHighlightGridView extends ConstraintLayout {
 
     private GridView gridView;
     private TextView titleTextView;
     private ImageView editCopingSkills;
+    private PillToggleGroup pillToggleGroup;
+
+
 
     public CopingSkillsHighlightGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -41,7 +46,36 @@ public class CopingSkillsHighlightGridView extends ConstraintLayout {
         gridView = findViewById(R.id.copingSkillsGridView);
         titleTextView = findViewById(R.id.titleMostUsed);
         editCopingSkills = findViewById(R.id.editCopingSkills);
+        pillToggleGroup = findViewById(R.id.copingSkillsToggle);
+        pillToggleGroup.check(R.id.btn_week);
 
+    }
+
+    public void calculateClassCopingSkillsOverview(CalculateHighlightInfo.OverviewDateRange range, Classroom classroom, ClassroomHighlightsActivity.CopingSkillsOverviewCallback callback){
+        CalculateHighlightInfo calculateHighlightInfo = new CalculateHighlightInfo(classroom, getContext(), (AppCompatActivity) getContext());
+        calculateHighlightInfo.copingSkillClassOverview(range, new CopingSkillCalculationCallback() {
+            @Override
+            public void onCopingSkillsCalculated() {
+                Map<String, Integer> map = calculateHighlightInfo.getClassCopingSkillsCounts();
+                if (callback != null) {
+                    callback.onOverviewCalculated(map);
+                }
+            }
+
+        });
+    }
+    public void calculateStudentCopingSkillsOverview(CalculateHighlightInfo.OverviewDateRange range, Student student, ClassroomHighlightsActivity.CopingSkillsOverviewCallback callback){
+        CalculateHighlightInfo calculateHighlightInfo = new CalculateHighlightInfo(null, getContext(), (AppCompatActivity) getContext());
+        calculateHighlightInfo.copingSkillStudentOverview(range,student, new CopingSkillCalculationCallback() {
+            @Override
+            public void onCopingSkillsCalculated() {
+                Map<String, Integer> map = calculateHighlightInfo.getClassCopingSkillsCounts();
+                if (callback != null) {
+                    callback.onOverviewCalculated(map);
+                }
+            }
+
+        });
     }
 
     public void setAdapter(ListAdapter adapter) {
@@ -92,8 +126,16 @@ public class CopingSkillsHighlightGridView extends ConstraintLayout {
         titleTextView.setText(title);
     }
 
-    public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
-        gridView.setOnItemClickListener(listener);
+
+    public void setOnToggleCheckedChanged(PillToggleGroup.OnCheckedChangedListener listener) {
+        if (pillToggleGroup != null) {
+            pillToggleGroup.setOnCheckedChanged(listener);
+        }
+    }
+
+
+    public interface CopingSkillCalculationCallback{
+        void onCopingSkillsCalculated();
     }
 
 

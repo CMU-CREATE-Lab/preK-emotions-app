@@ -307,7 +307,7 @@
                             />
 
                         <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.PillToggleGroup
-                            android:id="@+id/copingSkillsToggle"
+                            android:id="@+id/classOverviewToggle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="0dp"

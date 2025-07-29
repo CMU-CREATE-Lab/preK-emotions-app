@@ -1,5 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.adapters;
 
+import static org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CalculateHighlightInfo.setArc;
+
 import androidx.lifecycle.Observer;
 import android.content.Context;
 import androidx.annotation.Nullable;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ArcViewOverlay;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CalculateHighlightInfo;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.StudentWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
@@ -25,6 +28,7 @@ import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractListAdapter<StudentWithCustomizations> {
 
@@ -33,7 +37,16 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
     private final boolean onClickListener, hasAddNewStudent;
     private final ClickListener clickListener;
     private final ClickAddNewStudentListener clickAddNewStudentListener;
+    public static final int MODE_DAY = 0;
+    public static final int MODE_WEEK = 1;
+    public static final int MODE_MONTH = 2;
+    public static final int MODE_YEAR = 3;
+    private static int displayMode = MODE_WEEK;
 
+    public void setDisplayMode(int mode) {
+        this.displayMode = mode;
+        notifyDataSetChanged();
+    }
 
     public interface ClickListener {
         void onClick(StudentWithCustomizations student);
@@ -79,8 +92,38 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
         final Student student = studentWithCustomizations.student;
         TextView textView = (TextView)result.findViewById(R.id.text1);
         textView.setText(student.getName());
-        ArcViewOverlay arcView = result.findViewById(R.id.arcView);
-        setArc(arcView, false);
+
+        //get and set ring information
+       CalculateHighlightInfo.OverviewDateRange dateRange;
+       //set date range for ring view with display mode from toggle button
+        switch (displayMode) {
+            case MODE_DAY:
+                dateRange = CalculateHighlightInfo.OverviewDateRange.DAY;
+                break;
+            case MODE_WEEK:
+                dateRange = CalculateHighlightInfo.OverviewDateRange.WEEK;
+                break;
+            case MODE_MONTH:
+                dateRange = CalculateHighlightInfo.OverviewDateRange.MONTH;
+                break;
+            case MODE_YEAR:
+                dateRange = CalculateHighlightInfo.OverviewDateRange.YEAR;
+                break;
+            default:
+                dateRange = CalculateHighlightInfo.OverviewDateRange.WEEK;
+
+        }
+        CalculateHighlightInfo calculateHighlightInfo = new CalculateHighlightInfo(null, activity.getApplicationContext(), activity);
+        calculateHighlightInfo.studentOverview(student,dateRange, new HighlightCalculationCallback() {
+            @Override
+            public void onHighlightsCalculated() {
+
+                ArcViewOverlay arcView = result.findViewById(R.id.arcView);
+                setArc(calculateHighlightInfo.getStudentEmotionCounts(),arcView,10f, false);
+            }
+        });
+
+
 
         if (student.getPictureFileUuid() != null) {
             final Context appContext = activity.getApplicationContext();
@@ -133,7 +176,7 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
 
 
         ((ImageView) result.findViewById(R.id.imageView)).setImageResource(R.drawable.ic_add_student);
-        setArc(arcView,true);
+        setArc(null, arcView,10,true);
 
         if (onClickListener) {
             result.setOnClickListener(new View.OnClickListener() {
@@ -147,26 +190,6 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
         return result;
     }
 
-
-    private void setArc(ArcViewOverlay arcView, boolean isAddStudent){
-      if(!isAddStudent){
-          List<Integer> colors = Arrays.asList(Color.RED, Color.GREEN, Color.BLUE);
-          List<Float> angles = Arrays.asList(120f, 120f, 120f);
-          arcView.setSegmentColors(colors);
-          arcView.setSegmentAngles(angles);
-          arcView.setArcWidth(10f);
-
-      } else {
-          List<Integer> colors = Arrays.asList(Color.GRAY);
-          List<Float> angles = Arrays.asList(360f);
-          arcView.setSegmentColors(colors);
-          arcView.setSegmentAngles(angles);
-          arcView.setArcWidth(10f);
-      }
-
-
-
-    }
 
 
     @Override
@@ -222,6 +245,10 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
         params.height = totalHeight;
         gridView.setLayoutParams(params);
         gridView.requestLayout();
+    }
+
+    public interface HighlightCalculationCallback {
+        void onHighlightsCalculated();
     }
 
 

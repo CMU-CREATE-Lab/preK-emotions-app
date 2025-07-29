@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.shape.CornerFamily;
+import com.google.android.material.shape.ShapeAppearanceModel;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
@@ -32,9 +37,13 @@ import org.cmucreatelab.android.flutterprek.database.models.embedded_models.sess
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -46,9 +55,20 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
     private String classroomUuid;
     private String classroomName;
     private Classroom classroom;
+    private int currentStudentDisplayMode = StudentHighlightWithCustomizationsIndexAdapter.MODE_WEEK;
+    private CalculateHighlightInfo.OverviewDateRange currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.WEEK;
+    private CalculateHighlightInfo.OverviewDateRange sessionOverviewTimeFrame = CalculateHighlightInfo.OverviewDateRange.MONTH;
+
+    private StudentHighlightWithCustomizationsIndexAdapter studentGridViewAdapter;
+
     private final List<String> MONTHS =
             new ArrayList<>(Arrays.asList("Jan", "Feb", "Mar", "Apr", "May",
                             "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
+    private final List<String> WEEKS =
+            new ArrayList<>(Arrays.asList("Week 1", "Week 2", "Week 3"));
+    private final List<String> DAYS =
+            new ArrayList<>(Arrays.asList("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"));
+
 
     public static final String EXTRA_CLASSROOM = "classroom";
 
@@ -88,8 +108,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                                         Integer count = mapCopingSkillEmotion.get(copingSkillEmotion);
                                         text.append(copingSkillEmotion.toString()).append(String.format(" -- appears %d times.\n", count));
                                     }
-                                    Log.v("penguin", "data tedst");
-                                    Log.v("penguin", String.valueOf(mapCopingSkillEmotion.size()));
+
                                     // update the text view on the UI thread ("onChanged" means we might not be in main thread anymore)
                                     runOnUiThread(new Runnable() {
                                         @Override
@@ -107,46 +126,95 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
     }
 
-    private void setRings() {
+    private void setOverviewRings(CalculateHighlightInfo calculateHighlightInfo) {
+        //list in order currrent, prev, 2 monthsago
         List<ArcViewOverlay> saList = new ArrayList<ArcViewOverlay>();
-        saList.add(findViewById(R.id.monthFirst));
-        saList.add(findViewById(R.id.monthPrev));
         saList.add(findViewById(R.id.monthCurr));
+        saList.add(findViewById(R.id.monthPrev));
+        saList.add(findViewById(R.id.monthFirst));
 
-        List<Integer> colors = Arrays.asList(Color.RED, Color.GREEN, Color.BLUE);
-        List<Float> angles = Arrays.asList(150f, 120f, 90f);
-        for (ArcViewOverlay arcView : saList) {
-            arcView.setSegmentColors(colors);
-            arcView.setSegmentAngles(angles);
-            arcView.setArcWidth(20f);
+        //grab maps
+        Map<String, Integer> thisMonthsEmotionCounts = calculateHighlightInfo.getThisSessionEmotionCounts();
+        Map<String, Integer> lastMonthsEmotionCounts = calculateHighlightInfo.getLastSessionEmotionCounts();
+        Map<String, Integer> twoMonthsAgoEmotionCounts = calculateHighlightInfo.getTwoSessionsAgoEmotionCounts();
 
+        //grab percents
+        List<List<Float>> percentList = new ArrayList<List<Float>>();
+        percentList.add(CalculateHighlightInfo.calculateCirclePercents(thisMonthsEmotionCounts));
+        percentList.add(CalculateHighlightInfo.calculateCirclePercents(lastMonthsEmotionCounts));
+        percentList.add(CalculateHighlightInfo.calculateCirclePercents(twoMonthsAgoEmotionCounts));
+
+        List<Integer> defaultColor = Arrays.asList(Color.GRAY);
+        List<Float> defaultAngle = Arrays.asList(360f);
+        for(int i=0; i<saList.size(); i++){
+
+            if(percentList.get(i).isEmpty()){
+                saList.get(i).setSegmentColors(defaultColor);
+                saList.get(i).setSegmentAngles(defaultAngle);
+                saList.get(i).setArcWidth(20f);;
+            } else {
+                saList.get(i).setSegmentColors(CalculateHighlightInfo.EMOTION_COLORS);
+                saList.get(i).setSegmentAngles(percentList.get(i));
+                saList.get(i).setArcWidth(20f);
+            }
         }
 
     }
 
-    private void setMonthNames() {
+
+    private void setOverviewNames() {
         String first;
         String prev;
         String curr;
 
-        Calendar calendar = Calendar.getInstance();
-        int month = calendar.get(Calendar.MONTH); // 0 = January, 11 = December
+        float textSize = 48f;
 
-        if(month == 0){
-            first = MONTHS.get(10);
-            prev = MONTHS.get(11);
-            curr = MONTHS.get(0);
-        } else if(month ==1){
-            first = MONTHS.get(11);
-            prev = MONTHS.get(0);
-            curr = MONTHS.get(1);
-        } else {
-            first = MONTHS.get(month-2);
-            prev = MONTHS.get(month-1);
-            curr = MONTHS.get(month);
+        Calendar calendar = Calendar.getInstance();
+
+        if(sessionOverviewTimeFrame == CalculateHighlightInfo.OverviewDateRange.MONTH){
+            int month = calendar.get(Calendar.MONTH); // 0 = January, 11 = December
+            if(month == 0){
+                first = MONTHS.get(10);
+                prev = MONTHS.get(11);
+                curr = MONTHS.get(0);
+            } else if(month ==1){
+                first = MONTHS.get(11);
+                prev = MONTHS.get(0);
+                curr = MONTHS.get(1);
+            } else {
+                first = MONTHS.get(month-2);
+                prev = MONTHS.get(month-1);
+                curr = MONTHS.get(month);
+            }
+
+        } else if(sessionOverviewTimeFrame == CalculateHighlightInfo.OverviewDateRange.DAY){
+            int day = calendar.get(Calendar.DAY_OF_WEEK) -1; //0 = Sunday, 6 = Saturday
+            if(day == 0){
+                first = DAYS.get(5);
+                prev = DAYS.get(6);
+                curr = DAYS.get(0);
+            } else if (day == 1){
+                first = DAYS.get(6);
+                prev = DAYS.get(0);
+                curr = DAYS.get(1);
+            } else {
+                first = DAYS.get(day-2);
+                prev = DAYS.get(day-1);
+                curr = DAYS.get(day);
+            }
+
+        }
+        else{
+            first = getWeeklyRangeLabelWithOffset(2);
+            prev = getWeeklyRangeLabelWithOffset(1);
+            curr = getWeeklyRangeLabelWithOffset(0);
+
+            textSize = 16f;
         }
 
-        String[] months = {first, prev, curr};
+
+
+        String[] names = {first, prev, curr};
 
         List<ArcViewOverlay> saList = new ArrayList<ArcViewOverlay>();
         saList.add(findViewById(R.id.monthFirst));
@@ -154,9 +222,31 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         saList.add(findViewById(R.id.monthCurr));
 
         for(int i=0; i<saList.size(); i++){
-            saList.get(i).setCenterText(months[i]);
+            saList.get(i).setCenterText(names[i]);
+            saList.get(i).setTextSize(textSize);
+         //   saList.get(i).invalidate();
         }
 
+    }
+    private String getWeeklyRangeLabelWithOffset(int weekOffset) {
+        Calendar cal = Calendar.getInstance();
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+
+        // Move to the start of the current week
+        cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+
+        // Subtract weeks (0 = this week, 1 = last week, 2 = two weeks ago)
+        cal.add(Calendar.WEEK_OF_YEAR, -weekOffset);
+        Date startOfWeek = cal.getTime();
+
+        // Calculate end of week
+        Calendar endCal = (Calendar) cal.clone();
+        endCal.add(Calendar.DAY_OF_WEEK, 6);
+        Date endOfWeek = endCal.getTime();
+
+        // Format result
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM d");
+        return formatter.format(startOfWeek) + "–" + formatter.format(endOfWeek);
     }
 
     @Override
@@ -189,12 +279,17 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         liveData.observe(this, new Observer<List<StudentWithCustomizations>>() {
             @Override
             public void onChanged(@Nullable List<StudentWithCustomizations> students) {
+                studentGridViewAdapter = new StudentHighlightWithCustomizationsIndexAdapter(ClassroomHighlightsActivity.this, students, listener,addNewStudentListener);
+
                 GridView studentsGridView = findViewById(R.id.studentsGridView);
-                 studentsGridView.setAdapter(new StudentHighlightWithCustomizationsIndexAdapter(ClassroomHighlightsActivity.this, students, listener,addNewStudentListener));
+                 studentsGridView.setAdapter(studentGridViewAdapter);
                 studentsGridView.post(() -> StudentHighlightWithCustomizationsIndexAdapter.setGridViewHeightBasedOnChildren(studentsGridView, 6));
 
+               //display mode for toggle day,week,month,year
+                studentGridViewAdapter.setDisplayMode(currentStudentDisplayMode);
             }
         });
+        //init edit classroom button
 
         findViewById(R.id.editImage).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,43 +298,56 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
             }
         });
 
-        //init edit classroom button
-
         //fill copping skills in most used
         CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
-        AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkillsWithCustomizations().observe(this, new Observer<List<CopingSkillWithCustomizations>>() {
-            @Override
-            public void onChanged(@Nullable List<CopingSkillWithCustomizations> copingSkillsWithCustomizations) {
-                //Reorder list
-                List<Integer> percents = new ArrayList<>();
-                percents.add(60);
-                percents.add(20);
-                percents.add(10);
-                percents.add(10);
-                //GridView copingSkillsGridView = findViewById(R.id.copingSkillsGridView);
-                copingSkillsView.setAdapter(new CopingSkillHighlightWCIndexAdapter(ClassroomHighlightsActivity.this, copingSkillsWithCustomizations,percents));
-            }
-        });
+        //copingSkillsView.calculateClassCopingSkillsOverview(CalculateHighlightInfo.OverviewDateRange.WEEK, classroom);
+
+        //update the coping skills display - need custom call because of date range and calculating percents before adapter
+        updateCopingSkillsView();
+
         copingSkillsView.initSettingsClickListener(this, classroom);
         copingSkillsView.enableSettingsConfig(true);
         copingSkillsView.initInfoListener(this);
 
-//        //edit coping skills
-//        ImageView editCopingSkills = findViewById(R.id.editCopingSkills);
-//        editCopingSkills.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(ClassroomHighlightsActivity.this, EditCopingSkillsHighlightIndex.class);
-//                intent.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom); // if needed
-//                startActivity(intent);
-//            }
-//        });
-
-        //initInfoButtonListeners();
+        initPillGroupToggles();
         delteClassListeners();
-        setMonthNames();
-        setRings();
+    }
 
+
+    private void updateCopingSkillsView() {
+        CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
+        AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkillsWithCustomizations().observe(this, new Observer<List<CopingSkillWithCustomizations>>() {
+            @Override
+            public void onChanged(@Nullable List<CopingSkillWithCustomizations> copingSkillsWithCustomizations) {
+
+                copingSkillsView.calculateClassCopingSkillsOverview(currentCopingSkillDisplayMode, classroom, new CopingSkillsOverviewCallback() {
+                    @Override
+                    public void onOverviewCalculated(Map<String, Integer> copingSkillsMap) {
+
+                        //sort the coping skills based on count
+                        Collections.sort(copingSkillsWithCustomizations, new Comparator<CopingSkillWithCustomizations>() {
+                            @Override
+                            public int compare(CopingSkillWithCustomizations cp1, CopingSkillWithCustomizations cp2) {
+                                Integer count1 = copingSkillsMap.get(cp1.copingSkill.getUuid());
+                                Integer count2 = copingSkillsMap.get(cp2.copingSkill.getUuid());
+
+                                if (count1 == null) count1 = 0;
+                                if (count2 == null) count2 = 0;
+
+                                return count2.compareTo(count1); //highest to lowest
+                            }
+                        });
+
+                        // Now create percents list in the same order as copingSkillsWithCustomizations
+                        List<Integer> percents = new ArrayList<>();
+                        percents = CalculateHighlightInfo.calculateCopingSkillPercents(copingSkillsMap);
+
+
+                        copingSkillsView.setAdapter(new CopingSkillHighlightWCIndexAdapter(ClassroomHighlightsActivity.this, copingSkillsWithCustomizations, percents));
+                    }
+                });
+            }
+        });
     }
 
     private void delteClassListeners(){
@@ -257,18 +365,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         });
 
     }
-//    private void initInfoButtonListeners() {
-//        String title = "What is This?";
-//        String message = "This section explains emotional regulation techniques.";
-//
-//        //ImageView infoClassroom = findViewById(R.id.classroomInfoImageView);
-//        ImageView montlyOverViewInfo = findViewById(R.id.monthlyOverviewInfo);
-//
-//        //infoClassroom.setOnClickListener(v -> showInfoDialog(title, message));
-//        montlyOverViewInfo.setOnClickListener(v -> showInfoDialog(title, message));
-//
-//
-//    }
+
 
     public void showInfoDialog(String title, String message) {
         new AlertDialog.Builder(this)
@@ -278,7 +375,8 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                 .show();
     }
 
-    private void showEditClassNamePopup(){
+
+    private void showEditClassNamePopup() {
         // Create an EditText
         final EditText input = new EditText(this);
         input.setHint("Enter new Name");
@@ -410,8 +508,136 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         // TODO other initializers should be here (e.g. CopingSkillsHighlightGridView)
 
         // TODO delete later (demo count of coping skills with emotions)
-        textViewDemo();
-       // CalculateHighlightInfo.test(this, getApplicationContext(), classroom);
+
+      updateSessionOverview();
+
+    }
+    private void updateSessionOverview(){
+        CalculateHighlightInfo calculateHighlightInfo = new CalculateHighlightInfo(classroom, getApplicationContext(), this);
+        calculateHighlightInfo.sessionOverview(sessionOverviewTimeFrame, new HighlightCalculationCallback() {
+            @Override
+            public void onHighlightsCalculated() {
+                setOverviewRings(calculateHighlightInfo);
+                setOverviewNames();
+            }
+        });
+    }
+
+    private void initPillGroupToggles(){
+        PillToggleGroup classroomToggle = findViewById(R.id.classroomToggle);
+        classroomToggle.check(R.id.btn_week);
+        classroomToggle.setOnCheckedChanged(new PillToggleGroup.OnCheckedChangedListener() {
+            @Override
+            public void onCheckedChanged(int checkedId) {
+                // Set student grid view adapter
+                switch (checkedId) {
+                    case R.id.btn_day:
+                        currentStudentDisplayMode = StudentHighlightWithCustomizationsIndexAdapter.MODE_DAY;
+                        break;
+                    case R.id.btn_week:
+                        currentStudentDisplayMode = StudentHighlightWithCustomizationsIndexAdapter.MODE_WEEK;
+                        break;
+                    case R.id.btn_month:
+                        currentStudentDisplayMode = StudentHighlightWithCustomizationsIndexAdapter.MODE_MONTH;
+                        break;
+                    case R.id.btn_year:
+                        currentStudentDisplayMode = StudentHighlightWithCustomizationsIndexAdapter.MODE_YEAR;
+                        break;
+                }
+//
+                if (studentGridViewAdapter != null) {
+                    studentGridViewAdapter.setDisplayMode(currentStudentDisplayMode);
+                }
+            }
+        });
+
+        CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
+        copingSkillsView.setOnToggleCheckedChanged(new PillToggleGroup.OnCheckedChangedListener() {
+            @Override
+            public void onCheckedChanged(int checkedId) {
+                switch (checkedId) {
+                    case R.id.btn_day:
+                        currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.DAY;
+                        break;
+                    case R.id.btn_week:
+                        currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.WEEK;
+                        break;
+                    case R.id.btn_month:
+                        currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.MONTH;
+                        break;
+                    case R.id.btn_year:
+                        currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.YEAR;
+                        break;
+                }
+                if(currentCopingSkillDisplayMode == null){
+                    currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.WEEK;
+                }
+                updateCopingSkillsView();
+
+            }
+        });
+
+
+
+        PillToggleGroup classOverviewToggle = findViewById(R.id.classOverviewToggle);
+        classOverviewToggle.check(R.id.btn_month);
+
+        // hides the year toggle and then rounds the month toggle corner
+        classOverviewToggle.findViewById(R.id.btn_year).setVisibility(View.GONE);
+        MaterialButton monthButton = classOverviewToggle.findViewById(R.id.btn_month);
+
+        classOverviewToggle.post(() -> {
+            float cornerRadiusPx = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    15,
+                    getResources().getDisplayMetrics()
+            );
+
+            ShapeAppearanceModel shape = new ShapeAppearanceModel.Builder()
+                    .setTopLeftCorner(CornerFamily.ROUNDED, 0f)
+                    .setBottomLeftCorner(CornerFamily.ROUNDED, 0f)
+                    .setTopRightCorner(CornerFamily.ROUNDED, cornerRadiusPx)
+                    .setBottomRightCorner(CornerFamily.ROUNDED, cornerRadiusPx)
+                    .build();
+
+            monthButton.setShapeAppearanceModel(shape);
+
+        });
+
+        classOverviewToggle.setOnCheckedChanged(new PillToggleGroup.OnCheckedChangedListener() {
+            @Override
+            public void onCheckedChanged(int checkedId) {
+                // Set student grid view adapter
+                switch (checkedId) {
+                    case R.id.btn_day:
+                        sessionOverviewTimeFrame = CalculateHighlightInfo.OverviewDateRange.DAY;
+                        break;
+                    case R.id.btn_week:
+                        sessionOverviewTimeFrame = CalculateHighlightInfo.OverviewDateRange.WEEK;
+                        break;
+                    case R.id.btn_month:
+                        sessionOverviewTimeFrame = CalculateHighlightInfo.OverviewDateRange.MONTH;
+                        break;
+
+                }
+//
+                if (sessionOverviewTimeFrame == null) {
+                    sessionOverviewTimeFrame = CalculateHighlightInfo.OverviewDateRange.MONTH;
+                }
+                updateSessionOverview();
+            }
+        });
+
+    }
+
+
+    public interface HighlightCalculationCallback {
+        void onHighlightsCalculated();
+    }
+
+
+    public interface CopingSkillsOverviewCallback {
+        void onOverviewCalculated(Map<String, Integer> copingSkillsMap);
     }
 
 
@@ -419,6 +645,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
     public int getResourceIdForActivityLayout() {
         return R.layout._highlights_design__activity_classroom_highlights;
     }
+
 
     public Classroom getClassroom() {
         return classroom;

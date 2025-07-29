@@ -4,11 +4,11 @@ import android.graphics.Color;
 
 public class ColorConstants {
 
-    public static String HEX_HAPPY = "#FFE770";
-    public static String HEX_MAD = "#F56D6D";
-    public static String HEX_SAD = "#84C0D1";
-    public static String HEX_SCARED = "#16638F";
-    public static String HEX_EXCITED = "#FFDD36";
+    public static String HEX_HAPPY = "#FEDA5A";
+    public static String HEX_MAD = "#F1726E";
+    public static String HEX_SAD = "#75ADAE";
+    public static String HEX_SCARED = "#136782";
+    public static String HEX_EXCITED = "#FFD71E";
 
     public static int HAPPY_COLOR = Color.parseColor(HEX_HAPPY);
     public static int MAD_COLOR = Color.parseColor(HEX_MAD);
