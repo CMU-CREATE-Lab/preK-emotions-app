@@ -28,7 +28,9 @@ import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillHighlightWCIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionHighlightAdapter;
+import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlightWithCustomizationsIndexAdapter;
+import org.cmucreatelab.android.flutterprek.activities.student_section.choose_emotion.ChooseEmotionAbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CalculateHighlightInfo;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomHighlightsActivity;
@@ -42,6 +44,7 @@ import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.CopingSkillWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.ResolvedEmotionWithImageFile;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
@@ -284,12 +287,15 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     }
 
     private void initEmotionsGrid(){
-        LiveData<List<Emotion>> liveData = AppDatabase.getInstance(this).emotionDAO().getAllEmotions();
-        liveData.observe(this, new Observer<List<Emotion>>() {
+
+        AppDatabase.getInstance(getApplicationContext()).embeddedDAO().getResolvedEmotionsForStudent(student.getUuid()).observe(StudentHighlightsActivity.this, new Observer<List<ResolvedEmotionWithImageFile>>() {
             @Override
-            public void onChanged(@Nullable List<Emotion> emotions) {
+            public void onChanged(List<ResolvedEmotionWithImageFile> resolvedEmotionWithImageFiles) {
+                // replaces adapter code from above
+                Log.v(Constants.LOG_TAG, String.format("Room DB getResolvedEmotionsForStudent() returned with list results size = %d", resolvedEmotionWithImageFiles.size()));
+                final List<Emotion> emotionList = Util.EmotionMapper.fromResolvedList(resolvedEmotionWithImageFiles);
                 GridView emotionsGridView = findViewById(R.id.emotionsGridView);
-                emotionsGridView.setAdapter(new EmotionHighlightAdapter(StudentHighlightsActivity.this, emotions, emotionsListener));
+                emotionsGridView.setAdapter(new EmotionHighlightAdapter(StudentHighlightsActivity.this, emotionList, emotionsListener));
             }
         });
     }

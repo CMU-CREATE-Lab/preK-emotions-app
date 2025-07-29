@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,12 +89,15 @@ public class EmotionHighlightAdapter extends AbstractListAdapter<Emotion>{
         textView.setText(emotion.getName());
 
 
-        //TODO check for and grab custom emotion pictures
+
         if (emotion.getImageFileUuid() != null) {
             AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(emotion.getImageFileUuid()).observe(activity, new Observer<DbFile>() {
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
                     Util.setImageViewWithDbFile(appContext,(ImageView) result.findViewById(R.id.imageView), dbFile);
+                    //TODO add border around custom image, fix placehodler bug??
+
+
                 }
             });
         } else {

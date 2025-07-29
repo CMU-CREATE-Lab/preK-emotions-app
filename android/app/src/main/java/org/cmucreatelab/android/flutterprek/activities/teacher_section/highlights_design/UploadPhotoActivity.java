@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -33,18 +34,25 @@ import org.cmucreatelab.android.flutterprek.GlobalHandler;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
+import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionHighlightAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.students.StudentHighlightsActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.CropOverlayView;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.UpdateStudentModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.audio.audio_recording.SaveFileHandler;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
+import org.cmucreatelab.android.flutterprek.database.models.customization.CustomizationDAO;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.ResolvedEmotionWithImageFile;
+import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 import org.cmucreatelab.android.mylibrary.CameraActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.Executors;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -62,10 +70,17 @@ public class UploadPhotoActivity extends AbstractActivity {
     public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
     public static final String EXTRA_STUDENT = "student";
     public static final String STUDENT_UUID = "student_uuid";
+    private static final String CUSTOMIZATION_KEY = "imageFileUuid";
+    private static final String HAPPY_UUID = "emotion1";
+    private static final String SAD_UUID = "emotion2";
+    private static final String MAD_UUID = "emotion3";
+    private static final String SCARED_UUID = "emotion5";
+    private static final String EXCITED_UUID = "emotion6";
+
     private Uri displayedImagedUri;
     private CropOverlayView cropOverlay;
     private boolean fromFile;
-
+    private Customization currentEmotionCustomization;
     private Bitmap getCroppedPicture() {
 
         if (displayedImage.getDrawable() == null) return null;
@@ -148,18 +163,62 @@ public class UploadPhotoActivity extends AbstractActivity {
 
     public void updateModel(final Student student, final File newStudentPicture) {
         Log.d(Constants.LOG_TAG, "performing DB writes in updateModel()");
-        if(requestCode == StudentHighlightsActivity.STUDENT_CODE){
-            new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ActionType.UPDATE, student, newStudentPicture, new UpdateStudentModelAsyncTask.PostExecute() {
-                @Override
-                public void onPostExecute(Boolean modelSaved) {
-                    if (!modelSaved) {
-                        Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
+        String filePath = newStudentPicture.getPath();
+
+        switch(requestCode) {
+            case StudentHighlightsActivity.STUDENT_CODE:
+                new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ActionType.UPDATE, student, newStudentPicture, new UpdateStudentModelAsyncTask.PostExecute() {
+                    @Override
+                    public void onPostExecute(Boolean modelSaved) {
+                        if (!modelSaved) {
+                            Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
+                        }
+                        finish();
                     }
-                    finish();
-                }
-            }).execute();
+                }).execute();
+                break;
+
+            case StudentHighlightsActivity.HAPPY_CODE:
+                checkForCustomizationAndUpdate(HAPPY_UUID, filePath);
+                break;
+            case StudentHighlightsActivity.SAD_CODE:
+                checkForCustomizationAndUpdate(SAD_UUID, filePath);
+                break;
+            case StudentHighlightsActivity.ANGRY_CODE:
+                checkForCustomizationAndUpdate(MAD_UUID, filePath);
+                break;
+            case StudentHighlightsActivity.SCARED_CODE:
+                checkForCustomizationAndUpdate(SCARED_UUID, filePath);
+                break;
+            case StudentHighlightsActivity.EXCITED_CODE:
+                checkForCustomizationAndUpdate(EXCITED_UUID, filePath);
+                break;
         }
 
+    }
+    //checks to see if the student already has a custom emotion image and then calls insertEmotionCustomization
+    //to update or insert new customization
+    private void checkForCustomizationAndUpdate(String emotionUuid, String filePath){
+
+        AppDatabase appDatabase = AppDatabase.getInstance(getApplicationContext());
+        appDatabase.customizationDAO().getCustomizationsOwnedBy(studentUuid).observe(this, new Observer<List<Customization>>() {
+            @Override
+            public void onChanged(@Nullable List<Customization> customizations) {
+                boolean hasCustimization = false;
+                for(Customization customization : customizations){
+                    if(customization.getBasedOnUuid().equals(emotionUuid)){
+                        hasCustimization = true;
+                        insertEmotionCustomization(emotionUuid, filePath, hasCustimization, customization);
+
+                    }
+                }
+                if(!hasCustimization){
+                    insertEmotionCustomization(emotionUuid, filePath, hasCustimization, null);
+                }
+
+            }
+
+        });
     }
     private void resetImage(){
         File newStudentPicture = placeHolderToFile(R.drawable.ic_placeholder_png);
@@ -174,9 +233,52 @@ public class UploadPhotoActivity extends AbstractActivity {
                     finish();
                 }
             }).execute();
+        } else{
+            deleteCustomEmotion();
         }
     }
 
+    //used to reset the emotion image back to default by deleting customization row
+    private void deleteCustomEmotion(){
+        String emotionUuid = grabEmotionUuid();
+        //grab customization and delete from db
+        AppDatabase appDatabase = AppDatabase.getInstance(getApplicationContext());
+        appDatabase.customizationDAO().getCustomizationsOwnedBy(studentUuid).observe(this, new Observer<List<Customization>>() {
+            @Override
+            public void onChanged(@Nullable List<Customization> customizations) {
+
+                for(Customization customization : customizations){
+                    if(customization.getBasedOnUuid().equals(emotionUuid)){
+                        Executors.newSingleThreadExecutor().execute(() -> {
+                            appDatabase.customizationDAO().delete(customization);
+
+                        });
+
+                    }
+                }
+
+
+            }
+
+        });
+    }
+
+    private String grabEmotionUuid(){
+        switch(requestCode){
+            case StudentHighlightsActivity.HAPPY_CODE:
+                return HAPPY_UUID;
+            case StudentHighlightsActivity.SAD_CODE:
+                return SAD_UUID;
+            case StudentHighlightsActivity.ANGRY_CODE:
+                return MAD_UUID;
+            case StudentHighlightsActivity.SCARED_CODE:
+                return SCARED_UUID;
+            case StudentHighlightsActivity.EXCITED_CODE:
+                return EXCITED_UUID;
+            default:
+                return null;
+        }
+    }
     private File placeHolderToFile(int drawableId){
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), drawableId);
 
@@ -345,27 +447,61 @@ public class UploadPhotoActivity extends AbstractActivity {
                 resetToIconButton.setImageResource(R.drawable.ic_placeholder);
                 break;
 
+            //ALL THE CASES FOR THE EMOTION IMAGES
             case StudentHighlightsActivity.HAPPY_CODE:
-                //reset button
+                setEmotionKeepOldButton(HAPPY_UUID);
                 resetToIconButton.setImageResource(R.drawable.ic_happy);
                 break;
+
             case StudentHighlightsActivity.SAD_CODE:
-                //reset button
+                setEmotionKeepOldButton(SAD_UUID);
                 resetToIconButton.setImageResource(R.drawable.ic_sad);
                 break;
+
             case StudentHighlightsActivity.ANGRY_CODE:
-                //reset button
+                setEmotionKeepOldButton(MAD_UUID);
                 resetToIconButton.setImageResource(R.drawable.ic_mad);
                 break;
+
             case StudentHighlightsActivity.SCARED_CODE:
-                //reset button
+                setEmotionKeepOldButton(SCARED_UUID);
                 resetToIconButton.setImageResource(R.drawable.ic_scared);
                 break;
+
             case StudentHighlightsActivity.EXCITED_CODE:
-                //reset button
+                setEmotionKeepOldButton(EXCITED_UUID);
                 resetToIconButton.setImageResource(R.drawable.ic_excited);
                 break;
         }
+    }
+
+    private void setEmotionKeepOldButton(String emotionUuid){
+
+
+        AppDatabase.getInstance(getApplicationContext()).embeddedDAO().getResolvedEmotionsForStudent(student.getUuid()).observe(UploadPhotoActivity.this, new Observer<List<ResolvedEmotionWithImageFile>>() {
+            @Override
+            public void onChanged(List<ResolvedEmotionWithImageFile> resolvedEmotionWithImageFiles) {
+                // replaces adapter code from above
+                Log.v(Constants.LOG_TAG, String.format("Room DB getResolvedEmotionsForStudent() returned with list results size = %d", resolvedEmotionWithImageFiles.size()));
+                final List<Emotion> emotionList = Util.EmotionMapper.fromResolvedList(resolvedEmotionWithImageFiles);
+                for(Emotion emotion : emotionList){
+                   if(emotion.getUuid().equals(emotionUuid)){
+                       if (emotion.getImageFileUuid() != null) {
+                           AppDatabase.getInstance(UploadPhotoActivity.this).dbFileDAO().getDbFile(emotion.getImageFileUuid()).observe(UploadPhotoActivity.this, new Observer<DbFile>() {
+                               @Override
+                               public void onChanged(@Nullable DbFile dbFile) {
+                                   Util.setImageViewWithDbFile(UploadPhotoActivity.this,(ImageView) keepOldImageButton, dbFile);
+                               }
+                           });
+                       } else {
+                           keepOldImageButton.setImageResource(R.drawable.ic_placeholder);
+                       }
+                   }
+               }
+
+            }
+        });
+
     }
 
     private void setButtonColorsHelper(int color){
@@ -405,7 +541,37 @@ public class UploadPhotoActivity extends AbstractActivity {
 
 
         }
+
+        //test
+        //    { "uuid": "custom_emotion1", "basedOnUuid": "emotion1", "key": "imageFileUuid", "value": "ic_yoga", "ownerUuid": "student1" }
+
+
     }
+
+    //either creates a new customization or updates current
+    private void insertEmotionCustomization(String emotionUuid, String filePath, boolean hasCustomization, Customization customization) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            AppDatabase db = AppDatabase.getInstance(this);
+
+            // Insert DbFile
+            DbFile dbFile = new DbFile(DbFile.DbFileType.FILEPATH, filePath);
+            db.dbFileDAO().insert(dbFile);
+
+            // Insert Customization
+            if(hasCustomization){
+                customization.setValue(dbFile.getUuid());
+                db.customizationDAO().update(customization);
+            } else {
+                String customUuid = String.format("%s_%s_%d", student.getUuid(), "custom_emotion", Util.getCurrentTimestamp());
+                Customization testCustom = new Customization(customUuid, CUSTOMIZATION_KEY, dbFile.getUuid());
+                testCustom.setOwnerUuid(studentUuid);
+                testCustom.setBasedOnUuid(emotionUuid);
+                db.customizationDAO().insert(testCustom);
+            }
+
+        });
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
