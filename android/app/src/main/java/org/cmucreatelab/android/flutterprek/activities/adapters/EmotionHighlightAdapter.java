@@ -52,24 +52,6 @@ public class EmotionHighlightAdapter extends AbstractListAdapter<Emotion>{
         return emotions;
     }
 
-
-    private void playAudioFeeling(String e) {
-        AudioPlayer audioPlayer = AudioPlayer.getInstance(activity.getApplicationContext());
-        audioPlayer.stop();
-        if (e.equals("Happy")) {
-            audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_emotion_happy.wav");
-        } else if (e.equals("Sad")) {
-            audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_emotion_sad.wav");
-        } else if (e.equals("Mad")) {
-            audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_emotion_mad.wav");
-        } else if (e.equals("Scared")) {
-            audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_emotion_scared.wav");
-        } else if (e.equals("Excited")) {
-            audioPlayer.addAudioFromAssets("etc/audio_prompts/audio_emotion_excited.wav");
-        }
-        audioPlayer.playAudio();
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final Context appContext = activity.getApplicationContext();
@@ -89,7 +71,6 @@ public class EmotionHighlightAdapter extends AbstractListAdapter<Emotion>{
         textView.setText(emotion.getName());
 
 
-
         if (emotion.getImageFileUuid() != null) {
             AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(emotion.getImageFileUuid()).observe(activity, new Observer<DbFile>() {
                 @Override
@@ -97,13 +78,13 @@ public class EmotionHighlightAdapter extends AbstractListAdapter<Emotion>{
                     Util.setImageViewWithDbFile(appContext,(ImageView) result.findViewById(R.id.imageView), dbFile);
                     //TODO add border around custom image, fix placehodler bug??
 
-
                 }
             });
         } else {
             ((ImageView) result.findViewById(R.id.imageView)).setImageResource(R.drawable.ic_placeholder);
         }
 
+        //listeners for launching camera
         AppDatabase.getInstance(appContext).intermediateTablesDAO().getItineraryItemsForEmotion(emotion.getUuid()).observe(activity, new Observer<List<ItineraryItem>>() {
             @Override
             public void onChanged(@Nullable final List<ItineraryItem> itineraryItems) {

@@ -60,24 +60,22 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
     private String classroomUuid;
     private String classroomName;
     private Classroom classroom;
-    private int currentStudentDisplayMode = StudentHighlightWithCustomizationsIndexAdapter.MODE_WEEK;
-    private CalculateHighlightInfo.OverviewDateRange currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.WEEK;
-    private CalculateHighlightInfo.OverviewDateRange sessionOverviewTimeFrame = CalculateHighlightInfo.OverviewDateRange.MONTH;
+    private int currentStudentDisplayMode = StudentHighlightWithCustomizationsIndexAdapter.MODE_WEEK; //tracker for which toggle is selected in the class toggle group
+    private CalculateHighlightInfo.OverviewDateRange currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.WEEK; // tracker for coping skill toggle
+    private CalculateHighlightInfo.OverviewDateRange sessionOverviewTimeFrame = CalculateHighlightInfo.OverviewDateRange.MONTH; // tracker for overview toggle
 
     private StudentHighlightWithCustomizationsIndexAdapter studentGridViewAdapter;
 
     private final List<String> MONTHS =
             new ArrayList<>(Arrays.asList("Jan", "Feb", "Mar", "Apr", "May",
                             "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
-    private final List<String> WEEKS =
-            new ArrayList<>(Arrays.asList("Week 1", "Week 2", "Week 3"));
     private final List<String> DAYS =
             new ArrayList<>(Arrays.asList("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"));
 
 
     public static final String EXTRA_CLASSROOM = "classroom";
 
-
+    //builds the rings for the overview section
     private void setOverviewRings(CalculateHighlightInfo calculateHighlightInfo) {
         //list in order currrent, prev, 2 monthsago
         List<ArcViewOverlay> saList = new ArrayList<ArcViewOverlay>();
@@ -98,6 +96,8 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
         List<Integer> defaultColor = Arrays.asList(Color.GRAY);
         List<Float> defaultAngle = Arrays.asList(360f);
+
+        //set each ring based on percent and emotion colors
         for(int i=0; i<saList.size(); i++){
 
             if(percentList.get(i).isEmpty()){
@@ -113,7 +113,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
     }
 
-
+    //set the center title in the circles (monthly, weekly, daily)
     private void setOverviewNames() {
         String first;
         String prev;
@@ -180,6 +180,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         }
 
     }
+    //healper function for building the week range in the overview view
     private String getWeeklyRangeLabelWithOffset(int weekOffset) {
         Calendar cal = Calendar.getInstance();
         cal.setFirstDayOfWeek(Calendar.MONDAY);
@@ -196,7 +197,6 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         endCal.add(Calendar.DAY_OF_WEEK, 6);
         Date endOfWeek = endCal.getTime();
 
-        // Format result
         SimpleDateFormat formatter = new SimpleDateFormat("MMM d");
         return formatter.format(startOfWeek) + "–" + formatter.format(endOfWeek);
     }
@@ -250,22 +250,10 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
             }
         });
 
-        //fill copping skills in most used
-        CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
-        //copingSkillsView.calculateClassCopingSkillsOverview(CalculateHighlightInfo.OverviewDateRange.WEEK, classroom);
-
-        //update the coping skills display - need custom call because of date range and calculating percents before adapter
-        updateCopingSkillsView();
-
-        copingSkillsView.initSettingsClickListener(this, classroom);
-        copingSkillsView.enableSettingsConfig(true);
-        copingSkillsView.initInfoListener(this);
-
-        initPillGroupToggles();
-        delteClassListeners();
     }
 
 
+    //calling function to update the coping skills function when user changes date range
     private void updateCopingSkillsView() {
         CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
         AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkillsWithCustomizations().observe(this, new Observer<List<CopingSkillWithCustomizations>>() {
@@ -302,7 +290,8 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         });
     }
 
-    private void delteClassListeners(){
+    //listeners for the delete buttons
+    private void deleteClassListeners(){
         findViewById(R.id.deleteClassroom).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -316,15 +305,6 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
             }
         });
 
-    }
-
-
-    public void showInfoDialog(String title, String message) {
-        new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("OK", null)
-                .show();
     }
 
 
@@ -394,6 +374,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         builder.create().show();
     }
 
+    //listners on indivdual students to launch student highlights
     private final StudentHighlightWithCustomizationsIndexAdapter.ClickListener listener = new StudentHighlightWithCustomizationsIndexAdapter.ClickListener() {
         @Override
         public void onClick(StudentWithCustomizations studentWithCustomizations) {
@@ -410,6 +391,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         }
     };
 
+    //listener to add a new student to the classroom
     private final StudentHighlightWithCustomizationsIndexAdapter.ClickAddNewStudentListener addNewStudentListener = new StudentHighlightWithCustomizationsIndexAdapter.ClickAddNewStudentListener() {
         @Override
         public void onClick() {
@@ -458,12 +440,27 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         monthlyOverviewInfoImageView.setOnClickListener(monthlyOverviewInfoCollapsibleView);
 
         // TODO other initializers should be here (e.g. CopingSkillsHighlightGridView)
+        //fill copping skills in most used
+        CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
+        //copingSkillsView.calculateClassCopingSkillsOverview(CalculateHighlightInfo.OverviewDateRange.WEEK, classroom);
+
+        //update the coping skills display - need custom call because of date range and calculating percents before adapter
+        updateCopingSkillsView();
+
+        copingSkillsView.initSettingsClickListener(this, classroom);
+        copingSkillsView.enableSettingsConfig(true);
+        copingSkillsView.initInfoListener(this);
+
+        initPillGroupToggles();
+        deleteClassListeners();
 
         // TODO delete later (demo count of coping skills with emotions)
 
-      updateSessionOverview();
+        updateSessionOverview();
 
     }
+
+    //mainb calling function for update the overview rings when user changes time frame
     private void updateSessionOverview(){
         CalculateHighlightInfo calculateHighlightInfo = new CalculateHighlightInfo(classroom, getApplicationContext(), this);
         calculateHighlightInfo.sessionOverview(sessionOverviewTimeFrame, new HighlightCalculationCallback() {
@@ -475,7 +472,9 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         });
     }
 
+    //logic and initialization for all the pill toggle buttons
     private void initPillGroupToggles(){
+        //the students in the class
         PillToggleGroup classroomToggle = findViewById(R.id.classroomToggle);
         classroomToggle.check(R.id.btn_week);
         classroomToggle.setOnCheckedChanged(new PillToggleGroup.OnCheckedChangedListener() {
@@ -503,6 +502,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
             }
         });
 
+        //the coping skills
         CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
         copingSkillsView.setOnToggleCheckedChanged(new PillToggleGroup.OnCheckedChangedListener() {
             @Override
@@ -530,8 +530,9 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         });
 
 
-
+        //the overview
         PillToggleGroup classOverviewToggle = findViewById(R.id.classOverviewToggle);
+        TextView overViewTitle = findViewById(R.id.titleMonthlyOverview);
         classOverviewToggle.check(R.id.btn_month);
 
         // hides the year toggle and then rounds the month toggle corner
@@ -562,19 +563,26 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                 // Set student grid view adapter
                 switch (checkedId) {
                     case R.id.btn_day:
-                        sessionOverviewTimeFrame = CalculateHighlightInfo.OverviewDateRange.DAY;
+                        sessionOverviewTimeFrame = CalculateHighlightInfo.OverviewDateRange.DAY;;
+                        overViewTitle.setText("Daily Overview");
                         break;
+
                     case R.id.btn_week:
                         sessionOverviewTimeFrame = CalculateHighlightInfo.OverviewDateRange.WEEK;
+                        overViewTitle.setText("Weekly Overview");
                         break;
+
                     case R.id.btn_month:
                         sessionOverviewTimeFrame = CalculateHighlightInfo.OverviewDateRange.MONTH;
+                        overViewTitle.setText("Monthly Overview");
                         break;
 
                 }
 //
                 if (sessionOverviewTimeFrame == null) {
                     sessionOverviewTimeFrame = CalculateHighlightInfo.OverviewDateRange.MONTH;
+                    overViewTitle.setText("Monthly Overview");
+
                 }
                 updateSessionOverview();
             }
