@@ -1,70 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- TODO replace background #aaa -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerHighlights"
     style="@style/DrawerTeacherSection"
-    android:background="#7393C7"
+    android:background="#ccc"
     android:layout_height="match_parent">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintNavigateBack"
+        android:visibility="invisible"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <ImageView
+            android:id="@+id/imageButtonBackArrow"
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            app:tint="#1c8773"
+            android:src="@mipmap/ic_arrow_back"
+            android:scaleType="fitCenter"
+            app:layout_constraintTop_toTopOf="@id/textViewBack"
+            app:layout_constraintBottom_toBottomOf="@id/textViewBack"
+            app:layout_constraintEnd_toStartOf="@id/textViewBack"
+            />
+
+        <TextView
+            android:id="@+id/textViewBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/highlights_design_drawer_navigate_back"
+            android:textSize="14dp"
+            android:textColor="#1c8773"
+            android:clickable="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawerItem
         android:id="@+id/constraintRow1"
+        app:highlights_drawer_item_text="@string/highlights_design_drawer_item_settings"
+        app:highlights_drawer_item_selected="true"
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/drawer_top_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/constraintNavigateBack"
+        />
 
-        <View
-            android:id="@+id/highlightViewActiveClass"
-            style="@style/DrawerTeacherSectionHighlighted"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewCollapsible"
-            style="@style/DrawerTeacherSectionText"
-            android:text="@string/mindfulnest_header_active_class"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/highlightViewActiveClass"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/highlightViewActiveClass"
-            app:layout_constraintTop_toTopOf="@+id/highlightViewActiveClass" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawerItem
         android:id="@+id/constraintRow2"
+        app:highlights_drawer_item_text="@string/highlights_design_drawer_item_classes"
+        app:highlights_drawer_item_selected="false"
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/drawer_title_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintRow1">
+        app:layout_constraintTop_toBottomOf="@+id/constraintRow1"
+        />
 
-        <View
-            android:id="@+id/highlightViewSettings"
-            style="@style/DrawerTeacherSectionHighlighted"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewSettings"
-            style="@style/DrawerTeacherSectionText"
-            android:text="@string/mindfulnest_header_settings"
-            android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="@+id/highlightViewSettings"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/highlightViewSettings"
-            app:layout_constraintTop_toTopOf="@+id/highlightViewSettings" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawerItem
+        android:id="@+id/constraintRow3"
+        app:highlights_drawer_item_text="@string/highlights_design_drawer_item_class_name_placeholder"
+        app:highlights_drawer_item_selected="false"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintRow2"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/tempBlock"
@@ -74,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintRow2">
+        app:layout_constraintTop_toBottomOf="@+id/constraintRow3">
 
         <TextView
             android:id="@+id/textViewBlock"
@@ -82,7 +98,7 @@
             android:layout_height="match_parent"
             style="@style/DrawerTeacherSectionText"
             android:text="Click the drawer to go to default ClassroomIndexActivity"
-            android:textColor="#0000ff"
+            android:textColor="#aaaaff"
             android:textStyle="bold"
             />
 

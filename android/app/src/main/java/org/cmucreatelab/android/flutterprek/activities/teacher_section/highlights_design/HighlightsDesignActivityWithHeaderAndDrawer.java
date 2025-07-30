@@ -28,7 +28,7 @@ public abstract class HighlightsDesignActivityWithHeaderAndDrawer extends Abstra
         this.drawerHighlights = findViewById(R.id.drawerHighlights);
 
         // TODO remove later (provided for backward navigation only)
-        drawerHighlights.setOnClickListener(new View.OnClickListener() {
+        drawerHighlights.findViewById(R.id.tempBlock).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent classroomsIndexActivity = new Intent(getApplicationContext(), ClassroomIndexActivity.class);

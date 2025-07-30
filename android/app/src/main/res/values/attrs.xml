@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="HighlightsViewDrawerItem">
+        <attr name="highlights_drawer_item_text" format="string" />
+        <attr name="highlights_drawer_item_selected" format="boolean" />
+    </declare-styleable>
+</resources>

@@ -102,6 +102,10 @@
     <string name="highlights_design_info_description_classroom">This section lists all of the students in the classroom, along with a color associated with their most frequently-selected emotion. The colors correspond to the emotion images listed below.</string>
     <string name="highlights_design_info_description_monthly_overview">This section compares tool usage across the entire classroom over the past several days, weeks, and months, each with a color associated with the most frequently-selected emotions. The colors correspond to the emotion images listed below.</string>
     <string name="highlights_design_info_description_coping_skills">This section lists the breakdown of coping skills used in the classroom by all students. The most used coping skill is the largest circle which appears on the left-hand side.</string>
+    <string name="highlights_design_drawer_item_settings">App Settings</string>
+    <string name="highlights_design_drawer_item_classes">Classes</string>
+    <string name="highlights_design_drawer_item_class_name_placeholder">Class Name</string>
+    <string name="highlights_design_drawer_navigate_back">Back to Previous</string>
     <string name="empty"></string>
 </resources>
 
