@@ -450,7 +450,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     }
 
     private void handleResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Activity.RESULT_CANCELED){
+        if(resultCode == Activity.RESULT_OK){
             launchUploadPhotoActivity(requestCode, resultCode, data);
         }
     }
