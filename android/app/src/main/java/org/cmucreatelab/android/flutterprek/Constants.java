@@ -90,7 +90,7 @@ public class Constants {
 
 
     /** This file is defined in the assets/ directory. */
-    public static final String DATABASE_SEED = "DbSeed_Spring2024.json";
+    public static final String DATABASE_SEED = "full_db_seed_fixed_updated.json";
 
 }
 
