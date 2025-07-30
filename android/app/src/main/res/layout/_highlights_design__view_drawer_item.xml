@@ -9,23 +9,30 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
-    <!-- app:highlights_drawer_item_selected -->
     <View
         android:id="@+id/highlightView"
-        style="@style/DrawerTeacherSectionHighlighted"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="7sp"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
         android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/textView"/>
 
-    <!-- app:highlights_drawer_item_text -->
     <TextView
         android:id="@+id/textView"
-        style="@style/DrawerTeacherSectionText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="13dp"
+        android:fontFamily="@font/source_sans_pro"
+        android:gravity="fill_vertical"
+        android:textColor="@color/colorTextDrawerTitle"
+        android:textSize="24sp"
         android:text="Item Text"
         android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/highlightView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/highlightView"
-        app:layout_constraintTop_toTopOf="@+id/highlightView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

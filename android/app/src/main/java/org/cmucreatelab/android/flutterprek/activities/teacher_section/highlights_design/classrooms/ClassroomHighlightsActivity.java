@@ -29,6 +29,7 @@ import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillHighl
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.UpdateClassroomModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CalculateHighlightInfo;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PillToggleGroup;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.students.StudentHighlightsActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.ClassroomInfoCollapsibleView;
@@ -321,6 +322,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                     updateName(newText);
                     TextView myTextView = findViewById(R.id.editMyClassroom);
                     myTextView.setText(newText);
+                    getDrawerHighlights().setTextForClassNameRow(newText);
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
@@ -383,8 +385,9 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
 
             Intent studentEditActivity = new Intent(ClassroomHighlightsActivity.this, StudentHighlightsActivity.class);
-            studentEditActivity.putExtra(StudentEditActivity.EXTRA_STUDENT, studentWithCustomizations.student);
-            studentEditActivity.putExtra(StudentEditActivity.EXTRA_CLASSROOM_NAME, classroomName);
+            studentEditActivity.putExtra(StudentHighlightsActivity.EXTRA_CLASSROOM, classroom);
+            studentEditActivity.putExtra(StudentHighlightsActivity.EXTRA_STUDENT, studentWithCustomizations.student);
+            studentEditActivity.putExtra(StudentHighlightsActivity.EXTRA_CLASSROOM_NAME, classroomName);
             startActivity(studentEditActivity);
 
 
@@ -400,8 +403,9 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
             Student newStudent = new Student(templateNameForAddStudent, classroomUuid);
             updateModel(newStudent);
-            studentAddActivityIntent.putExtra(StudentEditActivity.EXTRA_STUDENT, newStudent);
-            studentAddActivityIntent.putExtra(StudentEditActivity.EXTRA_CLASSROOM_NAME, classroomName);
+            studentAddActivityIntent.putExtra(StudentHighlightsActivity.EXTRA_CLASSROOM, classroom);
+            studentAddActivityIntent.putExtra(StudentHighlightsActivity.EXTRA_STUDENT, newStudent);
+            studentAddActivityIntent.putExtra(StudentHighlightsActivity.EXTRA_CLASSROOM_NAME, classroomName);
             startActivity(studentAddActivityIntent);
 
         }
@@ -454,10 +458,9 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         initPillGroupToggles();
         deleteClassListeners();
 
-        // TODO delete later (demo count of coping skills with emotions)
-
+        getDrawerHighlights().setClassroom(classroom);
+        getDrawerHighlights().setHighlighted(HighlightsViewDrawer.Row.CLASS_SHOW);
         updateSessionOverview();
-
     }
 
     //mainb calling function for update the overview rings when user changes time frame

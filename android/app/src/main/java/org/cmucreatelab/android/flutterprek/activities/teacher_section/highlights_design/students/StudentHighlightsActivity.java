@@ -35,6 +35,7 @@ import org.cmucreatelab.android.flutterprek.activities.teacher_section.classroom
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CalculateHighlightInfo;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomHighlightsActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PillToggleGroup;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.UploadPhotoActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.ArcViewOverlay;
@@ -64,13 +65,16 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     public static final int SCARED_CODE = 103;
     public static final int EXCITED_CODE = 104;
     public static final int STUDENT_CODE = 105;
+    // TODO @Dante refactor extras to get classroom name from classroom
     public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
     public static final String EXTRA_STUDENT = "student";
+    public static final String EXTRA_CLASSROOM = "classroom";
 
     private Button buttonAngry, buttonHappy, buttonSad;
     private String classroomName;
     private String studentUuid;
     private Student student;
+    private Classroom classroom;
     private CalculateHighlightInfo.OverviewDateRange dateRange = CalculateHighlightInfo.OverviewDateRange.WEEK;
     private CalculateHighlightInfo.OverviewDateRange currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.WEEK;
 
@@ -371,6 +375,12 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setUpDrawer();
+
+        // get classroom and update the drawer
+        this.classroom = (Classroom) getIntent().getSerializableExtra(EXTRA_CLASSROOM);
+        getDrawerHighlights().setClassroom(classroom);
+        getDrawerHighlights().setHighlighted(HighlightsViewDrawer.Row.CLASS_SHOW);
+
         //get student from intent
         if(getIntent().getStringExtra(EXTRA_CLASSROOM_NAME) != null && getIntent().getSerializableExtra(EXTRA_STUDENT) != null) {
             this.classroomName = getIntent().getStringExtra(EXTRA_CLASSROOM_NAME);
@@ -463,11 +473,13 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             Intent  intent = new Intent(StudentHighlightsActivity.this, UploadPhotoActivity.class);
             Uri imageUri = data.getParcelableExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI);
 
+            // TODO @Dante intent extras should be defined within Activity class (e.g. "UploadPhotoActivity.EXTRA_CLASSROOM" below)
             if(student != null && classroomName != null) {
 
                 intent.putExtra(EXTRA_STUDENT, studentUuid);
                 intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
             }
+            intent.putExtra(UploadPhotoActivity.EXTRA_CLASSROOM, classroom);
 
             boolean fromFileOrVertical = data.getBooleanExtra("fromFiles", false);
             intent.putExtra("fromFiles", fromFileOrVertical);

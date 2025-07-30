@@ -42,6 +42,8 @@ import org.cmucreatelab.android.flutterprek.audio.audio_recording.SaveFileHandle
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
 import org.cmucreatelab.android.flutterprek.database.models.customization.CustomizationDAO;
+import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
+
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.ResolvedEmotionWithImageFile;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
@@ -65,9 +67,12 @@ public class UploadPhotoActivity extends AbstractActivity {
     private ImageView resetToIconButton, keepOldImageButton,
             updateImageButton, displayedImage, closeButton;
 
+    // TODO @Dante refactor extras to get classroom name from classroom
     private String classroomName, studentUuid;
     private Student student;
+    private Classroom classroom;
     public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
+    public static final String EXTRA_CLASSROOM = "classroom";
     public static final String EXTRA_STUDENT = "student";
     public static final String STUDENT_UUID = "student_uuid";
     private static final String CUSTOMIZATION_KEY = "imageFileUuid";
@@ -156,6 +161,8 @@ public class UploadPhotoActivity extends AbstractActivity {
         intent.putExtra("requestCode", requestCode);
         intent.putExtra(STUDENT_UUID, studentUuid);
         intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
+        // TODO class putExtra StudentHighlightsActivity.class ~~!
+        intent.putExtra(EXTRA_CLASSROOM, classroom);
         startActivity(intent);
 
 
@@ -523,8 +530,7 @@ public class UploadPhotoActivity extends AbstractActivity {
 
         fromFile = intent.getBooleanExtra("fromFiles", false);
 
-
-
+        this.classroom = (Classroom) getIntent().getSerializableExtra(EXTRA_CLASSROOM);
         if(getIntent().getStringExtra(EXTRA_CLASSROOM_NAME) != null && getIntent().getStringExtra(EXTRA_STUDENT) != null) {
             this.classroomName = getIntent().getStringExtra(EXTRA_CLASSROOM_NAME);
             this.studentUuid = getIntent().getStringExtra(EXTRA_STUDENT);
@@ -592,6 +598,8 @@ public class UploadPhotoActivity extends AbstractActivity {
             intent.putExtra(STUDENT_UUID, studentUuid);
             intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
             intent.putExtra("fromFiles", fromFile);
+            // TODO class putExtra StudentHighlightsActivity.class ~~!
+            intent.putExtra(EXTRA_CLASSROOM, classroom);
             setResult(RESULT_CANCELED, intent);
             startActivity(intent);
         }

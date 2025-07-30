@@ -20,6 +20,7 @@ import org.cmucreatelab.android.flutterprek.activities.adapters.ClassroomIndexAd
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.UpdateClassroomModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
@@ -71,7 +72,7 @@ public class ClassroomIndexActivity extends HighlightsDesignActivityWithHeaderAn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setUpDrawer();
-
+        getDrawerHighlights().setHighlighted(HighlightsViewDrawer.Row.CLASSES_INDEX);
 
         // TODO replace adapter
         AppDatabase.getInstance(this).classroomDAO().getAllClassrooms().observe(this, new Observer<List<Classroom>>() {

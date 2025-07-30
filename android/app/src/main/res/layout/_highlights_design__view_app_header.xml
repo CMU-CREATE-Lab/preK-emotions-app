@@ -4,19 +4,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/appHeaderHighlights"
     style="@style/AppHeader"
-    android:background="#FFFFFF"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
     <ImageView
         android:id="@+id/imageLogo"
-        style="@style/AppHeaderImages"
-        android:layout_width="158sp"
-        android:layout_height="31sp"
-        android:background="@drawable/ic_mindfulnest_header_logo"
+        android:layout_margin="10sp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_mindfulnest_header_logo"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/imageStudent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
