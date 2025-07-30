@@ -75,6 +75,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     private CalculateHighlightInfo.OverviewDateRange currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.WEEK;
 
 
+    //listerns for starting camera activity based on emotion
     private final EmotionHighlightAdapter.ClickListener emotionsListener = new EmotionHighlightAdapter.ClickListener() {
         @Override
         public void onClick(Emotion emotion, List<ItineraryItem> itineraryItems) {
@@ -187,7 +188,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchProfiePictureActivity();
+                launchCameraActivity();
 
             }
 
@@ -196,7 +197,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         findViewById(R.id.cameraIcon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchProfiePictureActivity();
+                launchCameraActivity();
             }
         });
     }
@@ -248,7 +249,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
 
     }
 
-    private void launchProfiePictureActivity(){
+    private void launchCameraActivity(){
         GlobalHandler.getInstance(getApplicationContext()).isRunningActivityForImageResult = true;
         Intent intent = new Intent(StudentHighlightsActivity.this, CameraActivity.class);
         intent.putExtra(EXTRA_STUDENT, studentUuid);
@@ -291,7 +292,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         AppDatabase.getInstance(getApplicationContext()).embeddedDAO().getResolvedEmotionsForStudent(student.getUuid()).observe(StudentHighlightsActivity.this, new Observer<List<ResolvedEmotionWithImageFile>>() {
             @Override
             public void onChanged(List<ResolvedEmotionWithImageFile> resolvedEmotionWithImageFiles) {
-                // replaces adapter code from above
+
                 Log.v(Constants.LOG_TAG, String.format("Room DB getResolvedEmotionsForStudent() returned with list results size = %d", resolvedEmotionWithImageFiles.size()));
                 final List<Emotion> emotionList = Util.EmotionMapper.fromResolvedList(resolvedEmotionWithImageFiles);
                 GridView emotionsGridView = findViewById(R.id.emotionsGridView);
@@ -449,24 +450,9 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     }
 
     private void handleResult(int requestCode, int resultCode, Intent data) {
-      switch(resultCode) {
-          case Activity.RESULT_OK:
-              launchUploadPhotoActivity(requestCode, resultCode, data);
-              break;
-
-          case Activity.RESULT_CANCELED:
-              break;
-
-          case UploadPhotoActivity.UPDATE:
-              break;
-
-          case UploadPhotoActivity.KEEP:
-              break;
-
-          case UploadPhotoActivity.RESET:
-              break;
-
-      }
+        if(resultCode == Activity.RESULT_CANCELED){
+            launchUploadPhotoActivity(requestCode, resultCode, data);
+        }
     }
 
     private void launchUploadPhotoActivity(int requestCode, int resultCode, Intent data){
@@ -478,15 +464,13 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             Uri imageUri = data.getParcelableExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI);
 
             if(student != null && classroomName != null) {
-//                this.classroomName = getIntent().getStringExtra(EXTRA_CLASSROOM_NAME);
-//                this.student = (Student) getIntent().getSerializableExtra(EXTRA_STUDENT);
-//                this.studentUuid = student.getUuid();
+
                 intent.putExtra(EXTRA_STUDENT, studentUuid);
                 intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
             }
 
-            boolean fromFile = data.getBooleanExtra("fromFiles", false);
-            intent.putExtra("fromFiles", fromFile);
+            boolean fromFileOrVertical = data.getBooleanExtra("fromFiles", false);
+            intent.putExtra("fromFiles", fromFileOrVertical);
             intent.putExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI, imageUri);
             intent.putExtra("requestCode", requestCode);
 
@@ -497,11 +481,6 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         }
 
     }
-
-    private void saveImage(){
-        return;
-    }
-
 
 }
 
