@@ -40,8 +40,8 @@ public class CalculateHighlightInfo {
     private static final String TWO_TIME_FRAMES_AGO = "two_months_time_frame";
     private static final String OUT_OF_RANGE = "out_of_range";
 
-    private static final List<Emotion> emotionList;
-    private static final List<CopingSkill> copingSkillList;
+    private static final List<Emotion> EMOTION_List;
+    private static final List<CopingSkill> COPING_SKILL_LIST;
 
     static {
         List<Emotion> tempEmotionList = new ArrayList<>();
@@ -50,14 +50,14 @@ public class CalculateHighlightInfo {
         tempEmotionList.add(new Emotion("emotion3", "Mad"));
         tempEmotionList.add(new Emotion("emotion5", "Scared"));
         tempEmotionList.add(new Emotion("emotion6", "Excited"));
-        emotionList = Collections.unmodifiableList(tempEmotionList);
+        EMOTION_List = Collections.unmodifiableList(tempEmotionList);
 
         List<CopingSkill> tempCopingSkillList = new ArrayList<>();
         tempCopingSkillList.add(new CopingSkill("coping_skill_14", "Conduct"));
         tempCopingSkillList.add(new CopingSkill("coping_skill_18", "Cuddle"));
         tempCopingSkillList.add(new CopingSkill("coping_skill_1", "Flower Breathing"));
         tempCopingSkillList.add(new CopingSkill("coping_skill_5", "Jumping Jacks"));
-        copingSkillList = Collections.unmodifiableList(tempCopingSkillList);
+        COPING_SKILL_LIST = Collections.unmodifiableList(tempCopingSkillList);
     }
     public static final List<Integer> EMOTION_COLORS = Arrays.asList(ColorConstants.HAPPY_COLOR, ColorConstants.MAD_COLOR,
             ColorConstants.SAD_COLOR, ColorConstants.EXCITED_COLOR,
@@ -90,6 +90,7 @@ public class CalculateHighlightInfo {
 
     }
 
+    //main calling function for filling the coping skill count maps for a class
     public void copingSkillClassOverview(OverviewDateRange range, CopingSkillsHighlightGridView.CopingSkillCalculationCallback callback){
 
         ArrayList<String> studentUuids = new ArrayList<>();
@@ -98,9 +99,7 @@ public class CalculateHighlightInfo {
             @Override
             public void onChanged(List<Student> students) {
                 Log.v(Constants.LOG_TAG, "Got result from getAllStudentsFromClassroom");
-                // API 24...
-                // List<String> studentUuids = students.stream().map(Student::getUuid).collect(Collectors.toList());
-                // ...
+
                 ArrayList<String> studentUuids = new ArrayList<>();
                 for (Student s : students) {
                     studentUuids.add(s.getUuid());
@@ -110,7 +109,6 @@ public class CalculateHighlightInfo {
                     @Override
                     public void onChanged(List<StudentWithSessionsAndSessionCopingSkills> results) {
                         Log.v(Constants.LOG_TAG, "Got result from getSessionsWithSessionCopingSkillsFromStudents");
-                        //calculateMonthlyRings(results);
                         calculateClassCopingSkillsOverview(results, range);
 
                         if (callback != null) {
@@ -122,6 +120,8 @@ public class CalculateHighlightInfo {
             }
         });
     }
+
+    //main calling function for filling the coping skill count maps for a student
     public void copingSkillStudentOverview(OverviewDateRange range, Student student, CopingSkillsHighlightGridView.CopingSkillCalculationCallback callback){
 
         ArrayList<String> studentUuids = new ArrayList<>();
@@ -164,21 +164,17 @@ public class CalculateHighlightInfo {
         for(SessionWithSessionCopingSkills sessionWithSkills : currentSessions){
             //check for null emotionUuid in session?
             for(SessionCopingSkill sessionCopingSkill : sessionWithSkills.sessionCopingSkills){
-                //for(CopingSkill copingSkill : sessionCopingSkill.getCopingSkillUuid()){)
 
+                for(CopingSkill copingSkill : COPING_SKILL_LIST){
 
-                for(CopingSkill copingSkill : copingSkillList){
-                    for (CopingSkill skill : copingSkillList) {
-                    }
                     if(sessionCopingSkill.getCopingSkillUuid().equals(copingSkill.getUuid())){
-                        classCopingSkillsOverview.put(copingSkill.getUuid(), classCopingSkillsOverview.getOrDefault(copingSkill.getUuid(), 0) + 1);
+                        classCopingSkillsOverview.put(copingSkill.getUuid(), getOrDefault(classCopingSkillsOverview, copingSkill.getUuid(), 0) + 1);
                     }
                 }
             }
 
         }
 
-        int i =0;
     }
 
     //main function for student overview - one student at a time
@@ -210,9 +206,8 @@ public class CalculateHighlightInfo {
 
 
         //only this week
-        List<SessionWithSessionCopingSkills> currentSessions = getSessionsByPeriod(sessions.get(0), range);
+        List<SessionWithSessionCopingSkills> currentSessions = getSessionsByPeriod(sessions.get(0), range); //get 0 cause one student in list
 
-      //  List<SessionWithSessionCopingSkills> currentSessions = getCurrentWeekSessions(sessions.get(0)); // get 0 cause one student in list
         //create count w/ emotions
         if (currentSessions == null || currentSessions.isEmpty()) {
             return;
@@ -221,20 +216,20 @@ public class CalculateHighlightInfo {
         for(SessionWithSessionCopingSkills sessionWithSkills : currentSessions){
             //check for null emotionUuid in session?
 
-            for (Emotion emotion : emotionList) {
+            for (Emotion emotion : EMOTION_List) {
                 if (sessionWithSkills.session.getEmotionUuid() == null) {
                     Log.w(Constants.LOG_TAG, "calculateStudentOverview found session with null emotion UUID; continuing...");
                     continue;
                 }
                 if (sessionWithSkills.session.getEmotionUuid().equals(emotion.getUuid())) {
-                    studentEmotionCounts.put(emotion.getName(), studentEmotionCounts.getOrDefault(emotion.getName(), 0) + 1);
+                    studentEmotionCounts.put(emotion.getName(), getOrDefault(studentEmotionCounts, emotion.getName(), 0) + 1);
                 }
             }
         }
-      //  Map<StudentWithSessionsAndSessionCopingSkills.CopingSkillEmotion, Integer> thisWeekCounts = StudentWithSessionsAndSessionCopingSkills.countSessionCopingSkillsWithEmotion(thisWeekSessions);
 
     }
 
+    //returns all the sesions withina  time fram (day, week ,month, year)
     private static List<SessionWithSessionCopingSkills> getSessionsByPeriod(StudentWithSessionsAndSessionCopingSkills student, OverviewDateRange period) {
         List<SessionWithSessionCopingSkills> filteredSessions = new ArrayList<>();
 
@@ -361,21 +356,20 @@ public class CalculateHighlightInfo {
             return;
         }
         //only wanhted months
-        //List<List<StudentWithSessionsAndSessionCopingSkills>> monthlySessions = getPastTwoMonthsSessions(sessions);
-        List<List<StudentWithSessionsAndSessionCopingSkills>> monthlySessions = getPastTimeFramesSessions(sessions, range);
+        List<List<StudentWithSessionsAndSessionCopingSkills>> pastThreeFrameSessions = getPastTimeFramesSessions(sessions, range);
 
 
-        List<StudentWithSessionsAndSessionCopingSkills> thisMonthsSessions = monthlySessions.get(0);
-        List<StudentWithSessionsAndSessionCopingSkills> lastMonthsSessions = monthlySessions.get(1);
-        List<StudentWithSessionsAndSessionCopingSkills> twoMonthsAgoSessions = monthlySessions.get(2);
+        List<StudentWithSessionsAndSessionCopingSkills> thisFramesSessions = pastThreeFrameSessions.get(0); //current frame (today)
+        List<StudentWithSessionsAndSessionCopingSkills> lastFramesSessions = pastThreeFrameSessions.get(1); //previous frame (yesterday)
+        List<StudentWithSessionsAndSessionCopingSkills> twoFramesAgoSessions = pastThreeFrameSessions.get(2); //two frams agao (two days ago)
 
         //create count w/ emotions and copping skills maps
-        Map<StudentWithSessionsAndSessionCopingSkills.CopingSkillEmotion, Integer> thisMonthsCounts = StudentWithSessionsAndSessionCopingSkills.countSessionCopingSkillsWithEmotion(thisMonthsSessions);
-        Map<StudentWithSessionsAndSessionCopingSkills.CopingSkillEmotion, Integer> lastMonthsCounts = StudentWithSessionsAndSessionCopingSkills.countSessionCopingSkillsWithEmotion(lastMonthsSessions);
-        Map<StudentWithSessionsAndSessionCopingSkills.CopingSkillEmotion, Integer> twoMonthsAgoCounts = StudentWithSessionsAndSessionCopingSkills.countSessionCopingSkillsWithEmotion(twoMonthsAgoSessions);
+        Map<StudentWithSessionsAndSessionCopingSkills.CopingSkillEmotion, Integer> thisMonthsCounts = StudentWithSessionsAndSessionCopingSkills.countSessionCopingSkillsWithEmotion(thisFramesSessions);
+        Map<StudentWithSessionsAndSessionCopingSkills.CopingSkillEmotion, Integer> lastMonthsCounts = StudentWithSessionsAndSessionCopingSkills.countSessionCopingSkillsWithEmotion(lastFramesSessions);
+        Map<StudentWithSessionsAndSessionCopingSkills.CopingSkillEmotion, Integer> twoMonthsAgoCounts = StudentWithSessionsAndSessionCopingSkills.countSessionCopingSkillsWithEmotion(twoFramesAgoSessions);
 
 
-        for(Emotion emotion : emotionList){
+        for(Emotion emotion : EMOTION_List){
             thisSessionClassEmotionCounts.put(emotion.getName(), getEmotionTotal(thisMonthsCounts, emotion.getUuid()));
             lastSessionClassEmotionCounts.put(emotion.getName(), getEmotionTotal(lastMonthsCounts, emotion.getUuid()));
             twoSessionsAgoClassEmotionCounts.put(emotion.getName(), getEmotionTotal(twoMonthsAgoCounts, emotion.getUuid()));
@@ -397,6 +391,7 @@ public class CalculateHighlightInfo {
     }
 
 
+    //helper function for getPastTimeFramesSessions
     private String getTimeFrameLabelForDate(Date dateToCheck, OverviewDateRange range) {
         if (dateToCheck == null) return OUT_OF_RANGE;
 
@@ -443,6 +438,7 @@ public class CalculateHighlightInfo {
         }
     }
 
+    //makes a list with three lists of sessions for each period of time (current, previous, two ago)
     private List<List<StudentWithSessionsAndSessionCopingSkills>> getPastTimeFramesSessions(
             List<StudentWithSessionsAndSessionCopingSkills> allStudents,
             OverviewDateRange range) {
@@ -516,8 +512,8 @@ public class CalculateHighlightInfo {
         float total = 0f;
 
         // Collect counts from map
-        for (int i = 0; i < copingSkillList.size() && i < 4; i++) {
-            String uuid = copingSkillList.get(i).getUuid();
+        for (int i = 0; i < COPING_SKILL_LIST.size() && i < 4; i++) {
+            String uuid = COPING_SKILL_LIST.get(i).getUuid();
             if (map.containsKey(uuid)) {
                 float count = map.get(uuid);
                 counts.set(i, count);
@@ -580,6 +576,8 @@ public class CalculateHighlightInfo {
         return percents;
 
     }
+
+    //fills an ArcViewOverlay
     public static void setArc(Map<String, Integer> map, ArcViewOverlay arcView, float arcWidth, boolean isAddStudent){
         if(!isAddStudent && !map.isEmpty()){
             // List<Integer> colors = Arrays.asList(Color.RED, Color.GREEN, Color.BLUE);
@@ -595,6 +593,9 @@ public class CalculateHighlightInfo {
             arcView.setSegmentAngles(angles);
             arcView.setArcWidth(arcWidth);
         }
+    }
+    private static <K> int getOrDefault(Map<K, Integer> map, K key, int defaultValue) {
+        return map.containsKey(key) ? map.get(key) : defaultValue;
     }
 
     public Map<String, Integer> getThisSessionEmotionCounts() {
