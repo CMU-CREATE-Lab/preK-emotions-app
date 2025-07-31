@@ -31,6 +31,7 @@ public class CopingSkillsHighlightGridView extends ConstraintLayout {
     private TextView titleTextView;
     private ImageView editCopingSkills;
     private PillToggleGroup pillToggleGroup;
+    private CopingSkillsInfoCollapsibleView copingSkillsInfoCollapsibleView;
 
 
 
@@ -51,7 +52,7 @@ public class CopingSkillsHighlightGridView extends ConstraintLayout {
         editCopingSkills = findViewById(R.id.editCopingSkills);
         pillToggleGroup = findViewById(R.id.copingSkillsToggle);
         pillToggleGroup.check(R.id.btn_week);
-
+        this.copingSkillsInfoCollapsibleView = findViewById(R.id.copingSkillsInfoCollapsibleView);
     }
 
     public void calculateClassCopingSkillsOverview(CalculateHighlightInfo.OverviewDateRange range, Classroom classroom, ClassroomHighlightsActivity.CopingSkillsOverviewCallback callback){
@@ -107,7 +108,6 @@ public class CopingSkillsHighlightGridView extends ConstraintLayout {
 
     public void initCollapsibleViewListener(Context context) {
         ImageView copingSkillsInfoImageView = findViewById(R.id.copingSkillsInfoImageView);
-        CopingSkillsInfoCollapsibleView copingSkillsInfoCollapsibleView = findViewById(R.id.copingSkillsInfoCollapsibleView);
         copingSkillsInfoImageView.setOnClickListener(copingSkillsInfoCollapsibleView);
     }
 
@@ -128,6 +128,11 @@ public class CopingSkillsHighlightGridView extends ConstraintLayout {
         if (pillToggleGroup != null) {
             pillToggleGroup.setOnCheckedChanged(listener);
         }
+    }
+
+
+    public CopingSkillsInfoCollapsibleView getCopingSkillsInfoCollapsibleView() {
+        return copingSkillsInfoCollapsibleView;
     }
 
 

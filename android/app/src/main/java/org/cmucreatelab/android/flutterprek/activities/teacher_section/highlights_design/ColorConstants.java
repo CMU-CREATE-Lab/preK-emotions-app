@@ -8,7 +8,7 @@ public class ColorConstants {
     public static String HEX_MAD = "#F1726E";
     public static String HEX_SAD = "#75ADAE";
     public static String HEX_SCARED = "#136782";
-    public static String HEX_EXCITED = "#FFD71E";
+    public static String HEX_EXCITED = "#FFC60F";
 
     public static int HAPPY_COLOR = Color.parseColor(HEX_HAPPY);
     public static int MAD_COLOR = Color.parseColor(HEX_MAD);

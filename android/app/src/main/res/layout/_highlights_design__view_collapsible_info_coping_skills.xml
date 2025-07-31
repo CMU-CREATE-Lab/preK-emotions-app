@@ -26,7 +26,7 @@
         <TextView
             android:id="@+id/textViewCollapsible"
             style="@style/TeacherSectionHighlightsSectionInfoText"
-            android:text="@string/highlights_design_info_description_coping_skills"
+            android:text="@string/highlights_design_info_description_coping_skills_classroom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/highlightViewActiveClass"
             app:layout_constraintTop_toTopOf="parent" />

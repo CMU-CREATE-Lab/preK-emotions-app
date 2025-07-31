@@ -315,6 +315,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             }
         });
         copingSkillsView.initCollapsibleViewListener(this);
+        copingSkillsView.getCopingSkillsInfoCollapsibleView().setTextForCopingSkillsDescription(getString(R.string.highlights_design_info_description_coping_skills_student));
     }
     private void updateCopingSkillsView(){
         CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
