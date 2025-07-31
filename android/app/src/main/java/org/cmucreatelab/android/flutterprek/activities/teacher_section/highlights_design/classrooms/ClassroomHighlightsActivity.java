@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -36,7 +35,6 @@ import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlight
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.MonthlyOverviewInfoCollapsibleView;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.ArcViewOverlay;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.CopingSkillsHighlightGridView;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.StudentEditActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.UpdateStudentModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.CopingSkillWithCustomizations;
@@ -436,7 +434,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
         copingSkillsView.initSettingsClickListener(this, classroom);
         copingSkillsView.enableSettingsConfig(true);
-        copingSkillsView.initInfoListener(this);
+        copingSkillsView.initCollapsibleViewListener(this);
 
         initPillGroupToggles();
         deleteClassListeners();

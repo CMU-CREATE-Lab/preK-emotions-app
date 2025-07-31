@@ -105,13 +105,7 @@ public class CopingSkillsHighlightGridView extends ConstraintLayout {
         });
     }
 
-    public void initInfoListener(Context context){
-//        ImageView info = findViewById(R.id.copingSkillsInfo);
-//        info.setOnClickListener(v -> showInfoDialog(
-//                context,
-//                "What is This?",
-//                "This section explains emotional regulation techniques.")
-//        );
+    public void initCollapsibleViewListener(Context context) {
         ImageView copingSkillsInfoImageView = findViewById(R.id.copingSkillsInfoImageView);
         CopingSkillsInfoCollapsibleView copingSkillsInfoCollapsibleView = findViewById(R.id.copingSkillsInfoCollapsibleView);
         copingSkillsInfoImageView.setOnClickListener(copingSkillsInfoCollapsibleView);
