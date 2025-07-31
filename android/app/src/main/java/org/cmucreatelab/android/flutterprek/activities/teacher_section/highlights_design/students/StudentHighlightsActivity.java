@@ -380,6 +380,22 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         this.classroom = (Classroom) getIntent().getSerializableExtra(EXTRA_CLASSROOM);
         getDrawerHighlights().setClassroom(classroom);
         getDrawerHighlights().setHighlighted(HighlightsViewDrawer.Row.CLASS_SHOW);
+        setBackNavigationForDrawer(true, String.format("Back to %s", (classroom == null) ? "Classes" : classroom.getName()), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (classroom != null) {
+                    Intent intent = new Intent(StudentHighlightsActivity.this, ClassroomHighlightsActivity.class);
+                    intent.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                } else {
+                    Log.e(Constants.LOG_TAG, "StudentHighlightsActivity navigate back in HighlightsViewDrawer but classroom is null; default to classes index.");
+                    Intent intent = new Intent(StudentHighlightsActivity.this, org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomIndexActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            }
+        });
 
         //get student from intent
         if(getIntent().getStringExtra(EXTRA_CLASSROOM_NAME) != null && getIntent().getSerializableExtra(EXTRA_STUDENT) != null) {

@@ -460,6 +460,14 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
         getDrawerHighlights().setClassroom(classroom);
         getDrawerHighlights().setHighlighted(HighlightsViewDrawer.Row.CLASS_SHOW);
+        setBackNavigationForDrawer(true, "Back to Classes", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ClassroomHighlightsActivity.this, org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomIndexActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
         updateSessionOverview();
     }
 

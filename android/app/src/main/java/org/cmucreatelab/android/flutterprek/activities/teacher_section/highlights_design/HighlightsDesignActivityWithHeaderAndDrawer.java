@@ -129,6 +129,18 @@ public abstract class HighlightsDesignActivityWithHeaderAndDrawer extends Abstra
         startActivity(classroomsIndexActivity);
     }
 
+
+    public void setBackNavigationForDrawer(boolean isVisible, String text, View.OnClickListener onClickListener) {
+        if (!isVisible) {
+            drawerHighlights.setNavigateBack(false, null, null);
+            return;
+        }
+        if ((text == null) || text.isEmpty()) {
+            Log.w(Constants.LOG_TAG, "isNavigationDisplayedInDrawer for Activity is true but the text is blank or null");
+        }
+        drawerHighlights.setNavigateBack(isVisible, text, onClickListener);
+    }
+
 }
 
 

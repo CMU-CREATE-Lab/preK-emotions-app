@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
@@ -27,6 +28,12 @@ public class HighlightsViewDrawer extends ConstraintLayout {
     // TODO navigation types? (app_settings, classes_index, class_show, exit_to_students_section, ...+student_show?)
     private boolean isNavigateBack;
     private Classroom classroom;
+    private View.OnClickListener clickListenerForNavigateBack = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Log.w(Constants.LOG_TAG, "clickListenerForNavigateBack triggered but not implemented");
+        }
+    };
 
 
     private void setDrawerItem(@NonNull HighlightsViewDrawerItem drawerItem, boolean isDisplayed) {
@@ -51,7 +58,8 @@ public class HighlightsViewDrawer extends ConstraintLayout {
         this.constraintRowClassesIndex = findViewById(R.id.constraintRowClassesIndex);
         this.constraintRowClassShow = findViewById(R.id.constraintRowClassShow);
 
-        setNavigateBack(true);
+        // NOTE: back navigation is disabled by default and must be set with setNavigateBack()
+        setNavigateBack(false, null, null);
         setDrawerItem(constraintRowAppSettings, true);
         setDrawerItem(constraintRowClassesIndex, true);
         setDrawerItem(constraintRowClassShow, false);
@@ -64,15 +72,9 @@ public class HighlightsViewDrawer extends ConstraintLayout {
         constraintNavigateBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickNavigateBack();
+                onClickNavigateBack(v);
             }
         });
-    }
-
-
-    public void setNavigateBack(boolean isVisible) {
-        this.isNavigateBack = isVisible;
-        constraintNavigateBack.setVisibility( isVisible ? VISIBLE : INVISIBLE);
     }
 
 
@@ -104,7 +106,14 @@ public class HighlightsViewDrawer extends ConstraintLayout {
         this.classroom = classroom;
         setTextForClassNameRow(classroom.getName());
         setDrawerItem(constraintRowClassShow, true);
-        // TODO navigation
+    }
+
+
+    public void setNavigateBack(boolean isVisible, String text, View.OnClickListener onClickListener) {
+        this.isNavigateBack = isVisible;
+        constraintNavigateBack.setVisibility( isVisible ? VISIBLE : INVISIBLE);
+        if (text != null) ((TextView) findViewById(R.id.textViewBack)).setText(text);
+        if (onClickListener != null) this.clickListenerForNavigateBack = onClickListener;
     }
 
 
@@ -113,7 +122,7 @@ public class HighlightsViewDrawer extends ConstraintLayout {
     }
 
 
-    public void onClickNavigateBack() {
+    public void onClickNavigateBack(View v) {
 //        if (!activityShouldHandleOnClickEvents()) {
 //            Log.w(Constants.LOG_TAG, "ignoring onclick event when activityShouldHandleOnClickEvents is false");
 //            return;
@@ -124,6 +133,8 @@ public class HighlightsViewDrawer extends ConstraintLayout {
         }
 
         Log.v(Constants.LOG_TAG, "constraintNavigateBack clicked.");
+        // pass onclick to set attribute (if implemented)
+        clickListenerForNavigateBack.onClick(v);
     }
 
 }
