@@ -21,8 +21,8 @@ public class HighlightsViewDrawer extends ConstraintLayout {
         CLASS_SHOW
     };
 
-    private ConstraintLayout constraintNavigateBack;
-    private HighlightsViewDrawerItem constraintRowAppSettings, constraintRowClassesIndex, constraintRowClassShow;
+    public final ConstraintLayout constraintNavigateBack;
+    public final HighlightsViewDrawerItem constraintRowAppSettings, constraintRowClassesIndex, constraintRowClassShow;
 
     // TODO navigation types? (app_settings, classes_index, class_show, exit_to_students_section, ...+student_show?)
     private boolean isNavigateBack;
@@ -105,6 +105,11 @@ public class HighlightsViewDrawer extends ConstraintLayout {
         setTextForClassNameRow(classroom.getName());
         setDrawerItem(constraintRowClassShow, true);
         // TODO navigation
+    }
+
+
+    public Classroom getClassroom() {
+        return classroom;
     }
 
 

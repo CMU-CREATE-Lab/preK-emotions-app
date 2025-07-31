@@ -11,8 +11,12 @@ import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseClassroomActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomIndexActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomHighlightsActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewAppHeader;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.settings.SettingsMainActivity;
+import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 public abstract class HighlightsDesignActivityWithHeaderAndDrawer extends AbstractActivity {
 
@@ -20,11 +24,46 @@ public abstract class HighlightsDesignActivityWithHeaderAndDrawer extends Abstra
     private HighlightsViewDrawer drawerHighlights;
 
 
+    private void initOnClickListenersForDrawer() {
+        drawerHighlights.constraintRowAppSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HighlightsDesignActivityWithHeaderAndDrawer.this, SettingsMainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+        drawerHighlights.constraintRowClassesIndex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HighlightsDesignActivityWithHeaderAndDrawer.this, org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomIndexActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+        drawerHighlights.constraintRowClassShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Classroom classroom = drawerHighlights.getClassroom();
+                if (classroom != null) {
+                    Intent intent = new Intent(HighlightsDesignActivityWithHeaderAndDrawer.this, ClassroomHighlightsActivity.class);
+                    intent.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                } else {
+                    Log.e(Constants.LOG_TAG, "clicked constraintRowClassShow in HighlightsViewDrawer but classroom is null.");
+                }
+            }
+        });
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         this.appHeaderHighlights = findViewById(R.id.appHeaderHighlights);
+        this.drawerHighlights = findViewById(R.id.drawerHighlights);
 
         findViewById(R.id.imageStudent).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,9 +78,12 @@ public abstract class HighlightsDesignActivityWithHeaderAndDrawer extends Abstra
                 onClickImageInfo();
             }
         });
+
+        initOnClickListenersForDrawer();
     }
 
 
+    // TODO @Dante can't we just do this in onCreate?
     protected void setUpDrawer(){
         this.drawerHighlights = findViewById(R.id.drawerHighlights);
     }
