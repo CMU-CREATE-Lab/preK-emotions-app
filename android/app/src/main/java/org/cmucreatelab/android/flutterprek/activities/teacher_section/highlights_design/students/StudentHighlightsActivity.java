@@ -121,22 +121,6 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             initEmotionsGrid();
             initMostUsedGrid();
         }
-        TextView textView = findViewById(R.id.buttonPlaceholder);
-        String text = "Back to " + classroomName;
-        textView.setText(text);
-        textView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                AppDatabase.getInstance(getApplicationContext()).classroomDAO().getClassroom(student.getClassroomUuid()).observe(StudentHighlightsActivity.this, new Observer<Classroom>() {
-                    @Override
-                    public void onChanged(@Nullable Classroom classroom) {
-                        Intent intent = new Intent(StudentHighlightsActivity.this, ClassroomHighlightsActivity.class);
-                        intent.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom);
-                        startActivity(intent);
-                    }
-                });
-            }
-        });
 
         View.OnClickListener deleteStudentListener = new View.OnClickListener() {
             @Override

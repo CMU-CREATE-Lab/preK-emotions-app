@@ -206,25 +206,8 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
     protected void onResume() {
         super.onResume();
 
-        Button buttonPlaceholder = findViewById(R.id.buttonPlaceholder);
         TextView textView = findViewById(R.id.editMyClassroom);
         textView.setText(classroomName);
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                buttonPlaceholder.setText("Back to classes");
-            }
-        });
-
-        buttonPlaceholder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO next activity
-                Intent intent = new Intent(ClassroomHighlightsActivity.this, ClassroomIndexActivity.class);
-                startActivity(intent);
-            }
-        });
 
         //fill classroom with students
         LiveData<List<StudentWithCustomizations>> liveData;
