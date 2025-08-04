@@ -37,6 +37,7 @@ import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionHighlightAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.students.StudentHighlightsActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.CropOverlayView;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PutExtraStudentHighlightsActivityHelper;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.UpdateStudentModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.audio.audio_recording.SaveFileHandler;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -60,15 +61,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UploadPhotoActivity extends AbstractActivity {
 
-    public static final int UPDATE = 200;
-    public static final int KEEP = 201;
-    public static final int RESET = 202;
     private int requestCode;
     private ImageView resetToIconButton, keepOldImageButton,
             updateImageButton, displayedImage, closeButton;
 
     // TODO @Dante refactor extras to get classroom name from classroom
-    private String classroomName, studentUuid;
+    private String studentUuid;
     private Student student;
     private Classroom classroom;
     public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
@@ -145,7 +143,7 @@ public class UploadPhotoActivity extends AbstractActivity {
     }
     private void acceptPhoto() throws IOException {
         String pictureFilename = String.format("%s_%d", student.getUuid(), Util.getCurrentTimestamp());
-        //String pictureFilename = "test";
+
         File picture = SaveFileHandler.getOutputMediaFile(getApplicationContext(), SaveFileHandler.MEDIA_TYPE_IMAGE, pictureFilename);
         FileOutputStream out = new FileOutputStream(picture);
         getCroppedPicture().compress(Bitmap.CompressFormat.JPEG, 100, out);
@@ -155,14 +153,10 @@ public class UploadPhotoActivity extends AbstractActivity {
         updateModel(student, picture);
 
         String path = picture.getAbsolutePath();
-        Intent intent = new Intent(this, StudentHighlightsActivity.class);
-        intent.putExtra("path", path);
-        intent.putExtra("resultCode", UPDATE);
-        intent.putExtra("requestCode", requestCode);
-        intent.putExtra(STUDENT_UUID, studentUuid);
-        intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
-        // TODO class putExtra StudentHighlightsActivity.class ~~!
-        intent.putExtra(EXTRA_CLASSROOM, classroom);
+
+        Intent intent =
+            PutExtraStudentHighlightsActivityHelper.getPutExtraIntentUpdate(
+            path, requestCode, studentUuid, classroom, getApplicationContext());
         startActivity(intent);
 
 
@@ -360,54 +354,6 @@ public class UploadPhotoActivity extends AbstractActivity {
     protected void onResume() {
         super.onResume();
 
-        this.resetToIconButton = findViewById(R.id.resetToIconButton);
-        this.keepOldImageButton = findViewById(R.id.keepOldImageButton);
-        this.updateImageButton = findViewById(R.id.updateImageButton);
-        this.displayedImage = findViewById(R.id.displayedImageView);
-        this.closeButton = findViewById(R.id.closeButton);
-
-        setLayoutCrop();
-
-//        init cropper view
-        cropOverlay = findViewById(R.id.cropOverlay);
-        cropOverlay.setImageView(displayedImage);
-
-        initOnClickListeners();
-        setButtonColors(requestCode);
-
-        Glide.with(this)
-                .load(displayedImagedUri)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .listener(new RequestListener<Drawable>() { //glide and layout listener to set updateimage icon at create
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, @Nullable Object model, @NonNull Target<Drawable> target, boolean isFirstResource) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(@NonNull Drawable resource, @NonNull Object model, @NonNull Target<Drawable> target, @NonNull DataSource dataSource, boolean isFirstResource) {
-
-                        displayedImage.setImageDrawable(resource);
-
-                        displayedImage.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                            @Override
-                            public void onGlobalLayout() {
-                                displayedImage.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-                                cropOverlay.centerCropRectOnImage();
-
-                                Bitmap cropped = getCroppedPicture();
-
-                                updateImageButton.setImageBitmap(cropped);
-                            }
-                        });
-
-                        return true;
-                    }
-                })
-                .into(displayedImage);
-
     }
 
     private void setButtonColors(int emotion){
@@ -528,11 +474,10 @@ public class UploadPhotoActivity extends AbstractActivity {
         requestCode = intent.getIntExtra("requestCode", 0);
         displayedImagedUri = intent.getParcelableExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI);
 
-        fromFile = intent.getBooleanExtra("fromFiles", false);
+        fromFile = intent.getBooleanExtra("fromFiles", false); //used to determine image scale type
 
         this.classroom = (Classroom) getIntent().getSerializableExtra(EXTRA_CLASSROOM);
         if(getIntent().getStringExtra(EXTRA_CLASSROOM_NAME) != null && getIntent().getStringExtra(EXTRA_STUDENT) != null) {
-            this.classroomName = getIntent().getStringExtra(EXTRA_CLASSROOM_NAME);
             this.studentUuid = getIntent().getStringExtra(EXTRA_STUDENT);
 
             //grab student object
@@ -548,9 +493,55 @@ public class UploadPhotoActivity extends AbstractActivity {
 
         }
 
-        //test
-        //    { "uuid": "custom_emotion1", "basedOnUuid": "emotion1", "key": "imageFileUuid", "value": "ic_yoga", "ownerUuid": "student1" }
+        //init buttons
+        this.resetToIconButton = findViewById(R.id.resetToIconButton);
+        this.keepOldImageButton = findViewById(R.id.keepOldImageButton);
+        this.updateImageButton = findViewById(R.id.updateImageButton);
+        this.displayedImage = findViewById(R.id.displayedImageView);
+        this.closeButton = findViewById(R.id.closeButton);
 
+        setLayoutCrop();
+
+//        init cropper view
+        cropOverlay = findViewById(R.id.cropOverlay);
+        cropOverlay.setImageView(displayedImage);
+
+        initOnClickListeners();
+        setButtonColors(requestCode);
+
+        //display image taken - listener used to set "update" button icon image at oncreate
+        Glide.with(this)
+                .load(displayedImagedUri)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .listener(new RequestListener<Drawable>() { //glide and layout listener to set updateimage icon at create
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, @Nullable Object model, @NonNull Target<Drawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(@NonNull Drawable resource, @NonNull Object model, @NonNull Target<Drawable> target, @NonNull DataSource dataSource, boolean isFirstResource) {
+
+                        displayedImage.setImageDrawable(resource);
+
+                        displayedImage.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                displayedImage.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                                cropOverlay.centerCropRectOnImage();
+
+                                Bitmap cropped = getCroppedPicture();
+
+                                updateImageButton.setImageBitmap(cropped);
+                            }
+                        });
+
+                        return true;
+                    }
+                })
+                .into(displayedImage);
 
     }
 
@@ -584,7 +575,6 @@ public class UploadPhotoActivity extends AbstractActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         fromFile = data.getBooleanExtra("fromFiles", false);
-        Log.v("twitter", "fromFile: " + fromFile);
         //handles logic for retaking a picture after X clicked
         if(resultCode == RESULT_OK){
             displayedImagedUri = data.getParcelableExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI);
@@ -592,14 +582,8 @@ public class UploadPhotoActivity extends AbstractActivity {
 
         } else if(resultCode == RESULT_CANCELED){
 
-            Intent intent = new Intent(UploadPhotoActivity.this, StudentHighlightsActivity.class);
-            intent.putExtra("resultCode", UPDATE);
-            intent.putExtra("requestCode", requestCode);
-            intent.putExtra(STUDENT_UUID, studentUuid);
-            intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
-            intent.putExtra("fromFiles", fromFile);
-            // TODO class putExtra StudentHighlightsActivity.class ~~!
-            intent.putExtra(EXTRA_CLASSROOM, classroom);
+
+            Intent intent = PutExtraStudentHighlightsActivityHelper.getPutExtraIntentUpdate(null, requestCode, studentUuid, classroom, getApplicationContext());
             setResult(RESULT_CANCELED, intent);
             startActivity(intent);
         }

@@ -30,7 +30,7 @@ public class EmotionHighlightAdapter extends AbstractListAdapter<Emotion>{
     private final EmotionHighlightAdapter.ClickListener clickListener;
 
     public interface ClickListener {
-        void onClick(Emotion emotion, List<ItineraryItem> itineraryItems);
+        void onClick(Emotion emotion);
     }
 
 
@@ -76,7 +76,6 @@ public class EmotionHighlightAdapter extends AbstractListAdapter<Emotion>{
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
                     Util.setImageViewWithDbFile(appContext,(ImageView) result.findViewById(R.id.imageView), dbFile);
-                    //TODO add border around custom image, fix placehodler bug??
 
                 }
             });
@@ -85,28 +84,27 @@ public class EmotionHighlightAdapter extends AbstractListAdapter<Emotion>{
         }
 
         //listeners for launching camera
-        AppDatabase.getInstance(appContext).intermediateTablesDAO().getItineraryItemsForEmotion(emotion.getUuid()).observe(activity, new Observer<List<ItineraryItem>>() {
-            @Override
-            public void onChanged(@Nullable final List<ItineraryItem> itineraryItems) {
-                if (onClickListener) {
-                    result.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            clickListener.onClick(emotion, itineraryItems);
-                        }
-                    });
-
-                    result.findViewById(R.id.cameraPlusIcon).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            clickListener.onClick(emotion, itineraryItems);
-                        }
-                    });
 
 
+        if (onClickListener) {
+            result.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onClick(emotion);
                 }
-            }
-        });
+            });
+
+            result.findViewById(R.id.cameraPlusIcon).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onClick(emotion);
+                }
+            });
+
+
+        }
+
+
 
         return result;
     }
