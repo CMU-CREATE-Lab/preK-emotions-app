@@ -79,7 +79,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     //listerns for starting camera activity based on emotion
     private final EmotionHighlightAdapter.ClickListener emotionsListener = new EmotionHighlightAdapter.ClickListener() {
         @Override
-        public void onClick(Emotion emotion, List<ItineraryItem> itineraryItems) {
+        public void onClick(Emotion emotion) {
             GlobalHandler.getInstance(getApplicationContext()).isRunningActivityForImageResult = true;
             Intent intent = new Intent(StudentHighlightsActivity.this, CameraActivity.class);
             intent.putExtra(EXTRA_STUDENT, studentUuid);

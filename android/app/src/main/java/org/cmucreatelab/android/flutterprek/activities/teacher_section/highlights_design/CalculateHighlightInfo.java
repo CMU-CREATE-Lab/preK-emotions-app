@@ -46,10 +46,11 @@ public class CalculateHighlightInfo {
     static {
         List<Emotion> tempEmotionList = new ArrayList<>();
         tempEmotionList.add(new Emotion("emotion1", "Happy"));
+        tempEmotionList.add(new Emotion("emotion6", "Excited"));
         tempEmotionList.add(new Emotion("emotion2", "Sad"));
         tempEmotionList.add(new Emotion("emotion3", "Mad"));
         tempEmotionList.add(new Emotion("emotion5", "Scared"));
-        tempEmotionList.add(new Emotion("emotion6", "Excited"));
+
         EMOTION_List = Collections.unmodifiableList(tempEmotionList);
 
         List<CopingSkill> tempCopingSkillList = new ArrayList<>();
@@ -59,8 +60,8 @@ public class CalculateHighlightInfo {
         tempCopingSkillList.add(new CopingSkill("coping_skill_5", "Jumping Jacks"));
         COPING_SKILL_LIST = Collections.unmodifiableList(tempCopingSkillList);
     }
-    public static final List<Integer> EMOTION_COLORS = Arrays.asList(ColorConstants.HAPPY_COLOR, ColorConstants.MAD_COLOR,
-            ColorConstants.SAD_COLOR, ColorConstants.EXCITED_COLOR,
+    public static final List<Integer> EMOTION_COLORS = Arrays.asList(ColorConstants.HAPPY_COLOR,ColorConstants.EXCITED_COLOR, ColorConstants.MAD_COLOR,
+            ColorConstants.SAD_COLOR,
             ColorConstants.SCARED_COLOR);
 
     private Classroom classroom;
@@ -539,7 +540,7 @@ public class CalculateHighlightInfo {
 
     }
     //returns list of percents for filling circle
-    //in order of happy, mad, sad, excited, scared
+    //in order of happy,excited, mad, sad, scared
     public static List<Float> calculateCirclePercents(Map<String, Integer> map){
         int total = 0;
         float happyCount =0;
@@ -569,9 +570,9 @@ public class CalculateHighlightInfo {
         }
         //times 360 for full circle
         percents.add(happyCount/total * 360);
+        percents.add(excitedCount/total *360);
         percents.add(madCount/total *360);
         percents.add(sadCount/total * 360);
-        percents.add(excitedCount/total *360);
         percents.add(scaredCount/total* 360);
         return percents;
 

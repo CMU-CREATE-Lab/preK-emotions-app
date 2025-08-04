@@ -1,5 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms;
 
+import static org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlightWithCustomizationsIndexAdapter.setGridViewHeightBasedOnChildren;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -217,8 +219,10 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
                 GridView studentsGridView = findViewById(R.id.studentsGridView);
                  studentsGridView.setAdapter(studentGridViewAdapter);
-                studentsGridView.post(() -> StudentHighlightWithCustomizationsIndexAdapter.setGridViewHeightBasedOnChildren(studentsGridView, 6));
-
+                //studentsGridView.post(() -> StudentHighlightWithCustomizationsIndexAdapter.setGridViewHeightBasedOnChildren(studentsGridView, 6));
+                studentsGridView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+                    setGridViewHeightBasedOnChildren(studentsGridView, 6);
+                });
                //display mode for toggle day,week,month,year
                 studentGridViewAdapter.setDisplayMode(currentStudentDisplayMode);
             }
