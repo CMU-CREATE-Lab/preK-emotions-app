@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorOffWhite"
+    android:padding="1dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sectionDayOfWeekAndDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/textViewTitleDayOfWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Tues"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            style="@style/textBold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/textViewTitleDate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="XX/YY"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/sectionDayOfWeekAndDate"
+        android:orientation="vertical"
+        >
+
+        <include layout="@layout/_highlights_design__view_calendar_emotion_log_dow_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            />
+
+        <include layout="@layout/_highlights_design__view_calendar_emotion_log_dow_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            />
+
+        <include layout="@layout/_highlights_design__view_calendar_emotion_log_dow_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            />
+
+        <include layout="@layout/_highlights_design__view_calendar_emotion_log_dow_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            />
+
+        <include layout="@layout/_highlights_design__view_calendar_emotion_log_dow_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
