@@ -1,12 +1,15 @@
 package org.cmucreatelab.android.flutterprek.activities.adapters;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,16 +63,46 @@ public class PatternHighlightsAdapter extends RecyclerView.Adapter<PatternHighli
     }
 
     private void setArc(ArcViewOverlay arcView){
-        int color = Color.GRAY;
+        int color = Color.BLACK;
         List<Integer> colors = new ArrayList<>();
         colors.add(color);
         arcView.setSegmentColors(colors);
         List<Float> angles = new ArrayList<>();
         angles.add(360f);
         arcView.setSegmentAngles(angles);
-        arcView.setArcWidth(10f);
+        arcView.setArcWidth(4f);
+        int width = dpToPx(appCompatActivity.getApplicationContext(), 85);
+        int height = dpToPx(appCompatActivity.getApplicationContext(), 85);
+        arcView.setWidthAndHeight(width,height);
 
     }
+
+    public static void setRecyclerViewHorizontalSpacing(RecyclerView recyclerView, int dp) {
+        int px = dpToPx(recyclerView.getContext(), dp);
+        RecyclerView.ItemDecoration decoration = new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect,
+                                       @NonNull View view,
+                                       @NonNull RecyclerView parent,
+                                       @NonNull RecyclerView.State state) {
+                int position = parent.getChildAdapterPosition(view);
+                int itemCount = state.getItemCount();
+
+                outRect.right = px;
+
+                if (position == 0) {
+                    outRect.left = px;
+                }
+            }
+        };
+
+        recyclerView.addItemDecoration(decoration);
+    }
+
+    private static int dpToPx(Context context, int dp) {
+        return Math.round(dp * context.getResources().getDisplayMetrics().density);
+    }
+
 
     // Create new views (invoked by the layout manager)
     @Override
@@ -82,6 +115,8 @@ public class PatternHighlightsAdapter extends RecyclerView.Adapter<PatternHighli
     }
 
     // Displays the info
+    //--Current setup w/ adapter pushes student to end of row when livedata is changed  (i.e. when a picture is update) To be fixed?
+
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 

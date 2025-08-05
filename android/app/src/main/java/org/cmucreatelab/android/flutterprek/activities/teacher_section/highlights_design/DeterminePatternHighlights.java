@@ -5,6 +5,9 @@ import org.cmucreatelab.android.flutterprek.database.models.embedded_models.Stud
 
 import java.util.List;
 
+//TODO Write functions to return list of students with some sort of pattern highlight
+//TODO Determine what to display w/ no students & no data
+
 public class DeterminePatternHighlights {
     private Classroom classroom;
     private List<StudentWithCustomizations> studentsWithPatterns;
@@ -17,6 +20,10 @@ public class DeterminePatternHighlights {
 /*    IDEA - have multiple different methods for determining different types pattern highlights
         and then randomly pick one in PatternHighlightsView.
         Changed PatternHighlight method everytime? day? week?
+
+        or
+
+        Just one PatternHighlight method
 
      */
 }

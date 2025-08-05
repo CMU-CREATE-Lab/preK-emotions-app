@@ -53,12 +53,13 @@ public class PatternHighlightsView extends ConstraintLayout {
     }
 
     private void init(Context context) {
-        //TODO change layout
         LayoutInflater.from(context).inflate(R.layout._view_pattern_highlights, this, true);
         recyclerView = findViewById(R.id.patternHighlightRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
     }
+
+    //TODO update information about what pattern highlight is
     public void initCollapsibleViewListener(Context context) {
         ImageView copingSkillsInfoImageView = findViewById(R.id.copingSkillsInfoImageView);
         CopingSkillsInfoCollapsibleView copingSkillsInfoCollapsibleView = findViewById(R.id.copingSkillsInfoCollapsibleView);
@@ -71,13 +72,13 @@ public class PatternHighlightsView extends ConstraintLayout {
 
     public void setStudentList(AppCompatActivity activity){
         //PLACE HOLDER CODE TO GRAB A LIST OF STUDENTS
-        //TODO Replace with call from custom class (DeterminePatternHighlights.class) to get students for pattern highlights
+        //TODO Replace studentDAO call with call from custom class (DeterminePatternHighlights.class) to get students for pattern highlights
             AppDatabase.getInstance(activity).studentDAO()
                     .getAllStudentsWithCustomizationsFromClassroom(classroom.getUuid())
                     .observe(activity, students -> {
                         List<StudentWithCustomizations> limitedStudents = students.subList(0, Math.min(5, students.size()));
                         List<StudentDisplayItem> displayItems = new ArrayList<>();
-
+        //---------------------------------------------------------------------------------------------------------------------/
                         //Atomic Integer - thread safe integer to keep track of how many dbfiles are resolved with multiple observers
                         AtomicInteger resolved = new AtomicInteger(0);
 
@@ -109,6 +110,11 @@ public class PatternHighlightsView extends ConstraintLayout {
             // All picture files resolved
             PatternHighlightsAdapter adapter = new PatternHighlightsAdapter((AppCompatActivity) context,displayItems);
             recyclerView.setAdapter(adapter);
+
+            recyclerView.post(() -> {
+                PatternHighlightsAdapter.setRecyclerViewHorizontalSpacing(recyclerView,12);
+            });
+
         }
     }
 

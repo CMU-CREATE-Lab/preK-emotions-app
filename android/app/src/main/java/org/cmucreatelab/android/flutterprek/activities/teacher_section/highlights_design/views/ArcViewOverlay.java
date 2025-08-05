@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.*;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,5 +101,19 @@ public class ArcViewOverlay extends View {
     public void setTextSize(float size) {
         this.textPaint.setTextSize(size);
         invalidate();
+    }
+
+    public void setWidthAndHeight(int widthPx, int heightPx){
+        ViewGroup.LayoutParams params = getLayoutParams();
+
+        if (params == null) {
+            params = new ViewGroup.LayoutParams(widthPx, heightPx);
+        } else {
+            params.width = widthPx;
+            params.height = heightPx;
+        }
+
+        setLayoutParams(params);
+
     }
 }
