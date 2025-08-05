@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#aaaaff"
+    android:layout_marginBottom="50dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/titlePatternHighlight"
+        android:layout_height="wrap_content"
+        android:text="Pattern Highlight:"
+        android:textSize="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <ImageView
+        android:id="@+id/copingSkillsInfoImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_mindfulnest_header_info"
+        app:layout_constraintTop_toTopOf="@id/titlePatternHighlight"
+        app:layout_constraintBottom_toBottomOf="@id/titlePatternHighlight"
+        app:layout_constraintStart_toEndOf="@id/titlePatternHighlight" />
+
+    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.CopingSkillsInfoCollapsibleView
+        android:id="@+id/copingSkillsInfoCollapsibleView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/titlePatternHighlight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/patternHighlightRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/copingSkillsInfoCollapsibleView"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

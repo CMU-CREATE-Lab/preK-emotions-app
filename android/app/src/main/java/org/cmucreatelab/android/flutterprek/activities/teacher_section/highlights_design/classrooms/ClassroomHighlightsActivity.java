@@ -31,6 +31,7 @@ import org.cmucreatelab.android.flutterprek.activities.teacher_section.classroom
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CalculateHighlightInfo;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PatternHighlightsView;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PillToggleGroup;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.students.StudentHighlightsActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.ClassroomInfoCollapsibleView;
@@ -219,9 +220,11 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                 studentGridViewAdapter = new StudentHighlightWithCustomizationsIndexAdapter(ClassroomHighlightsActivity.this, students, listener,addNewStudentListener);
 
                 GridView studentsGridView = findViewById(R.id.studentsGridView);
-                 studentsGridView.setAdapter(studentGridViewAdapter);
-                    setGridViewHeightBasedOnChildren(studentsGridView, 6);
+                studentsGridView.setAdapter(studentGridViewAdapter);
 
+                studentsGridView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+                    setGridViewHeightBasedOnChildren(studentsGridView, 6);
+                });
                //display mode for toggle day,week,month,year
                 studentGridViewAdapter.setDisplayMode(currentStudentDisplayMode);
             }
@@ -427,6 +430,11 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         copingSkillsView.initSettingsClickListener(this, classroom);
         copingSkillsView.enableSettingsConfig(true);
         copingSkillsView.initCollapsibleViewListener(this);
+
+        PatternHighlightsView patternHighlightsView = findViewById(R.id.patternHighlightsView);
+        patternHighlightsView.initCollapsibleViewListener(this);
+        patternHighlightsView.setClassroom(classroom);
+        patternHighlightsView.setStudentList(this);
 
         initPillGroupToggles();
         deleteClassListeners();
