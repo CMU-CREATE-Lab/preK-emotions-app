@@ -37,6 +37,8 @@ import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlight
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.UploadPhotoActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.ArcViewOverlay;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.CopingSkillsHighlightGridView;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.ClassroomInfoCollapsibleView;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.EmotionLogCollapsibleView;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.UpdateStudentModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.CopingSkillWithCustomizations;
@@ -282,6 +284,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             }
         });
         copingSkillsView.initCollapsibleViewListener(this);
+        copingSkillsView.getCopingSkillsInfoCollapsibleView().setTextForCopingSkillsDescription(getString(R.string.highlights_design_info_description_coping_skills_student));
     }
     private void updateCopingSkillsView(){
         CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
@@ -413,6 +416,10 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         findViewById(R.id.trashStudentButton).setOnClickListener(deleteStudentListener);
         findViewById(R.id.deleteStudent).setOnClickListener(deleteStudentListener);
 
+        // Emotions Log initializers
+        ImageView imageViewInfoEmotionLog = findViewById(R.id.imageViewInfoEmotionLog);
+        EmotionLogCollapsibleView collapsibleViewEmotionLog = findViewById(R.id.collapsibleViewEmotionLog);
+        imageViewInfoEmotionLog.setOnClickListener(collapsibleViewEmotionLog);
     }
 
     private void deleteAndFinish(){

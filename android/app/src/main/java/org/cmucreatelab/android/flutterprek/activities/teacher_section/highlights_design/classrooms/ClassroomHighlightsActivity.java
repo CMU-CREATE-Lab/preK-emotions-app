@@ -209,27 +209,6 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
     @Override
     protected void onResume() {
         super.onResume();
-
-
-        //fill classroom with students --observer for list of students in class
-        LiveData<List<StudentWithCustomizations>> liveData;
-        liveData = AppDatabase.getInstance(this).studentDAO().getAllStudentsWithCustomizationsFromClassroom(classroomUuid);
-        liveData.observe(this, new Observer<List<StudentWithCustomizations>>() {
-            @Override
-            public void onChanged(@Nullable List<StudentWithCustomizations> students) {
-                studentGridViewAdapter = new StudentHighlightWithCustomizationsIndexAdapter(ClassroomHighlightsActivity.this, students, listener,addNewStudentListener);
-
-                GridView studentsGridView = findViewById(R.id.studentsGridView);
-                studentsGridView.setAdapter(studentGridViewAdapter);
-
-                studentsGridView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-                    setGridViewHeightBasedOnChildren(studentsGridView, 6);
-                });
-               //display mode for toggle day,week,month,year
-                studentGridViewAdapter.setDisplayMode(currentStudentDisplayMode);
-            }
-        });
-
     }
 
 
@@ -461,6 +440,22 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
             @Override
             public void onClick(View view) {
                 showEditClassNamePopup();
+            }
+        });
+
+        LiveData<List<StudentWithCustomizations>> liveDataForMyClassroom;
+        liveDataForMyClassroom = AppDatabase.getInstance(this).studentDAO().getAllStudentsWithCustomizationsFromClassroom(classroomUuid);
+        liveDataForMyClassroom.observe(this, new Observer<List<StudentWithCustomizations>>() {
+            @Override
+            public void onChanged(@Nullable List<StudentWithCustomizations> students) {
+                studentGridViewAdapter = new StudentHighlightWithCustomizationsIndexAdapter(ClassroomHighlightsActivity.this, students, listener,addNewStudentListener);
+
+                GridView studentsGridView = findViewById(R.id.studentsGridView);
+                studentsGridView.setAdapter(studentGridViewAdapter);
+
+                studentsGridView.post(() -> StudentHighlightWithCustomizationsIndexAdapter.setGridViewHeightBasedOnChildren(studentsGridView, 6));
+                //display mode for toggle day,week,month,year
+                studentGridViewAdapter.setDisplayMode(currentStudentDisplayMode);
             }
         });
     }

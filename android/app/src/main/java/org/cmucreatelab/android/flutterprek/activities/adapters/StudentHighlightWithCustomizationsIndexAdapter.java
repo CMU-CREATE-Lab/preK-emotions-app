@@ -7,6 +7,7 @@ import android.content.Context;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.AsyncTask;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,42 +77,27 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
 
     private View populateStudentView(int position, View convertView, ViewGroup parent) {
         final View result;
-        final ViewHolder holder;
-
-        if (convertView == null) {
-            // Inflate new view and create ViewHolder
-            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_item_student_circle, parent, false);
-            holder = new ViewHolder();
-            holder.imageView = result.findViewById(R.id.imageView);
-            holder.textView = result.findViewById(R.id.text1);
-            holder.arcView = result.findViewById(R.id.arcView);
-            holder.dbFileObserver = null;  // Initialize observer to null
-            result.setTag(holder);
-
-            // NOTE: requires api level 21
-            result.findViewById(R.id.imageView).setClipToOutline(false);
-        } else {
-            result = convertView;
-            holder = (ViewHolder) result.getTag();
-
-            // Before reuse, remove previous observer if exists
-            if (holder.dbFileObserver != null && holder.imageView.getTag() != null) {
-                String oldUuid = holder.imageView.getTag().toString();
-                AppDatabase.getInstance(activity.getApplicationContext()).dbFileDAO()
-                        .getDbFile(oldUuid)
-                        .removeObserver(holder.dbFileObserver);
-                holder.dbFileObserver = null;
-                holder.imageView.setImageDrawable(null); // Clear previous image
-                holder.imageView.setTag(null);
-            }
-        }
-
+        // TODO @tasota trying to recycle views will cause duplicate student images to be drawn (tested on Aug6 2025)
+//        if (convertView == null) {
+//            // if it's not recycled, initialize some attributes
+//            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_item_student_circle, parent, false);
+//            // NOTE: requires api level 21
+//            result.findViewById(R.id.imageView).setClipToOutline(false);
+//        } else {
+//            result = convertView;
+//        }
+        result = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_item_student_circle, parent, false);
+        // NOTE: requires api level 21
+        result.findViewById(R.id.imageView).setClipToOutline(false);
+        // ...
         final StudentWithCustomizations studentWithCustomizations = students.get(position);
         final Student student = studentWithCustomizations.student;
-        holder.textView.setText(student.getName());
+        TextView textView = (TextView)result.findViewById(R.id.text1);
+        textView.setText(student.getName());
 
-// Determine date range for ring view based on display mode
-        CalculateHighlightInfo.OverviewDateRange dateRange;
+        //get and set ring information
+       CalculateHighlightInfo.OverviewDateRange dateRange;
+       //set date range for ring view with display mode from toggle button
         switch (displayMode) {
             case MODE_DAY:
                 dateRange = CalculateHighlightInfo.OverviewDateRange.DAY;
@@ -127,41 +113,45 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
                 break;
             default:
                 dateRange = CalculateHighlightInfo.OverviewDateRange.WEEK;
-        }
 
+        }
         CalculateHighlightInfo calculateHighlightInfo = new CalculateHighlightInfo(null, activity.getApplicationContext(), activity);
-        calculateHighlightInfo.studentOverview(student, dateRange, new HighlightCalculationCallback() {
+        calculateHighlightInfo.studentOverview(student,dateRange, new HighlightCalculationCallback() {
             @Override
             public void onHighlightsCalculated() {
-                setArc(calculateHighlightInfo.getStudentEmotionCounts(), holder.arcView, 10f, false);
+
+                ArcViewOverlay arcView = result.findViewById(R.id.arcView);
+                setArc(calculateHighlightInfo.getStudentEmotionCounts(),arcView,10f, false);
             }
         });
 
-        final Context appContext = activity.getApplicationContext();
+
 
         if (student.getPictureFileUuid() != null) {
-            final String uuid = student.getPictureFileUuid();
-            holder.imageView.setTag(uuid);
-
-            // Create a new observer for this view
-            holder.dbFileObserver = new Observer<DbFile>() {
+            final Context appContext = activity.getApplicationContext();
+            AppDatabase.getInstance(appContext).dbFileDAO().getDbFile(student.getPictureFileUuid()).observe(activity, new Observer<DbFile>() {
                 @Override
                 public void onChanged(@Nullable DbFile dbFile) {
-                    if (uuid.equals(holder.imageView.getTag())) {
-                        Util.setImageViewWithDbFile(appContext, holder.imageView, dbFile);
-                    }
+                    Util.setImageViewWithDbFile(appContext, (ImageView) result.findViewById(R.id.imageView), dbFile);
                 }
-            };
-
-            // Attach the observer
-            AppDatabase.getInstance(appContext).dbFileDAO()
-                    .getDbFile(uuid)
-                    .observe(activity, holder.dbFileObserver);
-
+            });
+            // TODO @tasota trying to recycle views will cause duplicate student images to be drawn (tested on Aug6 2025)
+//            AsyncTask.execute(new Runnable() {
+//                @Override
+//                public void run() {
+//                    // NOTE: this takes awhile to execute
+//                    DbFile dbFile = AppDatabase.getInstance(appContext).embeddedDAO().getDbFile(student.getPictureFileUuid());
+//                    // once got row from DB, update on UI thread
+//                    activity.runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Util.setImageViewWithDbFile(appContext, (ImageView) result.findViewById(R.id.imageView), dbFile);
+//                        }
+//                    });
+//                }
+//            });
         } else {
-            // No image UUID, clear tag and set placeholder
-            holder.imageView.setTag(null);
-            holder.imageView.setImageResource(R.drawable.ic_placeholder);
+            ((ImageView) result.findViewById(R.id.imageView)).setImageResource(R.drawable.ic_placeholder);
         }
 
         if (onClickListener) {
@@ -174,7 +164,6 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
         }
 
         return result;
-
     }
 
 
@@ -278,12 +267,7 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
     public interface HighlightCalculationCallback {
         void onHighlightsCalculated();
     }
-    private static class ViewHolder {
-        ImageView imageView;
-        TextView textView;
-        ArcViewOverlay arcView;
-        Observer<DbFile> dbFileObserver;
-    }
+
 
 }
 

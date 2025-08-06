@@ -6,6 +6,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
+import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.StudentWithSessionsAndSessionCopingSkills;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
@@ -57,6 +58,11 @@ public abstract class EmbeddedDAO {
 
     @Query("SELECT a.uuid AS uuid, a.owner_uuid AS ownerUuid, a.name AS name, COALESCE(b.value, a.image_file_uuid) AS resolvedImageFileUuid FROM emotions a LEFT JOIN customizations b ON b.owner_uuid = :studentUuid AND b.based_on_uuid = a.uuid AND b.`key` = 'imageFileUuid'")
     public abstract LiveData<List<ResolvedEmotionWithImageFile>> getResolvedEmotionsForStudent(String studentUuid);
+
+
+    // TODO @tasota we need a way to distinguish between live data and non-live data DB calls
+    @Query("SELECT * FROM db_files WHERE uuid = :dbFileUuid LIMIT 1")
+    public abstract DbFile getDbFile(String dbFileUuid);
 
 }
 
