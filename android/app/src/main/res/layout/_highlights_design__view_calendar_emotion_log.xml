@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="50dp"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/titleEmotionLog"
+        android:layout_height="wrap_content"
+        android:text="Emotion Log:"
+        android:textSize="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/imageViewInfoEmotionLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_mindfulnest_header_info"
+        app:layout_constraintTop_toTopOf="@id/titleEmotionLog"
+        app:layout_constraintBottom_toBottomOf="@id/titleEmotionLog"
+        app:layout_constraintStart_toEndOf="@id/titleEmotionLog"
+        />
+
+    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.EmotionLogCollapsibleView
+        android:id="@+id/collapsibleViewEmotionLog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/titleEmotionLog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/collapsibleViewEmotionLog"
+        android:paddingTop="22dp"
+        android:paddingBottom="12dp">
+
+        <include
+            layout="@layout/_highlights_design__view_calendar_emotion_log_dow_column"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1" />
+
+        <include
+            layout="@layout/_highlights_design__view_calendar_emotion_log_dow_column"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1" />
+
+        <include
+            layout="@layout/_highlights_design__view_calendar_emotion_log_dow_column"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1" />
+
+        <include
+            layout="@layout/_highlights_design__view_calendar_emotion_log_dow_column"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1" />
+
+        <include
+            layout="@layout/_highlights_design__view_calendar_emotion_log_dow_column"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1" />
+
+        <include
+            layout="@layout/_highlights_design__view_calendar_emotion_log_dow_column"
+            android:id="@+id/weekend1"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1" />
+
+        <include
+            layout="@layout/_highlights_design__view_calendar_emotion_log_dow_column"
+            android:id="@+id/weekend2"
+            
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
