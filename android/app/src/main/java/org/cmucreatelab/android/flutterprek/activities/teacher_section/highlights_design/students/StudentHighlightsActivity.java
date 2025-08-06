@@ -65,11 +65,6 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     public static final int EXCITED_CODE = 104;
     public static final int STUDENT_CODE = 105;
     // TODO @Dante refactor extras to get classroom name from classroom
-    public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
-    public static final String EXTRA_STUDENT = "student";
-    public static final String EXTRA_CLASSROOM = "classroom";
-
-    private Button buttonAngry, buttonHappy, buttonSad;
     private String classroomName;
     private String studentUuid;
     private Student student;
@@ -81,11 +76,11 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     //listerns for starting camera activity based on emotion
     private final EmotionHighlightAdapter.ClickListener emotionsListener = new EmotionHighlightAdapter.ClickListener() {
         @Override
-        public void onClick(Emotion emotion, List<ItineraryItem> itineraryItems) {
+        public void onClick(Emotion emotion) {
             GlobalHandler.getInstance(getApplicationContext()).isRunningActivityForImageResult = true;
             Intent intent = new Intent(StudentHighlightsActivity.this, CameraActivity.class);
-            intent.putExtra(EXTRA_STUDENT, studentUuid);
-            intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
+            intent.putExtra(CameraActivity.EXTRA_STUDENT, studentUuid);
+            intent.putExtra(CameraActivity.EXTRA_CLASSROOM_NAME, classroomName);
 
             switch(emotion.getName()) {
                 case "Happy":
@@ -114,34 +109,6 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     @Override
     protected void onResume() {
         super.onResume();
-
-        if(student != null){
-            initStudentPic();
-            initEmotionsGrid();
-            initMostUsedGrid();
-        }
-
-        View.OnClickListener deleteStudentListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(StudentHighlightsActivity.this);
-                builder.setMessage(R.string.alert_message_delete_student);
-                builder.setTitle(R.string.alert_title_delete_student);
-                builder.setPositiveButton(R.string.alert_option_delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        deleteAndFinish();
-                    }
-                });
-                builder.setNegativeButton(R.string.alert_option_cancel, null);
-                builder.create().show();
-            }
-        };
-
-        //init delete button
-        findViewById(R.id.trashStudentButton).setOnClickListener(deleteStudentListener);
-        findViewById(R.id.deleteStudent).setOnClickListener(deleteStudentListener);
-
     }
 
     private void initStudentPic(){
@@ -239,8 +206,8 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     private void launchCameraActivity(){
         GlobalHandler.getInstance(getApplicationContext()).isRunningActivityForImageResult = true;
         Intent intent = new Intent(StudentHighlightsActivity.this, CameraActivity.class);
-        intent.putExtra(EXTRA_STUDENT, studentUuid);
-        intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
+        intent.putExtra(CameraActivity.EXTRA_STUDENT, studentUuid);
+        intent.putExtra(CameraActivity.EXTRA_CLASSROOM_NAME, classroomName);
         startActivityForResult(intent, STUDENT_CODE);
     }
 
@@ -362,7 +329,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         setUpDrawer();
 
         // get classroom and update the drawer
-        this.classroom = (Classroom) getIntent().getSerializableExtra(EXTRA_CLASSROOM);
+        this.classroom = (Classroom) getIntent().getSerializableExtra(ClassroomHighlightsActivity.EXTRA_CLASSROOM);
         getDrawerHighlights().setClassroom(classroom);
         getDrawerHighlights().setHighlighted(HighlightsViewDrawer.Row.CLASS_SHOW);
         setBackNavigationForDrawer(true, String.format("Back to %s", (classroom == null) ? "Classes" : classroom.getName()), new View.OnClickListener() {
@@ -382,14 +349,15 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             }
         });
 
-        //get student from intent
-        if(getIntent().getStringExtra(EXTRA_CLASSROOM_NAME) != null && getIntent().getSerializableExtra(EXTRA_STUDENT) != null) {
-            this.classroomName = getIntent().getStringExtra(EXTRA_CLASSROOM_NAME);
-            this.student = (Student) getIntent().getSerializableExtra(EXTRA_STUDENT);
+        //get student from intent - will come from classroomhighlights
+        if(getIntent().getStringExtra(ClassroomHighlightsActivity.EXTRA_CLASSROOM_NAME) != null && getIntent().getSerializableExtra(ClassroomHighlightsActivity.EXTRA_STUDENT) != null) {
+            this.classroomName = getIntent().getStringExtra(ClassroomHighlightsActivity.EXTRA_CLASSROOM_NAME);
+            this.student = (Student) getIntent().getSerializableExtra(ClassroomHighlightsActivity.EXTRA_STUDENT);
             this.studentUuid = student.getUuid();
         }
 
 
+        //gets student from uuid if not in intent
             if(getIntent().getStringExtra(UploadPhotoActivity.STUDENT_UUID) !=null){
 
             this.studentUuid = getIntent().getStringExtra(UploadPhotoActivity.STUDENT_UUID);
@@ -401,7 +369,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
                     StudentHighlightsActivity.this.student = student;
 
                     if (StudentHighlightsActivity.this.student != null) {
-
+                        //update UI with student info -- need to call here too cause async observer
                         initStudentPic();
                         initEmotionsGrid();
                         initMostUsedGrid();
@@ -415,10 +383,38 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         //process picture from uploadPhotoActivity
         Intent intent = getIntent();
         if(intent.getStringExtra("path") !=null){
-            int resultCode = intent.getIntExtra("resultCode", -1);
-            int requestCode = intent.getIntExtra("requestCode", -1);
+            int resultCode = intent.getIntExtra("resultCode", -99);
+            int requestCode = intent.getIntExtra("requestCode", -99);
             handleResult(requestCode, resultCode, intent);
         }
+
+        if(student != null){
+            initStudentPic();
+            initEmotionsGrid();
+            initMostUsedGrid();
+        }
+
+        //delete student listener
+        View.OnClickListener deleteStudentListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(StudentHighlightsActivity.this);
+                builder.setMessage(R.string.alert_message_delete_student);
+                builder.setTitle(R.string.alert_title_delete_student);
+                builder.setPositiveButton(R.string.alert_option_delete, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        deleteAndFinish();
+                    }
+                });
+                builder.setNegativeButton(R.string.alert_option_cancel, null);
+                builder.create().show();
+            }
+        };
+
+        //init delete button
+        findViewById(R.id.trashStudentButton).setOnClickListener(deleteStudentListener);
+        findViewById(R.id.deleteStudent).setOnClickListener(deleteStudentListener);
 
         // Emotions Log initializers
         ImageView imageViewInfoEmotionLog = findViewById(R.id.imageViewInfoEmotionLog);
@@ -480,8 +476,8 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             // TODO @Dante intent extras should be defined within Activity class (e.g. "UploadPhotoActivity.EXTRA_CLASSROOM" below)
             if(student != null && classroomName != null) {
 
-                intent.putExtra(EXTRA_STUDENT, studentUuid);
-                intent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
+                intent.putExtra(UploadPhotoActivity.EXTRA_STUDENT, studentUuid);
+                intent.putExtra(UploadPhotoActivity.EXTRA_CLASSROOM_NAME, classroomName);
             }
             intent.putExtra(UploadPhotoActivity.EXTRA_CLASSROOM, classroom);
 

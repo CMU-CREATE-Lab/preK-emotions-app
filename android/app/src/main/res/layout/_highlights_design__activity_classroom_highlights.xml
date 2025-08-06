@@ -84,29 +84,12 @@
 
                     </LinearLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+
+                    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PatternHighlightsView
+                        android:id="@+id/patternHighlightsView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#aaaaff"
-                        android:layout_marginBottom="50dp"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:id="@+id/titlePatternHighlight"
-                            android:layout_height="wrap_content"
-                            android:text="Pattern Highlight:"
-                            android:textSize="36dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Placeholder"
-                            app:layout_constraintTop_toBottomOf="@id/titlePatternHighlight"
-                            android:paddingBottom="100dp"
-                            />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_marginBottom="50dp"/>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/parentView"
@@ -220,7 +203,6 @@
                            android:orientation="horizontal"
                            android:gravity="center"
                            android:padding="0dp"
-                           android:background="#FFFFFF"
                            app:layout_constraintTop_toBottomOf="@id/monthlyOverviewInfoCollapsibleView"
 
                            >
