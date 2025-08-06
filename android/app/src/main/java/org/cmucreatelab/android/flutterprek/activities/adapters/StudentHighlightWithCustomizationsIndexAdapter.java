@@ -7,6 +7,7 @@ import android.content.Context;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.AsyncTask;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,16 +76,20 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
     }
 
     private View populateStudentView(int position, View convertView, ViewGroup parent) {
-        // TODO just copy params and code from before
         final View result;
-        if (convertView == null) {
-            // if it's not recycled, initialize some attributes
-            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_item_student_circle, parent, false);
-            // NOTE: requires api level 21
-            result.findViewById(R.id.imageView).setClipToOutline(false);
-        } else {
-            result = convertView;
-        }
+        // TODO @tasota trying to recycle views will cause duplicate student images to be drawn (tested on Aug6 2025)
+//        if (convertView == null) {
+//            // if it's not recycled, initialize some attributes
+//            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_item_student_circle, parent, false);
+//            // NOTE: requires api level 21
+//            result.findViewById(R.id.imageView).setClipToOutline(false);
+//        } else {
+//            result = convertView;
+//        }
+        result = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_item_student_circle, parent, false);
+        // NOTE: requires api level 21
+        result.findViewById(R.id.imageView).setClipToOutline(false);
+        // ...
         final StudentWithCustomizations studentWithCustomizations = students.get(position);
         final Student student = studentWithCustomizations.student;
         TextView textView = (TextView)result.findViewById(R.id.text1);
@@ -130,6 +135,21 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
                     Util.setImageViewWithDbFile(appContext, (ImageView) result.findViewById(R.id.imageView), dbFile);
                 }
             });
+            // TODO @tasota trying to recycle views will cause duplicate student images to be drawn (tested on Aug6 2025)
+//            AsyncTask.execute(new Runnable() {
+//                @Override
+//                public void run() {
+//                    // NOTE: this takes awhile to execute
+//                    DbFile dbFile = AppDatabase.getInstance(appContext).embeddedDAO().getDbFile(student.getPictureFileUuid());
+//                    // once got row from DB, update on UI thread
+//                    activity.runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Util.setImageViewWithDbFile(appContext, (ImageView) result.findViewById(R.id.imageView), dbFile);
+//                        }
+//                    });
+//                }
+//            });
         } else {
             ((ImageView) result.findViewById(R.id.imageView)).setImageResource(R.drawable.ic_placeholder);
         }
