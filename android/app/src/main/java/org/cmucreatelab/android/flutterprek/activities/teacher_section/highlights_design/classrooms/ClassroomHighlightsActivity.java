@@ -128,7 +128,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
 
         Calendar calendar = Calendar.getInstance();
 
-        if(sessionOverviewTimeFrame == CalculateHighlightInfo.OverviewDateRange.MONTH){
+        if (sessionOverviewTimeFrame == CalculateHighlightInfo.OverviewDateRange.MONTH){
             int month = calendar.get(Calendar.MONTH); // 0 = January, 11 = December
             if(month == 0){
                 first = MONTHS.get(10);
@@ -144,7 +144,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                 curr = MONTHS.get(month);
             }
 
-        } else if(sessionOverviewTimeFrame == CalculateHighlightInfo.OverviewDateRange.DAY){
+        } else if (sessionOverviewTimeFrame == CalculateHighlightInfo.OverviewDateRange.DAY){
             int day = calendar.get(Calendar.DAY_OF_WEEK) -1; //0 = Sunday, 6 = Saturday
             if(day == 0){
                 first = DAYS.get(5);
@@ -400,7 +400,6 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         ImageView monthlyOverviewInfoImageView = findViewById(R.id.monthlyOverviewInfoImageView);
         MonthlyOverviewInfoCollapsibleView monthlyOverviewInfoCollapsibleView = findViewById(R.id.monthlyOverviewInfoCollapsibleView);
         monthlyOverviewInfoImageView.setOnClickListener(monthlyOverviewInfoCollapsibleView);
-
 
         CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
         //update the coping skills display - need custom call because of date range and calculating percents before adapter

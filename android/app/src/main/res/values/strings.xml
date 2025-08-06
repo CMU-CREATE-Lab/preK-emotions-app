@@ -104,6 +104,7 @@
     <string name="highlights_design_info_description_monthly_overview">This section compares tool usage across the entire classroom over the past several days, weeks, and months, each with a color associated with the selected emotions. The colors correspond to the emotion images listed below. A gray circle indicates no use in the specified time.</string>
     <string name="highlights_design_info_description_coping_skills_classroom">This section lists the breakdown of coping skills used in the classroom by all students. The most used coping skill is the largest circle which appears on the left-hand side.</string>
     <string name="highlights_design_info_description_coping_skills_student">This section lists the breakdown of coping skills used by this student. The most used coping skill is the largest circle which appears on the left-hand side.</string>
+    <string name="highlights_design_info_description_pattern_highlights_skills_student">This section highlights students in the classroom with notable patterns in their usage.</string>
     <string name="highlights_design_drawer_item_settings">App Settings</string>
     <string name="highlights_design_drawer_item_classes">Classes</string>
     <string name="highlights_design_drawer_item_class_name_placeholder">Class Name</string>

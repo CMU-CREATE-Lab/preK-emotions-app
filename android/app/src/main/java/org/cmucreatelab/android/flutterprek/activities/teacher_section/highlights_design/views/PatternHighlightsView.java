@@ -25,6 +25,7 @@ import org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlight
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomHighlightsActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.students.StudentDisplayItem;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.CopingSkillsInfoCollapsibleView;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.PatternHighlightsCollapsibleView;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
@@ -59,11 +60,11 @@ public class PatternHighlightsView extends ConstraintLayout {
 
     }
 
-    //TODO update information about what pattern highlight is
+    //TODO update information about what pattern highlight is -- define multiple texts in @strings for different pattern highlights
     public void initCollapsibleViewListener(Context context) {
-        ImageView copingSkillsInfoImageView = findViewById(R.id.copingSkillsInfoImageView);
-        CopingSkillsInfoCollapsibleView copingSkillsInfoCollapsibleView = findViewById(R.id.copingSkillsInfoCollapsibleView);
-        copingSkillsInfoImageView.setOnClickListener(copingSkillsInfoCollapsibleView);
+        ImageView infoImageView = findViewById(R.id.copingSkillsInfoImageView);
+        PatternHighlightsCollapsibleView patternHighlightsCollapsibleView = findViewById(R.id.copingSkillsInfoCollapsibleView);
+        infoImageView.setOnClickListener(patternHighlightsCollapsibleView);
     }
 
     public void setClassroom(Classroom classroom){
@@ -111,7 +112,7 @@ public class PatternHighlightsView extends ConstraintLayout {
             PatternHighlightsAdapter adapter = new PatternHighlightsAdapter((AppCompatActivity) context,displayItems);
             recyclerView.setAdapter(adapter);
 
-            recyclerView.post(() -> {
+            recyclerView.post(() -> {//spaces each item
                 PatternHighlightsAdapter.setRecyclerViewHorizontalSpacing(recyclerView,12);
             });
 

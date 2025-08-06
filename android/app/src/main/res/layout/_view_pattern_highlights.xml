@@ -25,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="@id/titlePatternHighlight"
         app:layout_constraintStart_toEndOf="@id/titlePatternHighlight" />
 
-    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.CopingSkillsInfoCollapsibleView
+    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.PatternHighlightsCollapsibleView
         android:id="@+id/copingSkillsInfoCollapsibleView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -33,15 +33,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
-    
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/patternHighlightRecyclerView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/viewHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:background="#FFFFFF"
         android:elevation="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/copingSkillsInfoCollapsibleView"
-        />
+        android:padding="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/copingSkillsInfoCollapsibleView">
+
+        <TextView
+            android:id="@+id/descriptionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="These students have shown intersting patterns in their usage"
+            android:textSize="30dp"
+            android:layout_marginBottom="5dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/patternHighlightRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionText"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
