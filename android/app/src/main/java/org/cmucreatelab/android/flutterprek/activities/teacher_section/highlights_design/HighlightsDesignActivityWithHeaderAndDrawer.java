@@ -13,9 +13,9 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCla
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ClassroomIndexActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomHighlightsActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.settings.HighlightsDesignAppSettingsMainActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewAppHeader;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.settings.SettingsMainActivity;
 import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 
 public abstract class HighlightsDesignActivityWithHeaderAndDrawer extends AbstractActivity {
@@ -28,7 +28,7 @@ public abstract class HighlightsDesignActivityWithHeaderAndDrawer extends Abstra
         drawerHighlights.constraintRowAppSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HighlightsDesignActivityWithHeaderAndDrawer.this, SettingsMainActivity.class);
+                Intent intent = new Intent(HighlightsDesignActivityWithHeaderAndDrawer.this, HighlightsDesignAppSettingsMainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

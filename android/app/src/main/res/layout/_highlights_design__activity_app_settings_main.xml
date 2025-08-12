@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorOffWhite" >
+
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewAppHeader
+            android:id="@+id/appHeaderHighlights"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="65sp" />
+
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer
+            android:id="@+id/drawerHighlights"
+            android:layout_width="205sp"
+            android:layout_height="0sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appHeaderHighlights" />
+
+
+        <ScrollView
+            android:layout_margin="40dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/drawerHighlights"
+            app:layout_constraintTop_toBottomOf="@+id/appHeaderHighlights" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/classroomsGridView">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutSectionGeneralAppSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="40dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textViewHeaderGeneralAppSettings"
+                        style="@style/TeacherSectionSettingsTextHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="General App Settings" />
+
+                    <Switch
+                        android:id="@+id/switchHeartBeat"
+                        android:layout_marginStart="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        style="@style/LabelsForTeacherSectionEditActivity"
+                        android:text="Include Heart Rate Prompt" />
+
+                    <TextView
+                    android:id="@+id/labelDescriptionCopingSkillAvailable"
+                    android:layout_marginStart="20dp"
+                    android:text="After each coping skill activity, display the 'how fast is your heart beating' prompt."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="22dp" />
+
+                    <TextView
+                        android:id="@+id/textViewHeader2PromptRepeat"
+                        style="@style/TeacherSectionSettingsTextHeader2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:text="Repeat Audio Prompts after # seconds" />
+
+                    <SeekBar
+                        android:id="@+id/seekBarPromptRepeatDelay"
+                        android:layout_marginStart="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:min="5"
+                        android:max="15"
+                        android:progress="7" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="22dp" />
+
+                    <TextView
+                        android:id="@+id/textButtonChangePassword"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsTextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/teacher_section_settings_change_password" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutSectionBluetoothDeviceSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="40dp"
+                    app:layout_constraintTop_toBottomOf="@id/linearLayoutSectionGeneralAppSettings"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:orientation="vertical" >
+
+
+                    <TextView
+                        android:id="@+id/textViewHeaderBluetoothDeviceSettings"
+                        style="@style/TeacherSectionSettingsTextHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bluetooth Device Settings" />
+
+
+                    <TextView
+                        android:id="@+id/textViewHeaderBleSettingsFlower"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsTextHeader2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Flower" />
+
+                    <TextView
+                        android:id="@+id/textViewBleSettingsFlower"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/teacher_section_settings_pairing_mode_automatic" />
+
+                    <TextView
+                        android:id="@+id/textButtonBleSettingsFlower"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsTextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/teacher_section_settings_configure_pairing_mode" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="22dp" />
+
+
+
+                    <TextView
+                        android:id="@+id/textViewHeaderBleSettingsWand"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsTextHeader2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Wand" />
+
+                    <TextView
+                        android:id="@+id/textViewBleSettingsWand"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/teacher_section_settings_pairing_mode_automatic" />
+
+                    <TextView
+                        android:id="@+id/textButtonBleSettingsWand"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsTextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/teacher_section_settings_configure_pairing_mode" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="22dp" />
+
+
+
+                    <TextView
+                        android:id="@+id/textViewHeaderBleSettingsSqueeze"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsTextHeader2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sheep" />
+
+                    <TextView
+                        android:id="@+id/textViewBleSettingsSqueeze"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/teacher_section_settings_pairing_mode_automatic" />
+
+                    <TextView
+                        android:id="@+id/textButtonBleSettingsSqueeze"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsTextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/teacher_section_settings_configure_pairing_mode" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="22dp" />
+
+
+
+                    <TextView
+                        android:id="@+id/textViewHeaderTroubleshootDevice"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsTextHeader2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Troubleshooting" />
+
+                    <TextView
+                        android:id="@+id/labelDescriptionTroubleshooting"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsText"
+                        android:text="Manually pair a bluetooth device to receive detailed sensor and version information (intended for developers)."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/textButtonTroubleshootDevices"
+                        android:layout_marginStart="20dp"
+                        style="@style/TeacherSectionSettingsTextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/teacher_section_settings_troubleshoot_devices" />
+
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
