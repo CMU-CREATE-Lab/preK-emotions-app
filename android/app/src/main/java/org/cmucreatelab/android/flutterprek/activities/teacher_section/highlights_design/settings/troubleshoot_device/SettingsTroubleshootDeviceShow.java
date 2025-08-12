@@ -11,11 +11,11 @@ import android.widget.TextView;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.DebugCorner;
-import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.TeacherSectionActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
 import org.cmucreatelab.android.flutterprek.ble.bluetooth_birdbrain.UARTConnection;
 
-public class SettingsTroubleshootDeviceShow extends TeacherSectionActivityWithHeaderAndDrawer implements UARTConnection.ConnectionListener, UARTConnection.RXDataListener, TroubleshootDeviceProcess.EventsCallback {
+public class SettingsTroubleshootDeviceShow extends HighlightsDesignActivityWithHeaderAndDrawer implements UARTConnection.ConnectionListener, UARTConnection.RXDataListener, TroubleshootDeviceProcess.EventsCallback {
 
     public static final String EXTRA_DEVICE = "device";
     public static final String EXTRA_IS_CONNECTED = "isConnected";
@@ -56,14 +56,18 @@ public class SettingsTroubleshootDeviceShow extends TeacherSectionActivityWithHe
         }
     }
 
-    @Override
-    public int getResourceIdForActivityLayout() {
-        return R.layout._teacher_section__activity_settings_troubleshoot_device_show_with_drawer;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setUpDrawer();
+        getDrawerHighlights().setHighlighted(HighlightsViewDrawer.Row.APP_SETTINGS);
+        setBackNavigationForDrawer(true, "Back to Troubleshoot Devices", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         this.textViewTitle = findViewById(R.id.textViewTitle);
         this.buttonBluetooth = findViewById(R.id.buttonBluetooth);
@@ -87,12 +91,12 @@ public class SettingsTroubleshootDeviceShow extends TeacherSectionActivityWithHe
         this.isConnected = getIntent().getBooleanExtra(EXTRA_IS_CONNECTED, false);
         this.troubleshootDeviceProcess = new TroubleshootDeviceProcess(this);
 
-        findViewById(R.id.textViewBack).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+//        findViewById(R.id.textViewBack).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
 
         buttonBluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,10 +115,10 @@ public class SettingsTroubleshootDeviceShow extends TeacherSectionActivityWithHe
     }
 
 
-    @Override
-    public DrawerTeacherMainFragment.Section getSectionForDrawer() {
-        return null;
-    }
+//    @Override
+//    public DrawerTeacherMainFragment.Section getSectionForDrawer() {
+//        return null;
+//    }
 
 
     @Override
@@ -193,16 +197,24 @@ public class SettingsTroubleshootDeviceShow extends TeacherSectionActivityWithHe
         });
     }
 
+
     @Override
     public void onTroubleshootDeviceProcessTimeout() {
         this.isHandlingTroubleshootDeviceProcess = false;
         Log.i(Constants.LOG_TAG, "onTroubleshootDeviceProcessTimeout");
     }
 
+
     @Override
     public void onTroubleshootDeviceProcessCompleted() {
         this.isHandlingTroubleshootDeviceProcess = false;
         Log.i(Constants.LOG_TAG, "onTroubleshootDeviceProcessCompleted");
+    }
+
+
+    @Override
+    public int getResourceIdForActivityLayout() {
+        return R.layout._highlights_design__activity_settings_troubleshoot_device_show_with_drawer;
     }
 
 }

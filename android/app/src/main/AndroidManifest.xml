@@ -283,6 +283,14 @@
             android:name=".activities.teacher_section.highlights_design.settings.HighlightsDesignAppSettingsBleActivity"
             android:screenOrientation="userLandscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.teacher_section.highlights_design.settings.troubleshoot_device.SettingsTroubleshootDeviceIndex"
+            android:screenOrientation="userLandscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".activities.teacher_section.highlights_design.settings.troubleshoot_device.SettingsTroubleshootDeviceShow"
+            android:screenOrientation="userLandscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
 
 </manifest>

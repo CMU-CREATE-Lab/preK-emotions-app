@@ -18,14 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
-import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherMainFragment;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.TeacherSectionActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
 import org.cmucreatelab.android.flutterprek.ble.scan.ConnectedAndScannedDevicesViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingsTroubleshootDeviceIndex extends TeacherSectionActivityWithHeaderAndDrawer implements ConnectedAndScannedDevicesViewAdapter.OnListInteractionListener {
+public class SettingsTroubleshootDeviceIndex extends HighlightsDesignActivityWithHeaderAndDrawer implements ConnectedAndScannedDevicesViewAdapter.OnListInteractionListener {
 
     private RecyclerView recyclerViewAvailableDevices;
     private BluetoothAdapter bluetoothAdapter;
@@ -84,13 +84,16 @@ public class SettingsTroubleshootDeviceIndex extends TeacherSectionActivityWithH
 
 
     @Override
-    public int getResourceIdForActivityLayout() {
-        return R.layout._teacher_section__activity_settings_troubleshoot_device_index_with_drawer;
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setUpDrawer();
+        getDrawerHighlights().setHighlighted(HighlightsViewDrawer.Row.APP_SETTINGS);
+        setBackNavigationForDrawer(true, "Back to App Settings", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         this.recyclerViewAvailableDevices = findViewById(R.id.recyclerViewAvailableDevices);
 
@@ -102,12 +105,12 @@ public class SettingsTroubleshootDeviceIndex extends TeacherSectionActivityWithH
         recyclerViewAvailableDevices.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerViewAvailableDevices.setAdapter(connectedAndScannedDevicesViewAdapter);
 
-        findViewById(R.id.textViewBack).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+//        findViewById(R.id.textViewBack).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
     }
 
     @Override
@@ -123,10 +126,10 @@ public class SettingsTroubleshootDeviceIndex extends TeacherSectionActivityWithH
         prepareLeScanning(false);
     }
 
-    @Override
-    public DrawerTeacherMainFragment.Section getSectionForDrawer() {
-        return null;
-    }
+//    @Override
+//    public DrawerTeacherMainFragment.Section getSectionForDrawer() {
+//        return null;
+//    }
 
     @Override
     public void onItemSelected(BluetoothDevice item, boolean isConnected) {
@@ -138,6 +141,13 @@ public class SettingsTroubleshootDeviceIndex extends TeacherSectionActivityWithH
         settingsTroubleshootDeviceShow.putExtra(SettingsTroubleshootDeviceShow.EXTRA_IS_CONNECTED, isConnected);
         startActivity(settingsTroubleshootDeviceShow);
     }
+
+
+    @Override
+    public int getResourceIdForActivityLayout() {
+        return R.layout._highlights_design__activity_settings_troubleshoot_device_index_with_drawer;
+    }
+
 }
 
 
