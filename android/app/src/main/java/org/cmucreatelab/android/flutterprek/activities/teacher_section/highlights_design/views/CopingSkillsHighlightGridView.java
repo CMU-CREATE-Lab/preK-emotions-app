@@ -100,7 +100,7 @@ public class CopingSkillsHighlightGridView extends ConstraintLayout {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, EditCopingSkillsHighlightIndex.class);
-                intent.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom); // if needed
+                intent.putExtra(EditCopingSkillsHighlightIndex.EXTRA_CLASSROOM, classroom);
                 context.startActivity(intent);
             }
         });

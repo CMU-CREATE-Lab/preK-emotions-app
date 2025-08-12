@@ -14,16 +14,20 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillWithCustomizationsIndexAdapter;
-import org.cmucreatelab.android.flutterprek.activities.fragments.DrawerTeacherClassroomFragment;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.coping_skills.CopingSkillEditActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.CopingSkillWithCustomizations;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 
 import java.util.List;
 
-public class EditCopingSkillsHighlightIndex extends ManageClassroomActivityWithHeaderAndDrawer {
+public class EditCopingSkillsHighlightIndex extends HighlightsDesignActivityWithHeaderAndDrawer {
+
+    private Classroom classroom;
+
+    public static final String EXTRA_CLASSROOM = "classroom";
 
     private final CopingSkillWithCustomizationsIndexAdapter.ClickListener clickListener = new CopingSkillWithCustomizationsIndexAdapter.ClickListener() {
         @Override
@@ -56,6 +60,29 @@ public class EditCopingSkillsHighlightIndex extends ManageClassroomActivityWithH
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setUpDrawer();
+
+        // get classroom and update the drawer
+        this.classroom = (Classroom) getIntent().getSerializableExtra(EXTRA_CLASSROOM);
+        getDrawerHighlights().setClassroom(classroom);
+        getDrawerHighlights().setHighlighted(HighlightsViewDrawer.Row.CLASS_SHOW);
+        setBackNavigationForDrawer(true, String.format("Back to %s", (classroom == null) ? "Classes" : classroom.getName()), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+//                if (classroom != null) {
+//                    Intent intent = new Intent(EditCopingSkillsHighlightIndex.this, ClassroomHighlightsActivity.class);
+//                    intent.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(intent);
+//                } else {
+//                    Log.e(Constants.LOG_TAG, "EditCopingSkillsHighlightIndex navigate back in HighlightsViewDrawer but classroom is null; default to classes index.");
+//                    Intent intent = new Intent(EditCopingSkillsHighlightIndex.this, org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomIndexActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(intent);
+//                }
+            }
+        });
 
         FloatingActionButton fabNewCopingSkill = findViewById(R.id.fabNewCopingSkill);
         fabNewCopingSkill.setOnClickListener(new View.OnClickListener() {
@@ -71,15 +98,15 @@ public class EditCopingSkillsHighlightIndex extends ManageClassroomActivityWithH
     }
 
 
-    @Override
-    public DrawerTeacherClassroomFragment.Section getSectionForDrawer() {
-        return DrawerTeacherClassroomFragment.Section.COPING_SKILLS;
-    }
+//    @Override
+//    public DrawerTeacherClassroomFragment.Section getSectionForDrawer() {
+//        return DrawerTeacherClassroomFragment.Section.COPING_SKILLS;
+//    }
 
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout._teacher_section__activity_coping_skills_index;
+        return R.layout._highlights_design__activity_coping_skills_index;
     }
 
 }
