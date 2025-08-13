@@ -14,7 +14,6 @@ import androidx.lifecycle.Observer;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -32,12 +31,12 @@ import org.cmucreatelab.android.flutterprek.activities.teacher_section.classroom
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CalculateHighlightInfo;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomHighlightsActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithHeaderAndDrawer;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogCalendarView;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PillToggleGroup;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.UploadPhotoActivity;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.ArcViewOverlay;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.CopingSkillsHighlightGridView;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.ClassroomInfoCollapsibleView;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.EmotionLogCollapsibleView;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.students.UpdateStudentModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
@@ -46,7 +45,6 @@ import org.cmucreatelab.android.flutterprek.database.models.classroom.Classroom;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.ResolvedEmotionWithImageFile;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
-import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.ItineraryItem;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 import org.cmucreatelab.android.mylibrary.CameraActivity;
 
@@ -71,6 +69,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     private Classroom classroom;
     private CalculateHighlightInfo.OverviewDateRange dateRange = CalculateHighlightInfo.OverviewDateRange.WEEK;
     private CalculateHighlightInfo.OverviewDateRange currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.WEEK;
+    private EmotionLogCalendarView emotionLogCalendarView;
 
 
     //listerns for starting camera activity based on emotion
@@ -109,6 +108,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     @Override
     protected void onResume() {
         super.onResume();
+        emotionLogCalendarView.updateDateTime();
     }
 
     private void initStudentPic(){
@@ -420,6 +420,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         ImageView imageViewInfoEmotionLog = findViewById(R.id.imageViewInfoEmotionLog);
         EmotionLogCollapsibleView collapsibleViewEmotionLog = findViewById(R.id.collapsibleViewEmotionLog);
         imageViewInfoEmotionLog.setOnClickListener(collapsibleViewEmotionLog);
+        this.emotionLogCalendarView = findViewById(R.id.emotionLogCalendarView);
     }
 
     private void deleteAndFinish(){

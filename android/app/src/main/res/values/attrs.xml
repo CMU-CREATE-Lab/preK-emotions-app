@@ -3,4 +3,15 @@
         <attr name="highlights_drawer_item_text" format="string" />
         <attr name="highlights_drawer_item_selected" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="EmotionLogDowColumnView">
+        <attr name="day_of_week" format="enum">
+            <enum name="Monday" value="0"/>
+            <enum name="Tuesday" value="1"/>
+            <enum name="Wednesday" value="2"/>
+            <enum name="Thursday" value="3"/>
+            <enum name="Friday" value="4"/>
+            <enum name="Saturday" value="5"/>
+            <enum name="Sunday" value="6"/>
+        </attr>
+    </declare-styleable>
 </resources>

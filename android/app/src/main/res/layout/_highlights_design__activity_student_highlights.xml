@@ -140,12 +140,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="50dp"/>
 
-                    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.EmotionLogCalendarView
+                    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogCalendarView
+                        android:id="@+id/emotionLogCalendarView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="50dp"
                         >
-                    </org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.EmotionLogCalendarView>
+                    </org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogCalendarView>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
