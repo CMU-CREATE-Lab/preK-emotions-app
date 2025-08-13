@@ -26,10 +26,8 @@ public class EmotionLogCalendarView extends ConstraintLayout {
     private final EmotionLogDowColumnView saturdayDowColumnView;
     private final EmotionLogDowColumnView sundayDowColumnView;
 
-    // TODO helper functions setHighlighted / setActive / setVisible --> params(dayOfWeek, true/false)
-    // highlighted = indicator for the "current day" (i.e. bold outline/border?)
-    // active = regular or "grayed out" (for future days of week)
-    // visible = show views or completely gone (i.e. hide weekends when no data)
+    // TODO demo, remove later
+    private boolean showWeekends = true;
 
 
     public void updateDateTime() {
@@ -43,7 +41,7 @@ public class EmotionLogCalendarView extends ConstraintLayout {
         // dow mon dd hh:mm:ss zzz yyyy
         Log.v(Constants.LOG_TAG, String.format("EmotionLogCalendarView updateDateTime to %s", dateTime.toString()));
 
-        // TODO placeholder (demo set text)
+        // TODO demo placeholder (set text, days of week)
         mondayDowColumnView.setTextForDate("01/01");
         tuesdayDowColumnView.setTextForDate("02/02");
         wednesdayDowColumnView.setTextForDate("03/03");
@@ -51,6 +49,12 @@ public class EmotionLogCalendarView extends ConstraintLayout {
         fridayDowColumnView.setTextForDate("05/05");
         saturdayDowColumnView.setTextForDate("06/06");
         sundayDowColumnView.setTextForDate("07/07");
+
+        wednesdayDowColumnView.setDowColumnIsSelected(true);
+        thursdayDowColumnView.setDowColumnIsActive(false);
+        fridayDowColumnView.setDowColumnIsActive(false);
+        saturdayDowColumnView.setDowColumnIsActive(false);
+        sundayDowColumnView.setDowColumnIsActive(false);
     }
 
 
@@ -69,8 +73,9 @@ public class EmotionLogCalendarView extends ConstraintLayout {
         getRootView().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                saturdayDowColumnView.setVisibility(View.GONE);
-                sundayDowColumnView.setVisibility(View.GONE);
+                showWeekends = !showWeekends;
+                saturdayDowColumnView.setDowColumnIsVisible(showWeekends);
+                sundayDowColumnView.setDowColumnIsVisible(showWeekends);
             }
         });
     }

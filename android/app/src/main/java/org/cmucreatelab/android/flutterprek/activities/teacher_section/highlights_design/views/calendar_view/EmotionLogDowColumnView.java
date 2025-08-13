@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -64,12 +65,41 @@ public class EmotionLogDowColumnView extends ConstraintLayout {
     }
 
 
+    // selected = indicator for the "current day" (i.e. bold outline/border)
+    public void setDowColumnIsSelected(boolean isSelected) {
+        if (isSelected) {
+            setBackgroundResource(R.drawable.background_dow_column_selected);
+        } else {
+            setBackgroundResource(R.drawable.background_dow_column_deselected);
+        }
+    }
+
+
+    // active = regular or "grayed out" (for future days of week)
+    public void setDowColumnIsActive(boolean isActive) {
+        setAlpha(isActive ? 1.0f : 0.6f);
+        // TODO demo only?
+        if (!isActive) {
+            // hide sessions as well
+            findViewById(R.id.linearLayoutSessions).setVisibility(View.INVISIBLE);
+        }
+    }
+
+
+    // visible = show views or completely gone (i.e. hide weekends when no data)
+    public void setDowColumnIsVisible(boolean isVisible) {
+        setVisibility(isVisible ? View.VISIBLE : View.GONE);
+    }
+
+
     public EmotionLogDowColumnView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(getResourceIdForLayout(), this);
 
         this.textViewTitleDayOfWeek = findViewById(R.id.textViewTitleDayOfWeek);
         this.textViewTitleDate = findViewById(R.id.textViewTitleDate);
+
+        setDowColumnIsSelected(false);
 
         initializeWithAttributeSet(context, attrs);
     }

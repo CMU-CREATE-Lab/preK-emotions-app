@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorOffWhite"
-    android:padding="1dp"
+    android:padding="4dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,6 +40,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayoutSessions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/sectionDayOfWeekAndDate"
