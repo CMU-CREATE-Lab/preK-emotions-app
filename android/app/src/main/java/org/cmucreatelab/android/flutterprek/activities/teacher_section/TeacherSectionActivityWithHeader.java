@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,7 @@ public abstract class TeacherSectionActivityWithHeader extends AbstractActivity 
         super.onCreate(savedInstanceState);
         this.headerFragment = (AppHeaderFragment) (getSupportFragmentManager().findFragmentById(R.id.appHeader));
         this.headerFragment.setHeaderTransparency(false);
+        initializeTeacherSectionHeaderBackgroundColor();
 
         findViewById(R.id.imageStudent).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +47,20 @@ public abstract class TeacherSectionActivityWithHeader extends AbstractActivity 
         // clear the stack entirely and create new root: https://stackoverflow.com/questions/7075349/android-clear-activity-stack
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+
+    public void initializeTeacherSectionHeaderBackgroundColor() {
+        headerFragment.getView().setBackgroundColor(getHeaderBackgroundColor());
+    }
+
+
+    // TODO default should be colorPrimary, using magenta to stick out for old views to be deleted
+//    public int getHeaderBackgroundColor() {
+//        return getResources().getColor(R.color.colorPrimary);
+//    }
+    public int getHeaderBackgroundColor() {
+        return Color.parseColor("#FF6EC7");
     }
 
 

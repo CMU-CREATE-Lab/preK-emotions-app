@@ -87,6 +87,12 @@ public class LoginActivity extends TeacherSectionActivityWithHeader {
         }
     }
 
+
+    @Override
+    public int getHeaderBackgroundColor() {
+        return getResources().getColor(R.color.colorPrimary);
+    }
+
 }
 
 
