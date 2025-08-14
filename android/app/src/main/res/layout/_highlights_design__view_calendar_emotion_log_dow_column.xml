@@ -47,31 +47,7 @@
         android:orientation="vertical"
         >
 
-        <include layout="@layout/_highlights_design__view_calendar_emotion_log_dow_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            />
-
-        <include layout="@layout/_highlights_design__view_calendar_emotion_log_dow_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            />
-
-        <include layout="@layout/_highlights_design__view_calendar_emotion_log_dow_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            />
-
-        <include layout="@layout/_highlights_design__view_calendar_emotion_log_dow_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            />
-
-        <include layout="@layout/_highlights_design__view_calendar_emotion_log_dow_item"
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogSessionCellView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"

@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ public class EmotionLogDowColumnView extends ConstraintLayout {
 
     private final TextView textViewTitleDayOfWeek;
     private final TextView textViewTitleDate;
+    private final LinearLayout linearLayoutSessions;
 
 
     private String getStringForDayOfWeek(TypedArray typedArray) {
@@ -98,10 +100,18 @@ public class EmotionLogDowColumnView extends ConstraintLayout {
 
         this.textViewTitleDayOfWeek = findViewById(R.id.textViewTitleDayOfWeek);
         this.textViewTitleDate = findViewById(R.id.textViewTitleDate);
+        this.linearLayoutSessions = findViewById(R.id.linearLayoutSessions);
 
         setDowColumnIsSelected(false);
 
         initializeWithAttributeSet(context, attrs);
+
+        // TODO demo data
+        linearLayoutSessions.addView(EmotionLogSessionCellView.generate(getContext(), EmotionLogSessionCellView.CellViewEmotion.MAD));
+        linearLayoutSessions.addView(EmotionLogSessionCellView.generate(getContext(), EmotionLogSessionCellView.CellViewEmotion.MAD));
+        linearLayoutSessions.addView(EmotionLogSessionCellView.generate(getContext(), EmotionLogSessionCellView.CellViewEmotion.SCARED));
+        linearLayoutSessions.addView(EmotionLogSessionCellView.generate(getContext(), EmotionLogSessionCellView.CellViewEmotion.SAD));
+        linearLayoutSessions.addView(EmotionLogSessionCellView.generate(getContext(), EmotionLogSessionCellView.CellViewEmotion.EXCITED));
     }
 
 
