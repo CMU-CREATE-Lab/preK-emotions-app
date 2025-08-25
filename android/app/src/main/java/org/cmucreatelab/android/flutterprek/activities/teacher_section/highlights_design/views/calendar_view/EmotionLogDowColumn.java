@@ -1,5 +1,6 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -13,11 +14,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
+import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.EmbeddedDAO;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.SessionWithSessionCopingSkills;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
-public class EmotionLogDowColumnView extends ConstraintLayout {
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+public class EmotionLogDowColumn extends ConstraintLayout {
 
     private final TextView textViewTitleDayOfWeek;
     private final TextView textViewTitleDate;
@@ -94,7 +105,29 @@ public class EmotionLogDowColumnView extends ConstraintLayout {
     }
 
 
-    public EmotionLogDowColumnView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public void populateWithData(AbstractActivity activity, Student student, Calendar calendar) {
+//        //dateTime.setHours();
+//        Calendar c = Calendar.getInstance();
+//        c.get(Calendar.DAY_OF_WEEK);
+//        c.getTime()
+//        calendar.getTime().getTime();
+
+//        //long value = calendar.getTimeInMillis() / 1000;
+//        long value = calendar.getTime().getTime();
+//        long endTime = value + 86400; // 86400 seconds per day
+        long startTime = calendar.getTimeInMillis();
+        long endTime = startTime + 86400000; // ms per day (86400 seconds per day)
+
+        AppDatabase.getInstance(activity).embeddedDAO().getSessionsWithSessionCopingSkillsForStudentBetweenTimes(student.getUuid(), startTime, endTime).observe(activity, new Observer<List<SessionWithSessionCopingSkills>>() {
+            @Override
+            public void onChanged(List<SessionWithSessionCopingSkills> sessionWithSessionCopingSkills) {
+                Log.v(Constants.LOG_TAG, String.format("   query returned with result size %d", sessionWithSessionCopingSkills.size()));
+            }
+        });
+    }
+
+
+    public EmotionLogDowColumn(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(getResourceIdForLayout(), this);
 
@@ -107,11 +140,11 @@ public class EmotionLogDowColumnView extends ConstraintLayout {
         initializeWithAttributeSet(context, attrs);
 
         // TODO demo data
-        linearLayoutSessions.addView(EmotionLogSessionCellView.generate(getContext(), EmotionLogSessionCellView.CellViewEmotion.MAD));
-        linearLayoutSessions.addView(EmotionLogSessionCellView.generate(getContext(), EmotionLogSessionCellView.CellViewEmotion.MAD));
-        linearLayoutSessions.addView(EmotionLogSessionCellView.generate(getContext(), EmotionLogSessionCellView.CellViewEmotion.SCARED));
-        linearLayoutSessions.addView(EmotionLogSessionCellView.generate(getContext(), EmotionLogSessionCellView.CellViewEmotion.SAD));
-        linearLayoutSessions.addView(EmotionLogSessionCellView.generate(getContext(), EmotionLogSessionCellView.CellViewEmotion.EXCITED));
+        linearLayoutSessions.addView(EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.CellViewEmotion.MAD));
+        linearLayoutSessions.addView(EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.CellViewEmotion.MAD));
+        linearLayoutSessions.addView(EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.CellViewEmotion.SCARED));
+        linearLayoutSessions.addView(EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.CellViewEmotion.SAD));
+        linearLayoutSessions.addView(EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.CellViewEmotion.EXCITED));
     }
 
 

@@ -108,8 +108,9 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     @Override
     protected void onResume() {
         super.onResume();
-        emotionLogCalendarView.updateDateTime();
+        emotionLogCalendarView.requestData(this, student);
     }
+
 
     private void initStudentPic(){
         ImageView profilePicture = findViewById(R.id.profilePicture);

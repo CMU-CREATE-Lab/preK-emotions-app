@@ -1,26 +1,22 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.UiThread;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ColorConstants;
 
-public class EmotionLogSessionCellView extends ConstraintLayout {
+public class EmotionLogSessionCell extends ConstraintLayout {
 
     private final ConstraintLayout sessionContainerConstraintLayout;
     private final ConstraintLayout sessionHeaderConstraintLayout;
@@ -37,8 +33,8 @@ public class EmotionLogSessionCellView extends ConstraintLayout {
 
 
     // TODO demo only for generating rows
-    public static EmotionLogSessionCellView generate(Context context, CellViewEmotion cellViewEmotion) {
-        EmotionLogSessionCellView emotionLogSessionCellView = new EmotionLogSessionCellView(context, null);
+    public static EmotionLogSessionCell generate(Context context, CellViewEmotion cellViewEmotion) {
+        EmotionLogSessionCell emotionLogSessionCellView = new EmotionLogSessionCell(context, null);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -76,7 +72,7 @@ public class EmotionLogSessionCellView extends ConstraintLayout {
     }
 
 
-    public EmotionLogSessionCellView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public EmotionLogSessionCell(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(getResourceIdForLayout(), this);
 

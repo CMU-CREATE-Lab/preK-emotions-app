@@ -12,22 +12,60 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
+import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.util.Calendar;
 import java.util.Date;
 
 public class EmotionLogCalendarView extends ConstraintLayout {
 
-    private final EmotionLogDowColumnView mondayDowColumnView;
-    private final EmotionLogDowColumnView tuesdayDowColumnView;
-    private final EmotionLogDowColumnView wednesdayDowColumnView;
-    private final EmotionLogDowColumnView thursdayDowColumnView;
-    private final EmotionLogDowColumnView fridayDowColumnView;
-    private final EmotionLogDowColumnView saturdayDowColumnView;
-    private final EmotionLogDowColumnView sundayDowColumnView;
+    private final EmotionLogDowColumn mondayDowColumnView;
+    private final EmotionLogDowColumn tuesdayDowColumnView;
+    private final EmotionLogDowColumn wednesdayDowColumnView;
+    private final EmotionLogDowColumn thursdayDowColumnView;
+    private final EmotionLogDowColumn fridayDowColumnView;
+    private final EmotionLogDowColumn saturdayDowColumnView;
+    private final EmotionLogDowColumn sundayDowColumnView;
 
     // TODO demo, remove later
     private boolean showWeekends = true;
+
+
+    public void requestData(AbstractActivity activity, Student student) {
+        // TODO remove?
+        this.updateDateTime();
+
+        Log.v(Constants.LOG_TAG, "called requestData");
+        Calendar calendar = Calendar.getInstance();
+
+        // we want midnight of the current day
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        // TODO @tasota calculate days and populate with data
+        // demo DB call for current day
+        mondayDowColumnView.populateWithData(activity, student, calendar);
+    }
+
+
+    // TODO @tasota old method/notes? Or call this for date and then requestData() call
+    public void updateTimeAndViews(AbstractActivity activity, Student student) {
+        Calendar calendar = Calendar.getInstance();
+
+//        https://developer.android.com/training/data-storage/room/relationships/nested
+//        https://developer.android.com/training/data-storage/room/#kts
+//        https://docs.oracle.com/javase/tutorial/datetime/overview/index.html
+//        https://docs.oracle.com/javase/10/docs/api/java/time/package-summary.html
+
+//        // we want to track midnight of the current day
+//        calendar.set(Calendar.HOUR_OF_DAY, 0);
+//        calendar.set(Calendar.MINUTE, 0);
+//        calendar.set(Calendar.SECOND, 0);
+//        calendar.set(Calendar.MILLISECOND, 0);
+    }
 
 
     public void updateDateTime() {

@@ -7,6 +7,7 @@ import androidx.room.Transaction;
 
 import org.cmucreatelab.android.flutterprek.database.models.customization.Customization;
 import org.cmucreatelab.android.flutterprek.database.models.db_file.DbFile;
+import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.SessionWithSessionCopingSkills;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.StudentWithSessionsAndSessionCopingSkills;
 import org.cmucreatelab.android.flutterprek.database.models.emotion.Emotion;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
@@ -28,6 +29,23 @@ public abstract class EmbeddedDAO {
     @Transaction
     @Query("SELECT * FROM students WHERE uuid IN (:studentUuids)")
     public abstract LiveData<List<StudentWithSessionsAndSessionCopingSkills>> getSessionsWithSessionCopingSkillsFromStudents(List<String> studentUuids);
+
+//    // ~~!
+//    public abstract LiveData<StudentWithSessionsAndSessionCopingSkills> getSessionsWithSessionCopingSkillsForStudentBetweenTimes(String studentUuid, long start, long end);
+//    public LiveData<StudentWithSessionsAndSessionCopingSkills> getSessionsWithSessionCopingSkillsForStudentBetweenTimes(String studentUuid, long start, long end) {
+//        Student student = getStudent(studentUuid);
+//        List<SessionWithSessionCopingSkills> sessions;
+//
+//        return new StudentWithSessionsAndSessionCopingSkills(student, sessions);
+//    }
+
+
+//    public LiveData<SessionWithSessionCopingSkills> getSessionsWithSessionCopingSkillsForStudentBetweenTimes(String studentUuid, long start, long end) {
+//
+//    }
+    @Transaction
+    @Query("SELECT * FROM sessions WHERE student_uuid = :studentUuid AND started_at BETWEEN :start AND :end")
+    public abstract LiveData<List<SessionWithSessionCopingSkills>> getSessionsWithSessionCopingSkillsForStudentBetweenTimes(String studentUuid, long start, long end);
 
 
     @Query("SELECT * FROM students WHERE uuid = :studentUuid LIMIT 1")

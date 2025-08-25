@@ -44,7 +44,7 @@
         android:paddingTop="22dp"
         android:paddingBottom="12dp">
 
-        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumnView
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumn
             android:id="@+id/mondayDowColumnView"
             app:day_of_week="Monday"
             android:layout_width="match_parent"
@@ -53,7 +53,7 @@
             android:layout_weight="1"
             />
 
-        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumnView
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumn
             android:id="@+id/tuesdayDowColumnView"
             app:day_of_week="Tuesday"
             android:layout_width="match_parent"
@@ -62,7 +62,7 @@
             android:layout_weight="1"
             />
 
-        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumnView
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumn
             android:id="@+id/wednesdayDowColumnView"
             app:day_of_week="Wednesday"
             android:layout_width="match_parent"
@@ -71,7 +71,7 @@
             android:layout_weight="1"
             />
 
-        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumnView
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumn
             android:id="@+id/thursdayDowColumnView"
             app:day_of_week="Thursday"
             android:layout_width="match_parent"
@@ -80,7 +80,7 @@
             android:layout_weight="1"
             />
 
-        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumnView
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumn
             android:id="@+id/fridayDowColumnView"
             app:day_of_week="Friday"
             android:layout_width="match_parent"
@@ -89,7 +89,7 @@
             android:layout_weight="1"
             />
 
-        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumnView
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumn
             android:id="@+id/saturdayDowColumnView"
             app:day_of_week="Saturday"
             android:layout_width="match_parent"
@@ -98,7 +98,7 @@
             android:layout_weight="1"
             />
 
-        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumnView
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogDowColumn
             android:id="@+id/sundayDowColumnView"
             app:day_of_week="Sunday"
             android:layout_width="match_parent"

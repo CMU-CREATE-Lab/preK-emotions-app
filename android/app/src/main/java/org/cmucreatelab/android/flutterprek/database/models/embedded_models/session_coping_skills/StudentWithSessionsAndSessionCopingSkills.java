@@ -21,6 +21,13 @@ public class StudentWithSessionsAndSessionCopingSkills {
     public List<SessionWithSessionCopingSkills> sessions;
 
 
+    // TODO @tasota adding constructor breaks empty calls to new StudentWithSessionsAndSessionCopingSkills() ??? -- this Should probably be resolved
+//    public StudentWithSessionsAndSessionCopingSkills(Student student, List<SessionWithSessionCopingSkills> sessions) {
+//        this.student = student;
+//        this.sessions = sessions;
+//    }
+
+
     // Helper class (Maps CopingSkill + Emotion -> Count)
 
     public static class CopingSkillEmotion {
