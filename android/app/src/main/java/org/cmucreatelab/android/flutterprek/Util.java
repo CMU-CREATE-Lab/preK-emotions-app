@@ -127,6 +127,16 @@ public class Util {
         return DateConverter.toTimestamp(new Date());
     }
 
+
+    public static int pixelsFromDp(Context context, int sizeInDp) {
+        // Convert to pixels
+        //int sizeInDp = 20;
+        //float scale = context.getResources().getDisplayMetrics().density;
+        //int sizeInPx = (int) (sizeInDp * scale + 0.5f);  // Round properly
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (sizeInDp * scale + 0.5f);
+    }
+
 }
 
 

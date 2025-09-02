@@ -12,8 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.mikhaellopez.circularimageview.CircularImageView;
+
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
+import org.cmucreatelab.android.flutterprek.Util;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.ColorConstants;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.SessionWithSessionCopingSkills;
 import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.SessionCopingSkill;
@@ -26,6 +29,7 @@ public class EmotionLogSessionCell extends ConstraintLayout {
 
     private final ConstraintLayout sessionContainerConstraintLayout;
     private final ConstraintLayout sessionHeaderConstraintLayout;
+    private final LinearLayout copingSkillsLinearLayout;
     private final TextView textViewSessionTimestamp;
     private final TextView textViewSessionDuration;
 
@@ -71,6 +75,39 @@ public class EmotionLogSessionCell extends ConstraintLayout {
     }
 
 
+    // TODO hardcoded helper method (perhaps there's another way to properly fetch this info, but only once?)
+    public static int uuidToCopingSkillResource(String copingSkillUuid) {
+        //"copingSkills":
+        //  [
+        //    { "uuid": "coping_skill_14", "name": "Conduct", "imageFileUuid": "ic_conducting" },
+        //    { "uuid": "coping_skill_18", "name": "Cuddle", "imageFileUuid": "ic_cuddle_alternative" },
+        //    { "uuid": "coping_skill_1", "name": "Flower Breathing", "imageFileUuid": "ic_flower_breathing" },
+        //    { "uuid": "coping_skill_5", "name": "Jumping Jacks", "imageFileUuid": "ic_jumping_jacks" }
+        //  ],
+        if (copingSkillUuid != null) {
+            if (copingSkillUuid.equals("coping_skill_14")) {
+                // wand
+                return R.drawable.ic_conducting;
+            }
+            if (copingSkillUuid.equals("coping_skill_18")) {
+                // sheep
+                return R.drawable.ic_cuddle_alternative;
+            }
+            if (copingSkillUuid.equals("coping_skill_1")) {
+                // flower
+                return R.drawable.ic_flower_breathing;
+            }
+            if (copingSkillUuid.equals("coping_skill_5")) {
+                // jumping jacks
+                return R.drawable.ic_jumping_jacks;
+            }
+        }
+        Log.w(Constants.LOG_TAG, String.format("Could not find Coping Skill match with uuid '%s'", copingSkillUuid));
+        // TODO default image?
+        return R.drawable.ic_placeholder;
+    }
+
+
     public static EmotionLogSessionCell generate(Context context, CellViewEmotion cellViewEmotion, SessionWithSessionCopingSkills sessionWithSessionCopingSkills) {
         EmotionLogSessionCell emotionLogSessionCellView = new EmotionLogSessionCell(context, null);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -82,9 +119,35 @@ public class EmotionLogSessionCell extends ConstraintLayout {
         emotionLogSessionCellView.setBackgroundColor(cellViewEmotion);
         emotionLogSessionCellView.setTextForTimestamp(sessionWithSessionCopingSkills);
         emotionLogSessionCellView.setTextForDuration(sessionWithSessionCopingSkills);
-        emotionLogSessionCellView.setCopingSkills(sessionWithSessionCopingSkills);
+        emotionLogSessionCellView.setCopingSkills(context, sessionWithSessionCopingSkills);
         // TODO click listener?
         return emotionLogSessionCellView;
+    }
+
+
+    private static CircularImageView generate(Context context, SessionCopingSkill sessionCopingSkill) {
+        //<de.hdodenhof.circleimageview.CircleImageView
+        //                android:layout_width="20dp"
+        //                android:layout_height="20dp"
+        //                app:civ_border_width="1dp"
+        //                app:civ_border_color="@android:color/black"
+        //                android:src="@drawable/ic_jumping_jacks"
+        //                android:layout_marginStart="2dp"
+        //                />
+        CircularImageView result = new CircularImageView(context, null);
+
+        int dp1 = Util.pixelsFromDp(context, 1);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                20*dp1,
+                20*dp1
+        );
+        params.setMargins(2*dp1, 0, 0, 0);
+        result.setLayoutParams(params);
+        result.setBorderWidth(dp1);
+        result.setBorderColor(R.color.black);
+        result.setImageResource(uuidToCopingSkillResource(sessionCopingSkill.getCopingSkillUuid()));
+
+        return result;
     }
 
 
@@ -112,9 +175,12 @@ public class EmotionLogSessionCell extends ConstraintLayout {
     }
 
 
-    private void setCopingSkills(SessionWithSessionCopingSkills sessionWithSessionCopingSkills) {
-        // TODO coping skills (with sessionContainerConstraintLayout)
+    private void setCopingSkills(Context context, SessionWithSessionCopingSkills sessionWithSessionCopingSkills) {
+        copingSkillsLinearLayout.removeAllViews();
         List<SessionCopingSkill> list = sessionWithSessionCopingSkills.sessionCopingSkills;
+        for (SessionCopingSkill scs: list) {
+            copingSkillsLinearLayout.addView(generate(context, scs));
+        }
     }
 
 
@@ -150,6 +216,7 @@ public class EmotionLogSessionCell extends ConstraintLayout {
 
         this.sessionContainerConstraintLayout = findViewById(R.id.sessionContainerConstraintLayout);
         this.sessionHeaderConstraintLayout = findViewById(R.id.sessionHeaderConstraintLayout);
+        this.copingSkillsLinearLayout = findViewById(R.id.copingSkillsLinearLayout);
         this.textViewSessionTimestamp = findViewById(R.id.textViewSessionTimestamp);
         this.textViewSessionDuration = findViewById(R.id.textViewSessionDuration);
     }

@@ -49,6 +49,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
+            android:id="@+id/copingSkillsLinearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/sessionHeaderConstraintLayout"
@@ -61,28 +62,10 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                app:civ_border_width="1sp"
+                app:civ_border_width="1dp"
                 app:civ_border_color="@android:color/black"
-                android:src="@drawable/ic_cuddle_alternative"
-                android:layout_marginStart="2sp"
-                />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:civ_border_width="1sp"
-                app:civ_border_color="@android:color/black"
-                android:src="@drawable/ic_flower_breathing"
-                android:layout_marginStart="2sp"
-                />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:civ_border_width="1sp"
-                app:civ_border_color="@android:color/black"
-                android:src="@drawable/ic_conducting"
-                android:layout_marginStart="2sp"
+                android:src="@drawable/ic_placeholder"
+                android:layout_marginStart="2dp"
                 />
 
         </LinearLayout>
