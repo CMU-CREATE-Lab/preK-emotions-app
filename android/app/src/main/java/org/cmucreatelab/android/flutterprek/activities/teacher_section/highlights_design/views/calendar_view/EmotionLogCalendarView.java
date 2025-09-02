@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import org.cmucreatelab.android.flutterprek.CalendarUtil;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
@@ -28,6 +29,18 @@ public class EmotionLogCalendarView extends ConstraintLayout {
     private final EmotionLogDowColumn saturdayDowColumnView;
     private final EmotionLogDowColumn sundayDowColumnView;
 
+    // NOTE: bad Java compiler is bad
+    private final EmotionLogDowColumn[] weekdaysColumnArray;// = {
+//    private final EmotionLogDowColumn[] weekdaysColumnArray = {
+//            mondayDowColumnView,
+//            tuesdayDowColumnView,
+//            wednesdayDowColumnView,
+//            thursdayDowColumnView,
+//            fridayDowColumnView,
+//            saturdayDowColumnView,
+//            sundayDowColumnView
+//    };
+
     // TODO demo, remove later
     private boolean showWeekends = true;
 
@@ -45,26 +58,39 @@ public class EmotionLogCalendarView extends ConstraintLayout {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-        // TODO @tasota calculate days and populate with data
-        // demo DB call for current day
-        mondayDowColumnView.populateWithData(activity, student, calendar);
+        Calendar[] currentWeek = CalendarUtil.generateWeekFromDay(calendar);
+        for (int i=0; i<7; i++) {
+            weekdaysColumnArray[i].populateWithData(activity, student, currentWeek[i]);
+        }
+//        mondayDowColumnView.populateWithData(activity, student, currentWeek[0]);
+//        tuesdayDowColumnView.populateWithData(activity, student, currentWeek[1]);
+//        wednesdayDowColumnView.populateWithData(activity, student, currentWeek[2]);
+//        thursdayDowColumnView.populateWithData(activity, student, currentWeek[3]);
+//        fridayDowColumnView.populateWithData(activity, student, currentWeek[4]);
+//        saturdayDowColumnView.populateWithData(activity, student, currentWeek[5]);
+//        sundayDowColumnView.populateWithData(activity, student, currentWeek[6]);
+
+        updateColumnsDisplay(calendar);
     }
 
 
-    // TODO @tasota old method/notes? Or call this for date and then requestData() call
-    public void updateTimeAndViews(AbstractActivity activity, Student student) {
-        Calendar calendar = Calendar.getInstance();
+    private void updateColumnsDisplay(Calendar calendar) {
+        int offset = CalendarUtil.getDayOfWeekOffset(calendar);
 
-//        https://developer.android.com/training/data-storage/room/relationships/nested
-//        https://developer.android.com/training/data-storage/room/#kts
-//        https://docs.oracle.com/javase/tutorial/datetime/overview/index.html
-//        https://docs.oracle.com/javase/10/docs/api/java/time/package-summary.html
-
-//        // we want to track midnight of the current day
-//        calendar.set(Calendar.HOUR_OF_DAY, 0);
-//        calendar.set(Calendar.MINUTE, 0);
-//        calendar.set(Calendar.SECOND, 0);
-//        calendar.set(Calendar.MILLISECOND, 0);
+        // past days (if any)
+        for (int i=0; i<offset; i++) {
+            weekdaysColumnArray[i].setDowColumnIsActive(true);
+            weekdaysColumnArray[i].setDowColumnIsSelected(false);
+        }
+        // current day
+        weekdaysColumnArray[offset].setDowColumnIsActive(true);
+        weekdaysColumnArray[offset].setDowColumnIsSelected(true);
+        // future days (of rest of the week, if any)
+        for (int i=offset+1; i<7; i++) {
+            weekdaysColumnArray[i].setDowColumnIsActive(false);
+            weekdaysColumnArray[i].setDowColumnIsSelected(false);
+        }
+        // TODO @tasota check for display weekends and remove "showWeekends"
     }
 
 
@@ -78,21 +104,6 @@ public class EmotionLogCalendarView extends ConstraintLayout {
         // https://developer.android.com/reference/java/util/Date#toString()
         // dow mon dd hh:mm:ss zzz yyyy
         Log.v(Constants.LOG_TAG, String.format("EmotionLogCalendarView updateDateTime to %s", dateTime.toString()));
-
-        // TODO demo placeholder (set text, days of week)
-        mondayDowColumnView.setTextForDate("01/01");
-        tuesdayDowColumnView.setTextForDate("02/02");
-        wednesdayDowColumnView.setTextForDate("03/03");
-        thursdayDowColumnView.setTextForDate("04/04");
-        fridayDowColumnView.setTextForDate("05/05");
-        saturdayDowColumnView.setTextForDate("06/06");
-        sundayDowColumnView.setTextForDate("07/07");
-
-        wednesdayDowColumnView.setDowColumnIsSelected(true);
-        thursdayDowColumnView.setDowColumnIsActive(false);
-        fridayDowColumnView.setDowColumnIsActive(false);
-        saturdayDowColumnView.setDowColumnIsActive(false);
-        sundayDowColumnView.setDowColumnIsActive(false);
     }
 
 
@@ -107,6 +118,16 @@ public class EmotionLogCalendarView extends ConstraintLayout {
         this.fridayDowColumnView = findViewById(R.id.fridayDowColumnView);
         this.saturdayDowColumnView = findViewById(R.id.saturdayDowColumnView);
         this.sundayDowColumnView = findViewById(R.id.sundayDowColumnView);
+
+        this.weekdaysColumnArray = new EmotionLogDowColumn[]{
+                    mondayDowColumnView,
+                    tuesdayDowColumnView,
+                    wednesdayDowColumnView,
+                    thursdayDowColumnView,
+                    fridayDowColumnView,
+                    saturdayDowColumnView,
+                    sundayDowColumnView
+        };
 
         getRootView().setOnClickListener(new OnClickListener() {
             @Override

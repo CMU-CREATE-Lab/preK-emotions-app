@@ -24,6 +24,7 @@ import org.cmucreatelab.android.flutterprek.database.models.embedded_models.Embe
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.SessionWithSessionCopingSkills;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +38,19 @@ public class EmotionLogDowColumn extends ConstraintLayout {
 
     private String getStringForDayOfWeek(TypedArray typedArray) {
         int dayOfWeek = typedArray.getInt(R.styleable.EmotionLogDowColumnView_day_of_week, 0);
+        return getStringForDayOfWeek(dayOfWeek);
+    }
+
+
+    private String getStringForDayOfWeek(Calendar calendar) {
+        // we want a range [0-6] with 0 as Monday
+        // NOTE: "remainder operator" is not "modular arithmetic": +5 equivalent -2
+        int dayOfWeek = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7;
+        return getStringForDayOfWeek(dayOfWeek);
+    }
+
+
+    private String getStringForDayOfWeek(int dayOfWeek) {
         switch (dayOfWeek) {
             case 0:
                 return "Mon";
@@ -106,24 +120,19 @@ public class EmotionLogDowColumn extends ConstraintLayout {
 
 
     public void populateWithData(AbstractActivity activity, Student student, Calendar calendar) {
-//        //dateTime.setHours();
-//        Calendar c = Calendar.getInstance();
-//        c.get(Calendar.DAY_OF_WEEK);
-//        c.getTime()
-//        calendar.getTime().getTime();
-
-//        //long value = calendar.getTimeInMillis() / 1000;
-//        long value = calendar.getTime().getTime();
-//        long endTime = value + 86400; // 86400 seconds per day
+        // NOTE: make sure "calendar" parameter is set to midnight
         long startTime = calendar.getTimeInMillis();
         long endTime = startTime + 86400000; // ms per day (86400 seconds per day)
 
         AppDatabase.getInstance(activity).embeddedDAO().getSessionsWithSessionCopingSkillsForStudentBetweenTimes(student.getUuid(), startTime, endTime).observe(activity, new Observer<List<SessionWithSessionCopingSkills>>() {
             @Override
             public void onChanged(List<SessionWithSessionCopingSkills> sessionWithSessionCopingSkills) {
-                Log.v(Constants.LOG_TAG, String.format("   query returned with result size %d", sessionWithSessionCopingSkills.size()));
+                Log.v(Constants.LOG_TAG, String.format("query startTime=%d (dow='%s') returned with result size %d", startTime, getStringForDayOfWeek(calendar), sessionWithSessionCopingSkills.size()));
+                // TODO do something with List<SessionWithSessionCopingSkills> sessionWithSessionCopingSkills
             }
         });
+        String monthSlashDate = (new SimpleDateFormat("MM/dd")).format(calendar.getTime());
+        setTextForDate(monthSlashDate);
     }
 
 
