@@ -188,13 +188,15 @@ public class HighlightsDesignAppSettingsMainActivity extends HighlightsDesignAct
                 updateViewForTextViewHeader2PromptRepeat(i);
             }
         });
-        findViewById(R.id.textButtonChangePassword).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent settingsPasswordActivity = new Intent(getApplicationContext(), HighlightsDesignAppSettingsPasswordActivity.class);
-                startActivity(settingsPasswordActivity);
-            }
-        });
+        // hide/disable change password (for now)
+        findViewById(R.id.textButtonChangePassword).setVisibility(View.GONE);
+//        findViewById(R.id.textButtonChangePassword).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent settingsPasswordActivity = new Intent(getApplicationContext(), HighlightsDesignAppSettingsPasswordActivity.class);
+//                startActivity(settingsPasswordActivity);
+//            }
+//        });
         findViewById(R.id.textButtonTroubleshootDevices).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
