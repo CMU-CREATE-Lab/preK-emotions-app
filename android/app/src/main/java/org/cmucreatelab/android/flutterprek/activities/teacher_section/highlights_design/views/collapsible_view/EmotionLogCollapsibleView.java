@@ -16,6 +16,13 @@ public class EmotionLogCollapsibleView extends CollapsibleInfoView {
     }
 
 
+    // Display the collapsible view by default
+    @Override
+    public boolean isCollapsedOnInitialization() {
+        return false;
+    }
+
+
     // NOTE: make sure 'collapsibleLayout' is defined in the XML
     @Override
     public int getResourceIdForLayout() {

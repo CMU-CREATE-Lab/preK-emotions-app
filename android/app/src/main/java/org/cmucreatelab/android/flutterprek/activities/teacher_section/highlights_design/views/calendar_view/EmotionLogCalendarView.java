@@ -84,6 +84,9 @@ public class EmotionLogCalendarView extends ConstraintLayout {
             weekdaysColumnArray[i].setDowColumnIsSelected(false);
         }
         // TODO @tasota check for display weekends and remove "showWeekends"
+        showWeekends = (offset >= 5);
+        saturdayDowColumnView.setDowColumnIsVisible(showWeekends);
+        sundayDowColumnView.setDowColumnIsVisible(showWeekends);
     }
 
 

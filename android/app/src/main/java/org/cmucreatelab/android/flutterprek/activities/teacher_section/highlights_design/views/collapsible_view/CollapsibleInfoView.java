@@ -130,12 +130,21 @@ public class CollapsibleInfoView extends ConstraintLayout implements View.OnClic
         super(context, attrs);
         LayoutInflater.from(context).inflate(getResourceIdForLayout(), this);
         // NOTE: the layout should be collapsed by default (View.GONE)
-        this.isCollapsed = true;
+        this.isCollapsed = isCollapsedOnInitialization();
         this.collapsibleLayout = findViewById(R.id.collapsibleLayout);
-        collapsibleLayout.setVisibility(View.GONE);
+        collapsibleLayout.setVisibility(isCollapsed ? View.GONE : View.VISIBLE);
         // TODO should collapsibleLayout have OnClickListener as well?
         //TextView textViewCollapsible = findViewById(R.id.textViewCollapsible);
         //textViewCollapsible.setText(R.string.highlights_design_info_description_placeholder);
+    }
+
+
+    /**
+     * Sets the default behavior for the view when first loaded. Override this method if you would like it to start opened.
+     * @return true if it should start collapsed (View.GONE), false to display it.
+     */
+    public boolean isCollapsedOnInitialization() {
+        return true;
     }
 
 
