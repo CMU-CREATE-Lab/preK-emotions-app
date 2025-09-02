@@ -62,13 +62,6 @@ public class EmotionLogCalendarView extends ConstraintLayout {
         for (int i=0; i<7; i++) {
             weekdaysColumnArray[i].populateWithData(activity, student, currentWeek[i]);
         }
-//        mondayDowColumnView.populateWithData(activity, student, currentWeek[0]);
-//        tuesdayDowColumnView.populateWithData(activity, student, currentWeek[1]);
-//        wednesdayDowColumnView.populateWithData(activity, student, currentWeek[2]);
-//        thursdayDowColumnView.populateWithData(activity, student, currentWeek[3]);
-//        fridayDowColumnView.populateWithData(activity, student, currentWeek[4]);
-//        saturdayDowColumnView.populateWithData(activity, student, currentWeek[5]);
-//        sundayDowColumnView.populateWithData(activity, student, currentWeek[6]);
 
         updateColumnsDisplay(calendar);
     }
@@ -119,7 +112,7 @@ public class EmotionLogCalendarView extends ConstraintLayout {
         this.saturdayDowColumnView = findViewById(R.id.saturdayDowColumnView);
         this.sundayDowColumnView = findViewById(R.id.sundayDowColumnView);
 
-        this.weekdaysColumnArray = new EmotionLogDowColumn[]{
+        this.weekdaysColumnArray = new EmotionLogDowColumn[] {
                     mondayDowColumnView,
                     tuesdayDowColumnView,
                     wednesdayDowColumnView,

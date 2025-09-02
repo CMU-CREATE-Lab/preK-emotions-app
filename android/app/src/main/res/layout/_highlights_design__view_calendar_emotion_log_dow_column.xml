@@ -47,12 +47,6 @@
         android:orientation="vertical"
         >
 
-        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogSessionCell
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -129,6 +129,14 @@ public class EmotionLogDowColumn extends ConstraintLayout {
             public void onChanged(List<SessionWithSessionCopingSkills> sessionWithSessionCopingSkills) {
                 Log.v(Constants.LOG_TAG, String.format("query startTime=%d (dow='%s') returned with result size %d", startTime, getStringForDayOfWeek(calendar), sessionWithSessionCopingSkills.size()));
                 // TODO do something with List<SessionWithSessionCopingSkills> sessionWithSessionCopingSkills
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (SessionWithSessionCopingSkills s: sessionWithSessionCopingSkills) {
+                            linearLayoutSessions.addView(EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.uuidToCellViewEmotion(s.session.getEmotionUuid()), s));
+                        }
+                    }
+                });
             }
         });
         String monthSlashDate = (new SimpleDateFormat("MM/dd")).format(calendar.getTime());
@@ -147,13 +155,6 @@ public class EmotionLogDowColumn extends ConstraintLayout {
         setDowColumnIsSelected(false);
 
         initializeWithAttributeSet(context, attrs);
-
-        // TODO demo data
-        linearLayoutSessions.addView(EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.CellViewEmotion.MAD));
-        linearLayoutSessions.addView(EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.CellViewEmotion.MAD));
-        linearLayoutSessions.addView(EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.CellViewEmotion.SCARED));
-        linearLayoutSessions.addView(EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.CellViewEmotion.SAD));
-        linearLayoutSessions.addView(EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.CellViewEmotion.EXCITED));
     }
 
 
