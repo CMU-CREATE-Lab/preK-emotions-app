@@ -124,7 +124,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         String prev;
         String curr;
 
-        float textSize = 48f;
+        float textSize = 40f;
 
         Calendar calendar = Calendar.getInstance();
 
@@ -166,7 +166,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
             prev = getWeeklyRangeLabelWithOffset(1);
             curr = getWeeklyRangeLabelWithOffset(0);
 
-            textSize = 16f;
+            textSize = 24f;
         }
 
 
@@ -177,7 +177,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         saList.add(findViewById(R.id.monthFirst));
         saList.add(findViewById(R.id.monthPrev));
         saList.add(findViewById(R.id.monthCurr));
-
+        
         for(int i=0; i<saList.size(); i++){
             saList.get(i).setCenterText(names[i]);
             saList.get(i).setTextSize(textSize);
@@ -203,7 +203,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         Date endOfWeek = endCal.getTime();
 
         SimpleDateFormat formatter = new SimpleDateFormat("MMM d");
-        return formatter.format(startOfWeek) + "–" + formatter.format(endOfWeek);
+        return formatter.format(startOfWeek) + "\n" + formatter.format(endOfWeek);
     }
 
     @Override

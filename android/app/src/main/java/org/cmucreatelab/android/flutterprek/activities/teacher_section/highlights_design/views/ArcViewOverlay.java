@@ -72,8 +72,18 @@ public class ArcViewOverlay extends View {
 
         if (centerText != null) {
             Paint.FontMetrics fm = textPaint.getFontMetrics();
-            float textY = centerY - (fm.ascent + fm.descent) / 2;
-            canvas.drawText(centerText, centerX, textY, textPaint);
+            //float textY = centerY - (fm.ascent + fm.descent) / 2;
+            //canvas.drawText(centerText, centerX, textY, textPaint);
+            // handles multiple lines
+            String[] linesOfText = centerText.split("\n");
+            float lineHeight = textPaint.getFontSpacing();
+            float cx = centerX;
+            // shift first line upwards
+            float cy = centerY - ((lineHeight / 2.0f) * linesOfText.length) + (lineHeight / 2.0f);
+            for (String text: linesOfText) {
+                canvas.drawText(text, cx, cy, textPaint);
+                cy += lineHeight;
+            }
         }
     }
 
