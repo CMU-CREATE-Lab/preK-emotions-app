@@ -40,13 +40,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageViewDisplayEmotion"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_marginEnd="300dp"
                     android:layout_marginStart="300dp"
                     android:layout_marginTop="150dp"
-                    android:id="@+id/imageViewDisplayEmotion"/>
+                    />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
