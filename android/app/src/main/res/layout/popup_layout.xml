@@ -8,7 +8,7 @@
 
     <!-- Speech bubble body -->
     <LinearLayout
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:background="@drawable/speech_bubble_rounded"
         android:orientation="vertical"
@@ -16,25 +16,19 @@
         android:elevation="8dp">
 
         <LinearLayout
-            android:layout_width="200dp"
+            android:id="@+id/linearLayoutContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#136782"
             android:orientation="vertical"
             android:padding="16dp"
             android:elevation="8dp">
-            <TextView
-                android:id="@+id/textViewPopup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hello Popup!"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/buttonClose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Close" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Hello Popup!"-->
+<!--                android:textColor="#000000"-->
+<!--                android:textSize="14sp" />-->
         </LinearLayout>
 
     </LinearLayout>

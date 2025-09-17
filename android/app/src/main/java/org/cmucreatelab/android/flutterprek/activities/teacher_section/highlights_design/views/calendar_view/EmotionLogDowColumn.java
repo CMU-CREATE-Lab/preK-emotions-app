@@ -4,8 +4,10 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -23,10 +25,12 @@ import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.SessionWithSessionCopingSkills;
+import org.cmucreatelab.android.flutterprek.database.models.intermediate_tables.SessionCopingSkill;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class EmotionLogDowColumn extends ConstraintLayout {
@@ -151,16 +155,42 @@ public class EmotionLogDowColumn extends ConstraintLayout {
 
                                     final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
+                                    LinearLayout container = popupView.findViewById(R.id.linearLayoutContainer);
+                                    // background color
+                                    container.setBackgroundColor(EmotionLogSessionCell.colorFromEmotionUuid(s.session.getEmotionUuid()));
+                                    // populate content
+                                    for (SessionCopingSkill sessionCopingSkill: s.sessionCopingSkills) {
+                                        String copingSkill = EmotionLogSessionCell.uuidToCopingSkillText(sessionCopingSkill.getCopingSkillUuid());
+                                        String time = new SimpleDateFormat("hh:mm a").format(sessionCopingSkill.getStartedAt());
+                                        // <TextView
+                                        //                android:id="@+id/textViewPopup2"
+                                        //                android:layout_width="wrap_content"
+                                        //                android:layout_height="wrap_content"
+                                        //                android:text="Hello Popup!"
+                                        //                android:textColor="#000000"
+                                        //                android:textSize="14sp" />
+                                        TextView textView = new TextView(activity);
+                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                LinearLayout.LayoutParams.WRAP_CONTENT
+                                        );
+                                        textView.setLayoutParams(params);
+                                        textView.setText(String.format("%s  %s", time, copingSkill));
+                                        textView.setTextColor(Color.parseColor("#000000"));
+                                        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                                        container.addView(textView);
+                                    }
+
                                     // TODO use different view to anchor?
                                     View anchorView = linearLayoutSessions;
-                                    popupWindow.showAsDropDown(anchorView, 0, -300);
-
-                                    popupView.findViewById(R.id.buttonClose).setOnClickListener(new OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Log.v(Constants.LOG_TAG, "buttonClose clicked.");
-                                        }
-                                    });
+                                    // TODO find another way to calculate height
+                                    // hacky, but this calculates offset based on guessed height (cell height and the number of text views created in the popup)
+                                    int rowsForOffset = sessionWithSessionCopingSkills.size() - (sessionWithSessionCopingSkills.indexOf(s));
+                                    int textRowsForOffset = s.sessionCopingSkills.size();
+                                    int heightForCells = (rowsForOffset * 55);
+                                    int heightForPopup = (textRowsForOffset * 26) + 100;
+                                    int yoffset = heightForCells + heightForPopup;
+                                    popupWindow.showAsDropDown(anchorView, 0, -yoffset);
                                 }
                             });
                             linearLayoutSessions.addView(emotionLogSessionCell);

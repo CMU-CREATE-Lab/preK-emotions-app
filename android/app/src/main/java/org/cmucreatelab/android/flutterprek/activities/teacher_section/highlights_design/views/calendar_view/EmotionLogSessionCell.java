@@ -110,6 +110,39 @@ public class EmotionLogSessionCell extends ConstraintLayout {
     }
 
 
+    // TODO hardcoded helper method (perhaps there's another way to properly fetch this info, but only once?)
+    public static String uuidToCopingSkillText(String copingSkillUuid) {
+        //"copingSkills":
+        //  [
+        //    { "uuid": "coping_skill_14", "name": "Conduct", "imageFileUuid": "ic_conducting" },
+        //    { "uuid": "coping_skill_18", "name": "Cuddle", "imageFileUuid": "ic_cuddle_alternative" },
+        //    { "uuid": "coping_skill_1", "name": "Flower Breathing", "imageFileUuid": "ic_flower_breathing" },
+        //    { "uuid": "coping_skill_5", "name": "Jumping Jacks", "imageFileUuid": "ic_jumping_jacks" }
+        //  ],
+        if (copingSkillUuid != null) {
+            if (copingSkillUuid.equals("coping_skill_14")) {
+                return "Conduct";
+            }
+            if (copingSkillUuid.equals("coping_skill_18")) {
+                return "Cuddle";
+            }
+            if (copingSkillUuid.equals("coping_skill_1")) {
+                return "Flower Breathing";
+            }
+            if (copingSkillUuid.equals("coping_skill_5")) {
+                return "Jumping Jacks";
+            }
+        }
+        Log.w(Constants.LOG_TAG, String.format("Could not find Coping Skill match with uuid '%s'", copingSkillUuid));
+        return "(Unknown)";
+    }
+
+
+    public static int colorFromEmotionUuid(String emotionUuid) {
+        return colorFromCellViewEmotion(uuidToCellViewEmotion(emotionUuid));
+    }
+
+
     public static EmotionLogSessionCell generate(Context context, CellViewEmotion cellViewEmotion, SessionWithSessionCopingSkills sessionWithSessionCopingSkills) {
         EmotionLogSessionCell emotionLogSessionCellView = new EmotionLogSessionCell(context, null);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -124,6 +157,32 @@ public class EmotionLogSessionCell extends ConstraintLayout {
         emotionLogSessionCellView.setCopingSkills(context, sessionWithSessionCopingSkills);
         // TODO click listener?
         return emotionLogSessionCellView;
+    }
+
+
+    private static int colorFromCellViewEmotion(CellViewEmotion cellViewEmotion) {
+        String color;
+        switch (cellViewEmotion) {
+            case HAPPY:
+                color = ColorConstants.HEX_HAPPY;
+                break;
+            case EXCITED:
+                color = ColorConstants.HEX_EXCITED;
+                break;
+            case SAD:
+                color = ColorConstants.HEX_SAD;
+                break;
+            case MAD:
+                color = ColorConstants.HEX_MAD;
+                break;
+            case SCARED:
+                color = ColorConstants.HEX_SCARED;
+                break;
+            default:
+                Log.w(Constants.LOG_TAG, "EmotionLogSessionCellView.setBackgroundColor could not parse CellViewEmotion; default to gray.");
+                color = "#aaaaaa";
+        }
+        return Color.parseColor(color);
     }
 
 
