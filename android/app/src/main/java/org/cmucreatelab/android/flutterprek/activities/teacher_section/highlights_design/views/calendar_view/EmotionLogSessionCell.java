@@ -33,6 +33,8 @@ public class EmotionLogSessionCell extends ConstraintLayout {
     private final TextView textViewSessionTimestamp;
     private final TextView textViewSessionDuration;
 
+    private long sessionDuration;
+
     private static final SimpleDateFormat startTimeDateFormat = new SimpleDateFormat("hh:mm a");
 
     enum CellViewEmotion {
@@ -118,7 +120,7 @@ public class EmotionLogSessionCell extends ConstraintLayout {
         emotionLogSessionCellView.setLayoutParams(params);
         emotionLogSessionCellView.setBackgroundColor(cellViewEmotion);
         emotionLogSessionCellView.setTextForTimestamp(sessionWithSessionCopingSkills);
-        emotionLogSessionCellView.setTextForDuration(sessionWithSessionCopingSkills);
+        emotionLogSessionCellView.calculateTextForDuration(sessionWithSessionCopingSkills);
         emotionLogSessionCellView.setCopingSkills(context, sessionWithSessionCopingSkills);
         // TODO click listener?
         return emotionLogSessionCellView;
@@ -151,6 +153,16 @@ public class EmotionLogSessionCell extends ConstraintLayout {
     }
 
 
+    // TODO @tasota remove hanging zeroes?
+    public static String getSessionDurationStringFrom(long duration) {
+        String result;
+        String minutes = String.valueOf(duration / 60);
+        String seconds = String.valueOf(duration % 60);
+        result = String.format("%sm%ss", minutes, seconds);
+        return result;
+    }
+
+
     private void setTextForTimestamp(SessionWithSessionCopingSkills sessionWithSessionCopingSkills) {
         String result;
         Date startedAt = sessionWithSessionCopingSkills.session.getStartedAt();
@@ -159,7 +171,7 @@ public class EmotionLogSessionCell extends ConstraintLayout {
     }
 
 
-    private void setTextForDuration(SessionWithSessionCopingSkills sessionWithSessionCopingSkills) {
+    private void calculateTextForDuration(SessionWithSessionCopingSkills sessionWithSessionCopingSkills) {
         Date startedAt = sessionWithSessionCopingSkills.session.getStartedAt();
         Date endedAt = sessionWithSessionCopingSkills.session.getEndedAt();
         long duration;
@@ -169,9 +181,8 @@ public class EmotionLogSessionCell extends ConstraintLayout {
         } else {
             duration = (endedAt.getTime() - startedAt.getTime()) / 1000;
         }
-        String minutes = String.valueOf(duration / 60);
-        String seconds = String.valueOf(duration % 60);
-        textViewSessionDuration.setText(String.format("%sm%ss", minutes, seconds));
+        textViewSessionDuration.setText(getSessionDurationStringFrom(getSessionDuration()));
+        setSessionDuration(duration);
     }
 
 
@@ -219,6 +230,16 @@ public class EmotionLogSessionCell extends ConstraintLayout {
         this.copingSkillsLinearLayout = findViewById(R.id.copingSkillsLinearLayout);
         this.textViewSessionTimestamp = findViewById(R.id.textViewSessionTimestamp);
         this.textViewSessionDuration = findViewById(R.id.textViewSessionDuration);
+    }
+
+
+    public long getSessionDuration() {
+        return sessionDuration;
+    }
+
+
+    public void setSessionDuration(long sessionDuration) {
+        this.sessionDuration = sessionDuration;
     }
 
 

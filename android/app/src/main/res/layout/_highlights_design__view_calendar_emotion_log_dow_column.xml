@@ -7,46 +7,63 @@
     android:padding="4dp"
     >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/sectionDayOfWeekAndDate"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         >
 
-        <TextView
-            android:id="@+id/textViewTitleDayOfWeek"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Tues"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            style="@style/textBold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/textViewTitleDate"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="XX/YY"
-            android:textSize="10sp"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayoutSessions"
+        <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sectionDayOfWeekAndDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/sectionDayOfWeekAndDate"
-        android:orientation="vertical"
         >
 
+            <TextView
+                android:id="@+id/textViewTitleDayOfWeek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tues"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                style="@style/textBold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/textViewTitleDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="XX/YY"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textViewTitleTotalSessions"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#m#s"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSessions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/sectionDayOfWeekAndDate"
+            android:orientation="vertical"
+            >
+
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

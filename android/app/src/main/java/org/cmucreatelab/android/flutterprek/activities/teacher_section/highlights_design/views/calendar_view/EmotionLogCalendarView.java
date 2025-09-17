@@ -45,6 +45,13 @@ public class EmotionLogCalendarView extends ConstraintLayout {
     private boolean showWeekends = true;
 
 
+    private void toggleShowWeekends() {
+        showWeekends = !showWeekends;
+        saturdayDowColumnView.setDowColumnIsVisible(showWeekends);
+        sundayDowColumnView.setDowColumnIsVisible(showWeekends);
+    }
+
+
     public void requestData(AbstractActivity activity, Student student) {
         // TODO remove?
         this.updateDateTime();
@@ -60,6 +67,7 @@ public class EmotionLogCalendarView extends ConstraintLayout {
 
         Calendar[] currentWeek = CalendarUtil.generateWeekFromDay(calendar);
         for (int i=0; i<7; i++) {
+            // TODO @tasota click listeners for particular column, session/sessionWithSessionCopingSkills
             weekdaysColumnArray[i].populateWithData(activity, student, currentWeek[i]);
         }
 
@@ -128,9 +136,8 @@ public class EmotionLogCalendarView extends ConstraintLayout {
         getRootView().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                showWeekends = !showWeekends;
-                saturdayDowColumnView.setDowColumnIsVisible(showWeekends);
-                sundayDowColumnView.setDowColumnIsVisible(showWeekends);
+                //toggleShowWeekends();
+                Log.v(Constants.LOG_TAG, "EmotionLogCalendarView: getRootView clicked.");
             }
         });
     }

@@ -1,6 +1,7 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view;
 
-import android.app.Activity;
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,13 +22,11 @@ import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
-import org.cmucreatelab.android.flutterprek.database.models.embedded_models.EmbeddedDAO;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.session_coping_skills.SessionWithSessionCopingSkills;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class EmotionLogDowColumn extends ConstraintLayout {
@@ -132,8 +132,48 @@ public class EmotionLogDowColumn extends ConstraintLayout {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        long cumulativeDuration = 0;
                         for (SessionWithSessionCopingSkills s: sessionWithSessionCopingSkills) {
-                            linearLayoutSessions.addView(EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.uuidToCellViewEmotion(s.session.getEmotionUuid()), s));
+                            //linearLayoutSessions.addView(EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.uuidToCellViewEmotion(s.session.getEmotionUuid()), s));
+                            EmotionLogSessionCell emotionLogSessionCell = EmotionLogSessionCell.generate(getContext(), EmotionLogSessionCell.uuidToCellViewEmotion(s.session.getEmotionUuid()), s);
+                            emotionLogSessionCell.setOnClickListener(new OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    // Inside your Activity or Fragment
+                                    LayoutInflater inflater = (LayoutInflater) activity.getSystemService(LAYOUT_INFLATER_SERVICE);
+                                    // TODO inflate variant of EmotionLogSessionCell?
+                                    View popupView = inflater.inflate(R.layout.popup_layout, null);
+
+                                    // Width, height in pixels or WRAP_CONTENT
+                                    int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                                    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                                    boolean focusable = true; // Allows taps outside to dismiss the popup
+
+                                    final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+                                    // TODO use different view to anchor?
+                                    View anchorView = linearLayoutSessions;
+                                    popupWindow.showAsDropDown(anchorView, 0, -300);
+
+                                    popupView.findViewById(R.id.buttonClose).setOnClickListener(new OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Log.v(Constants.LOG_TAG, "buttonClose clicked.");
+                                        }
+                                    });
+                                }
+                            });
+                            linearLayoutSessions.addView(emotionLogSessionCell);
+
+                            // running total of session duration for the entire day
+                            cumulativeDuration += emotionLogSessionCell.getSessionDuration();
+                        }
+                        // only display non-zero total duration
+                        if (cumulativeDuration > 0) {
+                            TextView textViewTitleTotalSessions = findViewById(R.id.textViewTitleTotalSessions);
+                            String totalSessionDuration = EmotionLogSessionCell.getSessionDurationStringFrom(cumulativeDuration);
+                            textViewTitleTotalSessions.setText(totalSessionDuration);
+                            textViewTitleTotalSessions.setVisibility(VISIBLE);
                         }
                     }
                 });
