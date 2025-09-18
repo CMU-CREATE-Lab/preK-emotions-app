@@ -19,10 +19,12 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.PatternHighlightsAdapter;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlightWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomHighlightsActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.pattern_highlights.PatternHighlightA1;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.students.StudentDisplayItem;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.CopingSkillsInfoCollapsibleView;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.PatternHighlightsCollapsibleView;
@@ -58,6 +60,9 @@ public class PatternHighlightsView extends ConstraintLayout {
         recyclerView = findViewById(R.id.patternHighlightRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
+        // TODO initialize pattern highlights
+        String demo = new PatternHighlightA1().generateCollapsibleDescription();
+        Log.v(Constants.LOG_TAG, String.format("PatternHighlightA1 description: `%s`", demo));
     }
 
     //TODO update information about what pattern highlight is -- define multiple texts in @strings for different pattern highlights

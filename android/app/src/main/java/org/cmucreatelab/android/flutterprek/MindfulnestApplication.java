@@ -5,6 +5,8 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
+
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import androidx.annotation.NonNull;
@@ -18,6 +20,32 @@ import org.cmucreatelab.android.flutterprek.activities.student_section.ChooseCla
  * DO NOT STORE GLOBAL VARIABLES HERE! The initial purpose of this class was to track the application entering the background/foreground.
  */
 public class MindfulnestApplication extends Application implements LifecycleObserver {
+
+    // Somewhat similar to "Singleton Implementation", this provides static access to the Application Context throughout code.
+    // Some considerations (AI-generated):
+    /**
+     * WARNING: This static reference to the Application Context is provided for convenience,
+     * but should be used with care.
+     *
+     * ✅ SAFE USE CASES:
+     * - Accessing app-level resources, SharedPreferences, system services, etc.
+     * - Initializing singletons or utility classes that require a context
+     *
+     * ❌ DO NOT USE THIS CONTEXT FOR:
+     * - UI-related operations (e.g., creating Views, inflating layouts with theme)
+     * - Starting Activities or showing Dialogs
+     * - Anything that requires an Activity or View context
+     *
+     * ⚠️ NEVER store Activity or View contexts statically — this causes memory leaks.
+     * Always prefer passing context explicitly, or use dependency injection (e.g., Hilt)
+     * for more testable and maintainable architecture.
+     */
+    private static MindfulnestApplication classInstance;
+
+
+    public static Context getInstanceOfApplicationContext() {
+        return classInstance.getApplicationContext();
+    }
 
 
     private void handleUncaughtException(Thread thread, Throwable throwable) {
@@ -41,6 +69,7 @@ public class MindfulnestApplication extends Application implements LifecycleObse
     public void onCreate() {
         Log.v(Constants.LOG_TAG, "MindfulnestApplication.onCreate");
         super.onCreate();
+        classInstance = this;
 
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
 
