@@ -10,13 +10,13 @@ def getLatestGitHash = { ->
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
     defaultConfig {
         applicationId "org.cmucreatelab.android.flutterprek"
         minSdkVersion 22
-        targetSdkVersion 34
-        versionCode 27
-        versionName "2.7"
+        targetSdkVersion 35
+        versionCode 28
+        versionName "2.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
