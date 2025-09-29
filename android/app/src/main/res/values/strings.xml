@@ -105,7 +105,8 @@
     <string name="highlights_design_info_description_coping_skills_classroom">This section lists the breakdown of coping skills used in the classroom by all students. The most used coping skill is the largest circle which appears on the left-hand side.</string>
     <string name="highlights_design_info_description_coping_skills_student">This section lists the breakdown of coping skills used by this student. The most used coping skill is the largest circle which appears on the left-hand side.</string>
     <string name="highlights_design_info_description_pattern_highlights_skills_student">This section highlights patterns in your classroom. This includes detecting changes in trends of emotions (both as students and the class as a whole), noticing when the class is doing a lot of physical activity, and more.</string>
-    <string name="pattern_highlights_title">These students have shown interesting patterns in their usage.</string>
+<!--    <string name="pattern_highlights_title">These students have shown interesting patterns in their usage.</string>-->
+    <string name="pattern_highlights_title">Coming Soon: students with interesting patterns in their usage will display here.</string>
     <string name="highlights_design_drawer_item_settings">App Settings</string>
     <string name="highlights_design_drawer_item_classes">Classes</string>
     <string name="highlights_design_drawer_item_class_name_placeholder">Class Name</string>

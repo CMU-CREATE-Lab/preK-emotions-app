@@ -71,13 +71,14 @@ public abstract class HighlightsDesignActivityWithHeaderAndDrawer extends Abstra
                 onClickImageStudent();
             }
         });
-        // TODO remove later (provided for backward navigation only)
-        findViewById(R.id.imageInfo).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickImageInfo();
-            }
-        });
+//        // TODO remove later (provided for backward navigation only)
+//        findViewById(R.id.imageInfo).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onClickImageInfo();
+//            }
+//        });
+        findViewById(R.id.imageInfo).setVisibility(View.INVISIBLE);
 
         initOnClickListenersForDrawer();
     }

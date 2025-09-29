@@ -77,37 +77,38 @@ public class PatternHighlightsView extends ConstraintLayout {
     }
 
     public void setStudentList(AppCompatActivity activity){
-        //PLACE HOLDER CODE TO GRAB A LIST OF STUDENTS
-        //TODO Replace studentDAO call with call from custom class (DeterminePatternHighlights.class) to get students for pattern highlights
-            AppDatabase.getInstance(activity).studentDAO()
-                    .getAllStudentsWithCustomizationsFromClassroom(classroom.getUuid())
-                    .observe(activity, students -> {
-                        List<StudentWithCustomizations> limitedStudents = students.subList(0, Math.min(5, students.size()));
-                        List<StudentDisplayItem> displayItems = new ArrayList<>();
-        //---------------------------------------------------------------------------------------------------------------------/
-                        //Atomic Integer - thread safe integer to keep track of how many dbfiles are resolved with multiple observers
-                        AtomicInteger resolved = new AtomicInteger(0);
-
-                        //Loop through student list for patterns and get files
-                        for (StudentWithCustomizations studentWithCustom : limitedStudents) {
-                            String fileUuid = studentWithCustom.student.getPictureFileUuid();
-                            if (fileUuid != null) {
-                                AppDatabase.getInstance(activity).dbFileDAO().getDbFile(fileUuid)
-                                        .observe((LifecycleOwner) activity, new Observer<DbFile>() {
-                                            @Override
-                                            public void onChanged(DbFile dbFile) {
-                                                //StudentDisplayItem is a holder class to store student and dbfile to be passed into the adapter
-                                                displayItems.add(new StudentDisplayItem(studentWithCustom.student, dbFile));
-                                                checkAndSetAdapterWhenAllReady(displayItems, activity, resolved.incrementAndGet(), limitedStudents.size());
-                                            }
-                                        });
-                            } else {
-                                displayItems.add(new StudentDisplayItem(studentWithCustom.student, null));
-                                checkAndSetAdapterWhenAllReady(displayItems,activity, resolved.incrementAndGet(), limitedStudents.size());
-                            }
-                        }
-                    });
-
+        // hide list of students in pattern view (for now)
+//        //PLACE HOLDER CODE TO GRAB A LIST OF STUDENTS
+//        //TODO Replace studentDAO call with call from custom class (DeterminePatternHighlights.class) to get students for pattern highlights
+//            AppDatabase.getInstance(activity).studentDAO()
+//                    .getAllStudentsWithCustomizationsFromClassroom(classroom.getUuid())
+//                    .observe(activity, students -> {
+//                        List<StudentWithCustomizations> limitedStudents = students.subList(0, Math.min(5, students.size()));
+//                        List<StudentDisplayItem> displayItems = new ArrayList<>();
+//        //---------------------------------------------------------------------------------------------------------------------/
+//                        //Atomic Integer - thread safe integer to keep track of how many dbfiles are resolved with multiple observers
+//                        AtomicInteger resolved = new AtomicInteger(0);
+//
+//                        //Loop through student list for patterns and get files
+//                        for (StudentWithCustomizations studentWithCustom : limitedStudents) {
+//                            String fileUuid = studentWithCustom.student.getPictureFileUuid();
+//                            if (fileUuid != null) {
+//                                AppDatabase.getInstance(activity).dbFileDAO().getDbFile(fileUuid)
+//                                        .observe((LifecycleOwner) activity, new Observer<DbFile>() {
+//                                            @Override
+//                                            public void onChanged(DbFile dbFile) {
+//                                                //StudentDisplayItem is a holder class to store student and dbfile to be passed into the adapter
+//                                                displayItems.add(new StudentDisplayItem(studentWithCustom.student, dbFile));
+//                                                checkAndSetAdapterWhenAllReady(displayItems, activity, resolved.incrementAndGet(), limitedStudents.size());
+//                                            }
+//                                        });
+//                            } else {
+//                                displayItems.add(new StudentDisplayItem(studentWithCustom.student, null));
+//                                checkAndSetAdapterWhenAllReady(displayItems,activity, resolved.incrementAndGet(), limitedStudents.size());
+//                            }
+//                        }
+//                    });
+//
 
     }
     //helper function to set the adapter file once all picture files are resolved
