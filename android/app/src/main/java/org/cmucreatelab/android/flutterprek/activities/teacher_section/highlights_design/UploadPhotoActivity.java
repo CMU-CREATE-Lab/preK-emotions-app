@@ -152,14 +152,12 @@ public class UploadPhotoActivity extends AbstractActivity {
 
         updateModel(student, picture);
 
-        String path = picture.getAbsolutePath();
-
-        Intent intent =
-            PutExtraStudentHighlightsActivityHelper.getPutExtraIntentUpdate(
-            path, requestCode, studentUuid, classroom, getApplicationContext());
-        startActivity(intent);
-
-
+//        String path = picture.getAbsolutePath();
+//
+//        Intent intent =
+//            PutExtraStudentHighlightsActivityHelper.getPutExtraIntentUpdate(
+//            path, requestCode, student, classroom, getApplicationContext());
+//        startActivity(intent);
     }
 
     public void updateModel(final Student student, final File newStudentPicture) {
@@ -174,10 +172,18 @@ public class UploadPhotoActivity extends AbstractActivity {
                         if (!modelSaved) {
                             Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
                         }
-                        finish();
+                        //finish();
+                        String path = newStudentPicture.getAbsolutePath();
+
+                        Intent intent =
+                                PutExtraStudentHighlightsActivityHelper.getPutExtraIntentUpdate(
+                                        path, requestCode, student, classroom, getApplicationContext());
+                        startActivity(intent);
                     }
                 }).execute();
-                break;
+                // avoid start Activity for student profile picture
+                //break;
+                return;
 
             case StudentHighlightsActivity.HAPPY_CODE:
                 checkForCustomizationAndUpdate(HAPPY_UUID, filePath);
@@ -196,6 +202,12 @@ public class UploadPhotoActivity extends AbstractActivity {
                 break;
         }
 
+        String path = newStudentPicture.getAbsolutePath();
+
+        Intent intent =
+                PutExtraStudentHighlightsActivityHelper.getPutExtraIntentUpdate(
+                        path, requestCode, student, classroom, getApplicationContext());
+        startActivity(intent);
     }
     //checks to see if the student already has a custom emotion image and then calls insertEmotionCustomization
     //to update or insert new customization
@@ -583,7 +595,7 @@ public class UploadPhotoActivity extends AbstractActivity {
         } else if(resultCode == RESULT_CANCELED){
 
 
-            Intent intent = PutExtraStudentHighlightsActivityHelper.getPutExtraIntentUpdate(null, requestCode, studentUuid, classroom, getApplicationContext());
+            Intent intent = PutExtraStudentHighlightsActivityHelper.getPutExtraIntentUpdate(null, requestCode, student, classroom, getApplicationContext());
             setResult(RESULT_CANCELED, intent);
             startActivity(intent);
         }

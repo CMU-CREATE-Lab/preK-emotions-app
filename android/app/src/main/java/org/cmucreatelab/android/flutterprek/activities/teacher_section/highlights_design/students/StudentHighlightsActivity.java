@@ -62,7 +62,6 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     public static final int SCARED_CODE = 103;
     public static final int EXCITED_CODE = 104;
     public static final int STUDENT_CODE = 105;
-    // TODO @Dante refactor extras to get classroom name from classroom
     private String classroomName;
     private String studentUuid;
     private Student student;
@@ -70,6 +69,11 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     private CalculateHighlightInfo.OverviewDateRange dateRange = CalculateHighlightInfo.OverviewDateRange.WEEK;
     private CalculateHighlightInfo.OverviewDateRange currentCopingSkillDisplayMode = CalculateHighlightInfo.OverviewDateRange.WEEK;
     private EmotionLogCalendarView emotionLogCalendarView;
+
+    // TODO refactor extras to get classroom name from classroom
+    public static final String EXTRA_CLASSROOM = "classroom";
+    public static final String EXTRA_STUDENT = "student";
+    public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
 
 
     //listerns for starting camera activity based on emotion
@@ -330,7 +334,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         setUpDrawer();
 
         // get classroom and update the drawer
-        this.classroom = (Classroom) getIntent().getSerializableExtra(ClassroomHighlightsActivity.EXTRA_CLASSROOM);
+        this.classroom = (Classroom) getIntent().getSerializableExtra(EXTRA_CLASSROOM);
         getDrawerHighlights().setClassroom(classroom);
         getDrawerHighlights().setHighlighted(HighlightsViewDrawer.Row.CLASS_SHOW);
         setBackNavigationForDrawer(true, String.format("Back to %s", (classroom == null) ? "Classes" : classroom.getName()), new View.OnClickListener() {
@@ -351,9 +355,9 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         });
 
         //get student from intent - will come from classroomhighlights
-        if(getIntent().getStringExtra(ClassroomHighlightsActivity.EXTRA_CLASSROOM_NAME) != null && getIntent().getSerializableExtra(ClassroomHighlightsActivity.EXTRA_STUDENT) != null) {
-            this.classroomName = getIntent().getStringExtra(ClassroomHighlightsActivity.EXTRA_CLASSROOM_NAME);
-            this.student = (Student) getIntent().getSerializableExtra(ClassroomHighlightsActivity.EXTRA_STUDENT);
+        if(getIntent().getStringExtra(EXTRA_CLASSROOM_NAME) != null && getIntent().getSerializableExtra(EXTRA_STUDENT) != null) {
+            this.classroomName = getIntent().getStringExtra(EXTRA_CLASSROOM_NAME);
+            this.student = (Student) getIntent().getSerializableExtra(EXTRA_STUDENT);
             this.studentUuid = student.getUuid();
         }
 
