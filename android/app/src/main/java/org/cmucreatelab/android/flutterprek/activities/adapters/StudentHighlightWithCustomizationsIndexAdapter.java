@@ -170,14 +170,16 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
     private View populateAddNewStudentView(int position, View convertView, ViewGroup parent) {
         // TODO populate new student view, use clickAddNewStudentListener
         final View result;
-        if (convertView == null) {
-            // if it's not recycled, initialize some attributes
-            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_item_student_circle, parent, false);
-            // NOTE: requires api level 21
-            result.findViewById(R.id.imageView).setClipToOutline(false);
-        } else {
-            result = convertView;
-        }
+        // same comment as above: recycle leads to glitchy image behavior (Sep29 2025)
+//        if (convertView == null) {
+//            // if it's not recycled, initialize some attributes
+//            result = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_item_student_circle, parent, false);
+//            // NOTE: requires api level 21
+//            result.findViewById(R.id.imageView).setClipToOutline(false);
+//        } else {
+//            result = convertView;
+//        }
+        result = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view_item_student_circle, parent, false);
         TextView textView = result.findViewById(R.id.text1);
         textView.setText("Add New Student");
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -219,9 +221,10 @@ public class StudentHighlightWithCustomizationsIndexAdapter extends AbstractList
     public View getView(int position, View convertView, ViewGroup parent) {
         //return populateStudentView(position, convertView, parent);
 
-        if(hasAddNewStudent) {
-            boolean lastPosition;
-            if (position == getCount() - 1) {
+        if (hasAddNewStudent) {
+            // hasAddNewStudent implies the last position should be "Add New" (and does NOT point to an index in the list)
+            boolean lastPosition = (position == getCount() - 1);
+            if (lastPosition) {
                 return populateAddNewStudentView(position, convertView, parent);
             } else {
                 return populateStudentView(position, convertView, parent);
