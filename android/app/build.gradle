@@ -15,8 +15,8 @@ android {
         applicationId "org.cmucreatelab.android.flutterprek"
         minSdkVersion 22
         targetSdkVersion 35
-        versionCode 30
-        versionName "3.0"
+        versionCode 31
+        versionName "3.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
@@ -24,6 +24,11 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+
+        // "Latest Stable Version (r29)" as of 10/16/2025: https://developer.android.com/ndk/downloads/
+        // TODO added for 16KB page compatibility, delete later? https://developer.android.com/guide/practices/page-sizes
+        ndkVersion "29.0.14206865"
+        buildToolsVersion "35.0.0"
     }
 
     compileOptions {
