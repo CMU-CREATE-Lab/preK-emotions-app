@@ -29,6 +29,7 @@ import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillHighlightWCIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.UpdateClassroomModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CalculateHighlightInfo;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithAsyncScrollViewStub;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PatternHighlightsView;
@@ -57,7 +58,7 @@ import java.util.Map;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlightWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.database.models.embedded_models.StudentWithCustomizations;
 
-public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHeaderAndDrawer {
+public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithAsyncScrollViewStub {
 
     private String classroomUuid;
     private String classroomName;
@@ -78,6 +79,49 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
     public static final String EXTRA_CLASSROOM = "classroom";
     public static final String EXTRA_STUDENT = "student";
     public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
+
+    public interface HighlightCalculationCallback {
+        void onHighlightsCalculated();
+    }
+
+    public interface CopingSkillsOverviewCallback {
+        void onOverviewCalculated(Map<String, Integer> copingSkillsMap);
+    }
+
+    // listeners on individual students to launch student highlights
+    private final StudentHighlightWithCustomizationsIndexAdapter.ClickListener listener = new StudentHighlightWithCustomizationsIndexAdapter.ClickListener() {
+        @Override
+        public void onClick(StudentWithCustomizations studentWithCustomizations) {
+            final Student student = studentWithCustomizations.student;
+            Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
+
+
+            Intent studentEditActivity = new Intent(ClassroomHighlightsActivity.this, StudentHighlightsActivity.class);
+            studentEditActivity.putExtra(EXTRA_CLASSROOM, classroom);
+            studentEditActivity.putExtra(EXTRA_STUDENT, studentWithCustomizations.student);
+            studentEditActivity.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
+            startActivity(studentEditActivity);
+
+
+        }
+    };
+
+    // listener to add a new student to the classroom
+    private final StudentHighlightWithCustomizationsIndexAdapter.ClickAddNewStudentListener addNewStudentListener = new StudentHighlightWithCustomizationsIndexAdapter.ClickAddNewStudentListener() {
+        @Override
+        public void onClick() {
+            Intent studentAddActivityIntent = new Intent(ClassroomHighlightsActivity.this, StudentHighlightsActivity.class);
+            String templateNameForAddStudent = "New Student";
+
+            Student newStudent = new Student(templateNameForAddStudent, classroomUuid);
+            updateModel(newStudent);
+            studentAddActivityIntent.putExtra(EXTRA_CLASSROOM, classroom);
+            studentAddActivityIntent.putExtra(EXTRA_STUDENT, newStudent);
+            studentAddActivityIntent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
+            startActivity(studentAddActivityIntent);
+
+        }
+    };
 
 
     //builds the rings for the overview section
@@ -206,11 +250,6 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         return formatter.format(startOfWeek) + "\n" + formatter.format(endOfWeek);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
 
     //calling function to update the coping skills function when user changes date range
     private void updateCopingSkillsView() {
@@ -286,6 +325,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
                 .show();
     }
 
+
     private void updateName(String newName){
         //student.setName(newName);
         classroom.setName(newName);
@@ -301,6 +341,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
             }
         }).execute();
     }
+
 
     private void displayClassroomDeleteDialog() {
 
@@ -334,40 +375,6 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         builder.create().show();
     }
 
-    //listners on indivdual students to launch student highlights
-    private final StudentHighlightWithCustomizationsIndexAdapter.ClickListener listener = new StudentHighlightWithCustomizationsIndexAdapter.ClickListener() {
-        @Override
-        public void onClick(StudentWithCustomizations studentWithCustomizations) {
-            final Student student = studentWithCustomizations.student;
-            Log.d(Constants.LOG_TAG, "onClick student = " + student.getName());
-
-
-            Intent studentEditActivity = new Intent(ClassroomHighlightsActivity.this, StudentHighlightsActivity.class);
-            studentEditActivity.putExtra(EXTRA_CLASSROOM, classroom);
-            studentEditActivity.putExtra(EXTRA_STUDENT, studentWithCustomizations.student);
-            studentEditActivity.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
-            startActivity(studentEditActivity);
-
-
-        }
-    };
-
-    //listener to add a new student to the classroom
-    private final StudentHighlightWithCustomizationsIndexAdapter.ClickAddNewStudentListener addNewStudentListener = new StudentHighlightWithCustomizationsIndexAdapter.ClickAddNewStudentListener() {
-        @Override
-        public void onClick() {
-            Intent studentAddActivityIntent = new Intent(ClassroomHighlightsActivity.this, StudentHighlightsActivity.class);
-            String templateNameForAddStudent = "New Student";
-
-            Student newStudent = new Student(templateNameForAddStudent, classroomUuid);
-            updateModel(newStudent);
-            studentAddActivityIntent.putExtra(EXTRA_CLASSROOM, classroom);
-            studentAddActivityIntent.putExtra(EXTRA_STUDENT, newStudent);
-            studentAddActivityIntent.putExtra(EXTRA_CLASSROOM_NAME, classroomName);
-            startActivity(studentAddActivityIntent);
-
-        }
-    };
 
     public void updateModel(final Student student) {
         Log.d(Constants.LOG_TAG, "performing DB writes in updateModel()");
@@ -382,82 +389,6 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
         }).execute();
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setUpDrawer();
-
-        this.classroom = (Classroom) getIntent().getSerializableExtra(EXTRA_CLASSROOM);
-
-        this.classroomUuid = getClassroom().getUuid();
-        this.classroomName = getClassroom().getName();
-
-        ImageView classroomInfoImageView = findViewById(R.id.classroomInfoImageView);
-        ClassroomInfoCollapsibleView classroomInfoCollapsibleView = findViewById(R.id.classroomInfoCollapsibleView);
-        classroomInfoImageView.setOnClickListener(classroomInfoCollapsibleView);
-
-        ImageView monthlyOverviewInfoImageView = findViewById(R.id.monthlyOverviewInfoImageView);
-        MonthlyOverviewInfoCollapsibleView monthlyOverviewInfoCollapsibleView = findViewById(R.id.monthlyOverviewInfoCollapsibleView);
-        monthlyOverviewInfoImageView.setOnClickListener(monthlyOverviewInfoCollapsibleView);
-
-        CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
-        //update the coping skills display - need custom call because of date range and calculating percents before adapter
-        updateCopingSkillsView();
-
-        copingSkillsView.initSettingsClickListener(this, classroom);
-        copingSkillsView.enableSettingsConfig(true);
-        copingSkillsView.initCollapsibleViewListener(this);
-
-        PatternHighlightsView patternHighlightsView = findViewById(R.id.patternHighlightsView);
-        patternHighlightsView.initCollapsibleViewListener(this);
-        patternHighlightsView.setClassroom(classroom);
-        patternHighlightsView.setStudentList(this);
-
-        initPillGroupToggles();
-        deleteClassListeners();
-
-        getDrawerHighlights().setClassroom(classroom);
-        getDrawerHighlights().setHighlighted(HighlightsViewDrawer.Row.CLASS_SHOW);
-        setBackNavigationForDrawer(true, "Back to Classes", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ClassroomHighlightsActivity.this, org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomIndexActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-
-        updateSessionOverview();
-
-        TextView textView = findViewById(R.id.editMyClassroom);
-        textView.setText(classroomName);
-
-        //init edit classroom button
-
-        findViewById(R.id.editImage).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showEditClassNamePopup();
-            }
-        });
-
-        LiveData<List<StudentWithCustomizations>> liveDataForMyClassroom;
-        liveDataForMyClassroom = AppDatabase.getInstance(this).studentDAO().getAllStudentsWithCustomizationsFromClassroom(classroomUuid);
-        liveDataForMyClassroom.observe(this, new Observer<List<StudentWithCustomizations>>() {
-            @Override
-            public void onChanged(@Nullable List<StudentWithCustomizations> students) {
-                studentGridViewAdapter = new StudentHighlightWithCustomizationsIndexAdapter(ClassroomHighlightsActivity.this, students, listener,addNewStudentListener);
-
-                GridView studentsGridView = findViewById(R.id.studentsGridView);
-                studentsGridView.setAdapter(studentGridViewAdapter);
-
-                studentsGridView.post(() -> StudentHighlightWithCustomizationsIndexAdapter.setGridViewHeightBasedOnChildren(studentsGridView, 6));
-                //display mode for toggle day,week,month,year
-                studentGridViewAdapter.setDisplayMode(currentStudentDisplayMode);
-            }
-        });
-    }
 
     //main calling function for update the overview rings when user changes time frame
     private void updateSessionOverview(){
@@ -590,25 +521,116 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithHea
     }
 
 
-    public interface HighlightCalculationCallback {
-        void onHighlightsCalculated();
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
 
-    public interface CopingSkillsOverviewCallback {
-        void onOverviewCalculated(Map<String, Integer> copingSkillsMap);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setUpDrawer();
+
+        this.classroom = (Classroom) getIntent().getSerializableExtra(EXTRA_CLASSROOM);
+        this.classroomUuid = classroom.getUuid();
+        this.classroomName = classroom.getName();
+
+        // NOTE: views nested in scroll view are handled by HighlightsDesignActivityWithAsyncScrollViewStub.onAsyncScrollViewLoaded()
     }
 
 
     @Override
     public int getResourceIdForActivityLayout() {
-        return R.layout._highlights_design__activity_classroom_highlights;
+        return R.layout._highlights_design__activity_classroom_highlights2;
     }
 
 
     public Classroom getClassroom() {
         return classroom;
     }
+
+
+    @Override
+    public int getResourceIdForProgressBar() {
+        return R.id.loading_spinner;
+    }
+
+
+    @Override
+    public int getResourceIdForScrollViewStub() {
+        return R.id.heavy_stub;
+    }
+
+
+    @Override
+    public void onAsyncScrollViewLoaded() {
+        ImageView classroomInfoImageView = findViewById(R.id.classroomInfoImageView);
+        ClassroomInfoCollapsibleView classroomInfoCollapsibleView = findViewById(R.id.classroomInfoCollapsibleView);
+        classroomInfoImageView.setOnClickListener(classroomInfoCollapsibleView);
+
+        ImageView monthlyOverviewInfoImageView = findViewById(R.id.monthlyOverviewInfoImageView);
+        MonthlyOverviewInfoCollapsibleView monthlyOverviewInfoCollapsibleView = findViewById(R.id.monthlyOverviewInfoCollapsibleView);
+        monthlyOverviewInfoImageView.setOnClickListener(monthlyOverviewInfoCollapsibleView);
+
+        CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
+        //update the coping skills display - need custom call because of date range and calculating percents before adapter
+        updateCopingSkillsView();
+
+        copingSkillsView.initSettingsClickListener(this, classroom);
+        copingSkillsView.enableSettingsConfig(true);
+        copingSkillsView.initCollapsibleViewListener(this);
+
+        PatternHighlightsView patternHighlightsView = findViewById(R.id.patternHighlightsView);
+        patternHighlightsView.initCollapsibleViewListener(this);
+        patternHighlightsView.setClassroom(classroom);
+        patternHighlightsView.setStudentList(this);
+
+        initPillGroupToggles();
+        deleteClassListeners();
+
+        getDrawerHighlights().setClassroom(classroom);
+        getDrawerHighlights().setHighlighted(HighlightsViewDrawer.Row.CLASS_SHOW);
+        setBackNavigationForDrawer(true, "Back to Classes", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ClassroomHighlightsActivity.this, org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomIndexActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
+        updateSessionOverview();
+
+        TextView textView = findViewById(R.id.editMyClassroom);
+        textView.setText(classroomName);
+
+        //init edit classroom button
+
+        findViewById(R.id.editImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showEditClassNamePopup();
+            }
+        });
+
+        LiveData<List<StudentWithCustomizations>> liveDataForMyClassroom;
+        liveDataForMyClassroom = AppDatabase.getInstance(this).studentDAO().getAllStudentsWithCustomizationsFromClassroom(classroomUuid);
+        liveDataForMyClassroom.observe(this, new Observer<List<StudentWithCustomizations>>() {
+            @Override
+            public void onChanged(@Nullable List<StudentWithCustomizations> students) {
+                studentGridViewAdapter = new StudentHighlightWithCustomizationsIndexAdapter(ClassroomHighlightsActivity.this, students, listener,addNewStudentListener);
+
+                GridView studentsGridView = findViewById(R.id.studentsGridView);
+                studentsGridView.setAdapter(studentGridViewAdapter);
+
+                studentsGridView.post(() -> StudentHighlightWithCustomizationsIndexAdapter.setGridViewHeightBasedOnChildren(studentsGridView, 6));
+                //display mode for toggle day,week,month,year
+                studentGridViewAdapter.setDisplayMode(currentStudentDisplayMode);
+            }
+        });
+    }
+
 }
 
 
