@@ -29,8 +29,8 @@ import org.cmucreatelab.android.flutterprek.activities.adapters.EmotionHighlight
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlightWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.ManageClassroomActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CalculateHighlightInfo;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithAsyncScrollViewStub;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomHighlightsActivity;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogCalendarView;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PillToggleGroup;
@@ -54,7 +54,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeaderAndDrawer {
+public class StudentHighlightsActivity extends HighlightsDesignActivityWithAsyncScrollViewStub {
 
     public static final int HAPPY_CODE = 100;
     public static final int SAD_CODE = 101;
@@ -75,8 +75,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     public static final String EXTRA_STUDENT = "student";
     public static final String EXTRA_CLASSROOM_NAME = "classroom_name";
 
-
-    //listerns for starting camera activity based on emotion
+    // listens for starting camera activity based on emotion
     private final EmotionHighlightAdapter.ClickListener emotionsListener = new EmotionHighlightAdapter.ClickListener() {
         @Override
         public void onClick(Emotion emotion) {
@@ -108,15 +107,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     };
 
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        emotionLogCalendarView.requestData(this, student);
-    }
-
-
-    private void initStudentPic(){
+    private void initStudentPic() {
         ImageView profilePicture = findViewById(R.id.profilePicture);
         initStudentPillGroup();
         setStudentArc();
@@ -161,7 +152,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         });
     }
 
-    private void setStudentArc(){
+    private void setStudentArc() {
         ArcViewOverlay arcView = findViewById(R.id.arcViewOverlay);
 
         //get arc info
@@ -177,7 +168,8 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         });
     }
 
-    private void initStudentPillGroup(){
+
+    private void initStudentPillGroup() {
         PillToggleGroup studentPillGroup = findViewById(R.id.studentPillToggle);
         studentPillGroup.check(R.id.btn_week);
         studentPillGroup.setOnCheckedChanged(new PillToggleGroup.OnCheckedChangedListener() {
@@ -208,7 +200,8 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
 
     }
 
-    private void launchCameraActivity(){
+
+    private void launchCameraActivity() {
         GlobalHandler.getInstance(getApplicationContext()).isRunningActivityForImageResult = true;
         Intent intent = new Intent(StudentHighlightsActivity.this, CameraActivity.class);
         intent.putExtra(CameraActivity.EXTRA_STUDENT, studentUuid);
@@ -216,7 +209,8 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         startActivityForResult(intent, STUDENT_CODE);
     }
 
-    private void showEditNamePopup(){
+
+    private void showEditNamePopup() {
         // Create an EditText
         final EditText input = new EditText(this);
         input.setHint("Enter new Name");
@@ -234,7 +228,8 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
                 .show();
     }
 
-    private void updateName(String newName){
+
+    private void updateName(String newName) {
         student.setName(newName);
         new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ActionType.UPDATE, student, null, new UpdateStudentModelAsyncTask.PostExecute() {
             @Override
@@ -246,7 +241,8 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         }).execute();
     }
 
-    private void initEmotionsGrid(){
+
+    private void initEmotionsGrid() {
 
         AppDatabase.getInstance(getApplicationContext()).embeddedDAO().getResolvedEmotionsForStudent(student.getUuid()).observe(StudentHighlightsActivity.this, new Observer<List<ResolvedEmotionWithImageFile>>() {
             @Override
@@ -260,7 +256,8 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         });
     }
 
-    private void initMostUsedGrid(){
+
+    private void initMostUsedGrid() {
         updateCopingSkillsView();
 
         CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
@@ -291,7 +288,9 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         copingSkillsView.initCollapsibleViewListener(this);
         copingSkillsView.getCopingSkillsInfoCollapsibleView().setTextForCopingSkillsDescription(getString(R.string.highlights_design_info_description_coping_skills_student));
     }
-    private void updateCopingSkillsView(){
+
+
+    private void updateCopingSkillsView() {
         CopingSkillsHighlightGridView copingSkillsView = findViewById(R.id.copingSkillsCustomView);
         AppDatabase.getInstance(this).copingSkillDAO().getAllCopingSkillsWithCustomizations().observe(this, new Observer<List<CopingSkillWithCustomizations>>() {
             @Override
@@ -328,6 +327,64 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
     }
 
 
+    private void handleResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK){
+            launchUploadPhotoActivity(requestCode, resultCode, data);
+        }
+    }
+
+    private void launchUploadPhotoActivity(int requestCode, int resultCode, Intent data) {
+
+        if (data != null) {
+            Log.v(Constants.LOG_TAG, String.format("StudentHighlightsActivity got result from photo activity with resultCode=%d AND data not null", resultCode));
+
+            Intent  intent = new Intent(StudentHighlightsActivity.this, UploadPhotoActivity.class);
+            Uri imageUri = data.getParcelableExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI);
+
+            // TODO @Dante intent extras should be defined within Activity class (e.g. "UploadPhotoActivity.EXTRA_CLASSROOM" below)
+            if(student != null && classroomName != null) {
+
+                intent.putExtra(UploadPhotoActivity.EXTRA_STUDENT, studentUuid);
+                intent.putExtra(UploadPhotoActivity.EXTRA_CLASSROOM_NAME, classroomName);
+            }
+            intent.putExtra(UploadPhotoActivity.EXTRA_CLASSROOM, classroom);
+
+            boolean fromFileOrVertical = data.getBooleanExtra("fromFiles", false);
+            intent.putExtra("fromFiles", fromFileOrVertical);
+            intent.putExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI, imageUri);
+            intent.putExtra("requestCode", requestCode);
+
+            startActivity(intent);
+
+        } else {
+            Log.v(Constants.LOG_TAG, String.format("StudentHighlightsActivity got result from photo activity with resultCode=%d (data null)", resultCode));
+        }
+
+    }
+
+
+    private void deleteAndFinish() {
+        Log.d(Constants.LOG_TAG, "performing DB delete");
+        new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ActionType.DELETE, student, null, new UpdateStudentModelAsyncTask.PostExecute() {
+            @Override
+            public void onPostExecute(Boolean modelSaved) {
+                if (!modelSaved) {
+                    Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
+                }
+                AppDatabase.getInstance(getApplicationContext()).classroomDAO().getClassroom(student.getClassroomUuid()).observe(StudentHighlightsActivity.this, new Observer<Classroom>() {
+                    @Override
+                    public void onChanged(@Nullable Classroom classroom) {
+                        Intent intent = new Intent(StudentHighlightsActivity.this, ClassroomHighlightsActivity.class);
+                        intent.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom);
+                        startActivity(intent);
+                    }
+                });
+
+            }
+        }).execute();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -354,20 +411,24 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             }
         });
 
-        //get student from intent - will come from classroomhighlights
-        if(getIntent().getStringExtra(EXTRA_CLASSROOM_NAME) != null && getIntent().getSerializableExtra(EXTRA_STUDENT) != null) {
+        // ... continues in onAsyncScrollViewLoaded()
+    }
+
+
+    @Override
+    public void onAsyncScrollViewLoaded() {
+        // get student from intent - will come from classroomhighlights
+        if (getIntent().getStringExtra(EXTRA_CLASSROOM_NAME) != null && getIntent().getSerializableExtra(EXTRA_STUDENT) != null) {
             this.classroomName = getIntent().getStringExtra(EXTRA_CLASSROOM_NAME);
             this.student = (Student) getIntent().getSerializableExtra(EXTRA_STUDENT);
             this.studentUuid = student.getUuid();
         }
 
-
-        //gets student from uuid if not in intent
-            if(getIntent().getStringExtra(UploadPhotoActivity.STUDENT_UUID) !=null){
-
+        // gets student from uuid if not in intent
+        if (getIntent().getStringExtra(UploadPhotoActivity.STUDENT_UUID) !=null) {
             this.studentUuid = getIntent().getStringExtra(UploadPhotoActivity.STUDENT_UUID);
             this.classroomName = getIntent().getStringExtra(UploadPhotoActivity.EXTRA_CLASSROOM_NAME);
-           //get student object and update UI
+            //get student object and update UI
             AppDatabase.getInstance(this).studentDAO().getStudent(studentUuid).observe(this, new Observer<Student>() {
                 @Override
                 public void onChanged(@Nullable Student student) {
@@ -384,16 +445,15 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
             });
         }
 
-
-        //process picture from uploadPhotoActivity
+        // process picture from uploadPhotoActivity
         Intent intent = getIntent();
-        if(intent.getStringExtra("path") !=null){
+        if (intent.getStringExtra("path") !=null) {
             int resultCode = intent.getIntExtra("resultCode", -99);
             int requestCode = intent.getIntExtra("requestCode", -99);
             handleResult(requestCode, resultCode, intent);
         }
 
-        if(student != null){
+        if (student != null) {
             initStudentPic();
             initEmotionsGrid();
             initMostUsedGrid();
@@ -426,33 +486,7 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
         EmotionLogCollapsibleView collapsibleViewEmotionLog = findViewById(R.id.collapsibleViewEmotionLog);
         imageViewInfoEmotionLog.setOnClickListener(collapsibleViewEmotionLog);
         this.emotionLogCalendarView = findViewById(R.id.emotionLogCalendarView);
-    }
-
-    private void deleteAndFinish(){
-        Log.d(Constants.LOG_TAG, "performing DB delete");
-        new UpdateStudentModelAsyncTask(AppDatabase.getInstance(getApplicationContext()), UpdateStudentModelAsyncTask.ActionType.DELETE, student, null, new UpdateStudentModelAsyncTask.PostExecute() {
-            @Override
-            public void onPostExecute(Boolean modelSaved) {
-                if (!modelSaved) {
-                    Toast.makeText(getApplicationContext(), "Could not save changes to Student", Toast.LENGTH_LONG).show();
-                }
-                AppDatabase.getInstance(getApplicationContext()).classroomDAO().getClassroom(student.getClassroomUuid()).observe(StudentHighlightsActivity.this, new Observer<Classroom>() {
-                    @Override
-                    public void onChanged(@Nullable Classroom classroom) {
-                        Intent intent = new Intent(StudentHighlightsActivity.this, ClassroomHighlightsActivity.class);
-                        intent.putExtra(ManageClassroomActivityWithHeaderAndDrawer.EXTRA_CLASSROOM, classroom);
-                        startActivity(intent);
-                    }
-                });
-
-            }
-        }).execute();
-    }
-
-
-    @Override
-    public int getResourceIdForActivityLayout() {
-        return R.layout._highlights_design__activity_student_highlights;
+        emotionLogCalendarView.requestData(this, student);
     }
 
 
@@ -465,42 +499,22 @@ public class StudentHighlightsActivity extends HighlightsDesignActivityWithHeade
 
     }
 
-    private void handleResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Activity.RESULT_OK){
-            launchUploadPhotoActivity(requestCode, resultCode, data);
-        }
+
+    @Override
+    public int getResourceIdForActivityLayout() {
+        return R.layout._highlights_design__activity_student_highlights;
     }
 
-    private void launchUploadPhotoActivity(int requestCode, int resultCode, Intent data){
 
-        if (data != null) {
-            Log.v(Constants.LOG_TAG, String.format("StudentHighlightsActivity got result from photo activity with resultCode=%d AND data not null", resultCode));
+    @Override
+    public int getResourceIdForProgressBar() {
+        return R.id.loading_spinner;
+    }
 
-            Intent  intent = new Intent(StudentHighlightsActivity.this, UploadPhotoActivity.class);
-            Uri imageUri = data.getParcelableExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI);
 
-            // TODO @Dante intent extras should be defined within Activity class (e.g. "UploadPhotoActivity.EXTRA_CLASSROOM" below)
-            if(student != null && classroomName != null) {
-
-                intent.putExtra(UploadPhotoActivity.EXTRA_STUDENT, studentUuid);
-                intent.putExtra(UploadPhotoActivity.EXTRA_CLASSROOM_NAME, classroomName);
-            }
-            intent.putExtra(UploadPhotoActivity.EXTRA_CLASSROOM, classroom);
-
-            boolean fromFileOrVertical = data.getBooleanExtra("fromFiles", false);
-            intent.putExtra("fromFiles", fromFileOrVertical);
-            intent.putExtra(CameraActivity.RESULT_INTENT_EXTRA_IMAGE_URI, imageUri);
-            intent.putExtra("requestCode", requestCode);
-
-            startActivity(intent);
-
-        } else {
-            Log.v(Constants.LOG_TAG, String.format("StudentHighlightsActivity got result from photo activity with resultCode=%d (data null)", resultCode));
-        }
-
+    @Override
+    public int getResourceIdForScrollViewStub() {
+        return R.id.heavy_stub;
     }
 
 }
-
-
-

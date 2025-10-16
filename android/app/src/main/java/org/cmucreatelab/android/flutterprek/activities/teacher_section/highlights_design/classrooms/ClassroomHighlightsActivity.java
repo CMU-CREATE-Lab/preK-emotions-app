@@ -1,7 +1,5 @@
 package org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms;
 
-import static org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlightWithCustomizationsIndexAdapter.setGridViewHeightBasedOnChildren;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -30,7 +28,6 @@ import org.cmucreatelab.android.flutterprek.activities.adapters.CopingSkillHighl
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.classrooms.UpdateClassroomModelAsyncTask;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.CalculateHighlightInfo;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithAsyncScrollViewStub;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PatternHighlightsView;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PillToggleGroup;
@@ -536,30 +533,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithAsy
         this.classroomUuid = classroom.getUuid();
         this.classroomName = classroom.getName();
 
-        // NOTE: views nested in scroll view are handled by HighlightsDesignActivityWithAsyncScrollViewStub.onAsyncScrollViewLoaded()
-    }
-
-
-    @Override
-    public int getResourceIdForActivityLayout() {
-        return R.layout._highlights_design__activity_classroom_highlights2;
-    }
-
-
-    public Classroom getClassroom() {
-        return classroom;
-    }
-
-
-    @Override
-    public int getResourceIdForProgressBar() {
-        return R.id.loading_spinner;
-    }
-
-
-    @Override
-    public int getResourceIdForScrollViewStub() {
-        return R.id.heavy_stub;
+        // ... continues in onAsyncScrollViewLoaded()
     }
 
 
@@ -631,7 +605,27 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithAsy
         });
     }
 
+
+    @Override
+    public int getResourceIdForActivityLayout() {
+        return R.layout._highlights_design__activity_classroom_highlights;
+    }
+
+
+    public Classroom getClassroom() {
+        return classroom;
+    }
+
+
+    @Override
+    public int getResourceIdForProgressBar() {
+        return R.id.loading_spinner;
+    }
+
+
+    @Override
+    public int getResourceIdForScrollViewStub() {
+        return R.id.heavy_stub;
+    }
+
 }
-
-
-

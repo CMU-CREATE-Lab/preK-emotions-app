@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginStart="50dp"
+    android:layout_marginEnd="50dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            >
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/frameLayout"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profilePicture"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_placeholder" />
+
+                <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.ArcViewOverlay
+                    android:id="@+id/arcViewOverlay"
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:layout_gravity="center"
+                     />
+
+                <ImageView
+                    android:id="@+id/cameraIcon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="bottom|end"
+                    android:src="@drawable/ic_new_photo" />
+            </FrameLayout>
+            <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.PillToggleGroup
+                android:id="@+id/studentPillToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
+            <LinearLayout
+                android:id="@+id/studentInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/frameLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/studentName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Student Name"
+                    android:textSize="48sp" />
+
+                <ImageView
+                    android:id="@+id/editImage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/ic_edit_black"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <GridView
+                android:id="@+id/emotionsGridView"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                style="@style/StudentCircularViewForListStudentsInClass"
+                app:layout_constraintTop_toBottomOf="@+id/studentInfo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:stretchMode="columnWidth"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.CopingSkillsHighlightGridView
+            android:id="@+id/copingSkillsCustomView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"/>
+
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogCalendarView
+            android:id="@+id/emotionLogCalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            >
+        </org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.calendar_view.EmotionLogCalendarView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/trashStudentButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/ic_delete_black"
+                android:layout_marginEnd="10dp" />
+
+            <Button
+                android:id="@+id/deleteStudent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delete Student"
+                android:backgroundTint="@android:color/holo_red_dark"
+                app:layout_constraintStart_toEndOf="@id/trashStudentButton"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>
