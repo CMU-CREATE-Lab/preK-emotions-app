@@ -256,25 +256,29 @@ public class EmotionLogSessionCell extends ConstraintLayout {
 
     private void setBackgroundColor(CellViewEmotion cellViewEmotion) {
         String color;
-        switch (cellViewEmotion) {
-            case HAPPY:
-                color = ColorConstants.HEX_HAPPY;
-                break;
-            case EXCITED:
-                color = ColorConstants.HEX_EXCITED;
-                break;
-            case SAD:
-                color = ColorConstants.HEX_SAD;
-                break;
-            case MAD:
-                color = ColorConstants.HEX_MAD;
-                break;
-            case SCARED:
-                color = ColorConstants.HEX_SCARED;
-                break;
-            default:
-                Log.w(Constants.LOG_TAG, "EmotionLogSessionCellView.setBackgroundColor could not parse CellViewEmotion; default to gray.");
-                color = "#aaaaaa";
+        if (cellViewEmotion == null) {
+            color = "#aaaaaa";
+        } else {
+            switch (cellViewEmotion) {
+                case HAPPY:
+                    color = ColorConstants.HEX_HAPPY;
+                    break;
+                case EXCITED:
+                    color = ColorConstants.HEX_EXCITED;
+                    break;
+                case SAD:
+                    color = ColorConstants.HEX_SAD;
+                    break;
+                case MAD:
+                    color = ColorConstants.HEX_MAD;
+                    break;
+                case SCARED:
+                    color = ColorConstants.HEX_SCARED;
+                    break;
+                default:
+                    Log.w(Constants.LOG_TAG, "EmotionLogSessionCellView.setBackgroundColor could not parse CellViewEmotion; default to gray.");
+                    color = "#aaaaaa";
+            }
         }
         sessionContainerConstraintLayout.setBackgroundColor(Color.parseColor(color));
     }
