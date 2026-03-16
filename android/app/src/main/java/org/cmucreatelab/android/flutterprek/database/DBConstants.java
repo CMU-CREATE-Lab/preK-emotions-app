@@ -15,6 +15,8 @@ public class DBConstants {
         public static final String SAD = "emotion2";
         public static final String MAD = "emotion3";
         public static final String SCARED = "emotion5";
+        public static final String HAPPY = "emotion1";
+        public static final String EXCITED = "emotion6";
     }
 
 }

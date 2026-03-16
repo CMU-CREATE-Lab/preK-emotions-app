@@ -59,6 +59,41 @@ public class CalendarUtil {
     }
 
 
+    public static BetweenRange generateBetweenRangeOfPastWeek(Calendar calendar) {
+        long from, to;
+
+        to = calendar.getTimeInMillis();
+
+        // Monday, at midnight
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        from = calendar.getTimeInMillis();
+
+        return new BetweenRange(from, to);
+    }
+
+
+    public static BetweenRange generateBetweenRangeOfPastDay(Calendar calendar) {
+        long from, to;
+
+        to = calendar.getTimeInMillis();
+
+        // midnight, of the same day
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        from = calendar.getTimeInMillis();
+
+        return new BetweenRange(from, to);
+    }
+
+
     public static int getDayOfWeekOffset(Calendar calendar) {
         // find the offset from current day (with Monday as start of week)
         int dowOffset = calendar.get(Calendar.DAY_OF_WEEK) - Calendar.MONDAY;

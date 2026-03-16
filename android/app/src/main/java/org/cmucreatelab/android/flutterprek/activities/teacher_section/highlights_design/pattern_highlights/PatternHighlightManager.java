@@ -40,19 +40,6 @@ public class PatternHighlightManager {
         // Task listener to handle all tasks completion
         TaskListener listener = () -> System.out.println("All tasks completed!");
 
-        // Create CompletableFutures for each asynchronous task
-
-        // example query (without Observer.onChanged)
-//        CompletableFuture<Void> taskA1 = CompletableFuture.runAsync(() -> {
-//            try {
-//                // Simulate task A1 (e.g., database query)
-//                Thread.sleep(1000);
-//                System.out.println("Finished task A1");
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        });
-
         CompletableFuture<Void> taskT0 = new CompletableFuture<>();
         activity.runOnUiThread(() -> {
             System.out.println("Run task T0...");
@@ -99,13 +86,48 @@ public class PatternHighlightManager {
             });
         });
 
-//        // Combine all futures to wait for all tasks to complete
-//        CompletableFuture.allOf(taskA1, taskA2, taskA3, taskT0).join();
-//        // After all tasks are completed, notify listener
-//        listener.onAllTasksCompleted();
+        // ``Students who picked (Sad, Mad, Scared) more than 3 times in a week`` (Timeframe: current week (1-7 days))
+        CompletableFuture<Void> taskA1 = new CompletableFuture<>();
+        activity.runOnUiThread(() -> {
+            System.out.println("Run task A1...");
+            // ``(Sad, Mad, Scared)``
+            List<String> emotionUuids = List.of(DBConstants.EmotionUuids.SCARED, DBConstants.EmotionUuids.SAD, DBConstants.EmotionUuids.MAD);
+            Calendar calendar = Calendar.getInstance();
+            // ``Timeframe: current week (1-7 days)``
+            CalendarUtil.BetweenRange range = CalendarUtil.generateBetweenRangeOfPastWeek(calendar);
 
-        // ``Avoid using .join() on Android main thread — it blocks UI.``
-        CompletableFuture.allOf(taskT0, taskT1, taskA2).thenRun(listener::onAllTasksCompleted);
+            AppDatabase.getInstance(activity).sessionDAO().getSessionsFromStudentsWithEmotionsBetween(studentUuids, emotionUuids, range.from, range.to).observe(activity, new Observer<List<Session>>() {
+                @Override
+                public void onChanged(List<Session> sessions) {
+                    Log.v(Constants.LOG_TAG, "...onChanged task A1");
+                    Log.d(Constants.LOG_TAG, String.format("(DEBUG task) A1 matched from=%d to=%d and returned with size = %d", range.from, range.to, sessions.size()));
+                    taskA1.complete(null);
+                    // TODO liveData.removeObserver(this);
+                }
+            });
+        });
+
+        // ``All session emotions were Happy or Excited.`` (timeframe: 1 day)
+        CompletableFuture<Void> taskA4 = new CompletableFuture<>();
+        activity.runOnUiThread(() -> {
+            System.out.println("Run task A4...");
+            // ``All session emotions were Happy or Excited.`` (timeframe: 1 day)
+            List<String> emotionUuids = List.of(DBConstants.EmotionUuids.HAPPY, DBConstants.EmotionUuids.EXCITED);
+            Calendar calendar = Calendar.getInstance();
+            CalendarUtil.BetweenRange range = CalendarUtil.generateBetweenRangeOfPastDay(calendar);
+
+            AppDatabase.getInstance(activity).sessionDAO().getSessionsFromStudentsWithEmotionsBetween(studentUuids, emotionUuids, range.from, range.to).observe(activity, new Observer<List<Session>>() {
+                @Override
+                public void onChanged(List<Session> sessions) {
+                    Log.v(Constants.LOG_TAG, "...onChanged task A4");
+                    Log.d(Constants.LOG_TAG, String.format("(DEBUG task) A4 matched from=%d to=%d and returned with size = %d", range.from, range.to, sessions.size()));
+                    taskA4.complete(null);
+                    // TODO liveData.removeObserver(this);
+                }
+            });
+        });
+
+        CompletableFuture.allOf(taskT0, taskT1, taskA2, taskA1, taskA4).thenRun(listener::onAllTasksCompleted);
     }
 
 }
