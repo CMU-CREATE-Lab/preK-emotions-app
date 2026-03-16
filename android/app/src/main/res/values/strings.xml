@@ -107,6 +107,10 @@
     <string name="highlights_design_info_description_pattern_highlights_skills_student">This section highlights patterns in your classroom. This includes detecting changes in trends of emotions (both as students and the class as a whole), noticing when the class is doing a lot of physical activity, and more.</string>
 <!--    <string name="pattern_highlights_title">These students have shown interesting patterns in their usage.</string>-->
     <string name="pattern_highlights_title">Coming Soon: students with interesting patterns in their usage will display here.</string>
+    <string name="pattern_highlights_t0_title">T0 Pattern: No students highlighted (Null pattern)</string>
+    <string name="pattern_highlights_t0_description">This is a test pattern, which should always result in an empty list of students.</string>
+    <string name="pattern_highlights_t1_title">T1 Pattern: At least 1 student exists</string>
+    <string name="pattern_highlights_t1_description">This is a test pattern, determines if at least one student exists and then displays it.</string>
     <string name="highlights_design_drawer_item_settings">App Settings</string>
     <string name="highlights_design_drawer_item_data">Data Sharing</string>
     <string name="highlights_design_drawer_item_classes">Classes</string>

@@ -13,7 +13,7 @@ android {
     compileSdk 35
     defaultConfig {
         applicationId "org.cmucreatelab.android.flutterprek"
-        minSdkVersion 22
+        minSdkVersion 24
         targetSdkVersion 35
         versionCode 34
         versionName "3.4"

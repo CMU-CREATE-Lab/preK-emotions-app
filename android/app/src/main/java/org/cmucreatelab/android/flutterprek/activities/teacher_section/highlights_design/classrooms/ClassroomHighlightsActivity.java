@@ -555,6 +555,7 @@ public class ClassroomHighlightsActivity extends HighlightsDesignActivityWithAsy
         copingSkillsView.enableSettingsConfig(true);
         copingSkillsView.initCollapsibleViewListener(this);
 
+        // TODO consider how this inits/loads/displays
         PatternHighlightsView patternHighlightsView = findViewById(R.id.patternHighlightsView);
         patternHighlightsView.initCollapsibleViewListener(this);
         patternHighlightsView.setClassroom(classroom);
