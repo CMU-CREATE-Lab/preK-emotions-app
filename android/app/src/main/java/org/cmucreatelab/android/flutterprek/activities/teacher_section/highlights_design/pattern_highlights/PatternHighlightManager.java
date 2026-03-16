@@ -6,12 +6,16 @@ import android.util.Log;
 
 import androidx.lifecycle.Observer;
 
+import org.cmucreatelab.android.flutterprek.CalendarUtil;
 import org.cmucreatelab.android.flutterprek.Constants;
 import org.cmucreatelab.android.flutterprek.MindfulnestApplication;
 import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.database.AppDatabase;
+import org.cmucreatelab.android.flutterprek.database.DBConstants;
+import org.cmucreatelab.android.flutterprek.database.models.session.Session;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -79,10 +83,16 @@ public class PatternHighlightManager {
         CompletableFuture<Void> taskA2 = new CompletableFuture<>();
         activity.runOnUiThread(() -> {
             System.out.println("Run task A2...");
-            AppDatabase.getInstance(activity).studentDAO().getStudent("student_uuid_dne").observe(activity, new Observer<Student>() {
+            // ``Students who picked Scared in the past 7 days.``
+            List<String> emotionUuids = List.of(DBConstants.EmotionUuids.SCARED);
+            Calendar calendar = Calendar.getInstance();
+            CalendarUtil.BetweenRange range = CalendarUtil.generateBetweenRangeOfPastSevenDays(calendar);
+
+            AppDatabase.getInstance(activity).sessionDAO().getSessionsFromStudentsWithEmotionsBetween(studentUuids, emotionUuids, range.from, range.to).observe(activity, new Observer<List<Session>>() {
                 @Override
-                public void onChanged(Student student) {
+                public void onChanged(List<Session> sessions) {
                     Log.v(Constants.LOG_TAG, "...onChanged task A2");
+                    Log.d(Constants.LOG_TAG, String.format("(DEBUG task) A2 matched from=%d to=%d and returned with size = %d", range.from, range.to, sessions.size()));
                     taskA2.complete(null);
                     // TODO liveData.removeObserver(this);
                 }

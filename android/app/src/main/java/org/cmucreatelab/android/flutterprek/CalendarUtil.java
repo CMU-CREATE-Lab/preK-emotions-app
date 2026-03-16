@@ -6,6 +6,16 @@ import java.util.Calendar;
 
 public class CalendarUtil {
 
+    public static final class BetweenRange {
+        public final long from;
+        public final long to;
+
+        public BetweenRange(long from, long to) {
+            this.from = from;
+            this.to = to;
+        }
+    }
+
 
     public static Calendar[] generateWeekFromDay(Calendar calendar) {
         // specify a 7-day week as the resulting array
@@ -26,6 +36,26 @@ public class CalendarUtil {
         }
 
         return result;
+    }
+
+
+    public static BetweenRange generateBetweenRangeOfPastSevenDays(Calendar calendar) {
+        long from, to;
+
+        to = calendar.getTimeInMillis();
+
+        // 7 days ago
+        calendar.add(Calendar.DAY_OF_YEAR, -7);
+
+        // at midnight
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        from = calendar.getTimeInMillis();
+
+        return new BetweenRange(from, to);
     }
 
 
