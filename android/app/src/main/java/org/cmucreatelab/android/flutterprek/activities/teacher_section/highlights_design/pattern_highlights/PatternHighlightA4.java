@@ -14,6 +14,7 @@ import org.cmucreatelab.android.flutterprek.database.AppDatabase;
 import org.cmucreatelab.android.flutterprek.database.DBConstants;
 import org.cmucreatelab.android.flutterprek.database.models.session.Session;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -90,12 +91,28 @@ public class PatternHighlightA4 extends PatternHighlight {
             @Override
             public void run() {
                 Log.v(Constants.LOG_TAG, "...onChanged task A4");
-                // TODO compare query1, query2 (and check non-zero size)
-                isMatch = true;
-                // TODO set Result
+
                 try {
-                    Log.d(Constants.LOG_TAG, String.format("(DEBUG task) A4 query1 size = %d", query1.get().size()));
-                    Log.d(Constants.LOG_TAG, String.format("(DEBUG task) A4 query2 size = %d", query2.get().size()));
+                    List<Session> list1 = query1.get();
+                    List<Session> list2 = query2.get();
+                    Log.d(Constants.LOG_TAG, String.format("(DEBUG task) A4 query1 size = %d", list1.size()));
+                    Log.d(Constants.LOG_TAG, String.format("(DEBUG task) A4 query2 size = %d", list2.size()));
+
+                    if (list1.size() == 0 || list1.size() != list2.size()) {
+                        isMatch = false;
+                    } else {
+                        isMatch = true;
+
+                        ArrayList<String> temp = new ArrayList<>();
+                        for (Session s : list1) {
+                            String uuid = s.getStudentUuid();
+                            if (!temp.contains(uuid)) {
+                                temp.add(uuid);
+                            }
+                        }
+
+                        result = new Result(temp);
+                    }
                 } catch (ExecutionException e) {
                     Log.d(Constants.LOG_TAG, String.format("(DEBUG task) A4 thrown error %s", "ExecutionException"));
                     throw new RuntimeException(e);

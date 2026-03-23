@@ -117,7 +117,8 @@ public class PatternHighlightsView extends ConstraintLayout {
                     for (StudentWithCustomizations student : students) {
                         studentUuids.add(student.student.getUuid());
                     }
-                    new PatternHighlightManager().foo(activity, studentUuids);
+                    //new PatternHighlightManager().foo(activity, studentUuids);
+                    new PatternHighlightManager().calculate(activity, studentUuids);
                 });
     }
 

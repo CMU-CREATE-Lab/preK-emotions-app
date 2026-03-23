@@ -14,12 +14,15 @@ public abstract class PatternHighlight {
 //    public final AbstractActivity activity;
 //    public final List<String> studentUuids;
     public boolean isMatch = false;
+    public Result result;
 
     public static class Result {
-//    public final String title;
-//    public final String collapsibleDescription;
-//    public final int priority;
+        public final List<String> studentUuids;
 //    // TODO displayed grouping? (e.g. A1: "All the students who match the pattern, Ring is emotions for the current week.")
+
+        public Result(List<String> studentUuids) {
+            this.studentUuids = studentUuids;
+        }
     }
 
     // ...

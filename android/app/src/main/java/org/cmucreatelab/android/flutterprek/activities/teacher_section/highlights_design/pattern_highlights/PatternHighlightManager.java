@@ -134,4 +134,26 @@ public class PatternHighlightManager {
         CompletableFuture.allOf(taskT0, taskT1, taskA2, taskA1, taskA4).thenRun(listener::onAllTasksCompleted);
     }
 
+
+    public void calculate(AbstractActivity activity, List<String> studentUuids) {
+        // define all patterns to query
+        PatternHighlightA4 phA4 = new PatternHighlightA4(activity, studentUuids);
+
+        // Task listener to handle all tasks completion
+        TaskListener listener = () -> {
+            System.out.println("All tasks completed!");
+            if (phA4.isMatch) {
+                Log.d(Constants.LOG_TAG, "(DEBUG TaskListener) A4 matches");
+                Log.d(Constants.LOG_TAG, String.format("(DEBUG TaskListener) priority = %d", phA4.getPriority()));
+                Log.d(Constants.LOG_TAG, String.format("(DEBUG TaskListener) Result size = %d", phA4.result.studentUuids.size()));
+            }
+        };
+
+        // for each pattern, define tasks to run
+        CompletableFuture<Void> taskA4 = new CompletableFuture<>();
+        phA4.runTask(taskA4);
+
+        CompletableFuture.allOf(taskA4).thenRun(listener::onAllTasksCompleted);
+    }
+
 }
