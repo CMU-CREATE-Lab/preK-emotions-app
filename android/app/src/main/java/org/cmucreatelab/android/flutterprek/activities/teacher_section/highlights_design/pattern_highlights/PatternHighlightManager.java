@@ -142,26 +142,42 @@ public class PatternHighlightManager {
 
     public void calculate(AbstractActivity activity, List<String> studentUuids, PatternHighlightManager.ResultListener resultListener) {
         // define all patterns to query
+        PatternHighlightA1 phA1 = new PatternHighlightA1(activity, studentUuids);
+        PatternHighlightA2 phA2 = new PatternHighlightA2(activity, studentUuids);
         PatternHighlightA4 phA4 = new PatternHighlightA4(activity, studentUuids);
+
+        List<PatternHighlight> list = List.of(phA1, phA2, phA4);
 
         // Task listener to handle all tasks completion
         TaskListener listener = () -> {
             System.out.println("All tasks completed!");
             PatternHighlight.Result result = new PatternHighlight.Result(new ArrayList<>(), "No matches");
-            if (phA4.isMatch) {
-                Log.d(Constants.LOG_TAG, "(DEBUG TaskListener) A4 matches");
-                Log.d(Constants.LOG_TAG, String.format("(DEBUG TaskListener) priority = %d", phA4.getPriority()));
-                Log.d(Constants.LOG_TAG, String.format("(DEBUG TaskListener) Result size = %d", phA4.result.studentUuids.size()));
-                result = phA4.result;
+//            if (phA4.isMatch) {
+//                Log.d(Constants.LOG_TAG, "(DEBUG TaskListener) A4 matches");
+//                Log.d(Constants.LOG_TAG, String.format("(DEBUG TaskListener) priority = %d", phA4.getPriority()));
+//                Log.d(Constants.LOG_TAG, String.format("(DEBUG TaskListener) Result size = %d", phA4.result.studentUuids.size()));
+//                result = phA4.result;
+//            }
+            int currentPriority = 0;
+            for (PatternHighlight patternHighlight: list) {
+                if (patternHighlight.isMatch && patternHighlight.getPriority() > currentPriority) {
+                    Log.d(Constants.LOG_TAG, "(DEBUG TaskListener) found new match with priority %d");
+                    Log.d(Constants.LOG_TAG, String.format("(DEBUG TaskListener) found new match with priority %d, result size = %d", patternHighlight.getPriority(), patternHighlight.result.studentUuids.size()));
+                    result = patternHighlight.result;
+                }
             }
             resultListener.onResult(result);
         };
 
         // for each pattern, define tasks to run
+        CompletableFuture<Void> taskA1 = new CompletableFuture<>();
+        phA1.runTask(taskA1);
+        CompletableFuture<Void> taskA2 = new CompletableFuture<>();
+        phA2.runTask(taskA2);
         CompletableFuture<Void> taskA4 = new CompletableFuture<>();
         phA4.runTask(taskA4);
 
-        CompletableFuture.allOf(taskA4).thenRun(listener::onAllTasksCompleted);
+        CompletableFuture.allOf(taskA1, taskA2, taskA4).thenRun(listener::onAllTasksCompleted);
     }
 
 }
