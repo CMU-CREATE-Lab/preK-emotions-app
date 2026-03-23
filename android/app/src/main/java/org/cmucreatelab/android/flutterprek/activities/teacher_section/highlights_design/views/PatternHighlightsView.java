@@ -25,7 +25,6 @@ import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.adapters.PatternHighlightsAdapter;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlightWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomHighlightsActivity;
-import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.pattern_highlights.PatternHighlightA1;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.pattern_highlights.PatternHighlightManager;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.students.StudentDisplayItem;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.CopingSkillsInfoCollapsibleView;
@@ -110,7 +109,8 @@ public class PatternHighlightsView extends ConstraintLayout {
                         }
                     }
 
-                    // TODO rewrite the DB calls from scratch, to init "studentUuids" after PatternHighlightManager.onAllTasksCompleted() -- or similar
+                    //// TODO rewrite the DB calls from scratch, to init "studentUuids" after PatternHighlightManager.onAllTasksCompleted() -- or similar
+                    //
                     // converts students to studentUuids (requires stream Java 8 and API 24+; but also StudentWithCustomizations != Student)
                     //List<String> studentUuids = students.stream().map(Student::getUuid).collect(Collectors.toList());
                     List<String> studentUuids = new ArrayList<>();

@@ -109,23 +109,27 @@ public class PatternHighlightManager {
 
         // ``All session emotions were Happy or Excited.`` (timeframe: 1 day)
         CompletableFuture<Void> taskA4 = new CompletableFuture<>();
-        activity.runOnUiThread(() -> {
-            System.out.println("Run task A4...");
-            // ``All session emotions were Happy or Excited.`` (timeframe: 1 day)
-            List<String> emotionUuids = List.of(DBConstants.EmotionUuids.HAPPY, DBConstants.EmotionUuids.EXCITED);
-            Calendar calendar = Calendar.getInstance();
-            CalendarUtil.BetweenRange range = CalendarUtil.generateBetweenRangeOfPastDay(calendar);
-
-            AppDatabase.getInstance(activity).sessionDAO().getSessionsFromStudentsWithEmotionsBetween(studentUuids, emotionUuids, range.from, range.to).observe(activity, new Observer<List<Session>>() {
-                @Override
-                public void onChanged(List<Session> sessions) {
-                    Log.v(Constants.LOG_TAG, "...onChanged task A4");
-                    Log.d(Constants.LOG_TAG, String.format("(DEBUG task) A4 matched from=%d to=%d and returned with size = %d", range.from, range.to, sessions.size()));
-                    taskA4.complete(null);
-                    // TODO liveData.removeObserver(this);
-                }
-            });
-        });
+        PatternHighlightA4 phA4 = new PatternHighlightA4(activity, studentUuids);
+//        activity.runOnUiThread(() -> {
+//            // TODO FIX this just grabs the happy sessions, it does NOT check ALL sessions for happy/excited
+//            System.out.println("Run task A4...");
+//            // ``All session emotions were Happy or Excited.`` (timeframe: 1 day)
+//            List<String> emotionUuids = List.of(DBConstants.EmotionUuids.HAPPY, DBConstants.EmotionUuids.EXCITED);
+//            Calendar calendar = Calendar.getInstance();
+//            CalendarUtil.BetweenRange range = CalendarUtil.generateBetweenRangeOfPastDay(calendar);
+//
+//            // TODO compare THIS query for equality? (with a 'getSessionsBetween()' type call, but catches any/all emotionUuids)
+//            AppDatabase.getInstance(activity).sessionDAO().getSessionsFromStudentsWithEmotionsBetween(studentUuids, emotionUuids, range.from, range.to).observe(activity, new Observer<List<Session>>() {
+//                @Override
+//                public void onChanged(List<Session> sessions) {
+//                    Log.v(Constants.LOG_TAG, "...onChanged task A4");
+//                    Log.d(Constants.LOG_TAG, String.format("(DEBUG task) A4 matched from=%d to=%d and returned with size = %d", range.from, range.to, sessions.size()));
+//                    taskA4.complete(null);
+//                    // TODO liveData.removeObserver(this);
+//                }
+//            });
+//        });
+        phA4.runTask(taskA4);
 
         CompletableFuture.allOf(taskT0, taskT1, taskA2, taskA1, taskA4).thenRun(listener::onAllTasksCompleted);
     }
