@@ -18,10 +18,12 @@ public abstract class PatternHighlight {
 
     public static class Result {
         public final List<String> studentUuids;
+        public final String title;
 //    // TODO displayed grouping? (e.g. A1: "All the students who match the pattern, Ring is emotions for the current week.")
 
-        public Result(List<String> studentUuids) {
+        public Result(List<String> studentUuids, String title) {
             this.studentUuids = studentUuids;
+            this.title = title;
         }
     }
 

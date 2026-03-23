@@ -111,7 +111,7 @@ public class PatternHighlightA4 extends PatternHighlight {
                             }
                         }
 
-                        result = new Result(temp);
+                        result = new Result(temp, generateTitle());
                     }
                 } catch (ExecutionException e) {
                     Log.d(Constants.LOG_TAG, String.format("(DEBUG task) A4 thrown error %s", "ExecutionException"));

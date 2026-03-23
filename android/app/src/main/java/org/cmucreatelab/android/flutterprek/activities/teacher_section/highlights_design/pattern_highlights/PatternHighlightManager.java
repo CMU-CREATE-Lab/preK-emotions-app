@@ -15,6 +15,7 @@ import org.cmucreatelab.android.flutterprek.database.DBConstants;
 import org.cmucreatelab.android.flutterprek.database.models.session.Session;
 import org.cmucreatelab.android.flutterprek.database.models.student.Student;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -34,6 +35,10 @@ public class PatternHighlightManager {
     // (SEE BELOW; DELETE LATER)
     public interface TaskListener {
         void onAllTasksCompleted();
+    }
+
+    public interface ResultListener {
+        void onResult(PatternHighlight.Result result);
     }
 
     public void foo (AbstractActivity activity, List<String> studentUuids) {
@@ -135,18 +140,21 @@ public class PatternHighlightManager {
     }
 
 
-    public void calculate(AbstractActivity activity, List<String> studentUuids) {
+    public void calculate(AbstractActivity activity, List<String> studentUuids, PatternHighlightManager.ResultListener resultListener) {
         // define all patterns to query
         PatternHighlightA4 phA4 = new PatternHighlightA4(activity, studentUuids);
 
         // Task listener to handle all tasks completion
         TaskListener listener = () -> {
             System.out.println("All tasks completed!");
+            PatternHighlight.Result result = new PatternHighlight.Result(new ArrayList<>(), "No matches");
             if (phA4.isMatch) {
                 Log.d(Constants.LOG_TAG, "(DEBUG TaskListener) A4 matches");
                 Log.d(Constants.LOG_TAG, String.format("(DEBUG TaskListener) priority = %d", phA4.getPriority()));
                 Log.d(Constants.LOG_TAG, String.format("(DEBUG TaskListener) Result size = %d", phA4.result.studentUuids.size()));
+                result = phA4.result;
             }
+            resultListener.onResult(result);
         };
 
         // for each pattern, define tasks to run

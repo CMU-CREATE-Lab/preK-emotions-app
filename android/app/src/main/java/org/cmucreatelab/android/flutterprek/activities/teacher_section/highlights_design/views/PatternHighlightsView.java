@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import org.cmucreatelab.android.flutterprek.activities.AbstractActivity;
 import org.cmucreatelab.android.flutterprek.activities.adapters.PatternHighlightsAdapter;
 import org.cmucreatelab.android.flutterprek.activities.adapters.StudentHighlightWithCustomizationsIndexAdapter;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.classrooms.ClassroomHighlightsActivity;
+import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.pattern_highlights.PatternHighlight;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.pattern_highlights.PatternHighlightManager;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.students.StudentDisplayItem;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.collapsible_view.CopingSkillsInfoCollapsibleView;
@@ -81,44 +83,56 @@ public class PatternHighlightsView extends ConstraintLayout {
         AppDatabase.getInstance(activity).studentDAO()
                 .getAllStudentsWithCustomizationsFromClassroom(classroom.getUuid())
                 .observe(activity, students -> {
-                    // TODO just lists all students (for now)
-                    // TODO needs to be grid not a 1-row list
-                    //List<StudentWithCustomizations> limitedStudents = students.subList(0, Math.min(5, students.size()));
-                    List<StudentWithCustomizations> limitedStudents = students.subList(0, students.size());
-                    List<StudentDisplayItem> displayItems = new ArrayList<>();
-                    //---------------------------------------------------------------------------------------------------------------------/
-                    //Atomic Integer - thread safe integer to keep track of how many dbfiles are resolved with multiple observers
-                    AtomicInteger resolved = new AtomicInteger(0);
 
-                    //Loop through student list for patterns and get files
-                    for (StudentWithCustomizations studentWithCustom : limitedStudents) {
-                        String fileUuid = studentWithCustom.student.getPictureFileUuid();
-                        if (fileUuid != null) {
-                            AppDatabase.getInstance(activity).dbFileDAO().getDbFile(fileUuid)
-                                    .observe((LifecycleOwner) activity, new Observer<DbFile>() {
-                                        @Override
-                                        public void onChanged(DbFile dbFile) {
-                                            //StudentDisplayItem is a holder class to store student and dbfile to be passed into the adapter
-                                            displayItems.add(new StudentDisplayItem(studentWithCustom.student, dbFile));
-                                            checkAndSetAdapterWhenAllReady(displayItems, activity, resolved.incrementAndGet(), limitedStudents.size());
+                    PatternHighlightManager.ResultListener resultListener = new PatternHighlightManager.ResultListener() {
+                        @Override
+                        public void onResult(PatternHighlight.Result result) {
+                            Log.d(Constants.LOG_TAG, "(DEBUG ResultListener) GOT RESULT!");
+                            // update views
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ((TextView)findViewById(R.id.descriptionText)).setText(result.title);
+                                    findViewById(R.id.viewHolder).setVisibility(VISIBLE);
+                                }
+                            });
+                            // TODO needs to be grid not a 1-row list
+                            AppDatabase.getInstance(activity).studentDAO().getAllStudentsWithCustomizationsFromList(result.studentUuids).observe(activity, new Observer<List<StudentWithCustomizations>>() {
+                                @Override
+                                public void onChanged(List<StudentWithCustomizations> students) {
+                                    List<StudentWithCustomizations> limitedStudents = students.subList(0, students.size());
+                                    List<StudentDisplayItem> displayItems = new ArrayList<>();
+                                    //---------------------------------------------------------------------------------------------------------------------/
+                                    //Atomic Integer - thread safe integer to keep track of how many dbfiles are resolved with multiple observers
+                                    AtomicInteger resolved = new AtomicInteger(0);
+
+                                    //Loop through student list for patterns and get files
+                                    for (StudentWithCustomizations studentWithCustom : limitedStudents) {
+                                        String fileUuid = studentWithCustom.student.getPictureFileUuid();
+                                        if (fileUuid != null) {
+                                            AppDatabase.getInstance(activity).dbFileDAO().getDbFile(fileUuid)
+                                                    .observe((LifecycleOwner) activity, new Observer<DbFile>() {
+                                                        @Override
+                                                        public void onChanged(DbFile dbFile) {
+                                                            //StudentDisplayItem is a holder class to store student and dbfile to be passed into the adapter
+                                                            displayItems.add(new StudentDisplayItem(studentWithCustom.student, dbFile));
+                                                            checkAndSetAdapterWhenAllReady(displayItems, activity, resolved.incrementAndGet(), limitedStudents.size());
+                                                        }
+                                                    });
+                                        } else {
+                                            displayItems.add(new StudentDisplayItem(studentWithCustom.student, null));
+                                            checkAndSetAdapterWhenAllReady(displayItems,activity, resolved.incrementAndGet(), limitedStudents.size());
                                         }
-                                    });
-                        } else {
-                            displayItems.add(new StudentDisplayItem(studentWithCustom.student, null));
-                            checkAndSetAdapterWhenAllReady(displayItems,activity, resolved.incrementAndGet(), limitedStudents.size());
+                                    }
+                                }
+                            });
                         }
-                    }
-
-                    //// TODO rewrite the DB calls from scratch, to init "studentUuids" after PatternHighlightManager.onAllTasksCompleted() -- or similar
-                    //
-                    // converts students to studentUuids (requires stream Java 8 and API 24+; but also StudentWithCustomizations != Student)
-                    //List<String> studentUuids = students.stream().map(Student::getUuid).collect(Collectors.toList());
+                    };
                     List<String> studentUuids = new ArrayList<>();
                     for (StudentWithCustomizations student : students) {
                         studentUuids.add(student.student.getUuid());
                     }
-                    //new PatternHighlightManager().foo(activity, studentUuids);
-                    new PatternHighlightManager().calculate(activity, studentUuids);
+                    new PatternHighlightManager().calculate(activity, studentUuids, resultListener);
                 });
     }
 
