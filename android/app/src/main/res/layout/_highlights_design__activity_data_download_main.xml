@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorOffWhite" >
+
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewAppHeader
+            android:id="@+id/appHeaderHighlights"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="65sp" />
+
+        <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer
+            android:id="@+id/drawerHighlights"
+            android:layout_width="205sp"
+            android:layout_height="0sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appHeaderHighlights" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_margin="40dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/drawerHighlights"
+            app:layout_constraintTop_toBottomOf="@+id/appHeaderHighlights"
+            android:id="@+id/mainConstraintView">
+            <TextView
+                android:id="@+id/textViewHeader1"
+                style="@style/TeacherSectionSettingsTextHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Data Archiving">
+
+            </TextView>
+            <TextView
+                android:id="@+id/textViewDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/textViewHeader1"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Click the button below to generate an archive of your MindfulNest data. It comes as a .zip file in your Downloads folder and is meant for researchers and developers, so you may not be able to view its contents yourself. This is a data file with all of the app data within it (not just recent data).">
+            </TextView>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/textViewDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Generate Archive"
+                android:id="@+id/buttonGenerateArchive"
+                />
+            <TextView
+                android:id="@+id/textViewHeader2"
+                style="@style/TeacherSectionSettingsTextHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                app:layout_constraintTop_toBottomOf="@id/buttonGenerateArchive"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="How to share">
+
+            </TextView>
+            <TextView
+                android:id="@+id/textViewDescription2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/textViewHeader2"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="After the file is created, you may send as an email attachment or upload to Google Drive. The file may also be copied over by connecting the device to a computer via USB and doing a file transfer.">
+            </TextView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

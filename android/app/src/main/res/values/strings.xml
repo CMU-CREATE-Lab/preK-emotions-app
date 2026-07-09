@@ -108,6 +108,7 @@
 <!--    <string name="pattern_highlights_title">These students have shown interesting patterns in their usage.</string>-->
     <string name="pattern_highlights_title">Coming Soon: students with interesting patterns in their usage will display here.</string>
     <string name="highlights_design_drawer_item_settings">App Settings</string>
+    <string name="highlights_design_drawer_item_data">Data Sharing</string>
     <string name="highlights_design_drawer_item_classes">Classes</string>
     <string name="highlights_design_drawer_item_class_name_placeholder">Class Name</string>
     <string name="highlights_design_drawer_navigate_back">Back to Previous</string>

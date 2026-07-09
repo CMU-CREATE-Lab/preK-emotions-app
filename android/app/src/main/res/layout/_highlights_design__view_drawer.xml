@@ -59,6 +59,18 @@
         />
 
     <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawerItem
+        android:id="@+id/constraintRowDataSharing"
+        app:highlights_drawer_item_text="@string/highlights_design_drawer_item_data"
+        app:highlights_drawer_item_selected="false"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintRowAppSettings"
+        />
+
+    <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawerItem
         android:id="@+id/constraintRowClassesIndex"
         app:highlights_drawer_item_text="@string/highlights_design_drawer_item_classes"
         app:highlights_drawer_item_selected="false"
@@ -67,7 +79,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintRowAppSettings"
+        app:layout_constraintTop_toBottomOf="@+id/constraintRowDataSharing"
         />
 
     <org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawerItem

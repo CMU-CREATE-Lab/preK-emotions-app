@@ -18,12 +18,13 @@ public class HighlightsViewDrawer extends ConstraintLayout {
 
     public enum Row {
         APP_SETTINGS,
+        DATA_SHARING,
         CLASSES_INDEX,
         CLASS_SHOW
     };
 
     public final ConstraintLayout constraintNavigateBack;
-    public final HighlightsViewDrawerItem constraintRowAppSettings, constraintRowClassesIndex, constraintRowClassShow;
+    public final HighlightsViewDrawerItem constraintRowAppSettings, constraintRowDataSharing, constraintRowClassesIndex, constraintRowClassShow;
 
     // TODO navigation types? (app_settings, classes_index, class_show, exit_to_students_section, ...+student_show?)
     private boolean isNavigateBack;
@@ -43,6 +44,7 @@ public class HighlightsViewDrawer extends ConstraintLayout {
 
     private void setItemSelected(HighlightsViewDrawerItem selectedDrawerItem) {
         constraintRowAppSettings.setHighlightsDrawerItemSelected(false);
+        constraintRowDataSharing.setHighlightsDrawerItemSelected(false);
         constraintRowClassesIndex.setHighlightsDrawerItemSelected(false);
         constraintRowClassShow.setHighlightsDrawerItemSelected(false);
         if (selectedDrawerItem != null) selectedDrawerItem.setHighlightsDrawerItemSelected(true);
@@ -55,12 +57,14 @@ public class HighlightsViewDrawer extends ConstraintLayout {
 
         this.constraintNavigateBack = findViewById(R.id.constraintNavigateBack);
         this.constraintRowAppSettings = findViewById(R.id.constraintRowAppSettings);
+        this.constraintRowDataSharing = findViewById(R.id.constraintRowDataSharing);
         this.constraintRowClassesIndex = findViewById(R.id.constraintRowClassesIndex);
         this.constraintRowClassShow = findViewById(R.id.constraintRowClassShow);
 
         // NOTE: back navigation is disabled by default and must be set with setNavigateBack()
         setNavigateBack(false, null, null);
         setDrawerItem(constraintRowAppSettings, true);
+        setDrawerItem(constraintRowDataSharing, true);
         setDrawerItem(constraintRowClassesIndex, true);
         setDrawerItem(constraintRowClassShow, false);
 
@@ -82,6 +86,9 @@ public class HighlightsViewDrawer extends ConstraintLayout {
         switch (row) {
             case APP_SETTINGS:
                 setItemSelected(constraintRowAppSettings);
+                break;
+            case DATA_SHARING:
+                setItemSelected(constraintRowDataSharing);
                 break;
             case CLASSES_INDEX:
                 setItemSelected(constraintRowClassesIndex);
