@@ -11,22 +11,23 @@ import org.cmucreatelab.android.flutterprek.R;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.HighlightsDesignActivityWithHeaderAndDrawer;
 import org.cmucreatelab.android.flutterprek.activities.teacher_section.highlights_design.views.HighlightsViewDrawer;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.Executors;
 
 public class HighlightsDesignDataDownloadMainActivity extends HighlightsDesignActivityWithHeaderAndDrawer {
 
 
-    private static final String filenameDescriptor = "MindfulNestAppBackup";
+    private static final String filenameDescriptor = "MindfulNestAppData";
 
 
     private String generateTimestamp() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HHmm");
-        return LocalDateTime.now().format(formatter);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HHmm", Locale.US);
+        String timestamp = formatter.format(new Date());
+        return timestamp;
     }
 
     private String generateFilename() {
