@@ -164,6 +164,7 @@ public class PatternHighlightManager {
                     Log.d(Constants.LOG_TAG, "(DEBUG TaskListener) found new match with priority %d");
                     Log.d(Constants.LOG_TAG, String.format("(DEBUG TaskListener) found new match with priority %d, result size = %d", patternHighlight.getPriority(), patternHighlight.result.studentUuids.size()));
                     result = patternHighlight.result;
+                    currentPriority = patternHighlight.getPriority();
                 }
             }
             resultListener.onResult(result);

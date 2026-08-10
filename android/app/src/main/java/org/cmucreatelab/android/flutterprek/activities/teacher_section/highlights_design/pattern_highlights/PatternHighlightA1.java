@@ -16,7 +16,9 @@ import org.cmucreatelab.android.flutterprek.database.models.session.Session;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -26,6 +28,9 @@ public class PatternHighlightA1 extends PatternHighlight {
     public final List<String> studentUuids;
 
     private static final int PRIORITY = 10;
+
+    // ``more than 3 times in a week`` == 4 or more occurrences
+    private static final int MATCH_THRESHOLD = 4;
 
 
     public PatternHighlightA1(AbstractActivity activity, List<String> studentUuids) {
@@ -71,8 +76,32 @@ public class PatternHighlightA1 extends PatternHighlight {
                     Log.v(Constants.LOG_TAG, "...onChanged task A1");
                     Log.d(Constants.LOG_TAG, String.format("(DEBUG task) A1 matched from=%d to=%d and returned with size = %d", range.from, range.to, sessions.size()));
                     // --- Confirm match and result
-                    // TODO still needs to actually count for 4 or more occurrences
-                    isMatch = false;
+//                    // TODO still needs to actually count for 4 or more occurrences
+//                    isMatch = false;
+
+                    // Count matching sessions (Sad/Mad/Scared, this week) per student, then
+                    // keep only students who hit the threshold.
+                    Map<String, Integer> countsByStudent = new HashMap<>();
+                    for (Session s : sessions) {
+                        String uuid = s.getStudentUuid();
+                        countsByStudent.put(uuid, countsByStudent.getOrDefault(uuid, 0) + 1);
+                    }
+
+                    ArrayList<String> matchedStudentUuids = new ArrayList<>();
+                    for (Map.Entry<String, Integer> entry : countsByStudent.entrySet()) {
+                        if (entry.getValue() >= MATCH_THRESHOLD) {
+                            matchedStudentUuids.add(entry.getKey());
+                        }
+                    }
+
+                    if (matchedStudentUuids.isEmpty()) {
+                        isMatch = false;
+                    } else {
+                        isMatch = true;
+                        result = new Result(matchedStudentUuids, generateTitle());
+                    }
+                    // ...
+
                     task.complete(null);
                     // TODO liveData.removeObserver(this);
                 }
