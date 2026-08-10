@@ -53,6 +53,14 @@ public interface SessionDAO {
     @Query("SELECT * FROM sessions WHERE student_uuid IN (:studentUuids) AND started_at BETWEEN :from AND :to ORDER BY started_at DESC")
     LiveData<List<Session>> getSessionsFromStudentsBetween(List<String> studentUuids, long from, long to);
 
+    @Query("SELECT DISTINCT sessions.* FROM sessions " +
+            "INNER JOIN sessions_coping_skills ON sessions_coping_skills.session_uuid = sessions.uuid " +
+            "WHERE sessions.student_uuid IN (:studentUuids) " +
+            "AND sessions_coping_skills.coping_skill_uuid = :copingSkillUuid " +
+            "AND sessions.started_at BETWEEN :from AND :to " +
+            "ORDER BY sessions.started_at DESC")
+    LiveData<List<Session>> getSessionsFromStudentsWithCopingSkillBetween(List<String> studentUuids, String copingSkillUuid, long from, long to);
+
     @Query("SELECT * FROM sessions WHERE emotion_uuid IS NULL")
     LiveData<List<Session>> getSessionsWithoutEmotions();
 

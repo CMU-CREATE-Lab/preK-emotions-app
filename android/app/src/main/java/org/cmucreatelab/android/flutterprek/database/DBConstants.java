@@ -19,4 +19,12 @@ public class DBConstants {
         public static final String EXCITED = "emotion6";
     }
 
+    //"copingSkills" :
+    //  [
+    //    { "name": "Jumping Jacks", "uuid": "coping_skill_5", "imageFileUuid": "ic_jumping_jacks" }
+    //  ],
+    public static class CopingSkillUuids {
+        public static final String JUMPING_JACKS = "coping_skill_5";
+    }
+
 }
