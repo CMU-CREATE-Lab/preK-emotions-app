@@ -146,8 +146,9 @@ public class PatternHighlightManager {
         PatternHighlightA2 phA2 = new PatternHighlightA2(activity, studentUuids);
         PatternHighlightA4 phA4 = new PatternHighlightA4(activity, studentUuids);
         PatternHighlightB1 phB1 = new PatternHighlightB1(activity, studentUuids);
+        PatternHighlightA5 phA5 = new PatternHighlightA5(activity, studentUuids);
 
-        List<PatternHighlight> list = List.of(phA1, phA2, phA4, phB1);
+        List<PatternHighlight> list = List.of(phA1, phA2, phA4, phB1, phA5);
 
         // Task listener to handle all tasks completion
         TaskListener listener = () -> {
@@ -180,8 +181,10 @@ public class PatternHighlightManager {
         phA4.runTask(taskA4);
         CompletableFuture<Void> taskB1 = new CompletableFuture<>();
         phB1.runTask(taskB1);
+        CompletableFuture<Void> taskA5 = new CompletableFuture<>();
+        phA5.runTask(taskA5);
 
-        CompletableFuture.allOf(taskA1, taskA2, taskA4, taskB1).thenRun(listener::onAllTasksCompleted);
+        CompletableFuture.allOf(taskA1, taskA2, taskA4, taskB1, taskA5).thenRun(listener::onAllTasksCompleted);
     }
 
 }
