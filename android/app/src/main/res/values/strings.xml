@@ -111,11 +111,11 @@
     <string name="pattern_highlights_t0_description">This is a test pattern, which should always result in an empty list of students.</string>
     <string name="pattern_highlights_t1_title">T1 Pattern: At least 1 student exists</string>
     <string name="pattern_highlights_t1_description">This is a test pattern, determines if at least one student exists and then displays it.</string>
-    <string name="pattern_highlights_a1_title">A1 Pattern: These students have selected uncomfortable emotions many times this week.</string>
-    <string name="pattern_highlights_a2_title">A2 Pattern: These students have selected Scared in the past week.</string>
-    <string name="pattern_highlights_a4_title">A4 Pattern: Everyone in the class says they are happy today!</string>
+    <string name="pattern_highlights_a1_title">These students have selected uncomfortable emotions many times this week.</string>
+    <string name="pattern_highlights_a2_title">These students have selected Scared in the past week.</string>
+    <string name="pattern_highlights_a4_title">Everyone in the class says they are happy today!</string>
     <string name="pattern_highlights_b1_title">Your classroom has done a lot of Jumping Jacks recently. Do they need more physical activities?</string>
-    <string name="pattern_highlights_a5_title">A5 Pattern: These students have picked the same emotion for at least the past two days.</string>
+    <string name="pattern_highlights_a5_title">These students have picked the same emotion for at least the past two days.</string>
     <string name="highlights_design_drawer_item_settings">App Settings</string>
     <string name="highlights_design_drawer_item_data">Data Sharing</string>
     <string name="highlights_design_drawer_item_classes">Classes</string>
