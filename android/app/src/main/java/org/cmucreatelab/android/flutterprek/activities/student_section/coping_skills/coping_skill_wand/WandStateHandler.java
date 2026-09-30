@@ -42,6 +42,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     private int window = 5;
 
     private String[] data;
+    private Double dataMagnitude = null;
     private boolean log = false;
 
     private String slow_color = "0,255,0";
@@ -138,6 +139,17 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
     @Override
     public void onReceivedData(String button, String x, String y, String z) {
+        handleReceivedData(button, new String[] {x, y, z}, null);
+    }
+
+
+    @Override
+    public void onReceivedMagnitude(String button, double magnitude) {
+        handleReceivedData(button, new String[] {Long.toString(Math.round(magnitude)), "0", "0"}, magnitude);
+    }
+
+
+    private void handleReceivedData(String button, String[] receivedData, Double receivedMagnitude) {
         if (activity.isPaused()) {
             Log.v(Constants.LOG_TAG, "onReceivedData ignored while activity is paused.");
             return;
@@ -165,11 +177,17 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
         prevTime = curTime;
         curTime = System.currentTimeMillis();
 
-        data = new String[] {x, y, z};
+        data = receivedData;
+        dataMagnitude = receivedMagnitude;
         log = true;
 
         if (SHOW_DEBUG_WINDOW) {
-            String reformedData = button+", "+x+","+y+","+z;
+            String reformedData;
+            if (receivedMagnitude == null) {
+                reformedData = button+", "+receivedData[0]+","+receivedData[1]+","+receivedData[2];
+            } else {
+                reformedData = button+", magnitude="+receivedMagnitude;
+            }
             lastNotification = reformedData + "\n" + (curTime-prevTime) + "\n" + curTime + "\n" + dataCount;
             //updateDebugWindow();
         }
@@ -222,7 +240,11 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             periodCount++;
 
             if (dataCount >= window) {
-                wandSpeedTracker.updateMaxMag(curVals);
+                if (dataMagnitude == null) {
+                    wandSpeedTracker.updateMaxMag(curVals);
+                } else {
+                    wandSpeedTracker.updateMaxMag(dataMagnitude);
+                }
             }
             log = false;
         }
@@ -294,6 +316,4 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     }
 
 }
-
-
 

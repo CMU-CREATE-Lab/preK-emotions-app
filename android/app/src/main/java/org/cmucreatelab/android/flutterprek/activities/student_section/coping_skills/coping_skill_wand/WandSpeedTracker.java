@@ -131,6 +131,13 @@ public class WandSpeedTracker {
         double v2 = (double) vals[2];
         double mag = Math.sqrt(v0*v0 + v1*v1 + v2*v2);
 
+        updateMaxMag(mag);
+    }
+
+
+    public void updateMaxMag(double magnitude) {
+        double mag = Math.abs(magnitude);
+
         if (mag > max_mag) {
             max_mag = mag;
         }
@@ -166,7 +173,6 @@ public class WandSpeedTracker {
         double v0 = (double) vals[0];
         double v1 = (double) vals[1];
         double v2 = (double) vals[2];
-        double mag = Math.sqrt(v0*v0 + v1*v1 + v2*v2);
         vals1[index] = v0;
         vals2[index] = v1;
         vals3[index] = v2;
@@ -185,6 +191,5 @@ public class WandSpeedTracker {
     }
 
 }
-
 
 
