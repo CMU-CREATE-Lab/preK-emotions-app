@@ -43,6 +43,10 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
     private String[] data;
     private Double dataMagnitude = null;
+    private long dataSequence = 0;
+    private Long lastProcessedSequence = null;
+    private Long pendingTriggerSequence = null;
+    private boolean triggerArmed = true;
     private boolean log = false;
 
     private String slow_color = "0,255,0";
@@ -91,6 +95,11 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
 
     private void changeState(WandStateHandler.State newState) {
+        changeState(newState, false);
+    }
+
+
+    private void changeState(WandStateHandler.State newState, boolean includePendingTrigger) {
         currentState = newState;
         String rgb = "";
         byte[] color = null;
@@ -112,6 +121,13 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             //activity.setVolumeLow();
         }
         if (bleWand != null) {
+            if (lastProcessedSequence != null) {
+                rgb = rgb + "," + lastProcessedSequence;
+                if (includePendingTrigger && pendingTriggerSequence != null) {
+                    rgb = rgb + "," + pendingTriggerSequence;
+                    pendingTriggerSequence = null;
+                }
+            }
             color = rgb.getBytes();
             bleWand.writeData(color);
             bleWand.writeData(new byte[] {0x0D});
@@ -138,18 +154,18 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
 
     @Override
-    public void onReceivedData(String button, String x, String y, String z) {
-        handleReceivedData(button, new String[] {x, y, z}, null);
+    public void onReceivedData(long sequence, String button, String x, String y, String z) {
+        handleReceivedData(sequence, button, new String[] {x, y, z}, null);
     }
 
 
     @Override
-    public void onReceivedMagnitude(String button, double magnitude) {
-        handleReceivedData(button, new String[] {Long.toString(Math.round(magnitude)), "0", "0"}, magnitude);
+    public void onReceivedMagnitude(long sequence, String button, double magnitude) {
+        handleReceivedData(sequence, button, new String[] {Long.toString(Math.round(magnitude)), "0", "0"}, magnitude);
     }
 
 
-    private void handleReceivedData(String button, String[] receivedData, Double receivedMagnitude) {
+    private void handleReceivedData(long sequence, String button, String[] receivedData, Double receivedMagnitude) {
         if (activity.isPaused()) {
             Log.v(Constants.LOG_TAG, "onReceivedData ignored while activity is paused.");
             return;
@@ -179,6 +195,7 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
 
         data = receivedData;
         dataMagnitude = receivedMagnitude;
+        dataSequence = sequence;
         log = true;
 
         if (SHOW_DEBUG_WINDOW) {
@@ -209,15 +226,15 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
                 switch (state) {
                     case 2:
                         //Fast
-                        changeState(State.FAST);
+                        changeState(State.FAST, true);
                         break;
                     case 1:
                         //Slow
-                        changeState(State.SLOW);
+                        changeState(State.SLOW, true);
                         break;
                     case 0:
                         //Not moving
-                        changeState(State.STOPPED);
+                        changeState(State.STOPPED, true);
                         break;
                     case -1:
                         break;
@@ -240,12 +257,25 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
             periodCount++;
 
             if (dataCount >= window) {
+                double processedMagnitude;
                 if (dataMagnitude == null) {
-                    wandSpeedTracker.updateMaxMag(curVals);
+                    double x = (double) curVals[0];
+                    double y = (double) curVals[1];
+                    double z = (double) curVals[2];
+                    processedMagnitude = Math.sqrt(x*x + y*y + z*z);
                 } else {
-                    wandSpeedTracker.updateMaxMag(dataMagnitude);
+                    processedMagnitude = Math.abs(dataMagnitude);
+                }
+                wandSpeedTracker.updateMaxMag(processedMagnitude);
+
+                if (processedMagnitude < 15.0 && pendingTriggerSequence == null) {
+                    triggerArmed = true;
+                } else if (triggerArmed && pendingTriggerSequence == null) {
+                    pendingTriggerSequence = dataSequence;
+                    triggerArmed = false;
                 }
             }
+            lastProcessedSequence = dataSequence;
             log = false;
         }
     }
@@ -263,6 +293,8 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     @Override
     public void onDisconnected() {
         Log.d(Constants.LOG_TAG, "WandStateHandler: onDisconnected");
+        pendingTriggerSequence = null;
+        triggerArmed = true;
         updateConnectionErrorView(true);
         lookForWand();
     }
@@ -316,4 +348,3 @@ public class WandStateHandler implements BleWand.NotificationCallback, UARTConne
     }
 
 }
-

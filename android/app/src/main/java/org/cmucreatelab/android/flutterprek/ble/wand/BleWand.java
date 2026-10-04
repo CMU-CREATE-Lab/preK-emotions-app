@@ -33,13 +33,17 @@ public class BleWand {
                     if (params.length >= 5) {
                         // Legacy protocol: counter,button,x,y,z. The existing
                         // speed tracker calculates magnitude from x, y, and z.
-                        notificationCallback.onReceivedData(params[1], params[2], params[3], params[4]);
+                        try {
+                            notificationCallback.onReceivedData(Long.parseLong(params[0]), params[1], params[2], params[3], params[4]);
+                        } catch (NumberFormatException e) {
+                            Log.e(Constants.LOG_TAG, "invalid legacy wand sequence in notification='" + notification + "'", e);
+                        }
                     } else if (params.length == 4 && MAGNITUDE_PROTOCOL_VERSION.equals(params[0])) {
                         // Magnitude protocol: version,counter,button,magnitude.
                         try {
-                            notificationCallback.onReceivedMagnitude(params[2], Double.parseDouble(params[3]));
+                            notificationCallback.onReceivedMagnitude(Long.parseLong(params[1]), params[2], Double.parseDouble(params[3]));
                         } catch (NumberFormatException e) {
-                            Log.e(Constants.LOG_TAG, "invalid wand magnitude in notification='" + notification + "'", e);
+                            Log.e(Constants.LOG_TAG, "invalid wand sequence or magnitude in notification='" + notification + "'", e);
                         }
                     } else {
                         Log.d(Constants.LOG_TAG, "unsupported wand notification='" + notification + "'; unable to call NotificationCallback.");
@@ -82,9 +86,8 @@ public class BleWand {
 
 
     public interface NotificationCallback {
-        void onReceivedData(@NonNull String button, @NonNull String x, @NonNull String y, @NonNull String z);
-        void onReceivedMagnitude(@NonNull String button, double magnitude);
+        void onReceivedData(long sequence, @NonNull String button, @NonNull String x, @NonNull String y, @NonNull String z);
+        void onReceivedMagnitude(long sequence, @NonNull String button, double magnitude);
     }
 
 }
-
